@@ -2,8 +2,6 @@
 
 Mostra a **recarga (cooldown) das suas skills no meio da tela** do Ragnarok Online LATAM, no estilo do WeakAuras do World of Warcraft.
 
-![Exemplo do overlay no jogo](<img width="595" height="455" alt="image" src="https://github.com/user-attachments/assets/c13bb9e3-768c-4b1c-9220-1f13780ad46f" />
-)
 
 - Os ícones aparecem perto do centro da tela, com contagem regressiva e barrinha de tempo.
 - Os ícones **não são clicáveis**: o clique passa direto para o jogo.
