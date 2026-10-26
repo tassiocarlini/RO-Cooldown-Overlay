@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://imgur.com/a/jz1HX2s" alt="RO Cooldown Overlay Banner" width="100%">
+</p>
+
 # RO Cooldown Overlay
 
 Mostra a **recarga (cooldown) das suas skills no meio da tela** do Ragnarok Online LATAM, no estilo do WeakAuras do World of Warcraft.
@@ -18,7 +22,7 @@ Mostra a **recarga (cooldown) das suas skills no meio da tela** do Ragnarok Onli
 > A versão pronta para usar fica em **Releases**.
 
 1. Clique em **[Releases](../../releases/latest)** (à direita, nesta página do GitHub).
-2. Em **Assets**, baixe o arquivo **`RO-Cooldown-Overlay-v1.0.0-Windows.zip`**.
+​2. Em **Assets**, baixe o arquivo **`RO-Cooldown-Overlay-v1.0.0-Windows.zip`**.
 3. Clique com o botão direito no `.zip` → **Extrair tudo…** → escolha a **Área de Trabalho** ou **Documentos**.
    *(Não extraia dentro de "Arquivos de Programas".)*
 4. Abra a pasta extraída e dê dois cliques em **`RO Cooldown Overlay.exe`**.
@@ -34,7 +38,7 @@ Programas feitos em Python e empacotados em `.exe` às vezes são marcados por e
 ## 🎮 Como usar
 
 1. Abra o Ragnarok em **modo janela** ou **janela sem bordas** (em tela cheia exclusiva nenhum overlay aparece).
-2. No programa, clique em **Marcar ícones na tela**. Volte para o jogo com as skills **prontas** (sem delay).
+​2. No programa, clique em **Marcar ícones na tela**. Volte para o jogo com as skills **prontas** (sem delay).
    A tela congela: arraste um quadrado sobre **cada skill** da sua barra de atalhos e aperte **Enter**.
 3. Na lista, clique em **Buscar** em cada linha e escolha o nome da skill. A recarga já vem preenchida.
 4. Clique em **▶ Iniciar overlay** e jogue. Pode minimizar o programa.
@@ -109,27 +113,3 @@ Se o computador não tiver Python, o `iniciar.bat` **instala sozinho** o Python 
 Se algo der errado, ele mostra o que fazer e salva os detalhes em `instalacao.log`.
 
 Para quem prefere fazer à mão (Windows 10/11, Python 3.10 ou mais novo):
-
-```
-pip install -r requirements.txt
-python ro_cooldown_overlay.py
-```
-
-Rodando assim, os dados ficam na mesma pasta do script.
-
-## 🛠️ Como publicar uma versão nova (para quem mantém o projeto)
-
-1. Atualize `VERSAO` no topo do `ro_cooldown_overlay.py` e o `CHANGELOG.md`.
-2. No GitHub: **Releases** → **Draft a new release** → crie a tag (ex.: `v1.0.1`) → **Publish release**.
-3. A aba **Actions** gera o `.exe` sozinha (uns 5 minutos) e anexa o `.zip` na Release.
-
-Para gerar o `.exe` no seu PC, use `build_exe.bat`.
-
----
-
-## Créditos e avisos
-- Nomes das skills em português: simulador [latam-tools](https://simulador.latam-tools.com.br).
-- Recargas padrão: base de dados do projeto [rAthena](https://github.com/rathena/rathena) (podem diferir do servidor oficial).
-- Recargas LATAM e ícones opcionais: API da [Divine Pride](https://www.divine-pride.net), com a chave de cada usuário.
-- Ragnarok Online é marca da Gravity Co., Ltd. Este projeto não é oficial nem afiliado à Gravity.
-- Licença: MIT (veja `LICENSE`).
