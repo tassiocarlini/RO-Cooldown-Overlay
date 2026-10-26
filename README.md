@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://imgur.com/a/jz1HX2s" alt="RO Cooldown Overlay Banner" width="100%">
+  <img src="[https://imgur.com/a/jz1HX2s](https://imgur.com/se86yT7)" alt="RO Cooldown Overlay Banner" width="100%">
 </p>
 
 # RO Cooldown Overlay
