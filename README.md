@@ -34,6 +34,21 @@ Isso aparece porque o programa é novo e não tem assinatura paga. Clique em **M
 Programas feitos em Python e empacotados em `.exe` às vezes são marcados por engano. O código está todo aqui no GitHub para quem quiser conferir. Se preferir, rode pelo Python (veja mais abaixo).
 
 ---
+#### 🚨 MUITO IMPORTANTE: Como pegar sua chave da API (grátis, uns 3 minutos)
+
+> ⚠️ **ATENÇÃO:** A sua chave da API é **pessoal e confidencial** (funciona como uma senha). Siga os passos abaixo para gerar a sua e **nunca a compartilhe** com ninguém.
+
+1. **Crie uma conta** na Divine Pride: abra [divine-pride.net](https://www.divine-pride.net) e clique em **Register**, no canto de cima.
+   O cadastro é feito pelo fórum do site. Preencha usuário, e-mail e senha e, se pedirem, confirme pelo link que chega no seu e-mail.
+2. **Entre na conta**: volte ao site e clique em **Login** (ou acesse [divine-pride.net/account/login](https://www.divine-pride.net/account/login)).
+3. **Abra seu perfil**: com a conta logada, acesse [divine-pride.net/profile](https://www.divine-pride.net/profile).
+4. **Copie a chave**: procure o campo **API Key** (uma sequência longa de letras e números). Se aparecer um botão para gerar a chave, clique nele primeiro. Selecione a chave e copie (**Ctrl+C**).
+5. **Cole no programa**: no RO Cooldown Overlay, na parte **Divine Pride**, cole a chave no campo **Chave da API** (**Ctrl+V**) e clique em **Salvar e testar**.
+6. Se aparecer **Conectado ✓**, pronto! O programa já busca a recarga LATAM das skills dos seus perfis.
+
+> 💡 No programa, o botão **Como pegar a chave?** abre a página do seu perfil na Divine Pride direto no navegador.
+
+> No programa, o botão **Como pegar a chave?** abre a página do seu perfil na Divine Pride direto no navegador.
 
 ## 🎮 Como usar
 
@@ -57,21 +72,7 @@ Sem isso o programa já funciona normalmente. Com a chave da Divine Pride você 
 - a **recarga oficial do servidor LATAM** de cada skill (em vez do valor padrão);
 - o botão **+ Skill pelo nome**: escolhe a skill pela busca e o programa baixa o ícone e acha na sua barra de atalhos sozinho, sem precisar marcar na tela.
 
-#### 🚨 MUITO IMPORTANTE: Como pegar sua chave da API (grátis, uns 3 minutos)
 
-> ⚠️ **ATENÇÃO:** A sua chave da API é **pessoal e confidencial** (funciona como uma senha). Siga os passos abaixo para gerar a sua e **nunca a compartilhe** com ninguém.
-
-1. **Crie uma conta** na Divine Pride: abra [divine-pride.net](https://www.divine-pride.net) e clique em **Register**, no canto de cima.
-   O cadastro é feito pelo fórum do site. Preencha usuário, e-mail e senha e, se pedirem, confirme pelo link que chega no seu e-mail.
-2. **Entre na conta**: volte ao site e clique em **Login** (ou acesse [divine-pride.net/account/login](https://www.divine-pride.net/account/login)).
-3. **Abra seu perfil**: com a conta logada, acesse [divine-pride.net/profile](https://www.divine-pride.net/profile).
-4. **Copie a chave**: procure o campo **API Key** (uma sequência longa de letras e números). Se aparecer um botão para gerar a chave, clique nele primeiro. Selecione a chave e copie (**Ctrl+C**).
-5. **Cole no programa**: no RO Cooldown Overlay, na parte **Divine Pride**, cole a chave no campo **Chave da API** (**Ctrl+V**) e clique em **Salvar e testar**.
-6. Se aparecer **Conectado ✓**, pronto! O programa já busca a recarga LATAM das skills dos seus perfis.
-
-> 💡 No programa, o botão **Como pegar a chave?** abre a página do seu perfil na Divine Pride direto no navegador.
-
-> No programa, o botão **Como pegar a chave?** abre a página do seu perfil na Divine Pride direto no navegador.
 
 #### Cuidados com a chave
 - A chave é **pessoal**: cada pessoa usa a sua. **Não poste nem envie a sua para ninguém**.
