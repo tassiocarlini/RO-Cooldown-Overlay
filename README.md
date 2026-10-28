@@ -121,4 +121,4 @@ Para quem prefere fazer à mão (Windows 10/11, Python 3.10 ou mais novo):
 
 ## 🤝 Agradecimentos
 
-Um agradecimento especial a **Adson Lean** do [latam-tools.com.br](https://latam-tools.com.br/#/) por disponibilizar o repositório de ragassets, que foi fundamental para este projeto.
+Um agradecimento especial a **Adson Leal** do [latam-tools.com.br](https://latam-tools.com.br/#/) por disponibilizar o repositório de ragassets, que foi fundamental para este projeto.
