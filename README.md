@@ -22,7 +22,7 @@ Mostra a **recarga (cooldown) das suas skills no meio da tela** do Ragnarok Onli
 > A versão pronta para usar fica em **Releases**.
 
 1. Clique em **[Releases](../../releases/latest)** (à direita, nesta página do GitHub).
-​2. Em **Assets**, baixe o arquivo **`RO-Cooldown-Overlay-v1.0.0-Windows.zip`**.
+2. Em **Assets**, baixe o arquivo **`RO-Cooldown-Overlay-v1.0.0-Windows.zip`**.
 3. Clique com o botão direito no `.zip` → **Extrair tudo…** → escolha a **Área de Trabalho** ou **Documentos**.
    *(Não extraia dentro de "Arquivos de Programas".)*
 4. Abra a pasta extraída e dê dois cliques em **`RO Cooldown Overlay.exe`**.
@@ -48,12 +48,10 @@ Programas feitos em Python e empacotados em `.exe` às vezes são marcados por e
 
 > 💡 No programa, o botão **Como pegar a chave?** abre a página do seu perfil na Divine Pride direto no navegador.
 
-> No programa, o botão **Como pegar a chave?** abre a página do seu perfil na Divine Pride direto no navegador.
-
 ## 🎮 Como usar
 
 1. Abra o Ragnarok em **modo janela** ou **janela sem bordas** (em tela cheia exclusiva nenhum overlay aparece).
-​2. No programa, clique em **Marcar ícones na tela**. Volte para o jogo com as skills **prontas** (sem delay).
+2. No programa, clique em **Marcar ícones na tela**. Volte para o jogo com as skills **prontas** (sem delay).
    A tela congela: arraste um quadrado sobre **cada skill** da sua barra de atalhos e aperte **Enter**.
 3. Na lista, clique em **Buscar** em cada linha e escolha o nome da skill. A recarga já vem preenchida.
 4. Clique em **▶ Iniciar overlay** e jogue. Pode minimizar o programa.
@@ -71,8 +69,6 @@ Programas feitos em Python e empacotados em `.exe` às vezes são marcados por e
 Sem isso o programa já funciona normalmente. Com a chave da Divine Pride você ganha:
 - a **recarga oficial do servidor LATAM** de cada skill (em vez do valor padrão);
 - o botão **+ Skill pelo nome**: escolhe a skill pela busca e o programa baixa o ícone e acha na sua barra de atalhos sozinho, sem precisar marcar na tela.
-
-
 
 #### Cuidados com a chave
 - A chave é **pessoal**: cada pessoa usa a sua. **Não poste nem envie a sua para ninguém**.
@@ -118,3 +114,11 @@ Se o computador não tiver Python, o `iniciar.bat` **instala sozinho** o Python 
 Se algo der errado, ele mostra o que fazer e salva os detalhes em `instalacao.log`.
 
 Para quem prefere fazer à mão (Windows 10/11, Python 3.10 ou mais novo):
+
+*(... instruções de instalação manual ...)*
+
+---
+
+## 🤝 Agradecimentos
+
+Um agradecimento especial a **Adson Lean** do [latam-tools.com.br](https://latam-tools.com.br/#/) por disponibilizar o repositório de ragassets, que foi fundamental para este projeto.
