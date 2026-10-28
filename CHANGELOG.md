@@ -1,5 +1,8 @@
 # Mudanças
 
+## v1.0.20
+- O programa procura versão nova toda vez que abre (antes era no máximo 1 vez por dia). Se houver, pergunta se você quer baixar e instalar.
+
 ## v1.0.19
 - Código do programa agora fica direto no repositório do GitHub. A atualização automática passa a funcionar na versão em Python e na versão .exe.
 

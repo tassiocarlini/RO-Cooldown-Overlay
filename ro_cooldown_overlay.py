@@ -70,7 +70,7 @@ BUFF_TOLERANCIA = 1.5       # s sem ver o ícone antes de dizer que o buff acabo
 MOSTRAR_BUFF = {"Sempre": "sempre", "Só quando faltar": "faltando", "Só quando ativo": "ativo"}
 
 
-VERSAO = "1.0.19"
+VERSAO = "1.0.20"
 NOME_APP = "RO Cooldown Overlay"
 # Repositório no GitHub de onde vêm as atualizações (página "Releases")
 REPO_GITHUB = "tassiocarlini/RO-Cooldown-Overlay"
@@ -3203,9 +3203,8 @@ class Painel:
         self.win.after(300, self._atualizar_status)
         if self.app_cfg.get("iniciar_auto") and self.perfil["skills"]:
             self.win.after(500, self.iniciar)
-        # procura versão nova em segundo plano (no máximo 1 vez a cada 20 horas)
-        if self.app_cfg.get("verificar_atualizacoes", True) and \
-                time.time() - float(self.app_cfg.get("ultima_verificacao", 0)) > 20 * 3600:
+        # procura versão nova em segundo plano toda vez que o programa abre
+        if self.app_cfg.get("verificar_atualizacoes", True):
             self.win.after(4000, lambda: self.verificar_atualizacao(False))
 
     # ---- tema e ícones
@@ -3593,7 +3592,7 @@ class Painel:
                         "se houver, baixa e instala sozinho. Seus perfis e configurações não "
                         "são apagados.")
         self.var_auto_at = tk.BooleanVar(value=self.app_cfg.get("verificar_atualizacoes", True))
-        ttk.Checkbutton(lat, text="Verificar sozinho ao abrir (1 vez por dia)",
+        ttk.Checkbutton(lat, text="Verificar sozinho ao abrir",
                         variable=self.var_auto_at, command=self._on_auto_at).pack(side="left")
         self.lbl_at = ttk.Label(fat, style="Dica.TLabel", text="")
         self.lbl_at.pack(anchor="w", padx=8, pady=(0, 6))
