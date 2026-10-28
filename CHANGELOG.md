@@ -1,5 +1,9 @@
 # Mudanças
 
+## v1.0.21
+- Atualização automática agora vem direto do código do GitHub (botão Code → Download ZIP), sem depender da página de Releases.
+- A versão .exe separada foi retirada por enquanto: use o ZIP do código e abra o "RO Cooldown Overlay.exe" da pasta.
+
 ## v1.0.20
 - O programa procura versão nova toda vez que abre (antes era no máximo 1 vez por dia). Se houver, pergunta se você quer baixar e instalar.
 

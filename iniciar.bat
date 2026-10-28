@@ -9,8 +9,6 @@ REM ============================================================
 REM  Abre o RO Cooldown Overlay pelo Python.
 REM  Se o Python ou as bibliotecas nao estiverem instalados,
 REM  instala tudo sozinho na primeira vez.
-REM  Quem preferir nao instalar nada: baixe o .zip com o .exe
-REM  na pagina "Releases" do projeto no GitHub.
 REM ============================================================
 
 call :achar_python
@@ -84,10 +82,8 @@ echo.
 echo  ------------------------------------------------------------
 echo  Nao consegui instalar o Python automaticamente.
 echo.
-echo  Opcao 1 - mais facil: baixe a versao pronta, que nao precisa
-echo            de Python, na pagina "Releases" do projeto no GitHub.
-echo  Opcao 2: instale o Python em https://www.python.org/downloads/
-echo            marcando "Add python.exe to PATH" e abra este arquivo de novo.
+echo  Instale o Python em https://www.python.org/downloads/
+echo  marcando "Add python.exe to PATH" e abra este arquivo de novo.
 echo.
 echo  Detalhes do erro em: instalacao.log
 echo  ------------------------------------------------------------

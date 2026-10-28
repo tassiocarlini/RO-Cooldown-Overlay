@@ -70,10 +70,11 @@ BUFF_TOLERANCIA = 1.5       # s sem ver o ícone antes de dizer que o buff acabo
 MOSTRAR_BUFF = {"Sempre": "sempre", "Só quando faltar": "faltando", "Só quando ativo": "ativo"}
 
 
-VERSAO = "1.0.20"
+VERSAO = "1.0.21"
 NOME_APP = "RO Cooldown Overlay"
-# Repositório no GitHub de onde vêm as atualizações (página "Releases")
+# Repositório no GitHub de onde vêm as atualizações (CHANGELOG.md e .zip da branch abaixo)
 REPO_GITHUB = "tassiocarlini/RO-Cooldown-Overlay"
+BRANCH_GITHUB = "main"
 
 if getattr(sys, "frozen", False):
     # Versão .exe: seus dados ficam em %APPDATA%, assim atualizar o programa não apaga nada
@@ -3588,7 +3589,7 @@ class Painel:
         ttk.Label(lat, text=f"Versão instalada: v{VERSAO}", style="Campo.TLabel").pack(side="left")
         b_at = self.bt(lat, "Verificar atualizações", "radar", lambda: self.verificar_atualizacao(True))
         b_at.pack(side="left", padx=12)
-        self.dica(b_at, "Procura uma versão nova na página de Releases do projeto no GitHub e, "
+        self.dica(b_at, "Procura uma versão nova no projeto do GitHub e, "
                         "se houver, baixa e instala sozinho. Seus perfis e configurações não "
                         "são apagados.")
         self.var_auto_at = tk.BooleanVar(value=self.app_cfg.get("verificar_atualizacoes", True))
@@ -5158,21 +5159,26 @@ def _http(url, binario=False, timeout=20, progresso=None):
 
 
 def buscar_versao_nova():
-    """Consulta a última release do GitHub. Devolve dict com a versão nova ou None se já está
-    na mais nova (ou se não deu para consultar)."""
+    """Consulta o CHANGELOG.md da branch main no GitHub: o primeiro "## vX.Y.Z" é a versão
+    mais nova e o texto até o próximo "## " são as novidades. Devolve dict com a versão nova
+    ou None se já está na mais nova."""
     if not REPO_GITHUB or "SEU-USUARIO" in REPO_GITHUB:
         raise ValueError("o endereço do repositório ainda não foi configurado no programa")
-    rel = _http(f"https://api.github.com/repos/{REPO_GITHUB}/releases/latest")
-    tag = rel.get("tag_name") or ""
+    req = urllib.request.Request(
+        f"https://raw.githubusercontent.com/{REPO_GITHUB}/{BRANCH_GITHUB}/CHANGELOG.md",
+        headers={"User-Agent": f"RO-Cooldown-Overlay/{VERSAO}", "Cache-Control": "no-cache"})
+    with urllib.request.urlopen(req, timeout=20) as r:
+        texto = r.read().decode("utf-8", errors="replace")
+    m = re.search(r"^##[ \t]*(v?\d+(?:\.\d+)+)[ \t]*\r?$(.*?)(?=^##\s|\Z)", texto, re.M | re.S)
+    if not m:
+        raise ValueError("não achei a versão no CHANGELOG.md do GitHub")
+    tag = m.group(1)
     if versao_tupla(tag) <= versao_tupla(VERSAO):
         return None
-    zip_win = next((a for a in rel.get("assets", [])
-                    if a.get("name", "").lower().endswith("-windows.zip")), None)
-    return {"tag": tag, "notas": (rel.get("body") or "").strip(),
-            "pagina": rel.get("html_url") or f"https://github.com/{REPO_GITHUB}/releases",
-            "zip_exe": zip_win.get("browser_download_url") if zip_win else None,
-            "digest": (zip_win or {}).get("digest"),
-            "zip_fonte": rel.get("zipball_url")}
+    return {"tag": tag, "notas": m.group(2).strip(),
+            "pagina": f"https://github.com/{REPO_GITHUB}",
+            "zip_exe": None, "digest": None,
+            "zip_fonte": f"https://github.com/{REPO_GITHUB}/archive/refs/heads/{BRANCH_GITHUB}.zip"}
 
 
 # Arquivos do programa trocados ao atualizar a versão em Python (os seus dados nunca são tocados)

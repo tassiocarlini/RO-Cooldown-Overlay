@@ -16,22 +16,21 @@ Mostra a **recarga (cooldown) das suas skills no meio da tela** do Ragnarok Onli
 
 ---
 
-## ⬇️ Como baixar e instalar (sem precisar de Python)
+## ⬇️ Como baixar e instalar
 
-> ⚠️ **Não use o botão verde "Code → Download ZIP".** Ele baixa o código-fonte, que precisa de Python.
-> A versão pronta para usar fica em **Releases**.
-
-1. Clique em **[Releases](../../releases/latest)** (à direita, nesta página do GitHub).
-2. Em **Assets**, baixe o arquivo **`RO-Cooldown-Overlay-v1.0.0-Windows.zip`**.
-3. Clique com o botão direito no `.zip` → **Extrair tudo…** → escolha a **Área de Trabalho** ou **Documentos**.
+1. Nesta página do GitHub, clique no botão verde **Code** e depois em **Download ZIP**.
+2. Clique com o botão direito no `.zip` → **Extrair tudo…** → escolha a **Área de Trabalho** ou **Documentos**.
    *(Não extraia dentro de "Arquivos de Programas".)*
-4. Abra a pasta extraída e dê dois cliques em **`RO Cooldown Overlay.exe`**.
+3. Abra a pasta extraída e dê dois cliques em **`RO Cooldown Overlay.exe`**.
+
+Na primeira vez, se o computador não tiver Python, o programa **instala sozinho** o Python e as bibliotecas (leva alguns minutos e mostra o progresso numa janela preta). Nas próximas vezes ele só abre.
+Se algo der errado, ele mostra o que fazer e salva os detalhes em `instalacao.log`, na pasta do programa.
 
 ### "O Windows protegeu o computador"
 Isso aparece porque o programa é novo e não tem assinatura paga. Clique em **Mais informações** → **Executar assim mesmo**. Só precisa fazer isso na primeira vez.
 
 ### O antivírus reclamou
-Programas feitos em Python e empacotados em `.exe` às vezes são marcados por engano. O código está todo aqui no GitHub para quem quiser conferir. Se preferir, rode pelo Python (veja mais abaixo).
+O `RO Cooldown Overlay.exe` é só um atalho que abre o `ro_cooldown_overlay.py` pelo Python, e às vezes é marcado por engano. O código está todo aqui no GitHub para quem quiser conferir. Se preferir, abra pelo **`iniciar.bat`**, que faz a mesma coisa.
 
 ---
 #### 🚨 MUITO IMPORTANTE: Como pegar sua chave da API (grátis, uns 3 minutos)
@@ -94,26 +93,23 @@ Confira em *Detecção* o campo "Título da janela do jogo contém". Ele precisa
 Desmarque "Esconder quando o jogo não estiver em foco", em *Aparência*.
 
 **Onde ficam minhas configurações? Como mando um erro para vocês?**
-Clique em **Abrir pasta de dados (logs)**. Lá ficam os perfis, o `log.txt` e o `erro.log`. Mande esses dois arquivos de log junto com a descrição do problema numa [Issue](../../issues).
+Na própria pasta do programa. Clique em **Abrir pasta de dados (logs)**: lá ficam os perfis, o `log.txt` e o `erro.log`. Mande esses dois arquivos de log junto com a descrição do problema numa [Issue](../../issues).
 
 **O overlay não aparece nos meus prints, no OBS ou no Discord.**
 Isso é de propósito: assim o programa não confunde o próprio overlay com os ícones do jogo. Para mostrar, marque "Aparecer em prints, gravações e lives" em *Aparência* (e deixe o overlay longe da barra de atalhos). Para um print rápido, use o botão **📷 Tirar print**.
 
 **Como atualizo para uma versão nova?**
-Baixe o novo `.zip`, extraia e use. Suas configurações ficam guardadas em `%APPDATA%\RO Cooldown Overlay` e não se perdem.
+O programa avisa sozinho quando sai uma versão nova e atualiza com um clique. Seus perfis e configurações não são apagados.
+Para atualizar à mão, baixe de novo pelo **Code → Download ZIP** e copie os arquivos novos por cima da pasta antiga.
 
 **Como desinstalo?**
-Apague a pasta do programa. Para apagar também as configurações, apague a pasta `%APPDATA%\RO Cooldown Overlay`.
+Apague a pasta do programa. Suas configurações ficam dentro dela, na pasta `perfis` e no `app.json`.
 
 ---
 
-## 🐍 Rodar pelo código-fonte (opcional)
+## 🐍 Instalar o Python à mão (opcional)
 
-Baixou pelo botão "Code → Download ZIP"? Também funciona: extraia e dê dois cliques em **`iniciar.bat`**.
-Se o computador não tiver Python, o `iniciar.bat` **instala sozinho** o Python e todas as bibliotecas na primeira vez (pelo instalador do Windows ou pelo site oficial python.org). Nas próximas vezes ele só abre o programa.
-Se algo der errado, ele mostra o que fazer e salva os detalhes em `instalacao.log`.
-
-Para quem prefere fazer à mão (Windows 10/11, Python 3.10 ou mais novo):
+Para quem prefere não usar a instalação automática (Windows 10/11, Python 3.10 ou mais novo):
 
 *(... instruções de instalação manual ...)*
 
