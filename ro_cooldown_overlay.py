@@ -70,7 +70,7 @@ BUFF_TOLERANCIA = 1.5       # s sem ver o ícone antes de dizer que o buff acabo
 MOSTRAR_BUFF = {"Sempre": "sempre", "Só quando faltar": "faltando", "Só quando ativo": "ativo"}
 
 
-VERSAO = "1.0.21"
+VERSAO = "1.0.22"
 NOME_APP = "RO Cooldown Overlay"
 # Repositório no GitHub de onde vêm as atualizações (CHANGELOG.md e .zip da branch abaixo)
 REPO_GITHUB = "tassiocarlini/RO-Cooldown-Overlay"
@@ -122,15 +122,15 @@ PERFIL_PADRAO = {
     "area_ap": None,                   # onde aparece "AP 53 / 200" na janela Informações básicas
     "layout": {
         "x": None, "y": None,          # None = centralizado
-        "tamanho": 52,
-        "espaco": 8,
+        "tamanho": 50,
+        "espaco": 1,
         "orientacao": "horizontal",
         "esconder_quando_pronto": False,
         "esconder_sem_foco": False,
         "estilo": "moderno",           # classico | moderno | minimalista
         "fundo_painel": False,         # caixa escura atrás de todos os ícones
         "mostrar_nomes": False,        # nome da skill/buff embaixo do ícone
-        "mostrar_ap": False,           # barra de AP acima dos ícones
+        "mostrar_ap": True,            # barra de AP acima dos ícones
         "ap_altura": 0,                # altura da barra de AP em pixels (0 = automática)
         "ap_cor": "#3b82f6",           # cor do preenchimento da barra de AP
         "aviso_vermelho_s": 3.0,
@@ -1831,6 +1831,12 @@ class Perfis:
         except Exception:
             dados = {}
         perfil = mesclar(PERFIL_PADRAO, dados)
+        if dados:
+            # na 1.0.22 o padrão mudou só para perfis novos; os já salvos mantêm o antigo
+            antigo = dados.get("layout") if isinstance(dados.get("layout"), dict) else {}
+            for k, v in (("tamanho", 52), ("espaco", 8), ("mostrar_ap", False)):
+                if k not in antigo:
+                    perfil["layout"][k] = v
         if dados and dados.get("versao", 3) < 4:
             D = perfil["deteccao"]
             D["fps"] = max(D["fps"], 30)

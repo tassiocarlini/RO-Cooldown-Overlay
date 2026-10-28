@@ -1,5 +1,8 @@
 # Mudanças
 
+## v1.0.22
+- Perfis novos começam com ícones de 50 px, 1 px de espaço entre eles e a barra de AP ligada. Perfis que você já tem continuam como estão.
+
 ## v1.0.21
 - Atualização automática agora vem direto do código do GitHub (botão Code → Download ZIP), sem depender da página de Releases.
 - A versão .exe separada foi retirada por enquanto: use o ZIP do código e abra o "RO Cooldown Overlay.exe" da pasta.
