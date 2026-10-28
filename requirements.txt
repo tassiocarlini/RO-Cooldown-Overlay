@@ -1,0 +1,5 @@
+mss>=9.0
+pillow>=10.0
+numpy>=1.26
+opencv-python-headless>=4.8
+sv-ttk>=2.6

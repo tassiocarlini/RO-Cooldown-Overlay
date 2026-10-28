@@ -1,0 +1,21 @@
+# Dados pessoais de quem usa (nunca enviar ao GitHub)
+perfis/
+app.json
+meus_tempos.json
+cache_divinepride/
+cache_ragassets/
+log.txt
+erro.log
+instalacao.log
+
+# Pacotes de buffs exportados (têm imagens do jogo: não publicar)
+buffs*.zip
+ro_cd_config.json
+ro_cd_icones/
+
+# Python / build
+__pycache__/
+*.pyc
+build/
+dist/
+*.spec

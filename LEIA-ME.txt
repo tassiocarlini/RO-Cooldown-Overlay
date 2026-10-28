@@ -1,0 +1,25 @@
+RO Cooldown Overlay - v1.0.19
+============================
+
+COMO ABRIR
+  Dois cliques em "RO Cooldown Overlay.exe".
+  Se aparecer "O Windows protegeu o computador":
+  clique em "Mais informacoes" e depois em "Executar assim mesmo".
+
+PRIMEIROS PASSOS
+  1. Abra o Ragnarok em modo janela (ou janela sem bordas).
+  2. No programa, clique em "Marcar icones na tela" e arraste um quadrado
+     sobre cada skill da sua barra de atalhos (com as skills prontas).
+     Aperte Enter para salvar.
+  3. Clique em "Buscar" em cada linha e escolha o nome da skill.
+  4. Clique em "Iniciar overlay" e jogue.
+
+PROBLEMAS?
+  Clique em "Pasta de dados" e envie os arquivos
+  log.txt e erro.log para quem te passou o programa.
+
+AVISO
+  O programa apenas olha a tela (como um print). Ele nao le a memoria
+  do jogo, nao altera arquivos do jogo e nao aperta teclas.
+  Mesmo assim, e um programa de terceiros: use por sua conta e risco.
+  Nao tem ligacao com a Gravity.

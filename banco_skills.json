@@ -1,0 +1,11017 @@
+{
+ "versao": 3,
+ "fonte": "Skills de cada classe de 4ª (com as herdadas), recargas e ícones de buff: base de dados do rAthena (renewal). Nomes em português: simulador latam-tools; os que faltam são baixados da Divine Pride (LATAM, em português) com a chave de cada usuário.",
+ "gerado_em": "2026-10-24",
+ "classes": {
+  "Cavaleiro Draconiano": [
+   {
+    "nome": "Espada Alada",
+    "en": "Servant Weapon",
+    "id": 5201,
+    "cd": 60.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SERVANTWEAPON",
+      1172
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Servant Weapon Sign",
+    "id": 5203,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Servant Weapon Phantom",
+    "id": 5204,
+    "cd": 0.5,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Servant Weapon Demolition",
+    "id": 5205,
+    "cd": 0.5,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Charging Pierce",
+    "id": 5206,
+    "cd": 60.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_CHARGINGPIERCE",
+      1174
+     ]
+    ]
+   },
+   {
+    "nome": "Corte e Massacre",
+    "en": "Hack And Slasher",
+    "id": 5208,
+    "cd": 0.7,
+    "acd": 0.25
+   },
+   {
+    "nome": "Dragonic Breath",
+    "en": "Dragonic Breath",
+    "id": 6001,
+    "cd": 0.5,
+    "acd": 0.15
+   },
+   {
+    "nome": "Aura Draconiana",
+    "en": "Dragonic Aura",
+    "id": 5210,
+    "cd": 60.0,
+    "acd": 0.5
+   },
+   {
+    "nome": "Cólera Esmagadora",
+    "en": "Madness Crusher",
+    "id": 5211,
+    "cd": 0.35,
+    "acd": 0.5
+   },
+   {
+    "nome": "Determinação",
+    "en": "Vigor",
+    "id": 5212,
+    "cd": 60.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_VIGOR",
+      1178
+     ]
+    ]
+   },
+   {
+    "nome": "Dilacerar",
+    "en": "Storm Slash",
+    "id": 5213,
+    "cd": 0.35,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Dragonic Pierce",
+    "id": 6502,
+    "cd": 0.5,
+    "acd": 0.7
+   },
+   {
+    "nome": null,
+    "en": "Bash",
+    "id": 5,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Provoke",
+    "id": 6,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Impacto Explosivo",
+    "en": "Magnum Break",
+    "id": 7,
+    "cd": 2.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Endure",
+    "id": 8,
+    "cd": 10.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ENDURE",
+      1
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Auto Berserk",
+    "id": 146,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_AUTOBERSERK",
+      132
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Pierce",
+    "id": 56,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Brandish Spear",
+    "id": 57,
+    "cd": 1.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Spear Stab",
+    "id": 58,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Spear Boomerang",
+    "id": 59,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": "Rapidez com Duas Mãos",
+    "en": "Twohand Quicken",
+    "id": 60,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_TWOHANDQUICKEN",
+      2
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Counter Attack",
+    "id": 61,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_AUTOCOUNTER",
+      43
+     ]
+    ]
+   },
+   {
+    "nome": "Impacto de Tyr",
+    "en": "Bowling Bash",
+    "id": 62,
+    "cd": 1.0,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Charge Attack",
+    "id": 1001,
+    "cd": 0.5,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Onehand Quicken",
+    "id": 495,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ONEHANDQUICKEN",
+      161
+     ]
+    ]
+   },
+   {
+    "nome": "Lâmina de Aura",
+    "en": "Aura Blade",
+    "id": 355,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_AURABLADE",
+      103
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Parrying",
+    "id": 356,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_PARRYING",
+      104
+     ]
+    ]
+   },
+   {
+    "nome": "Dedicação",
+    "en": "Concentration",
+    "id": 357,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_LKCONCENTRATION",
+      105
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Relax",
+    "id": 358,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_TENSIONRELAX",
+      106
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Frenzy",
+    "id": 359,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_BERSERK",
+      107
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Spiral Pierce",
+    "id": 397,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Traumatic Blow",
+    "id": 398,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Vital Strike",
+    "id": 399,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": "Encantar Lâmina",
+    "en": "Enchant Blade",
+    "id": 2001,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ENCHANTBLADE",
+      316
+     ]
+    ]
+   },
+   {
+    "nome": "Onda de Choque",
+    "en": "Sonic Wave",
+    "id": 2002,
+    "cd": 1.75,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Death Bound",
+    "id": 2003,
+    "cd": 3.0,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_DEATHBOUND",
+      317
+     ]
+    ]
+   },
+   {
+    "nome": "Lança das Mil Pontas",
+    "en": "Hundred Spear",
+    "id": 2004,
+    "cd": 3.0,
+    "acd": 0.5
+   },
+   {
+    "nome": "Vento Cortante",
+    "en": "Wind Cutter",
+    "id": 2005,
+    "cd": 0.3,
+    "acd": 0.5
+   },
+   {
+    "nome": "Impacto Flamejante",
+    "en": "Ignition Break",
+    "id": 2006,
+    "cd": 2.0,
+    "acd": null
+   },
+   {
+    "nome": "Sopro do Dragão",
+    "en": "Dragon Breath",
+    "id": 2008,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": null,
+    "en": "Dragon Howling",
+    "id": 2009,
+    "cd": 10.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Phantom Thrust",
+    "id": 2020,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Bafo do Dragão",
+    "en": "Dragon Breath - Water",
+    "id": 5004,
+    "cd": null,
+    "acd": 2.0
+   }
+  ],
+  "Engenheiro": [
+   {
+    "nome": "Machado Esmagador",
+    "en": "Axe Stomp",
+    "id": 5295,
+    "cd": 0.7,
+    "acd": 0.7,
+    "efst": [
+     [
+      "EFST_AXE_STOMP",
+      1235
+     ]
+    ]
+   },
+   {
+    "nome": "Avanço Sísmico",
+    "en": "Rush Quake",
+    "id": 5296,
+    "cd": 30.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Manufacture Machine",
+    "id": 5297,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Attack Machine",
+    "id": 5298,
+    "cd": 0.7,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Defense Machine",
+    "id": 5299,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_D_MACHINE",
+      1237
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "ABR Battle Warior",
+    "id": 5302,
+    "cd": 30.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ABR_BATTLE_WARIOR",
+      1297
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "ABR Dual Cannon",
+    "id": 5303,
+    "cd": 30.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ABR_DUAL_CANNON",
+      1298
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Spark Blaster",
+    "id": 6002,
+    "cd": 0.5,
+    "acd": 0.25
+   },
+   {
+    "nome": null,
+    "en": "Triple Laser",
+    "id": 6003,
+    "cd": 0.35,
+    "acd": 0.25
+   },
+   {
+    "nome": null,
+    "en": "Mighty Smash",
+    "id": 6004,
+    "cd": 0.5,
+    "acd": 0.7
+   },
+   {
+    "nome": null,
+    "en": "ABR Mother Net",
+    "id": 5304,
+    "cd": 30.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ABR_MOTHER_NET",
+      1299
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "ABR Infinity",
+    "id": 5305,
+    "cd": 60.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ABR_INFINITY",
+      1300
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Rush Strike",
+    "id": 6506,
+    "cd": 0.75,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Powerful Swing",
+    "id": 6507,
+    "cd": 0.5,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Energy Cannonade",
+    "id": 6508,
+    "cd": 1.25,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Item Appraisal",
+    "id": 40,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Vending",
+    "id": 41,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Mammonite",
+    "id": 42,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Cart Revolution",
+    "id": 153,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Change Cart",
+    "id": 154,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Grito de Guerra",
+    "en": "Crazy Uproar",
+    "id": 155,
+    "cd": 30.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_SHOUT",
+      30
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Decorate Cart",
+    "id": 2544,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Weapon Repair",
+    "id": 108,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Hammer Fall",
+    "id": 110,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Adrenalina Pura",
+    "en": "Adrenaline Rush",
+    "id": 111,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ADRENALINE",
+      23
+     ]
+    ]
+   },
+   {
+    "nome": "Manejo Perfeito",
+    "en": "Weapon Perfection",
+    "id": 112,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_WEAPONPERFECT",
+      24
+     ]
+    ]
+   },
+   {
+    "nome": "Força Violenta",
+    "en": "Power-Thrust",
+    "id": 113,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_OVERTHRUST",
+      25
+     ]
+    ]
+   },
+   {
+    "nome": "Amplificar Poder",
+    "en": "Maximize Power",
+    "id": 114,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_MAXIMIZE",
+      26
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Greed",
+    "id": 1013,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Advanced Adrenaline Rush",
+    "id": 459,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ADRENALINE2",
+      147
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Shattering Strike",
+    "id": 384,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_MELTDOWN",
+      117
+     ]
+    ]
+   },
+   {
+    "nome": "Impulso no Carrinho",
+    "en": "Cart Boost",
+    "id": 387,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_CARTBOOST",
+      118
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Upgrade Weapon",
+    "id": 477,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Cart Termination",
+    "id": 485,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Maximum Power Thrust",
+    "id": 486,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_OVERTHRUSTMAX",
+      188
+     ]
+    ]
+   },
+   {
+    "nome": "Punho Foguete",
+    "en": "Boost Knuckle",
+    "id": 2256,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Pile Bunker",
+    "id": 2257,
+    "cd": 5.0,
+    "acd": 2.0
+   },
+   {
+    "nome": "Metralhadora",
+    "en": "Vulcan Arm",
+    "id": 2258,
+    "cd": null,
+    "acd": 0.1
+   },
+   {
+    "nome": null,
+    "en": "Flame Launcher",
+    "id": 2259,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Cold Slower",
+    "id": 2260,
+    "cd": null,
+    "acd": 3.0
+   },
+   {
+    "nome": "Canhão",
+    "en": "Arm Cannon",
+    "id": 2261,
+    "cd": 0.15,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Acceleration",
+    "id": 2262,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ACCELERATION",
+      361
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Hovering",
+    "id": 2263,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_HOVERING",
+      362
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Front-Side Slide",
+    "id": 2264,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Back-Side Slide",
+    "id": 2265,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Self Destruction",
+    "id": 2267,
+    "cd": 300.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Shape Shift",
+    "id": 2268,
+    "cd": null,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_SHAPESHIFT",
+      374
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Emergency Cool",
+    "id": 2269,
+    "cd": 5.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Infrared Scan",
+    "id": 2270,
+    "cd": 3.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_INFRAREDSCAN",
+      375
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Analyze",
+    "id": 2271,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Magnetic Field",
+    "id": 2272,
+    "cd": 10.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_MAGNETICFIELD",
+      376
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Neutral Barrier",
+    "id": 2273,
+    "cd": 10.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_NEUTRALBARRIER",
+      377
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Stealth Field",
+    "id": 2274,
+    "cd": 10.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_STEALTHFIELD",
+      379
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Repair",
+    "id": 2275,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": "Arremesso de Machado",
+    "en": "Axe Boomerang",
+    "id": 2278,
+    "cd": 3.0,
+    "acd": null
+   },
+   {
+    "nome": "Brandir Machado",
+    "en": "Power Swing",
+    "id": 2279,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": "Fúria do Furacão",
+    "en": "Axe Tornado",
+    "id": 2280,
+    "cd": 2.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "FAW - Silver Sniper",
+    "id": 2281,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "FAW - Magic Decoy",
+    "id": 2282,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "FAW Removal",
+    "id": 2283,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Magma Eruption",
+    "id": 5006,
+    "cd": 6.0,
+    "acd": 0.5
+   }
+  ],
+  "Executor": [
+   {
+    "nome": "Carrasco Sombrio",
+    "en": "Shadow Exceed",
+    "id": 5285,
+    "cd": 60.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SHADOW_EXCEED",
+      1192
+     ]
+    ]
+   },
+   {
+    "nome": "Adagas Voadoras",
+    "en": "Dancing Knife",
+    "id": 5286,
+    "cd": 30.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_DANCING_KNIFE",
+      1193
+     ]
+    ]
+   },
+   {
+    "nome": "Impacto Brutal",
+    "en": "Savage Impact",
+    "id": 5287,
+    "cd": 0.7,
+    "acd": 0.3
+   },
+   {
+    "nome": "Talho Eterno",
+    "en": "Eternal Slash",
+    "id": 5289,
+    "cd": 0.5,
+    "acd": 0.5
+   },
+   {
+    "nome": "Adulterar Veneno",
+    "en": "Potent Venom",
+    "id": 5290,
+    "cd": 3.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_POTENT_VENOM",
+      1194
+     ]
+    ]
+   },
+   {
+    "nome": "Facada",
+    "en": "Shadow Stab",
+    "id": 5291,
+    "cd": 0.35,
+    "acd": null
+   },
+   {
+    "nome": "Impacto Cratera",
+    "en": "Impact Crater",
+    "id": 5292,
+    "cd": 1.5,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_WEAPONBLOCK_ON",
+      1107
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Enchanting Shadow",
+    "id": 5293,
+    "cd": 150.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_SHADOW_WEAPON",
+      1226
+     ]
+    ]
+   },
+   {
+    "nome": "Revoada Sombria",
+    "en": "Fatal Shadow Crow",
+    "id": 5294,
+    "cd": 60.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Cross Slash",
+    "id": 6511,
+    "cd": 1.0,
+    "acd": 0.7
+   },
+   {
+    "nome": null,
+    "en": "Steal",
+    "id": 50,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Hiding",
+    "id": 51,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_HIDING",
+      4
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Envenom",
+    "id": 52,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Detoxify",
+    "id": 53,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Sand Attack",
+    "id": 149,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Back Slide",
+    "id": 150,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Find Stone",
+    "id": 151,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Stone Fling",
+    "id": 152,
+    "cd": null,
+    "acd": 0.1
+   },
+   {
+    "nome": null,
+    "en": "Cloaking",
+    "id": 135,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_CLOAKING",
+      5
+     ]
+    ]
+   },
+   {
+    "nome": "Lâminas Destruidoras",
+    "en": "Sonic Blow",
+    "id": 136,
+    "cd": 1.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Grimtooth",
+    "id": 137,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Enchant Poison",
+    "id": 138,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ENCHANTPOISON",
+      6
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Poison React",
+    "id": 139,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_POISONREACT",
+      7
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Venom Dust",
+    "id": 140,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Venom Splasher",
+    "id": 141,
+    "cd": 2.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Throw Venom Knife",
+    "id": 1004,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Encantar com Veneno Mortal",
+    "en": "Enchant Deadly Poison",
+    "id": 378,
+    "cd": 2.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_EDP",
+      114
+     ]
+    ]
+   },
+   {
+    "nome": "Destruidor de Almas",
+    "en": "Soul Destroyer",
+    "id": 379,
+    "cd": 0.25,
+    "acd": 1.0
+   },
+   {
+    "nome": "Impacto Meteoro",
+    "en": "Meteor Assault",
+    "id": 406,
+    "cd": 0.5,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Create Deadly Poison",
+    "id": 407,
+    "cd": null,
+    "acd": 5.0
+   },
+   {
+    "nome": "Potencializar Veneno",
+    "en": "Venom Impress",
+    "id": 2021,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": "Lâminas Retalhadoras",
+    "en": "Cross Impact",
+    "id": 2022,
+    "cd": 0.35,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Dark Illusion",
+    "id": 2023,
+    "cd": null,
+    "acd": 1.5
+   },
+   {
+    "nome": null,
+    "en": "Create New Poison",
+    "id": 2025,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Antidote",
+    "id": 2026,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Aplicar Toxina",
+    "en": "Poisoning Weapon",
+    "id": 2027,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_POISONINGWEAPON",
+      341
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Weapon Blocking",
+    "id": 2028,
+    "cd": null,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_WEAPONBLOCKING",
+      337
+     ]
+    ]
+   },
+   {
+    "nome": "Retaliação",
+    "en": "Counter Slash",
+    "id": 2029,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Weapon Crush",
+    "id": 2030,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Venom Pressure",
+    "id": 2031,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Poison Smoke",
+    "id": 2032,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": "Ocultação",
+    "en": "Cloaking Exceed",
+    "id": 2033,
+    "cd": null,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_CLOAKINGEXCEED",
+      333
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Phantom Menace",
+    "id": 2034,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Hallucination Walk",
+    "id": 2035,
+    "cd": 300.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_HALLUCINATIONWALK",
+      334
+     ]
+    ]
+   },
+   {
+    "nome": "Lâminas de Loki",
+    "en": "Rolling Cutter",
+    "id": 2036,
+    "cd": null,
+    "acd": 0.2,
+    "efst": [
+     [
+      "EFST_ROLLINGCUTTER",
+      339
+     ]
+    ]
+   },
+   {
+    "nome": "Castigo de Loki",
+    "en": "Cross Ripper Slasher",
+    "id": 2037,
+    "cd": 0.2,
+    "acd": 0.3
+   },
+   {
+    "nome": "Garra Sombria",
+    "en": "Dark Claw",
+    "id": 5001,
+    "cd": 60.0,
+    "acd": null
+   }
+  ],
+  "Magus": [
+   {
+    "nome": null,
+    "en": "Deadly Projection",
+    "id": 5214,
+    "cd": 2.0,
+    "acd": 0.5
+   },
+   {
+    "nome": "Tufão Destrutivo",
+    "en": "Destructive Hurricane",
+    "id": 5215,
+    "cd": 2.5,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_CLIMAX_DES_HU",
+      1151
+     ]
+    ]
+   },
+   {
+    "nome": "Cascata de Cristal",
+    "en": "Rain Of Crystal",
+    "id": 5216,
+    "cd": 5.0,
+    "acd": 0.75
+   },
+   {
+    "nome": "Portal do Submundo",
+    "en": "Mystery Illusion",
+    "id": 5217,
+    "cd": 4.0,
+    "acd": 0.75
+   },
+   {
+    "nome": "Pilares de Pedra",
+    "en": "Violent Quake",
+    "id": 5218,
+    "cd": 6.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Espíritos Ancestrais",
+    "en": "Soul Vulcan Strike",
+    "id": 5220,
+    "cd": 0.7,
+    "acd": 0.5
+   },
+   {
+    "nome": "Stratum Tremor",
+    "en": "Strantum Tremor",
+    "id": 5221,
+    "cd": 4.0,
+    "acd": 0.75
+   },
+   {
+    "nome": "Florescer",
+    "en": "All Bloom",
+    "id": 5222,
+    "cd": 6.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Cacos de Gelo",
+    "en": "Crystal Impact",
+    "id": 5225,
+    "cd": 2.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_CLIMAX_CRYIMP",
+      1184
+     ]
+    ]
+   },
+   {
+    "nome": "Ciclone",
+    "en": "Tornado Storm",
+    "id": 5227,
+    "cd": 5.0,
+    "acd": 0.75
+   },
+   {
+    "nome": "Vereda Floral Incandescente",
+    "en": "Floral Flare Road",
+    "id": 5229,
+    "cd": 5.0,
+    "acd": 0.75
+   },
+   {
+    "nome": null,
+    "en": "Astral Strike",
+    "id": 5230,
+    "cd": 6.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Potencializar Magia",
+    "en": "Climax",
+    "id": 5232,
+    "cd": 60.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_CLIMAX",
+      1152
+     ]
+    ]
+   },
+   {
+    "nome": "Deslize de Pedras",
+    "en": "Rock Down",
+    "id": 5233,
+    "cd": 0.3,
+    "acd": 0.5
+   },
+   {
+    "nome": "Lufada de Vento",
+    "en": "Storm Cannon",
+    "id": 5234,
+    "cd": 0.3,
+    "acd": 0.5
+   },
+   {
+    "nome": "Flecha Escarlate",
+    "en": "Crimson Arrow",
+    "id": 5235,
+    "cd": 0.3,
+    "acd": 0.5
+   },
+   {
+    "nome": "Gelo Cortante",
+    "en": "Frozen Slash",
+    "id": 5237,
+    "cd": 0.45,
+    "acd": 0.5
+   },
+   {
+    "nome": "Energy Conversion",
+    "en": "Energy Conversion",
+    "id": 6516,
+    "cd": 3.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Sight",
+    "id": 10,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Napalm Beat",
+    "id": 11,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Safety Wall",
+    "id": 12,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Soul Strike",
+    "id": 13,
+    "cd": null,
+    "acd": 1.4
+   },
+   {
+    "nome": "Lanças de Gelo",
+    "en": "Cold Bolt",
+    "id": 14,
+    "cd": null,
+    "acd": 1.4
+   },
+   {
+    "nome": null,
+    "en": "Frost Diver",
+    "id": 15,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Stone Curse",
+    "id": 16,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Fire Ball",
+    "id": 17,
+    "cd": null,
+    "acd": 0.7
+   },
+   {
+    "nome": null,
+    "en": "Fire Wall",
+    "id": 18,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Lanças de Fogo",
+    "en": "Fire Bolt",
+    "id": 19,
+    "cd": null,
+    "acd": 1.4
+   },
+   {
+    "nome": "Relâmpago",
+    "en": "Lightning Bolt",
+    "id": 20,
+    "cd": null,
+    "acd": 1.4
+   },
+   {
+    "nome": null,
+    "en": "Thunderstorm",
+    "id": 21,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": null,
+    "en": "Energy Coat",
+    "id": 157,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ENERGYCOAT",
+      31
+     ]
+    ]
+   },
+   {
+    "nome": "Coluna de Fogo",
+    "en": "Fire Pillar",
+    "id": 80,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": "Supernova",
+    "en": "Sightrasher",
+    "id": 81,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": "Chuva de Meteoros",
+    "en": "Meteor Storm",
+    "id": 83,
+    "cd": 7.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Trovão de Júpiter",
+    "en": "Jupitel Thunder",
+    "id": 84,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Ira de Thor",
+    "en": "Lord of Vermilion",
+    "id": 85,
+    "cd": 5.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Esfera d'Água",
+    "en": "Water Ball",
+    "id": 86,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Ice Wall",
+    "id": 87,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Congelar",
+    "en": "Frost Nova",
+    "id": 88,
+    "cd": null,
+    "acd": 0.2
+   },
+   {
+    "nome": "Nevasca",
+    "en": "Storm Gust",
+    "id": 89,
+    "cd": 6.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Coluna de Pedra",
+    "en": "Earth Spike",
+    "id": 90,
+    "cd": null,
+    "acd": 1.4
+   },
+   {
+    "nome": "Fúria da Terra",
+    "en": "Heaven's Drive",
+    "id": 91,
+    "cd": 1.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Quagmire",
+    "id": 92,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Sense",
+    "id": 93,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Sight Blaster",
+    "id": 1006,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_WZ_SIGHTBLASTER",
+      198
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Stave Crasher",
+    "id": 365,
+    "cd": null,
+    "acd": 0.3
+   },
+   {
+    "nome": "Amplificação Mística",
+    "en": "Mystical Amplification",
+    "id": 366,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_MAGICPOWER",
+      113
+     ]
+    ]
+   },
+   {
+    "nome": "Vulcão Napalm",
+    "en": "Napalm Vulcan",
+    "id": 400,
+    "cd": 1.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Ganbantein",
+    "id": 483,
+    "cd": null,
+    "acd": 5.0
+   },
+   {
+    "nome": "Campo Gravitacional",
+    "en": "Gravitation Field",
+    "id": 484,
+    "cd": 5.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "White Imprison",
+    "id": 2201,
+    "cd": 4.0,
+    "acd": null
+   },
+   {
+    "nome": "Impacto Espiritual",
+    "en": "Soul Expansion",
+    "id": 2202,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": "Zero Absoluto",
+    "en": "Frosty Misty",
+    "id": 2203,
+    "cd": 8.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Esquife de Gelo",
+    "en": "Jack Frost",
+    "id": 2204,
+    "cd": 4.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Marsh of Abyss",
+    "id": 2205,
+    "cd": 4.5,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Recognized Spell",
+    "id": 2206,
+    "cd": 170.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_RECOGNIZEDSPELL",
+      355
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Sienna Execrate",
+    "id": 2207,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": null,
+    "en": "Stasis",
+    "id": 2209,
+    "cd": 220.0,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_STASIS",
+      356
+     ]
+    ]
+   },
+   {
+    "nome": "Drenar Vida",
+    "en": "Drain Life",
+    "id": 2210,
+    "cd": 2.0,
+    "acd": null
+   },
+   {
+    "nome": "Meteoro Escarlate",
+    "en": "Crimson Rock",
+    "id": 2211,
+    "cd": 5.0,
+    "acd": 0.5
+   },
+   {
+    "nome": "Chamas de Hela",
+    "en": "Hell Inferno",
+    "id": 2212,
+    "cd": 3.0,
+    "acd": 0.5
+   },
+   {
+    "nome": "Cometa",
+    "en": "Comet",
+    "id": 2213,
+    "cd": 20.0,
+    "acd": 1.5
+   },
+   {
+    "nome": "Corrente Elétrica",
+    "en": "Chain Lightning",
+    "id": 2214,
+    "cd": null,
+    "acd": 3.0
+   },
+   {
+    "nome": "Abalo Sísmico",
+    "en": "Earth Strain",
+    "id": 2216,
+    "cd": 7.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Tetra Vortex",
+    "id": 2217,
+    "cd": 15.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Summon Fire Ball",
+    "id": 2222,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Summon Lightning Ball",
+    "id": 2223,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Summon Water Ball",
+    "id": 2224,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Summon Stone",
+    "id": 2229,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Lançar Magia",
+    "en": "Release",
+    "id": 2230,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Telecinesia",
+    "en": "Intense Telekinesis",
+    "id": 5012,
+    "cd": 300.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_TELEKINESIS_INTENSE",
+      717
+     ]
+    ]
+   }
+  ],
+  "Cardeal": [
+   {
+    "nome": null,
+    "en": "Reparatio",
+    "id": 5268,
+    "cd": 10.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Mediale Votum",
+    "id": 5269,
+    "cd": 60.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_MEDIALE",
+      1197
+     ]
+    ]
+   },
+   {
+    "nome": "Argutus Vita",
+    "en": "Argutus Vita",
+    "id": 5271,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_A_VITA",
+      1198
+     ]
+    ]
+   },
+   {
+    "nome": "Argutus Telum",
+    "en": "Argutus Telum",
+    "id": 5272,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_A_TELUM",
+      1199
+     ]
+    ]
+   },
+   {
+    "nome": "Arbitrium",
+    "en": "Arbitrium",
+    "id": 5273,
+    "cd": 0.75,
+    "acd": 0.5
+   },
+   {
+    "nome": "Presens Acies",
+    "en": "Presens Acies",
+    "id": 5275,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_PRE_ACIES",
+      1200
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Effligo",
+    "id": 5277,
+    "cd": 0.5,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Competentia",
+    "id": 5278,
+    "cd": 60.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_COMPETENTIA",
+      1201
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Pneumaticus Procella",
+    "id": 5279,
+    "cd": 5.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Dilectio Heal",
+    "id": 5280,
+    "cd": 0.3,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Religio",
+    "id": 5281,
+    "cd": 0.25,
+    "acd": 0.7,
+    "efst": [
+     [
+      "EFST_RELIGIO",
+      1227
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Benedictum",
+    "id": 5282,
+    "cd": 0.25,
+    "acd": 0.7,
+    "efst": [
+     [
+      "EFST_BENEDICTUM",
+      1228
+     ]
+    ]
+   },
+   {
+    "nome": "Petitio",
+    "en": "Petitio",
+    "id": 5283,
+    "cd": 0.5,
+    "acd": 0.5
+   },
+   {
+    "nome": "Flamen",
+    "en": "Framen",
+    "id": 5284,
+    "cd": 0.3,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Divinus Flos",
+    "id": 6518,
+    "cd": 0.7,
+    "acd": 0.85
+   },
+   {
+    "nome": null,
+    "en": "Ruwach",
+    "id": 24,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Pneuma",
+    "id": 25,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Teleport",
+    "id": 26,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Warp Portal",
+    "id": 27,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Heal",
+    "id": 28,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Increase AGI",
+    "id": 29,
+    "cd": null,
+    "acd": 0.4,
+    "efst": [
+     [
+      "EFST_INC_AGI",
+      12
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Decrease AGI",
+    "id": 30,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Aqua Benedicta",
+    "id": 31,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Signum Crucis",
+    "id": 32,
+    "cd": null,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_CRUCIS",
+      11
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Angelus",
+    "id": 33,
+    "cd": 30.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_ANGELUS",
+      9
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Blessing",
+    "id": 34,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_BLESSING",
+      10
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Cure",
+    "id": 35,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": "Luz Divina",
+    "en": "Holy Light",
+    "id": 156,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Safety Wall",
+    "id": 12,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Impositio Manus",
+    "id": 66,
+    "cd": 30.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_IMPOSITIO",
+      15
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Suffragium",
+    "id": 67,
+    "cd": 30.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_SUFFRAGIUM",
+      16
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Aspersio",
+    "id": 68,
+    "cd": null,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_ASPERSIO",
+      17
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "B.S. Sacramenti",
+    "id": 69,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Sanctuary",
+    "id": 70,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Slow Poison",
+    "id": 71,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SLOWPOISON",
+      14
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Status Recovery",
+    "id": 72,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": null,
+    "en": "Kyrie Eleison",
+    "id": 73,
+    "cd": null,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_KYRIE",
+      19
+     ]
+    ]
+   },
+   {
+    "nome": "Magnificat",
+    "en": "Magnificat",
+    "id": 74,
+    "cd": null,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_MAGNIFICAT",
+      20
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Gloria",
+    "id": 75,
+    "cd": null,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_GLORIA",
+      21
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Lex Divina",
+    "id": 76,
+    "cd": null,
+    "acd": 3.0
+   },
+   {
+    "nome": null,
+    "en": "Turn Undead",
+    "id": 77,
+    "cd": null,
+    "acd": 3.0
+   },
+   {
+    "nome": null,
+    "en": "Lex Aeterna",
+    "id": 78,
+    "cd": null,
+    "acd": 3.0
+   },
+   {
+    "nome": "Magnus Exorcismus",
+    "en": "Magnus Exorcismus",
+    "id": 79,
+    "cd": 6.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Redemptio",
+    "id": 1014,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Assumptio",
+    "id": 361,
+    "cd": null,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_ASSUMPTIO2",
+      473
+     ]
+    ]
+   },
+   {
+    "nome": "Basílica",
+    "en": "Basilica",
+    "id": 362,
+    "cd": 30.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_BASILICA_BUFF",
+      1122
+     ]
+    ]
+   },
+   {
+    "nome": "Judex",
+    "en": "Judex",
+    "id": 2038,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Ancilla",
+    "id": 2039,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": "Adoramus",
+    "en": "Adoramus",
+    "id": 2040,
+    "cd": 2.5,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Crementia",
+    "id": 2041,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_BLESSING",
+      10
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Canto Candidus",
+    "id": 2042,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_INC_AGI",
+      12
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Coluceo Heal",
+    "id": 2043,
+    "cd": 2.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Epiclesis",
+    "id": 2044,
+    "cd": 60.0,
+    "acd": 2.0
+   },
+   {
+    "nome": null,
+    "en": "Praefatio",
+    "id": 2045,
+    "cd": 40.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_KYRIE",
+      19
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Oratio",
+    "id": 2046,
+    "cd": 2.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ORATIO",
+      330
+     ]
+    ]
+   },
+   {
+    "nome": "Lauda Agnus",
+    "en": "Lauda Agnus",
+    "id": 2047,
+    "cd": 3.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_LAUDAAGNUS",
+      331
+     ]
+    ]
+   },
+   {
+    "nome": "Lauda Ramus",
+    "en": "Lauda Ramus",
+    "id": 2048,
+    "cd": 3.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_LAUDARAMUS",
+      332
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Renovatio",
+    "id": 2050,
+    "cd": 1.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_RENOVATIO",
+      336
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Highness Heal",
+    "id": 2051,
+    "cd": 3.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Clearance",
+    "id": 2052,
+    "cd": 10.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Expiatio",
+    "id": 2053,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_EXPIATIO",
+      340
+     ]
+    ]
+   },
+   {
+    "nome": "Gemini Lumen",
+    "en": "Duple Light",
+    "id": 2054,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_DUPLELIGHT",
+      350
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Silentium",
+    "id": 2057,
+    "cd": 15.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Secrament",
+    "id": 2515,
+    "cd": null,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_AB_SECRAMENT",
+      472
+     ]
+    ]
+   },
+   {
+    "nome": "Offertorium",
+    "en": "Offertorium",
+    "id": 5011,
+    "cd": null,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_OFFERTORIUM",
+      716
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Vituperatum",
+    "id": 5072,
+    "cd": 5.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Convenio",
+    "id": 5073,
+    "cd": 5.0,
+    "acd": 1.0
+   }
+  ],
+  "Falcão do Vento": [
+   {
+    "nome": null,
+    "en": "Wind Sign",
+    "id": 5324,
+    "cd": 30.0,
+    "acd": 0.15
+   },
+   {
+    "nome": "Mergulho Aéreo",
+    "en": "Hawk Rush",
+    "id": 5326,
+    "cd": 0.15,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Hawk Mastery",
+    "id": 5327,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": "Ventos Sinistros",
+    "en": "Calamity Gale",
+    "id": 5328,
+    "cd": 60.0,
+    "acd": 0.15,
+    "efst": [
+     [
+      "EFST_CALAMITYGALE",
+      1252
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Hawk Boomerang",
+    "id": 5329,
+    "cd": 0.15,
+    "acd": 0.5
+   },
+   {
+    "nome": "Vendaval de Flechas",
+    "en": "Gale Storm",
+    "id": 5330,
+    "cd": 0.7,
+    "acd": 0.15
+   },
+   {
+    "nome": "Armadilha Sombria",
+    "en": "Deep Blind Trap",
+    "id": 5331,
+    "cd": 2.5,
+    "acd": 0.5
+   },
+   {
+    "nome": "Armadilha Terrestre",
+    "en": "Solid Trap",
+    "id": 5332,
+    "cd": 2.5,
+    "acd": 0.5
+   },
+   {
+    "nome": "Armadilha Zéfira",
+    "en": "Swift Trap",
+    "id": 5333,
+    "cd": 2.5,
+    "acd": 0.5
+   },
+   {
+    "nome": "Tiro Crescente",
+    "en": "Crescive Bolt",
+    "id": 5334,
+    "cd": 0.35,
+    "acd": 0.7
+   },
+   {
+    "nome": "Armadilha Ardente",
+    "en": "Flame Trap",
+    "id": 5335,
+    "cd": 2.5,
+    "acd": 0.5
+   },
+   {
+    "nome": "Wild Walk",
+    "en": "Wild Walk",
+    "id": 6520,
+    "cd": 20.0,
+    "acd": 0.5
+   },
+   {
+    "nome": "Concentrar",
+    "en": "Improve Concentration",
+    "id": 45,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_CONCENTRATION",
+      3
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Double Strafe",
+    "id": 46,
+    "cd": null,
+    "acd": 0.1
+   },
+   {
+    "nome": null,
+    "en": "Arrow Shower",
+    "id": 47,
+    "cd": null,
+    "acd": 0.1
+   },
+   {
+    "nome": null,
+    "en": "Arrow Crafting",
+    "id": 147,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Arrow Repel",
+    "id": 148,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Skid Trap",
+    "id": 115,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Land Mine",
+    "id": 116,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Ankle Snare",
+    "id": 117,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Shockwave Trap",
+    "id": 118,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Sandman",
+    "id": 119,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Flasher",
+    "id": 120,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Freezing Trap",
+    "id": 121,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Blast Mine",
+    "id": 122,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Claymore Trap",
+    "id": 123,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Remove Trap",
+    "id": 124,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Talkie Box",
+    "id": 125,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Ataque Aéreo",
+    "en": "Blitz Beat",
+    "id": 129,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Detect",
+    "id": 130,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Spring Trap",
+    "id": 131,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Phantasmic Arrow",
+    "id": 1009,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Beast Strafing",
+    "id": 499,
+    "cd": null,
+    "acd": 0.1
+   },
+   {
+    "nome": null,
+    "en": "Falcon Eyes",
+    "id": 380,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_TRUESIGHT",
+      115
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Falcon Assault",
+    "id": 381,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": "Tiro Preciso",
+    "en": "Focused Arrow Strike",
+    "id": 382,
+    "cd": 0.15,
+    "acd": 0.5
+   },
+   {
+    "nome": "Caminho do Vento",
+    "en": "Wind Walker",
+    "id": 383,
+    "cd": null,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_WINDWALK",
+      116
+     ]
+    ]
+   },
+   {
+    "nome": "Tempestade de Flechas",
+    "en": "Arrow Storm",
+    "id": 2233,
+    "cd": 3.2,
+    "acd": null
+   },
+   {
+    "nome": "Disparo Selvagem",
+    "en": "Fear Breeze",
+    "id": 2234,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_FEARBREEZE",
+      352
+     ]
+    ]
+   },
+   {
+    "nome": "Disparo Certeiro",
+    "en": "Aimed Bolt",
+    "id": 2236,
+    "cd": 1.0,
+    "acd": 2.0
+   },
+   {
+    "nome": null,
+    "en": "Detonator",
+    "id": 2237,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Electric Shocker",
+    "id": 2238,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Bomba Relógio",
+    "en": "Cluster Bomb",
+    "id": 2239,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Warg Mastery",
+    "id": 2240,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Warg Rider",
+    "id": 2241,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Warg Dash",
+    "id": 2242,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_WUGDASH",
+      358
+     ]
+    ]
+   },
+   {
+    "nome": "Investida de Worg",
+    "en": "Warg Strike",
+    "id": 2243,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Warg Bite",
+    "id": 2244,
+    "cd": 12.0,
+    "acd": 2.0
+   },
+   {
+    "nome": null,
+    "en": "Sensitive Keen",
+    "id": 2246,
+    "cd": null,
+    "acd": 3.0
+   },
+   {
+    "nome": null,
+    "en": "Camouflage",
+    "id": 2247,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_CAMOUFLAGE",
+      360
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Magenta Trap",
+    "id": 2249,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": null,
+    "en": "Cobalt Trap",
+    "id": 2250,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": null,
+    "en": "Maize Trap",
+    "id": 2251,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": null,
+    "en": "Verdure Trap",
+    "id": 2252,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": null,
+    "en": "Firing Trap",
+    "id": 2253,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Icebound Trap",
+    "id": 2254,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Ilimitar",
+    "en": "Unlimited",
+    "id": 5002,
+    "cd": 300.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_UNLIMIT",
+      722
+     ]
+    ]
+   }
+  ],
+  "Guardião Imperial": [
+   {
+    "nome": "Posição de Defesa",
+    "en": "Guard Stance",
+    "id": 5255,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_GUARD_STANCE",
+      1202
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Guardian Shield",
+    "id": 5256,
+    "cd": 25.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_GUARDIAN_S",
+      1204
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Rebound Shield",
+    "id": 5257,
+    "cd": 15.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_REBOUND_S",
+      1217
+     ]
+    ]
+   },
+   {
+    "nome": "Posição de Ataque",
+    "en": "Attack Stance",
+    "id": 5260,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ATTACK_STANCE",
+      1203
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Ultimate Sacrifice",
+    "id": 5261,
+    "cd": 100.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_ULTIMATE_S",
+      1221
+     ]
+    ]
+   },
+   {
+    "nome": "Escudo Divino",
+    "en": "Holy Shield",
+    "id": 5262,
+    "cd": 120.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_HOLY_S",
+      1220
+     ]
+    ]
+   },
+   {
+    "nome": "Lança da Justiça",
+    "en": "Grand Judgement",
+    "id": 5263,
+    "cd": 0.5,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Judgement Cross",
+    "id": 5264,
+    "cd": 0.5,
+    "acd": null
+   },
+   {
+    "nome": "Arremessar Escudo",
+    "en": "Shield Shooting",
+    "id": 5265,
+    "cd": 0.7,
+    "acd": 0.5
+   },
+   {
+    "nome": "Golpe do Destino",
+    "en": "Overslash",
+    "id": 5266,
+    "cd": 0.7,
+    "acd": 0.5
+   },
+   {
+    "nome": "Crux Tempestas",
+    "en": "Cross Rain",
+    "id": 5267,
+    "cd": 2.4,
+    "acd": 0.15
+   },
+   {
+    "nome": null,
+    "en": "Imperial Cross",
+    "id": 6504,
+    "cd": 0.4,
+    "acd": 0.7
+   },
+   {
+    "nome": null,
+    "en": "Radiant Spear",
+    "id": 6503,
+    "cd": 0.7,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Imperial Pressure",
+    "id": 6505,
+    "cd": 0.45,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Bash",
+    "id": 5,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Provoke",
+    "id": 6,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Impacto Explosivo",
+    "en": "Magnum Break",
+    "id": 7,
+    "cd": 2.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Endure",
+    "id": 8,
+    "cd": 10.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ENDURE",
+      1
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Auto Berserk",
+    "id": 146,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_AUTOBERSERK",
+      132
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Cure",
+    "id": 35,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Heal",
+    "id": 28,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Guard",
+    "id": 249,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_AUTOGUARD",
+      58
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Smite",
+    "id": 250,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Shield Boomerang",
+    "id": 251,
+    "cd": null,
+    "acd": 0.7
+   },
+   {
+    "nome": null,
+    "en": "Shield Reflect",
+    "id": 252,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_REFLECTSHIELD",
+      59
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Holy Cross",
+    "id": 253,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Grand Cross",
+    "id": 254,
+    "cd": 1.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Sacrifice",
+    "id": 255,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_DEVOTION",
+      60
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Resistant Souls",
+    "id": 256,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_PROVIDENCE",
+      61
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Defending Aura",
+    "id": 257,
+    "cd": null,
+    "acd": 0.8,
+    "efst": [
+     [
+      "EFST_DEFENDER",
+      62
+     ]
+    ]
+   },
+   {
+    "nome": "Rapidez com Lança",
+    "en": "Spear Quicken",
+    "id": 258,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SPEARQUICKEN",
+      68
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Shrink",
+    "id": 1002,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_CR_SHRINK",
+      197
+     ]
+    ]
+   },
+   {
+    "nome": "Gloria Domini",
+    "en": "Gloria Domini",
+    "id": 367,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Martyr's Reckoning",
+    "id": 368,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Battle Chant",
+    "id": 369,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_GOSPEL",
+      109
+     ]
+    ]
+   },
+   {
+    "nome": "Choque Rápido",
+    "en": "Shield Chain",
+    "id": 480,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": "Disparo Perfurante",
+    "en": "Cannon Spear",
+    "id": 2307,
+    "cd": 1.7,
+    "acd": null
+   },
+   {
+    "nome": "Toque do Oblívio",
+    "en": "Banishing Point",
+    "id": 2308,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Trample",
+    "id": 2309,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": "Escudo Compressor",
+    "en": "Shield Press",
+    "id": 2310,
+    "cd": 2.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Reflect Damage Reduction",
+    "id": 2311,
+    "cd": 60.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_LG_REFLECTDAMAGE",
+      390
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Pinpoint Attack",
+    "id": 2312,
+    "cd": 5.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Force of Vanguard",
+    "id": 2313,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_FORCEOFVANGUARD",
+      391
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Rage Burst",
+    "id": 2314,
+    "cd": null,
+    "acd": 3.0
+   },
+   {
+    "nome": "Aegis Domini",
+    "en": "Shield Spell",
+    "id": 2315,
+    "cd": 2.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Exceed Break",
+    "id": 2316,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_EXEEDBREAK",
+      400
+     ]
+    ]
+   },
+   {
+    "nome": "Lança do Destino",
+    "en": "Over Brand",
+    "id": 2317,
+    "cd": 0.3,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Prestige",
+    "id": 2318,
+    "cd": 60.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_PRESTIGE",
+      402
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Banding",
+    "id": 2319,
+    "cd": 5.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_BANDING",
+      405
+     ]
+    ]
+   },
+   {
+    "nome": "Espiral Lunar",
+    "en": "Moon Slasher",
+    "id": 2320,
+    "cd": 2.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_OVERBRANDREADY",
+      1315
+     ]
+    ]
+   },
+   {
+    "nome": "Luz da Criação",
+    "en": "Ray of Genesis",
+    "id": 2321,
+    "cd": 2.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Piety",
+    "id": 2322,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_BENEDICTIO",
+      18
+     ]
+    ]
+   },
+   {
+    "nome": "Aegis Inferi",
+    "en": "Earth Drive",
+    "id": 2323,
+    "cd": 2.5,
+    "acd": 1.0
+   },
+   {
+    "nome": "Trindade",
+    "en": "Hesperus Lit",
+    "id": 2324,
+    "cd": 0.2,
+    "acd": 0.5
+   },
+   {
+    "nome": "Consagração",
+    "en": "Inspiration",
+    "id": 2325,
+    "cd": 180.0,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_INSPIRATION",
+      407
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "King's Grace",
+    "id": 5013,
+    "cd": 60.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_KINGS_GRACE",
+      723
+     ]
+    ]
+   }
+  ],
+  "Cientista": [
+   {
+    "nome": null,
+    "en": "Bionic Pharmacy",
+    "id": 5336,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "The Whole Protection",
+    "id": 5338,
+    "cd": 10.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Advance Protection",
+    "id": 5339,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_PROTECTSHADOWEQUIP",
+      1247
+     ]
+    ]
+   },
+   {
+    "nome": "Atirar Ácido Álgido",
+    "en": "Acidified Zone Water",
+    "id": 5340,
+    "cd": 0.5,
+    "acd": 0.15
+   },
+   {
+    "nome": "Atirar Ácido Sólido",
+    "en": "Acidified Zone Ground",
+    "id": 5341,
+    "cd": 0.5,
+    "acd": 0.15
+   },
+   {
+    "nome": "Atirar Ácido Gasoso",
+    "en": "Acidified Zone Wind",
+    "id": 5342,
+    "cd": 0.5,
+    "acd": 0.15
+   },
+   {
+    "nome": "Atirar Ácido Inflamável",
+    "en": "Acidified Zone Fire",
+    "id": 5343,
+    "cd": 0.5,
+    "acd": 0.15
+   },
+   {
+    "nome": null,
+    "en": "Wooden Warrior",
+    "id": 5344,
+    "cd": 30.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Wooden Fairy",
+    "id": 5345,
+    "cd": 30.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Creeper",
+    "id": 5346,
+    "cd": 15.0,
+    "acd": null
+   },
+   {
+    "nome": "Eureka",
+    "en": "Research Report",
+    "id": 5347,
+    "cd": 60.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_RESEARCHREPORT",
+      1248
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Hell Tree",
+    "id": 5348,
+    "cd": 60.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Explosive Powder",
+    "id": 6005,
+    "cd": 0.7,
+    "acd": 0.25
+   },
+   {
+    "nome": null,
+    "en": "Mayhemic Thorns",
+    "id": 6006,
+    "cd": 0.7,
+    "acd": 0.15
+   },
+   {
+    "nome": "Mystery Powder",
+    "en": "Mystery Powder",
+    "id": 6509,
+    "cd": 1.5,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Dust Explosion",
+    "id": 6510,
+    "cd": 0.5,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Item Appraisal",
+    "id": 40,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Vending",
+    "id": 41,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Mammonite",
+    "id": 42,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Cart Revolution",
+    "id": 153,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Change Cart",
+    "id": 154,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Grito de Guerra",
+    "en": "Crazy Uproar",
+    "id": 155,
+    "cd": 30.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_SHOUT",
+      30
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Decorate Cart",
+    "id": 2544,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Prepare Potion",
+    "id": 228,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Bomb",
+    "id": 229,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Acid Terror",
+    "id": 230,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Aid Potion",
+    "id": 231,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Summon Flora",
+    "id": 232,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Summon Marine Sphere",
+    "id": 233,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Alchemical Weapon",
+    "id": 234,
+    "cd": null,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_PROTECTWEAPON",
+      54
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Synthesized Shield",
+    "id": 235,
+    "cd": null,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_PROTECTSHIELD",
+      55
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Synthetic Armor",
+    "id": 236,
+    "cd": null,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_PROTECTARMOR",
+      56
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Biochemical Helm",
+    "id": 237,
+    "cd": null,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_PROTECTHELM",
+      57
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Call Homunculus",
+    "id": 243,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_HOMUN_TIME",
+      1303
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Vaporize",
+    "id": 244,
+    "cd": 20.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Homunculus Resurrection",
+    "id": 247,
+    "cd": 20.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Aid Berserk Potion",
+    "id": 446,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Twilight Alchemy 1",
+    "id": 496,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Twilight Alchemy 2",
+    "id": 497,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Twilight Alchemy 3",
+    "id": 498,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Aid Condensed Potion",
+    "id": 478,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Full Protection",
+    "id": 479,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": "Bomba Ácida",
+    "en": "Acid Demonstration",
+    "id": 490,
+    "cd": 0.15,
+    "acd": 1.0
+   },
+   {
+    "nome": "Tornado de Carrinho",
+    "en": "Cart Tornado",
+    "id": 2476,
+    "cd": 2.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Canhão de Prótons",
+    "en": "Cart Cannon",
+    "id": 2477,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Cart Boost",
+    "id": 2478,
+    "cd": null,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_GN_CARTBOOST",
+      461
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Thorn Trap",
+    "id": 2479,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Blood Sucker",
+    "id": 2480,
+    "cd": 1.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_BLOOD_SUCKER",
+      464
+     ]
+    ]
+   },
+   {
+    "nome": "Esporo Explosivo",
+    "en": "Spore Explosion",
+    "id": 2481,
+    "cd": 5.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Wall of Thorns",
+    "id": 2482,
+    "cd": 5.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Crazy Weed",
+    "id": 2483,
+    "cd": 5.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Demonic Fire",
+    "id": 2485,
+    "cd": 5.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Fire Expansion",
+    "id": 2486,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Hell's Plant",
+    "id": 2490,
+    "cd": null,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_HELLS_PLANT_ARMOR",
+      1165
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Howling of Mandragora",
+    "id": 2492,
+    "cd": 10.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_MANDRAGORA",
+      470
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Change Material",
+    "id": 2494,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Mix Cooking",
+    "id": 2495,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Special Pharmacy",
+    "id": 2497,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Illusion Doping",
+    "id": 5003,
+    "cd": 1.0,
+    "acd": 0.5
+   }
+  ],
+  "Mandraque": [
+   {
+    "nome": "Remoção Sombria Total",
+    "en": "Strip Shadow",
+    "id": 5313,
+    "cd": 2.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Ofensiva Abissal",
+    "en": "Abyss Dagger",
+    "id": 5314,
+    "cd": 0.4,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_ABYSS_DAGGER",
+      1243
+     ]
+    ]
+   },
+   {
+    "nome": "Salto Revés",
+    "en": "Unlucky Rush",
+    "id": 5315,
+    "cd": 0.25,
+    "acd": 0.5
+   },
+   {
+    "nome": "Disparo em Cadeia",
+    "en": "Chain Reaction Shot",
+    "id": 5316,
+    "cd": 1.0,
+    "acd": null
+   },
+   {
+    "nome": "Invocação do Abismo",
+    "en": "From The Abyss",
+    "id": 5317,
+    "cd": 30.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ABYSSFORCEWEAPON",
+      1244
+     ]
+    ]
+   },
+   {
+    "nome": "Sangue-Frio",
+    "en": "Abyss Slayer",
+    "id": 5318,
+    "cd": 60.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_ABYSS_SLAYER",
+      1245
+     ]
+    ]
+   },
+   {
+    "nome": "Meteoro Ômega",
+    "en": "Omega Abyss Strike",
+    "id": 5319,
+    "cd": 0.7,
+    "acd": 0.5
+   },
+   {
+    "nome": "Esfaquear",
+    "en": "Deft Stab",
+    "id": 5320,
+    "cd": 0.7,
+    "acd": 0.5
+   },
+   {
+    "nome": "Fenda do Abismo",
+    "en": "Abyss Square",
+    "id": 5321,
+    "cd": 3.0,
+    "acd": 0.5
+   },
+   {
+    "nome": "Rajada Frenética",
+    "en": "Frenzy Shot",
+    "id": 5322,
+    "cd": 0.35,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Hit And Sliding",
+    "id": 6512,
+    "cd": 1.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Chasing Break",
+    "id": 6513,
+    "cd": 0.7,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Chasing Shot",
+    "id": 6514,
+    "cd": 0.75,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Abyss Flame",
+    "id": 6515,
+    "cd": 0.7,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Steal",
+    "id": 50,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Hiding",
+    "id": 51,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_HIDING",
+      4
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Envenom",
+    "id": 52,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Detoxify",
+    "id": 53,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Sand Attack",
+    "id": 149,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Back Slide",
+    "id": 150,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Find Stone",
+    "id": 151,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Stone Fling",
+    "id": 152,
+    "cd": null,
+    "acd": 0.1
+   },
+   {
+    "nome": null,
+    "en": "Double Strafe",
+    "id": 46,
+    "cd": null,
+    "acd": 0.1
+   },
+   {
+    "nome": null,
+    "en": "Remove Trap",
+    "id": 124,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Mug",
+    "id": 211,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": "Apunhalar",
+    "en": "Back Stab",
+    "id": 212,
+    "cd": 0.5,
+    "acd": 0.5
+   },
+   {
+    "nome": "Ataque Surpresa",
+    "en": "Sightless Mind",
+    "id": 214,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_RAID",
+      395
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Divest Weapon",
+    "id": 215,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Divest Shield",
+    "id": 216,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Divest Armor",
+    "id": 217,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Divest Helm",
+    "id": 218,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Snatch",
+    "id": 219,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Scribble",
+    "id": 220,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Piece",
+    "id": 221,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Remover",
+    "id": 222,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Close Confine",
+    "id": 1005,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Stealth",
+    "id": 389,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_CHASEWALK",
+      119
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Counter Instinct",
+    "id": 390,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SWORDREJECT",
+      120
+     ]
+    ]
+   },
+   {
+    "nome": "Preservar",
+    "en": "Preserve",
+    "id": 475,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_PRESERVE",
+      181
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Divest All",
+    "id": 476,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": "Ofensiva Fatal",
+    "en": "Fatal Menace",
+    "id": 2284,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Reproduce",
+    "id": 2285,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_REPRODUCE",
+      385
+     ]
+    ]
+   },
+   {
+    "nome": "Desejo das Sombras",
+    "en": "Auto Shadow Spell",
+    "id": 2286,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_AUTOSHADOWSPELL",
+      393
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Shadow Form",
+    "id": 2287,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": "Disparo Triplo",
+    "en": "Triangle Shot",
+    "id": 2288,
+    "cd": 0.2,
+    "acd": 0.35
+   },
+   {
+    "nome": null,
+    "en": "Body Painting",
+    "id": 2289,
+    "cd": 2.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_BODYPAINT",
+      399
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Invisibility",
+    "id": 2290,
+    "cd": 60.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_INVISIBILITY",
+      403
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Deadly Infect",
+    "id": 2291,
+    "cd": 2.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_DEADLYINFECT",
+      404
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Masquerade - Enervation",
+    "id": 2292,
+    "cd": 2.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Masquerade - Gloomy",
+    "id": 2293,
+    "cd": 2.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Masquerade - Ignorance",
+    "id": 2294,
+    "cd": 2.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Masquerade - Laziness",
+    "id": 2295,
+    "cd": 2.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Masquerade - Unlucky",
+    "id": 2296,
+    "cd": 2.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Masquerade - Weakness",
+    "id": 2297,
+    "cd": 2.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Strip Accessory",
+    "id": 2298,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Man Hole",
+    "id": 2299,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": null,
+    "en": "Dimension Door",
+    "id": 2300,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": null,
+    "en": "Chaos Panic",
+    "id": 2301,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": null,
+    "en": "Maelstrom",
+    "id": 2302,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": null,
+    "en": "Bloody Lust",
+    "id": 2303,
+    "cd": 180.0,
+    "acd": 2.0
+   },
+   {
+    "nome": "Cópia Explosiva",
+    "en": "Feint Bomb",
+    "id": 2304,
+    "cd": 5.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Emergency Escape",
+    "id": 5010,
+    "cd": 2.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_ANKLESNARE",
+      45
+     ]
+    ]
+   }
+  ],
+  "Elementalista": [
+   {
+    "nome": null,
+    "en": "Spell Enchanting",
+    "id": 5366,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SPELL_ENCHANTING",
+      1271
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Activity Burn",
+    "id": 5367,
+    "cd": 8.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Increasing Activity",
+    "id": 5368,
+    "cd": 2.5,
+    "acd": 0.5
+   },
+   {
+    "nome": "Execução Aurora",
+    "en": "Diamond Storm",
+    "id": 5369,
+    "cd": 1.0,
+    "acd": 0.5
+   },
+   {
+    "nome": "Tormenta",
+    "en": "Lightning Land",
+    "id": 5370,
+    "cd": 2.0,
+    "acd": 0.7
+   },
+   {
+    "nome": "Poço Venenoso",
+    "en": "Venom Swamp",
+    "id": 5371,
+    "cd": 2.0,
+    "acd": 0.7
+   },
+   {
+    "nome": "Conflagração",
+    "en": "Conflagration",
+    "id": 5372,
+    "cd": 2.0,
+    "acd": 0.7
+   },
+   {
+    "nome": "Tremor de Terra",
+    "en": "Terra Drive",
+    "id": 5373,
+    "cd": 1.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Summon Elemental Ardor",
+    "id": 5375,
+    "cd": 60.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_SUMMON_ELEMENTAL_ARDOR",
+      1272
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Summon Elemental Diluvio",
+    "id": 5376,
+    "cd": 60.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_SUMMON_ELEMENTAL_DILUVIO",
+      1273
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Summon Elemental Procella",
+    "id": 5377,
+    "cd": 60.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_SUMMON_ELEMENTAL_PROCELLA",
+      1274
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Summon Elemental Terremotus",
+    "id": 5378,
+    "cd": 60.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_SUMMON_ELEMENTAL_TERREMOTUS",
+      1275
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Summon Elemental Serpens",
+    "id": 5379,
+    "cd": 60.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_SUMMON_ELEMENTAL_SERPENS",
+      1276
+     ]
+    ]
+   },
+   {
+    "nome": "Círculo Elemental",
+    "en": "Elemental Buster",
+    "id": 5380,
+    "cd": 2.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Elemental Veil",
+    "id": 5381,
+    "cd": 10.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_ELEMENTAL_VEIL",
+      1301
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Psychic Stream",
+    "id": 6517,
+    "cd": 2.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Sight",
+    "id": 10,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Napalm Beat",
+    "id": 11,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Safety Wall",
+    "id": 12,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Soul Strike",
+    "id": 13,
+    "cd": null,
+    "acd": 1.4
+   },
+   {
+    "nome": "Lanças de Gelo",
+    "en": "Cold Bolt",
+    "id": 14,
+    "cd": null,
+    "acd": 1.4
+   },
+   {
+    "nome": null,
+    "en": "Frost Diver",
+    "id": 15,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Stone Curse",
+    "id": 16,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Fire Ball",
+    "id": 17,
+    "cd": null,
+    "acd": 0.7
+   },
+   {
+    "nome": null,
+    "en": "Fire Wall",
+    "id": 18,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Lanças de Fogo",
+    "en": "Fire Bolt",
+    "id": 19,
+    "cd": null,
+    "acd": 1.4
+   },
+   {
+    "nome": "Relâmpago",
+    "en": "Lightning Bolt",
+    "id": 20,
+    "cd": null,
+    "acd": 1.4
+   },
+   {
+    "nome": null,
+    "en": "Thunderstorm",
+    "id": 21,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": null,
+    "en": "Energy Coat",
+    "id": 157,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ENERGYCOAT",
+      31
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Sense",
+    "id": 93,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Coluna de Pedra",
+    "en": "Earth Spike",
+    "id": 90,
+    "cd": null,
+    "acd": 1.4
+   },
+   {
+    "nome": "Fúria da Terra",
+    "en": "Heaven's Drive",
+    "id": 91,
+    "cd": 1.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Cast Cancel",
+    "id": 275,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Magic Rod",
+    "id": 276,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_MAGICROD",
+      63
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Spell Breaker",
+    "id": 277,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Hindsight",
+    "id": 279,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_AUTOSPELL",
+      65
+     ]
+    ]
+   },
+   {
+    "nome": "Encantar com Chama",
+    "en": "Endow Blaze",
+    "id": 280,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_PROPERTYFIRE",
+      90
+     ]
+    ]
+   },
+   {
+    "nome": "Encantar com Geada",
+    "en": "Endow Tsunami",
+    "id": 281,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_PROPERTYWATER",
+      91
+     ]
+    ]
+   },
+   {
+    "nome": "Encantar com Ventania",
+    "en": "Endow Tornado",
+    "id": 282,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_PROPERTYWIND",
+      92
+     ]
+    ]
+   },
+   {
+    "nome": "Encantar com Terremoto",
+    "en": "Endow Quake",
+    "id": 283,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_PROPERTYGROUND",
+      93
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Volcano",
+    "id": 285,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Deluge",
+    "id": 286,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Whirlwind",
+    "id": 287,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Magnetic Earth",
+    "id": 288,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Dispell",
+    "id": 289,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Hocus-pocus",
+    "id": 290,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Create Elemental Converter",
+    "id": 1007,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Elemental Change Water",
+    "id": 1008,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Elemental Change Earth",
+    "id": 1017,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Elemental Change Fire",
+    "id": 1018,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Elemental Change Wind",
+    "id": 1019,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Indulge",
+    "id": 373,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Soul Exhale",
+    "id": 374,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Soul Siphon",
+    "id": 375,
+    "cd": 15.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Mind Breaker",
+    "id": 402,
+    "cd": null,
+    "acd": 1.2
+   },
+   {
+    "nome": "Presciência",
+    "en": "Foresight",
+    "id": 403,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_MEMORIZE",
+      127
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Blinding Mist",
+    "id": 404,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Fiber Lock",
+    "id": 405,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Double Casting",
+    "id": 482,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_DOUBLECASTING",
+      186
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Fire Walk",
+    "id": 2443,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_PROPERTYWALK",
+      431
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Electric Walk",
+    "id": 2444,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_PROPERTYWALK",
+      431
+     ]
+    ]
+   },
+   {
+    "nome": "Punho Arcano",
+    "en": "Spell Fist",
+    "id": 2445,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_SPELLFIST",
+      432
+     ]
+    ]
+   },
+   {
+    "nome": "Castigo de Nerthus",
+    "en": "Earth Grave",
+    "id": 2446,
+    "cd": 5.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Pó de Diamante",
+    "en": "Diamond Dust",
+    "id": 2447,
+    "cd": 5.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Implosão Tóxica",
+    "en": "Poison Buster",
+    "id": 2448,
+    "cd": 2.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Onda Psíquica",
+    "en": "Psychic Wave",
+    "id": 2449,
+    "cd": 5.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Maldição de Jormungand",
+    "en": "Cloud Kill",
+    "id": 2450,
+    "cd": 5.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Striking",
+    "id": 2451,
+    "cd": 2.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_STRIKING",
+      445
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Warmer",
+    "id": 2452,
+    "cd": 55.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Vacuum Extreme",
+    "id": 2453,
+    "cd": 5.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Lanças dos Aesir",
+    "en": "Varetyr Spear",
+    "id": 2454,
+    "cd": 5.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Arrullo",
+    "id": 2455,
+    "cd": 9.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Spirit Control",
+    "id": 2456,
+    "cd": 5.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Summon Fire Spirit Agni",
+    "id": 2457,
+    "cd": 60.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Summon Water Spirit Aqua",
+    "id": 2458,
+    "cd": 60.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Summon Wind Spirit Ventus",
+    "id": 2459,
+    "cd": 60.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Summon Earth Spirit Tera",
+    "id": 2460,
+    "cd": 60.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Elemental Action",
+    "id": 2461,
+    "cd": 5.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Four Spirit Analysis",
+    "id": 2462,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Spirit Recovery",
+    "id": 2464,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Fire Insignia",
+    "id": 2465,
+    "cd": 60.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Water Insignia",
+    "id": 2466,
+    "cd": 60.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Wind Insignia",
+    "id": 2467,
+    "cd": 60.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Earth Insignia",
+    "id": 2468,
+    "cd": 60.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Elemental Shield",
+    "id": 5008,
+    "cd": null,
+    "acd": null
+   }
+  ],
+  "Inquisidor": [
+   {
+    "nome": "Mantra da Força",
+    "en": "Powerful Faith",
+    "id": 5238,
+    "cd": 60.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_POWERFUL_FAITH",
+      1160
+     ]
+    ]
+   },
+   {
+    "nome": "Mantra da Saúde",
+    "en": "Firm Faith",
+    "id": 5239,
+    "cd": 60.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_FIRM_FAITH",
+      1162
+     ]
+    ]
+   },
+   {
+    "nome": "Oleum Sanctum",
+    "en": "Oleum Sanctum",
+    "id": 5241,
+    "cd": 1.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_HOLY_OIL",
+      1190
+     ]
+    ]
+   },
+   {
+    "nome": "Mantra da Energia",
+    "en": "Sincere Faith",
+    "id": 5242,
+    "cd": 60.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SINCERE_FAITH",
+      1161
+     ]
+    ]
+   },
+   {
+    "nome": "Punho Labareda",
+    "en": "Massive Flame Blaster",
+    "id": 5243,
+    "cd": 3.5,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_MASSIVE_F_BLASTER",
+      1326
+     ]
+    ]
+   },
+   {
+    "nome": "Técnica da Mão Explosiva",
+    "en": "Explosion Blaster",
+    "id": 5244,
+    "cd": 0.7,
+    "acd": 1.0
+   },
+   {
+    "nome": "Estigma",
+    "en": "First Brand",
+    "id": 5245,
+    "cd": 0.3,
+    "acd": null
+   },
+   {
+    "nome": "Auréola do Poder",
+    "en": "First Faith Power",
+    "id": 5246,
+    "cd": 60.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_FIRST_FAITH_POWER",
+      1234
+     ]
+    ]
+   },
+   {
+    "nome": "Auréola do Juiz",
+    "en": "Judge",
+    "id": 5247,
+    "cd": 60.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_SECOND_JUDGE",
+      1232
+     ]
+    ]
+   },
+   {
+    "nome": "Palma Fervorosa",
+    "en": "Second Flame",
+    "id": 5248,
+    "cd": 0.7,
+    "acd": null
+   },
+   {
+    "nome": "Golpe Pantocrator",
+    "en": "Second Faith",
+    "id": 5249,
+    "cd": 0.7,
+    "acd": null
+   },
+   {
+    "nome": "Toque Intercessor",
+    "en": "Second Judgement",
+    "id": 5250,
+    "cd": 0.7,
+    "acd": null
+   },
+   {
+    "nome": "Soco Guilhotina",
+    "en": "Third Punish",
+    "id": 5251,
+    "cd": 0.7,
+    "acd": 0.5
+   },
+   {
+    "nome": "Fogueira Espiritual",
+    "en": "Third Flame Bomb",
+    "id": 5252,
+    "cd": 1.0,
+    "acd": 0.7
+   },
+   {
+    "nome": "Veredicto",
+    "en": "Third Consecration",
+    "id": 5253,
+    "cd": 0.7,
+    "acd": null
+   },
+   {
+    "nome": "Auréola das Chamas",
+    "en": "Third Exorcism Flame",
+    "id": 5254,
+    "cd": 60.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_THIRD_EXOR_FLAME",
+      1233
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Blazing Flame Blast",
+    "id": 6519,
+    "cd": 0.7,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Ruwach",
+    "id": 24,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Pneuma",
+    "id": 25,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Teleport",
+    "id": 26,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Warp Portal",
+    "id": 27,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Heal",
+    "id": 28,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Increase AGI",
+    "id": 29,
+    "cd": null,
+    "acd": 0.4,
+    "efst": [
+     [
+      "EFST_INC_AGI",
+      12
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Decrease AGI",
+    "id": 30,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Aqua Benedicta",
+    "id": 31,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Signum Crucis",
+    "id": 32,
+    "cd": null,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_CRUCIS",
+      11
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Angelus",
+    "id": 33,
+    "cd": 30.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_ANGELUS",
+      9
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Blessing",
+    "id": 34,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_BLESSING",
+      10
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Cure",
+    "id": 35,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": "Luz Divina",
+    "en": "Holy Light",
+    "id": 156,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Invocar Esfera Espiritual",
+    "en": "Summon Spirit Sphere",
+    "id": 261,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Absorb Spirit Sphere",
+    "id": 262,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Snap",
+    "id": 264,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Occult Impaction",
+    "id": 266,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Throw Spirit Sphere",
+    "id": 267,
+    "cd": 1.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Mental Strength",
+    "id": 268,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_STEELBODY",
+      87
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Root",
+    "id": 269,
+    "cd": 3.0,
+    "acd": 0.5
+   },
+   {
+    "nome": "Fúria Interior",
+    "en": "Fury",
+    "id": 270,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_EXPLOSIONSPIRITS",
+      86
+     ]
+    ]
+   },
+   {
+    "nome": "Punho Supremo de Asura",
+    "en": "Asura Strike",
+    "id": 271,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Raging Quadruple Blow",
+    "id": 272,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Raging Thrust",
+    "id": 273,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Ki Translation",
+    "id": 1015,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Ki Explosion",
+    "id": 1016,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": null,
+    "en": "Raging Palm Strike",
+    "id": 370,
+    "cd": null,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Glacier Fist",
+    "id": 371,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ANKLESNARE",
+      45
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Chain Crush Combo",
+    "id": 372,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Zen",
+    "id": 401,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Punho do Dragão",
+    "en": "Dragon Combo",
+    "id": 2326,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Soco Furacão",
+    "en": "Sky Net Blow",
+    "id": 2327,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": "Impacto Sísmico",
+    "en": "Earth Shaker",
+    "id": 2328,
+    "cd": 3.0,
+    "acd": null
+   },
+   {
+    "nome": "Ruína",
+    "en": "Fallen Empire",
+    "id": 2329,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Garra de Tigre",
+    "en": "Tiger Cannon",
+    "id": 2330,
+    "cd": 3.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Explosão Espiritual",
+    "en": "Rampage Blaster",
+    "id": 2332,
+    "cd": 10.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Crescent Elbow",
+    "id": 2333,
+    "cd": 5.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_CRESCENTELBOW",
+      419
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Cursed Circle",
+    "id": 2334,
+    "cd": 10.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_CURSEDCIRCLE_TARGET",
+      417
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Lightning Walk",
+    "id": 2335,
+    "cd": 5.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_LIGHTNINGWALK",
+      413
+     ]
+    ]
+   },
+   {
+    "nome": "Pancada Corporal",
+    "en": "Knuckle Arrow",
+    "id": 2336,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Windmill",
+    "id": 2337,
+    "cd": 3.0,
+    "acd": 0.5
+   },
+   {
+    "nome": "Dragão Ascendente",
+    "en": "Raising Dragon",
+    "id": 2338,
+    "cd": 30.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_RAISINGDRAGON",
+      410
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Assimilate Power",
+    "id": 2340,
+    "cd": 5.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Power Velocity",
+    "id": 2341,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Portões do Inferno",
+    "en": "Gate of Hell",
+    "id": 2343,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Gentle Touch - Quiet",
+    "id": 2344,
+    "cd": 3.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Gentle Touch - Cure",
+    "id": 2345,
+    "cd": 3.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Gentle Touch - Energy Gain",
+    "id": 2346,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_GENTLETOUCH_ENERGYGAIN",
+      425
+     ]
+    ]
+   },
+   {
+    "nome": "Chakra da Fúria",
+    "en": "Gentle Touch - Change",
+    "id": 2347,
+    "cd": 1.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_GENTLETOUCH_CHANGE",
+      426
+     ]
+    ]
+   },
+   {
+    "nome": "Chakra do Vigor",
+    "en": "Gentle Touch - Revitalize",
+    "id": 2348,
+    "cd": 1.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_GENTLETOUCH_REVITALIZE",
+      427
+     ]
+    ]
+   },
+   {
+    "nome": "Rugido do Leão",
+    "en": "Howling of Lion",
+    "id": 2517,
+    "cd": 10.0,
+    "acd": null
+   },
+   {
+    "nome": "Tempestade Espiritual",
+    "en": "Ride In Lightening",
+    "id": 2518,
+    "cd": 0.5,
+    "acd": null
+   },
+   {
+    "nome": "Combo Rápido",
+    "en": "Flash Combo",
+    "id": 5009,
+    "cd": 3.0,
+    "acd": 1.0
+   }
+  ],
+  "Maestro": [
+   {
+    "nome": null,
+    "en": "Retrospection",
+    "id": 5350,
+    "cd": 5.0,
+    "acd": 0.3
+   },
+   {
+    "nome": "Sinfonia Mística",
+    "en": "Mystic Symphony",
+    "id": 5351,
+    "cd": 60.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_MYSTIC_SYMPHONY",
+      1256
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Kvasir Sonata",
+    "id": 5352,
+    "cd": 120.0,
+    "acd": 0.15,
+    "efst": [
+     [
+      "EFST_KVASIR_SONATA",
+      1257
+     ]
+    ]
+   },
+   {
+    "nome": "Atirar Rosas",
+    "en": "Rose Blossom",
+    "id": 5353,
+    "cd": 0.7,
+    "acd": 0.15
+   },
+   {
+    "nome": "Disparo Rítmico",
+    "en": "Rhythm Shooting",
+    "id": 5355,
+    "cd": 0.35,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Metallic Fury",
+    "id": 5356,
+    "cd": 0.4,
+    "acd": 0.5
+   },
+   {
+    "nome": "Arranjo Musical",
+    "en": "Sound Blend",
+    "id": 5357,
+    "cd": null,
+    "acd": 0.15
+   },
+   {
+    "nome": null,
+    "en": "Geffenia Nocturn",
+    "id": 5358,
+    "cd": 10.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_GEF_NOCTURN",
+      1259
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Roki Capriccio",
+    "id": 5359,
+    "cd": 10.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Ain Rhapsody",
+    "id": 5360,
+    "cd": 10.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_AIN_RHAPSODY",
+      1260
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Musical Interlude",
+    "id": 5361,
+    "cd": 10.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_MUSICAL_INTERLUDE",
+      1261
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Jawaii Serenade",
+    "id": 5362,
+    "cd": 10.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_JAWAII_SERENADE",
+      1262
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Nipelheim Requiem",
+    "id": 5363,
+    "cd": 10.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Pron March",
+    "id": 5364,
+    "cd": 10.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_PRON_MARCH",
+      1263
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Rhythmical Wave",
+    "id": 6521,
+    "cd": 0.4,
+    "acd": 1.0
+   },
+   {
+    "nome": "Concentrar",
+    "en": "Improve Concentration",
+    "id": 45,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_CONCENTRATION",
+      3
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Double Strafe",
+    "id": 46,
+    "cd": null,
+    "acd": 0.1
+   },
+   {
+    "nome": null,
+    "en": "Arrow Shower",
+    "id": 47,
+    "cd": null,
+    "acd": 0.1
+   },
+   {
+    "nome": null,
+    "en": "Arrow Crafting",
+    "id": 147,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Arrow Repel",
+    "id": 148,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Melody Strike",
+    "id": 316,
+    "cd": null,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Unchained Serenade",
+    "id": 317,
+    "cd": 5.0,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Unbarring Octave",
+    "id": 318,
+    "cd": 5.0,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Perfect Tablature",
+    "id": 319,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_WHISTLE",
+      70
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Impressive Riff",
+    "id": 320,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_ASSASSINCROSS",
+      71
+     ]
+    ]
+   },
+   {
+    "nome": "Poema de Bragi",
+    "en": "Magic Strings",
+    "id": 321,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_POEMBRAGI",
+      72
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Song of Lutie",
+    "id": 322,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_APPLEIDUN",
+      73
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Amp",
+    "id": 304,
+    "cd": 300.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_ADAPTATION",
+      1089
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Encore",
+    "id": 305,
+    "cd": 10.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_BDPLAYING",
+      69
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Lullaby",
+    "id": 306,
+    "cd": 20.0,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Mental Sensing",
+    "id": 307,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_RICHMANKIM",
+      78
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Down Tempo",
+    "id": 308,
+    "cd": 60.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_ETERNALCHAOS",
+      79
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Battle Theme",
+    "id": 309,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_DRUMBATTLEFIELD",
+      80
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Harmonic Lick",
+    "id": 310,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_RINGNIBELUNGEN",
+      81
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Classical Pluck",
+    "id": 311,
+    "cd": 180.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_ROKISWEIL",
+      82
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Power Chord",
+    "id": 312,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_INTOABYSS",
+      83
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Acoustic Rhythm",
+    "id": 313,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_SIEGFRIED",
+      84
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Pang Voice",
+    "id": 1010,
+    "cd": 10.0,
+    "acd": 2.0
+   },
+   {
+    "nome": "Vulcão de Flechas",
+    "en": "Vulcan Arrow",
+    "id": 394,
+    "cd": 1.5,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Sheltering Bliss",
+    "id": 395,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Marionette Control",
+    "id": 396,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_MARIONETTE_MASTER",
+      121
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Skilled Special Singer",
+    "id": 5068,
+    "cd": 60.0,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Wand of Hermode",
+    "id": 488,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_HERMODE",
+      190
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Tarot Card of Fate",
+    "id": 489,
+    "cd": 3.0,
+    "acd": 0.3
+   },
+   {
+    "nome": "Sinfonia dos Ventos",
+    "en": "Windmill Rush Attack",
+    "id": 2381,
+    "cd": 10.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_RUSH_WINDMILL",
+      442
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Echo Song",
+    "id": 2382,
+    "cd": null,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_ECHOSONG",
+      443
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Harmonize",
+    "id": 2383,
+    "cd": 5.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_HARMONIZE",
+      444
+     ]
+    ]
+   },
+   {
+    "nome": "Ruído Estridente",
+    "en": "Metallic Sound",
+    "id": 2413,
+    "cd": 2.5,
+    "acd": 0.5
+   },
+   {
+    "nome": "Ressonância",
+    "en": "Reverberation",
+    "id": 2414,
+    "cd": 0.15,
+    "acd": 0.5
+   },
+   {
+    "nome": "Temporal de Flechas",
+    "en": "Severe Rainstorm",
+    "id": 2418,
+    "cd": 7.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Poem of The Netherworld",
+    "id": 2419,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Voice of Siren",
+    "id": 2420,
+    "cd": 5.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_SIREN",
+      434
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Valley of Death",
+    "id": 2421,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Deep Sleep Lullaby",
+    "id": 2422,
+    "cd": 30.0,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Circle of Nature's Sound",
+    "id": 2423,
+    "cd": 180.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_SIRCLEOFNATURE",
+      436
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Improvised Song",
+    "id": 2424,
+    "cd": 5.0,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Gloomy Day",
+    "id": 2425,
+    "cd": 60.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_GLOOMYDAY",
+      438
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Great Echo",
+    "id": 2426,
+    "cd": 5.0,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Song of Mana",
+    "id": 2427,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_SONG_OF_MANA",
+      439
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Dance With A Warg",
+    "id": 2428,
+    "cd": 180.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_DANCE_WITH_WUG",
+      441
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Sound of Destruction",
+    "id": 2429,
+    "cd": 60.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_SOUND_OF_DESTRUCTION",
+      1126
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Saturday Night Fever",
+    "id": 2430,
+    "cd": 60.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_SATURDAY_NIGHT_FEVER",
+      448
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Lerad's Dew",
+    "id": 2431,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_LERADS_DEW",
+      451
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Melody of Sink",
+    "id": 2432,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_MELODYOFSINK",
+      452
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Warcry of Beyond",
+    "id": 2433,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_BEYOND_OF_WARCRY",
+      453
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Unlimited Humming Voice",
+    "id": 2434,
+    "cd": 180.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_UNLIMITED_HUMMING_VOICE",
+      454
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Frigg's Song",
+    "id": 5007,
+    "cd": null,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_FRIGG_SONG",
+      715
+     ]
+    ]
+   }
+  ],
+  "Diva": [
+   {
+    "nome": null,
+    "en": "Retrospection",
+    "id": 5350,
+    "cd": 5.0,
+    "acd": 0.3
+   },
+   {
+    "nome": "Sinfonia Mística",
+    "en": "Mystic Symphony",
+    "id": 5351,
+    "cd": 60.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_MYSTIC_SYMPHONY",
+      1256
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Kvasir Sonata",
+    "id": 5352,
+    "cd": 120.0,
+    "acd": 0.15,
+    "efst": [
+     [
+      "EFST_KVASIR_SONATA",
+      1257
+     ]
+    ]
+   },
+   {
+    "nome": "Atirar Rosas",
+    "en": "Rose Blossom",
+    "id": 5353,
+    "cd": 0.7,
+    "acd": 0.15
+   },
+   {
+    "nome": "Disparo Rítmico",
+    "en": "Rhythm Shooting",
+    "id": 5355,
+    "cd": 0.35,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Metallic Fury",
+    "id": 5356,
+    "cd": 0.4,
+    "acd": 0.5
+   },
+   {
+    "nome": "Arranjo Musical",
+    "en": "Sound Blend",
+    "id": 5357,
+    "cd": null,
+    "acd": 0.15
+   },
+   {
+    "nome": null,
+    "en": "Geffenia Nocturn",
+    "id": 5358,
+    "cd": 10.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_GEF_NOCTURN",
+      1259
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Roki Capriccio",
+    "id": 5359,
+    "cd": 10.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Ain Rhapsody",
+    "id": 5360,
+    "cd": 10.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_AIN_RHAPSODY",
+      1260
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Musical Interlude",
+    "id": 5361,
+    "cd": 10.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_MUSICAL_INTERLUDE",
+      1261
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Jawaii Serenade",
+    "id": 5362,
+    "cd": 10.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_JAWAII_SERENADE",
+      1262
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Nipelheim Requiem",
+    "id": 5363,
+    "cd": 10.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Pron March",
+    "id": 5364,
+    "cd": 10.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_PRON_MARCH",
+      1263
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Rhythmical Wave",
+    "id": 6521,
+    "cd": 0.4,
+    "acd": 1.0
+   },
+   {
+    "nome": "Concentrar",
+    "en": "Improve Concentration",
+    "id": 45,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_CONCENTRATION",
+      3
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Double Strafe",
+    "id": 46,
+    "cd": null,
+    "acd": 0.1
+   },
+   {
+    "nome": null,
+    "en": "Arrow Shower",
+    "id": 47,
+    "cd": null,
+    "acd": 0.1
+   },
+   {
+    "nome": null,
+    "en": "Arrow Crafting",
+    "id": 147,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Arrow Repel",
+    "id": 148,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Slinging Arrow",
+    "id": 324,
+    "cd": null,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Hip Shaker",
+    "id": 325,
+    "cd": 5.0,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Dazzler",
+    "id": 326,
+    "cd": 5.0,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Focus Ballet",
+    "id": 327,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_HUMMING",
+      74
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Slow Grace",
+    "id": 328,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_DONTFORGETME",
+      75
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Lady Luck",
+    "id": 329,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_FORTUNEKISS",
+      76
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Gypsy's Kiss",
+    "id": 330,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_SERVICEFORYOU",
+      77
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Amp",
+    "id": 304,
+    "cd": 300.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_ADAPTATION",
+      1089
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Encore",
+    "id": 305,
+    "cd": 10.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_BDPLAYING",
+      69
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Lullaby",
+    "id": 306,
+    "cd": 20.0,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Mental Sensing",
+    "id": 307,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_RICHMANKIM",
+      78
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Down Tempo",
+    "id": 308,
+    "cd": 60.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_ETERNALCHAOS",
+      79
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Battle Theme",
+    "id": 309,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_DRUMBATTLEFIELD",
+      80
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Harmonic Lick",
+    "id": 310,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_RINGNIBELUNGEN",
+      81
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Classical Pluck",
+    "id": 311,
+    "cd": 180.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_ROKISWEIL",
+      82
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Power Chord",
+    "id": 312,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_INTOABYSS",
+      83
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Acoustic Rhythm",
+    "id": 313,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_SIEGFRIED",
+      84
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Wink of Charm",
+    "id": 1011,
+    "cd": 10.0,
+    "acd": 2.0
+   },
+   {
+    "nome": "Vulcão de Flechas",
+    "en": "Vulcan Arrow",
+    "id": 394,
+    "cd": 1.5,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Sheltering Bliss",
+    "id": 395,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Marionette Control",
+    "id": 396,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_MARIONETTE_MASTER",
+      121
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Skilled Special Singer",
+    "id": 5068,
+    "cd": 60.0,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Wand of Hermode",
+    "id": 488,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_HERMODE",
+      190
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Tarot Card of Fate",
+    "id": 489,
+    "cd": 3.0,
+    "acd": 0.3
+   },
+   {
+    "nome": "Ritmo Contagiante",
+    "en": "Swing Dance",
+    "id": 2350,
+    "cd": 5.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_SWING",
+      429
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Symphony of Lovers",
+    "id": 2351,
+    "cd": 5.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_SYMPHONY_LOVE",
+      430
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Moonlit Serenade",
+    "id": 2352,
+    "cd": 5.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_MOONLIT_SERENADE",
+      447
+     ]
+    ]
+   },
+   {
+    "nome": "Ruído Estridente",
+    "en": "Metallic Sound",
+    "id": 2413,
+    "cd": 2.5,
+    "acd": 0.5
+   },
+   {
+    "nome": "Ressonância",
+    "en": "Reverberation",
+    "id": 2414,
+    "cd": 0.15,
+    "acd": 0.5
+   },
+   {
+    "nome": "Temporal de Flechas",
+    "en": "Severe Rainstorm",
+    "id": 2418,
+    "cd": 7.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Poem of The Netherworld",
+    "id": 2419,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Voice of Siren",
+    "id": 2420,
+    "cd": 5.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_SIREN",
+      434
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Valley of Death",
+    "id": 2421,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Deep Sleep Lullaby",
+    "id": 2422,
+    "cd": 30.0,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Circle of Nature's Sound",
+    "id": 2423,
+    "cd": 180.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_SIRCLEOFNATURE",
+      436
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Improvised Song",
+    "id": 2424,
+    "cd": 5.0,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Gloomy Day",
+    "id": 2425,
+    "cd": 60.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_GLOOMYDAY",
+      438
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Great Echo",
+    "id": 2426,
+    "cd": 5.0,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Song of Mana",
+    "id": 2427,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_SONG_OF_MANA",
+      439
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Dance With A Warg",
+    "id": 2428,
+    "cd": 180.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_DANCE_WITH_WUG",
+      441
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Sound of Destruction",
+    "id": 2429,
+    "cd": 60.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_SOUND_OF_DESTRUCTION",
+      1126
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Saturday Night Fever",
+    "id": 2430,
+    "cd": 60.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_SATURDAY_NIGHT_FEVER",
+      448
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Lerad's Dew",
+    "id": 2431,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_LERADS_DEW",
+      451
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Melody of Sink",
+    "id": 2432,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_MELODYOFSINK",
+      452
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Warcry of Beyond",
+    "id": 2433,
+    "cd": 20.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_BEYOND_OF_WARCRY",
+      453
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Unlimited Humming Voice",
+    "id": 2434,
+    "cd": 180.0,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_UNLIMITED_HUMMING_VOICE",
+      454
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Frigg's Song",
+    "id": 5007,
+    "cd": null,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_FRIGG_SONG",
+      715
+     ]
+    ]
+   }
+  ],
+  "Mestre Celestial": [
+   {
+    "nome": "Amanhecer",
+    "en": "Rising Sun",
+    "id": 5465,
+    "cd": 0.5,
+    "acd": 0.5
+   },
+   {
+    "nome": "Anoitecer",
+    "en": "Rising Moon",
+    "id": 5468,
+    "cd": 0.5,
+    "acd": 0.5
+   },
+   {
+    "nome": "Constelação",
+    "en": "Twinkling Galaxy",
+    "id": 5471,
+    "cd": 5.0,
+    "acd": null
+   },
+   {
+    "nome": "Entardecer",
+    "en": "Noon Blast",
+    "id": 5466,
+    "cd": 0.7,
+    "acd": 0.5
+   },
+   {
+    "nome": "Chute Meia-Lua",
+    "en": "Midnight Kick",
+    "id": 5469,
+    "cd": 0.7,
+    "acd": null
+   },
+   {
+    "nome": "Colapso Estelar",
+    "en": "Star Burst",
+    "id": 5472,
+    "cd": 1.0,
+    "acd": 0.5
+   },
+   {
+    "nome": "Explosão Crepuscular",
+    "en": "Sunset Blast",
+    "id": 5467,
+    "cd": 0.3,
+    "acd": 0.5
+   },
+   {
+    "nome": "Alvorada",
+    "en": "Dawn Break",
+    "id": 5470,
+    "cd": 0.3,
+    "acd": null
+   },
+   {
+    "nome": "Explosão Galática",
+    "en": "Star Cannon",
+    "id": 5473,
+    "cd": 3.5,
+    "acd": null
+   },
+   {
+    "nome": "Firmamento",
+    "en": "All in the Sky",
+    "id": 5474,
+    "cd": 2.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Enchanting Sky",
+    "id": 5475,
+    "cd": 60.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SKY_ENCHANT",
+      1392
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Sky Sun",
+    "id": 5502,
+    "cd": 1.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Sky Moon",
+    "id": 5503,
+    "cd": 1.0,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Star Light Kick",
+    "id": 5504,
+    "cd": 0.75,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Running",
+    "id": 411,
+    "cd": null,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_RUN",
+      133
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Tornado Stance",
+    "id": 412,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_STORMKICK_ON",
+      135
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Tornado Kick",
+    "id": 413,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Heel Drop Stance",
+    "id": 414,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_DOWNKICK_ON",
+      137
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Heel Drop",
+    "id": 415,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Roundhouse Stance",
+    "id": 416,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_TURNKICK_ON",
+      139
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Roundhouse Kick",
+    "id": 417,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Counter Kick Stance",
+    "id": 418,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_COUNTER_ON",
+      141
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Counter Kick",
+    "id": 419,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Tumbling",
+    "id": 420,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_DODGE_ON",
+      143
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Flying Kick",
+    "id": 421,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Brisa Leve",
+    "en": "Mild Wind",
+    "id": 425,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_PROPERTYFIRE",
+      90
+     ],
+     [
+      "EFST_PROPERTYWATER",
+      91
+     ],
+     [
+      "EFST_PROPERTYWIND",
+      92
+     ],
+     [
+      "EFST_PROPERTYGROUND",
+      93
+     ],
+     [
+      "EFST_ASPERSIO",
+      17
+     ],
+     [
+      "EFST_PROPERTYTELEKINESIS",
+      148
+     ],
+     [
+      "EFST_PROPERTYDARK",
+      146
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Taekwon Jump",
+    "id": 426,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Taekwon Mission",
+    "id": 493,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Feeling the Sun Moon and Stars",
+    "id": 427,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Warmth of the Sun",
+    "id": 428,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SG_SUN_WARM",
+      165
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Warmth of the Moon",
+    "id": 429,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SG_SUN_WARM",
+      165
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Warmth of the Stars",
+    "id": 430,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SG_SUN_WARM",
+      165
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Comfort of the Sun",
+    "id": 431,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SUN_COMFORT",
+      169
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Comfort of the Moon",
+    "id": 432,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_MOON_COMFORT",
+      170
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Comfort of the Stars",
+    "id": 433,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_STAR_COMFORT",
+      171
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Hatred of the Sun Moon and Stars",
+    "id": 434,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "União Solar, Lunar e Estelar",
+    "en": "Union of the Sun Moon and Stars",
+    "id": 444,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Luz Lunar",
+    "en": "Light of Moon",
+    "id": 2574,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_LIGHTOFMOON",
+      1035
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Lunar Stance",
+    "id": 2575,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_LUNARSTANCE",
+      1038
+     ]
+    ]
+   },
+   {
+    "nome": "Chute Lunar",
+    "en": "Full Moon Kick",
+    "id": 2576,
+    "cd": 1.0,
+    "acd": null
+   },
+   {
+    "nome": "Luz Estelar",
+    "en": "Light of Star",
+    "id": 2577,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_LIGHTOFSTAR",
+      1037
+     ]
+    ]
+   },
+   {
+    "nome": "Postura Estelar",
+    "en": "Star Stance",
+    "id": 2578,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_STARSTANCE",
+      1043
+     ]
+    ]
+   },
+   {
+    "nome": "Eclipse Lunar",
+    "en": "New Moon Kick",
+    "id": 2579,
+    "cd": 1.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_NEWMOON",
+      1042
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Flash Kick",
+    "id": 2580,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Star Emperor Advent",
+    "id": 2581,
+    "cd": 10.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Nova Explosion",
+    "id": 2582,
+    "cd": 20.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Postura do Universo",
+    "en": "Universe Stance",
+    "id": 2583,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_UNIVERSESTANCE",
+      1039
+     ]
+    ]
+   },
+   {
+    "nome": "Chuva Estelar",
+    "en": "Falling Star",
+    "id": 2584,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_FALLINGSTAR",
+      1048
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Gravity Control",
+    "id": 2585,
+    "cd": 20.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Book of Dimension",
+    "id": 2586,
+    "cd": 30.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_DIMENSION",
+      1044
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Book of Creating Star",
+    "id": 2587,
+    "cd": 15.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Document of Sun Moon and Star",
+    "id": 2588,
+    "cd": 60.0,
+    "acd": null
+   },
+   {
+    "nome": "Luz Solar",
+    "en": "Light of Sun",
+    "id": 2590,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_LIGHTOFSUN",
+      1036
+     ]
+    ]
+   },
+   {
+    "nome": "Postura Solar",
+    "en": "Sun Stance",
+    "id": 2591,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SUNSTANCE",
+      1040
+     ]
+    ]
+   },
+   {
+    "nome": "Explosão Solar",
+    "en": "Solar Burst",
+    "id": 2592,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": "Chute Solar",
+    "en": "Prominence Kick",
+    "id": 2593,
+    "cd": null,
+    "acd": 1.0
+   }
+  ],
+  "Asceta das Almas": [
+   {
+    "nome": null,
+    "en": "Soul Gathering",
+    "id": 5421,
+    "cd": 1.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Talisman Of Protection",
+    "id": 5418,
+    "cd": null,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_TALISMAN_OF_PROTECTION",
+      1356
+     ]
+    ]
+   },
+   {
+    "nome": "Talismã do Guerreiro",
+    "en": "Talisman Of Warrior",
+    "id": 5419,
+    "cd": null,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_TALISMAN_OF_WARRIOR",
+      1357
+     ]
+    ]
+   },
+   {
+    "nome": "Talismã do Mago",
+    "en": "Talisman Of Magician",
+    "id": 5420,
+    "cd": null,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_TALISMAN_OF_MAGICIAN",
+      1358
+     ]
+    ]
+   },
+   {
+    "nome": "Exorcizar Assombração",
+    "en": "Exorcism Of Malicious Soul",
+    "id": 5425,
+    "cd": 1.0,
+    "acd": null
+   },
+   {
+    "nome": "Talismã do Ceifeiro",
+    "en": "Talisman Of Soul Stealing",
+    "id": 5424,
+    "cd": 1.0,
+    "acd": null
+   },
+   {
+    "nome": "Totem de Tutela",
+    "en": "Totem Of Tutelary",
+    "id": 5422,
+    "cd": 15.0,
+    "acd": null
+   },
+   {
+    "nome": "Talismã dos Elementos",
+    "en": "Talisman Of Five Elements",
+    "id": 5423,
+    "cd": null,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_TALISMAN_OF_FIVE_ELEMENTS",
+      1359
+     ]
+    ]
+   },
+   {
+    "nome": "Talismã do Dragão",
+    "en": "Talisman Of Blue Dragon",
+    "id": 5426,
+    "cd": 0.3,
+    "acd": null
+   },
+   {
+    "nome": "Talismã do Tigre",
+    "en": "Talisman Of White Tiger",
+    "id": 5427,
+    "cd": 0.4,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_T_SECOND_GOD",
+      1361
+     ]
+    ]
+   },
+   {
+    "nome": "Talismã da Fênix",
+    "en": "Talisman Of Red Phoenix",
+    "id": 5428,
+    "cd": 0.45,
+    "acd": null
+   },
+   {
+    "nome": "Talismã do Jabuti",
+    "en": "Talisman Of Black Tortoise",
+    "id": 5429,
+    "cd": 0.7,
+    "acd": null
+   },
+   {
+    "nome": "Talismã das Divindades",
+    "en": "Talisman Of Four Bearing God",
+    "id": 5430,
+    "cd": 1.0,
+    "acd": null
+   },
+   {
+    "nome": "Mandala das Feras",
+    "en": "Circle Of Directions And Elementals",
+    "id": 5431,
+    "cd": 5.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Soul Of Heaven And Earth",
+    "id": 5432,
+    "cd": 60.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_HEAVEN_AND_EARTH",
+      1365
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Running",
+    "id": 411,
+    "cd": null,
+    "acd": 0.3,
+    "efst": [
+     [
+      "EFST_RUN",
+      133
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Tornado Stance",
+    "id": 412,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_STORMKICK_ON",
+      135
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Tornado Kick",
+    "id": 413,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Heel Drop Stance",
+    "id": 414,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_DOWNKICK_ON",
+      137
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Heel Drop",
+    "id": 415,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Roundhouse Stance",
+    "id": 416,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_TURNKICK_ON",
+      139
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Roundhouse Kick",
+    "id": 417,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Counter Kick Stance",
+    "id": 418,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_COUNTER_ON",
+      141
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Counter Kick",
+    "id": 419,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Tumbling",
+    "id": 420,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_DODGE_ON",
+      143
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Flying Kick",
+    "id": 421,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Brisa Leve",
+    "en": "Mild Wind",
+    "id": 425,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_PROPERTYFIRE",
+      90
+     ],
+     [
+      "EFST_PROPERTYWATER",
+      91
+     ],
+     [
+      "EFST_PROPERTYWIND",
+      92
+     ],
+     [
+      "EFST_PROPERTYGROUND",
+      93
+     ],
+     [
+      "EFST_ASPERSIO",
+      17
+     ],
+     [
+      "EFST_PROPERTYTELEKINESIS",
+      148
+     ],
+     [
+      "EFST_PROPERTYDARK",
+      146
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Taekwon Jump",
+    "id": 426,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Taekwon Mission",
+    "id": 493,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Spirit of the Alchemist",
+    "id": 445,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SOULLINK",
+      149
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Spirit of the Monk",
+    "id": 447,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SOULLINK",
+      149
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Spirit of the Star Gladiator",
+    "id": 448,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SOULLINK",
+      149
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Spirit of the Sage",
+    "id": 449,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SOULLINK",
+      149
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Spirit of the Crusader",
+    "id": 450,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SOULLINK",
+      149
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Spirit of the Supernovice",
+    "id": 451,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SOULLINK",
+      149
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Spirit of the Knight",
+    "id": 452,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SOULLINK",
+      149
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Spirit of the Wizard",
+    "id": 453,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SOULLINK",
+      149
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Spirit of the Priest",
+    "id": 454,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SOULLINK",
+      149
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Spirit of the Artist",
+    "id": 455,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SOULLINK",
+      149
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Spirit of the Rogue",
+    "id": 456,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SOULLINK",
+      149
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Spirit of the Assasin",
+    "id": 457,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SOULLINK",
+      149
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Spirit of the Blacksmith",
+    "id": 458,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SOULLINK",
+      149
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Spirit of the Hunter",
+    "id": 460,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SOULLINK",
+      149
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Spirit of the Soul Linker",
+    "id": 461,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SOULLINK",
+      149
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Kaizel",
+    "id": 462,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_KAIZEL",
+      156
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Kaahi",
+    "id": 463,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_KAAHI",
+      157
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Kaupe",
+    "id": 464,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_KAUPE",
+      158
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Kaite",
+    "id": 465,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_KAITE",
+      153
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Estin",
+    "id": 467,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Estun",
+    "id": 468,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": "Esma",
+    "en": "Esma",
+    "id": 469,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Eswoo",
+    "id": 470,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Eske",
+    "id": 471,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Eska",
+    "id": 472,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Spirit of Rebirth",
+    "id": 494,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SOULLINK",
+      149
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Golem's Soul",
+    "id": 2596,
+    "cd": null,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_SOULGOLEM",
+      1059
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Shadow's Soul",
+    "id": 2597,
+    "cd": null,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_SOULSHADOW",
+      1056
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Falcon's Soul",
+    "id": 2598,
+    "cd": null,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_SOULFALCON",
+      1058
+     ]
+    ]
+   },
+   {
+    "nome": "Espírito da Fada",
+    "en": "Fairy's Soul",
+    "id": 2599,
+    "cd": null,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_SOULFAIRY",
+      1057
+     ]
+    ]
+   },
+   {
+    "nome": "Necroexplosão",
+    "en": "Curse Explosion",
+    "id": 2600,
+    "cd": 1.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Soul Curse",
+    "id": 2601,
+    "cd": 5.0,
+    "acd": 0.5
+   },
+   {
+    "nome": "Espa",
+    "en": "Espa",
+    "id": 2602,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Esha",
+    "id": 2603,
+    "cd": 3.0,
+    "acd": 0.5
+   },
+   {
+    "nome": "Eswhoo",
+    "en": "Eswhoo",
+    "id": 2604,
+    "cd": 2.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Soul Unity",
+    "id": 2605,
+    "cd": 180.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_SOULUNITY",
+      1055
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Soul Division",
+    "id": 2606,
+    "cd": 3.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Soul Reaper",
+    "id": 2607,
+    "cd": 210.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SOULREAPER",
+      1054
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Soul Revolution",
+    "id": 2608,
+    "cd": 3.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Soul Collect",
+    "id": 2609,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_SOULCOLLECT",
+      1053
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Soul Explosion",
+    "id": 2610,
+    "cd": 60.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Kaute",
+    "id": 2612,
+    "cd": 5.0,
+    "acd": 1.0
+   }
+  ],
+  "Shinkiro": [
+   {
+    "nome": null,
+    "en": "Mirage",
+    "id": 5479,
+    "cd": 3.0,
+    "acd": null
+   },
+   {
+    "nome": "Mahou da Chama Vermelha",
+    "en": "Red Flame Cannon",
+    "id": 5488,
+    "cd": 0.7,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Infiltrate",
+    "id": 5477,
+    "cd": 0.5,
+    "acd": null
+   },
+   {
+    "nome": "Kunai Distorcida",
+    "en": "Kunai - Distortion",
+    "id": 5485,
+    "cd": 0.35,
+    "acd": 0.5
+   },
+   {
+    "nome": "Lâmina das Trevas",
+    "en": "Shadow Hunting",
+    "id": 5480,
+    "cd": 0.3,
+    "acd": 0.15
+   },
+   {
+    "nome": "Mahou da Névoa Fria",
+    "en": "Cold Blooded Cannon",
+    "id": 5489,
+    "cd": 0.5,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Melt Away",
+    "id": 5476,
+    "cd": 2.0,
+    "acd": null
+   },
+   {
+    "nome": "Kunai Rotatória",
+    "en": "Kunai - Rotation",
+    "id": 5486,
+    "cd": 2.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_SHADOW_CLOCK",
+      1393
+     ]
+    ]
+   },
+   {
+    "nome": "Huuma Aderente",
+    "en": "Huuma Shuriken - Grasp",
+    "id": 5483,
+    "cd": 1.0,
+    "acd": null
+   },
+   {
+    "nome": "Dança das Trevas",
+    "en": "Shadow Dance",
+    "id": 5481,
+    "cd": 0.4,
+    "acd": 0.25
+   },
+   {
+    "nome": "Mahou da Trovoada",
+    "en": "Thundering Cannon",
+    "id": 5490,
+    "cd": 0.7,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Nightmare Erasion",
+    "id": 5478,
+    "cd": 15.0,
+    "acd": 0.25
+   },
+   {
+    "nome": "Kunai Refratada",
+    "en": "Kunai - Refraction",
+    "id": 5487,
+    "cd": 2.0,
+    "acd": 0.5
+   },
+   {
+    "nome": "Huuma Andarilho",
+    "en": "Huuma Shuriken - Construct",
+    "id": 5484,
+    "cd": 0.7,
+    "acd": null
+   },
+   {
+    "nome": "Centelha das Trevas",
+    "en": "Shadow Flash",
+    "id": 5482,
+    "cd": 0.5,
+    "acd": 0.25
+   },
+   {
+    "nome": "Mahou do Dragão Áureo",
+    "en": "Golden Dragon Cannon",
+    "id": 5491,
+    "cd": 0.3,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Kunai - Nightmare",
+    "id": 5494,
+    "cd": 1.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Shadow - Nightmare",
+    "id": 5493,
+    "cd": 1.0,
+    "acd": 0.5
+   },
+   {
+    "nome": "Mahou da Escuridão",
+    "en": "Darkening Cannon",
+    "id": 5492,
+    "cd": 0.5,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_NIGHTMARE",
+      1395
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Dark Dragon - Nightmare",
+    "id": 5495,
+    "cd": 1.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Four Colors Charm",
+    "id": 5499,
+    "cd": 3.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Throw Shuriken",
+    "id": 523,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Throw Kunai",
+    "id": 524,
+    "cd": 0.2,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Throw Huuma Shuriken",
+    "id": 525,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Throw Zeny",
+    "id": 526,
+    "cd": null,
+    "acd": 5.0
+   },
+   {
+    "nome": null,
+    "en": "Improvised Defense",
+    "id": 527,
+    "cd": null,
+    "acd": 3.0
+   },
+   {
+    "nome": null,
+    "en": "Vanishing Slash",
+    "id": 528,
+    "cd": 0.5,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Shadow Leap",
+    "id": 529,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Shadow Slash",
+    "id": 530,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Cicada Skin Sheeding",
+    "id": 531,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_NJ_UTSUSEMI",
+      206
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Mirror Image",
+    "id": 532,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_NJ_BUNSINJYUTSU",
+      207
+     ]
+    ]
+   },
+   {
+    "nome": "Pétalas Flamejantes",
+    "en": "Crimson Fire Petal",
+    "id": 534,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Crimson Fire Formation",
+    "id": 535,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": "Dragão Explosivo",
+    "en": "Raging Fire Dragon",
+    "id": 536,
+    "cd": 0.3,
+    "acd": 0.5
+   },
+   {
+    "nome": "Lança Congelante",
+    "en": "Spear of Ice",
+    "id": 537,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Hidden Water",
+    "id": 538,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": "Grande Floco de Neve",
+    "en": "Ice Meteor",
+    "id": 539,
+    "cd": 0.3,
+    "acd": 0.5
+   },
+   {
+    "nome": "Lâmina de Vento",
+    "en": "Wind Blade",
+    "id": 540,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Lightning Strike of Destruction",
+    "id": 541,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Brisa Cortante",
+    "en": "Kamaitachi",
+    "id": 542,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Aura Ninja",
+    "en": "Soul",
+    "id": 543,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_NJ_NEN",
+      208
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Final Strike",
+    "id": 544,
+    "cd": null,
+    "acd": 3.0
+   },
+   {
+    "nome": null,
+    "en": "Shadow Hiding",
+    "id": 3001,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_HIDING",
+      4
+     ]
+    ]
+   },
+   {
+    "nome": "Impacto Cruzado",
+    "en": "Cross Slash",
+    "id": 3004,
+    "cd": 3.1,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Soul Cutter",
+    "id": 3005,
+    "cd": 3.0,
+    "acd": null
+   },
+   {
+    "nome": "Kunai Explosiva",
+    "en": "Kunai Explosion",
+    "id": 3006,
+    "cd": 3.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Turbilhão de Kunais",
+    "en": "Kunai Splash",
+    "id": 3007,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Rapid Throw",
+    "id": 3008,
+    "cd": 10.0,
+    "acd": null
+   },
+   {
+    "nome": "Turbilhão de Pétalas",
+    "en": "Swirling Petal",
+    "id": 3009,
+    "cd": 3.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Makibishi",
+    "id": 3010,
+    "cd": 10.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Pure Soul",
+    "id": 3011,
+    "cd": 10.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_MEIKYOUSISUI",
+      646
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Illusion - Shadow",
+    "id": 3012,
+    "cd": 18.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Illusion - Shock",
+    "id": 3013,
+    "cd": 10.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Illusion - Death",
+    "id": 3014,
+    "cd": 10.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Fire Charm",
+    "id": 3015,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Ice Charm",
+    "id": 3016,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Wind Charm",
+    "id": 3017,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Earth Charm",
+    "id": 3018,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Release Ninja Spell",
+    "id": 3019,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Cast Ninja Spell",
+    "id": 3020,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Illusion - Bewitch",
+    "id": 3021,
+    "cd": 10.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Inspiração",
+    "en": "16th Night",
+    "id": 3022,
+    "cd": 60.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_IZAYOI",
+      652
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Shadow Trampling",
+    "id": 3023,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_KG_KAGEHUMI",
+      654
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Empty Shadow",
+    "id": 3024,
+    "cd": 20.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Contrato das Sombras",
+    "en": "Shadow Warrior",
+    "id": 3025,
+    "cd": 20.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_KAGEMUSYA",
+      656
+     ]
+    ]
+   }
+  ],
+  "Shiranui": [
+   {
+    "nome": null,
+    "en": "Mirage",
+    "id": 5479,
+    "cd": 3.0,
+    "acd": null
+   },
+   {
+    "nome": "Mahou da Chama Vermelha",
+    "en": "Red Flame Cannon",
+    "id": 5488,
+    "cd": 0.7,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Infiltrate",
+    "id": 5477,
+    "cd": 0.5,
+    "acd": null
+   },
+   {
+    "nome": "Kunai Distorcida",
+    "en": "Kunai - Distortion",
+    "id": 5485,
+    "cd": 0.35,
+    "acd": 0.5
+   },
+   {
+    "nome": "Lâmina das Trevas",
+    "en": "Shadow Hunting",
+    "id": 5480,
+    "cd": 0.3,
+    "acd": 0.15
+   },
+   {
+    "nome": "Mahou da Névoa Fria",
+    "en": "Cold Blooded Cannon",
+    "id": 5489,
+    "cd": 0.5,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Melt Away",
+    "id": 5476,
+    "cd": 2.0,
+    "acd": null
+   },
+   {
+    "nome": "Kunai Rotatória",
+    "en": "Kunai - Rotation",
+    "id": 5486,
+    "cd": 2.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_SHADOW_CLOCK",
+      1393
+     ]
+    ]
+   },
+   {
+    "nome": "Huuma Aderente",
+    "en": "Huuma Shuriken - Grasp",
+    "id": 5483,
+    "cd": 1.0,
+    "acd": null
+   },
+   {
+    "nome": "Dança das Trevas",
+    "en": "Shadow Dance",
+    "id": 5481,
+    "cd": 0.4,
+    "acd": 0.25
+   },
+   {
+    "nome": "Mahou da Trovoada",
+    "en": "Thundering Cannon",
+    "id": 5490,
+    "cd": 0.7,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Nightmare Erasion",
+    "id": 5478,
+    "cd": 15.0,
+    "acd": 0.25
+   },
+   {
+    "nome": "Kunai Refratada",
+    "en": "Kunai - Refraction",
+    "id": 5487,
+    "cd": 2.0,
+    "acd": 0.5
+   },
+   {
+    "nome": "Huuma Andarilho",
+    "en": "Huuma Shuriken - Construct",
+    "id": 5484,
+    "cd": 0.7,
+    "acd": null
+   },
+   {
+    "nome": "Centelha das Trevas",
+    "en": "Shadow Flash",
+    "id": 5482,
+    "cd": 0.5,
+    "acd": 0.25
+   },
+   {
+    "nome": "Mahou do Dragão Áureo",
+    "en": "Golden Dragon Cannon",
+    "id": 5491,
+    "cd": 0.3,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Kunai - Nightmare",
+    "id": 5494,
+    "cd": 1.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Shadow - Nightmare",
+    "id": 5493,
+    "cd": 1.0,
+    "acd": 0.5
+   },
+   {
+    "nome": "Mahou da Escuridão",
+    "en": "Darkening Cannon",
+    "id": 5492,
+    "cd": 0.5,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_NIGHTMARE",
+      1395
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Dark Dragon - Nightmare",
+    "id": 5495,
+    "cd": 1.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Four Colors Charm",
+    "id": 5499,
+    "cd": 3.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Throw Shuriken",
+    "id": 523,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Throw Kunai",
+    "id": 524,
+    "cd": 0.2,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Throw Huuma Shuriken",
+    "id": 525,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Throw Zeny",
+    "id": 526,
+    "cd": null,
+    "acd": 5.0
+   },
+   {
+    "nome": null,
+    "en": "Improvised Defense",
+    "id": 527,
+    "cd": null,
+    "acd": 3.0
+   },
+   {
+    "nome": null,
+    "en": "Vanishing Slash",
+    "id": 528,
+    "cd": 0.5,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Shadow Leap",
+    "id": 529,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Shadow Slash",
+    "id": 530,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Cicada Skin Sheeding",
+    "id": 531,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_NJ_UTSUSEMI",
+      206
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Mirror Image",
+    "id": 532,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_NJ_BUNSINJYUTSU",
+      207
+     ]
+    ]
+   },
+   {
+    "nome": "Pétalas Flamejantes",
+    "en": "Crimson Fire Petal",
+    "id": 534,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Crimson Fire Formation",
+    "id": 535,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": "Dragão Explosivo",
+    "en": "Raging Fire Dragon",
+    "id": 536,
+    "cd": 0.3,
+    "acd": 0.5
+   },
+   {
+    "nome": "Lança Congelante",
+    "en": "Spear of Ice",
+    "id": 537,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Hidden Water",
+    "id": 538,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": "Grande Floco de Neve",
+    "en": "Ice Meteor",
+    "id": 539,
+    "cd": 0.3,
+    "acd": 0.5
+   },
+   {
+    "nome": "Lâmina de Vento",
+    "en": "Wind Blade",
+    "id": 540,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Lightning Strike of Destruction",
+    "id": 541,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Brisa Cortante",
+    "en": "Kamaitachi",
+    "id": 542,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Aura Ninja",
+    "en": "Soul",
+    "id": 543,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_NJ_NEN",
+      208
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Final Strike",
+    "id": 544,
+    "cd": null,
+    "acd": 3.0
+   },
+   {
+    "nome": null,
+    "en": "Shadow Hiding",
+    "id": 3001,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_HIDING",
+      4
+     ]
+    ]
+   },
+   {
+    "nome": "Impacto Cruzado",
+    "en": "Cross Slash",
+    "id": 3004,
+    "cd": 3.1,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Soul Cutter",
+    "id": 3005,
+    "cd": 3.0,
+    "acd": null
+   },
+   {
+    "nome": "Kunai Explosiva",
+    "en": "Kunai Explosion",
+    "id": 3006,
+    "cd": 3.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Turbilhão de Kunais",
+    "en": "Kunai Splash",
+    "id": 3007,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Rapid Throw",
+    "id": 3008,
+    "cd": 10.0,
+    "acd": null
+   },
+   {
+    "nome": "Turbilhão de Pétalas",
+    "en": "Swirling Petal",
+    "id": 3009,
+    "cd": 3.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Makibishi",
+    "id": 3010,
+    "cd": 10.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Pure Soul",
+    "id": 3011,
+    "cd": 10.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_MEIKYOUSISUI",
+      646
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Illusion - Shadow",
+    "id": 3012,
+    "cd": 18.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Illusion - Shock",
+    "id": 3013,
+    "cd": 10.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Illusion - Death",
+    "id": 3014,
+    "cd": 10.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Fire Charm",
+    "id": 3015,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Ice Charm",
+    "id": 3016,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Wind Charm",
+    "id": 3017,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Earth Charm",
+    "id": 3018,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Release Ninja Spell",
+    "id": 3019,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Cast Ninja Spell",
+    "id": 3020,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Illusion - Bewitch",
+    "id": 3021,
+    "cd": 10.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Inspiração",
+    "en": "16th Night",
+    "id": 3022,
+    "cd": 60.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_IZAYOI",
+      652
+     ]
+    ]
+   },
+   {
+    "nome": "Distorção Crescente",
+    "en": "Distorted Crescent",
+    "id": 3026,
+    "cd": 30.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_ZANGETSU",
+      657
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Moonlight Fantasy",
+    "id": 3027,
+    "cd": 15.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_GENSOU",
+      659
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Ominous Moonlight",
+    "id": 3029,
+    "cd": 30.0,
+    "acd": 1.0
+   }
+  ],
+  "Guerrilheiro": [
+   {
+    "nome": "Mira Focalizada",
+    "en": "Intensive Aim",
+    "id": 5403,
+    "cd": 0.5,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_INTENSIVE_AIM",
+      1345
+     ]
+    ]
+   },
+   {
+    "nome": "Carta na Manga",
+    "en": "Hidden Card",
+    "id": 5414,
+    "cd": 60.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_HIDDEN_CARD",
+      1354
+     ]
+    ]
+   },
+   {
+    "nome": "Arremessar Explosivo",
+    "en": "Basic Grenade",
+    "id": 5410,
+    "cd": 0.3,
+    "acd": null
+   },
+   {
+    "nome": "Fragmentação",
+    "en": "Grenade Fragment",
+    "id": 5404,
+    "cd": 2.0,
+    "acd": null
+   },
+   {
+    "nome": "Vigília Noturna",
+    "en": "The Vigilante at Night",
+    "id": 5405,
+    "cd": 0.5,
+    "acd": 1.0
+   },
+   {
+    "nome": "Tiro Único",
+    "en": "Only One Bullet",
+    "id": 5406,
+    "cd": 0.35,
+    "acd": 0.5
+   },
+   {
+    "nome": "Atirar em Espiral",
+    "en": "Spiral Shooting",
+    "id": 5407,
+    "cd": 0.5,
+    "acd": 1.0
+   },
+   {
+    "nome": "Artilharia Pesada",
+    "en": "Magazine for One",
+    "id": 5408,
+    "cd": 0.5,
+    "acd": 1.0
+   },
+   {
+    "nome": "Fogo de Supressão",
+    "en": "Wild Fire",
+    "id": 5409,
+    "cd": 0.5,
+    "acd": 1.0
+   },
+   {
+    "nome": "Explosão Gradual",
+    "en": "Hasty Fire in the Hole",
+    "id": 5411,
+    "cd": 1.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Grenades Dropping",
+    "id": 5412,
+    "cd": 4.5,
+    "acd": null
+   },
+   {
+    "nome": "Disparo Automático",
+    "en": "Auto Firing Launcher",
+    "id": 5413,
+    "cd": 30.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_AUTO_FIRING_LAUNCHEREFST",
+      1353
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Mission Bombard",
+    "id": 5415,
+    "cd": 10.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Wild Shot",
+    "id": 5500,
+    "cd": 0.75,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Midnight Fallen",
+    "id": 5501,
+    "cd": 0.7,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Flip the Coin",
+    "id": 500,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Fling",
+    "id": 501,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Triple Action",
+    "id": 502,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Bulls Eye",
+    "id": 503,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Madness Canceller",
+    "id": 504,
+    "cd": null,
+    "acd": 3.0,
+    "efst": [
+     [
+      "EFST_GS_MADNESSCANCEL",
+      203
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Adjustment",
+    "id": 505,
+    "cd": null,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_GS_ADJUSTMENT",
+      209
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Increasing Accuracy",
+    "id": 506,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_GS_ACCURACY",
+      210
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Magical Bullet",
+    "id": 507,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_GS_MAGICAL_BULLET",
+      966
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Cracker",
+    "id": 508,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Tracking",
+    "id": 512,
+    "cd": null,
+    "acd": 1.5
+   },
+   {
+    "nome": null,
+    "en": "Disarm",
+    "id": 513,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Piercing Shot",
+    "id": 514,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Rapid Shower",
+    "id": 515,
+    "cd": null,
+    "acd": 1.5
+   },
+   {
+    "nome": null,
+    "en": "Desperado",
+    "id": 516,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Gatling Fever",
+    "id": 517,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_GS_GATLINGFEVER",
+      204
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Dust",
+    "id": 518,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Full Buster",
+    "id": 519,
+    "cd": null,
+    "acd": 3.0
+   },
+   {
+    "nome": null,
+    "en": "Spread Attack",
+    "id": 520,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Ground Drift",
+    "id": 521,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": "Farta Fortuna",
+    "en": "Rich's Coin",
+    "id": 2552,
+    "cd": 3.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Mass Spiral",
+    "id": 2553,
+    "cd": 2.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Tiro Neutralizante",
+    "en": "Banishing Buster",
+    "id": 2554,
+    "cd": 1.6,
+    "acd": 0.4
+   },
+   {
+    "nome": null,
+    "en": "Bind Trap",
+    "id": 2555,
+    "cd": 10.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Flicker",
+    "id": 2556,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Rajada Estilhaçante",
+    "en": "Shatter Storm",
+    "id": 2557,
+    "cd": 2.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Eternal Chain",
+    "id": 2558,
+    "cd": null,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_E_CHAIN",
+      753
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Quick Draw Shot",
+    "id": 2559,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Marcar em Brasa",
+    "en": "Crimson Marker",
+    "id": 2560,
+    "cd": 1.0,
+    "acd": null
+   },
+   {
+    "nome": "Descarregar Tambor",
+    "en": "Fire Dance",
+    "id": 2561,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Howling Mine",
+    "id": 2562,
+    "cd": 3.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Proteção de Platina",
+    "en": "Platinum Alter",
+    "id": 2563,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_P_ALTER",
+      758
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Fallen Angel",
+    "id": 2564,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Expurgar",
+    "en": "Round Trip",
+    "id": 2565,
+    "cd": 1.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Lançar Míssil",
+    "en": "Dragon Tail",
+    "id": 2566,
+    "cd": 3.5,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Fire Rain",
+    "id": 2567,
+    "cd": 5.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Furor",
+    "en": "Heat Barrel",
+    "id": 2568,
+    "cd": 80.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_HEAT_BARREL",
+      759
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Anti-Material Blast",
+    "id": 2569,
+    "cd": 5.0,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Slug Shot",
+    "id": 2570,
+    "cd": 5.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Execução",
+    "en": "Hammer of God",
+    "id": 2571,
+    "cd": 20.0,
+    "acd": 0.5
+   }
+  ],
+  "Hiperaprendiz": [
+   {
+    "nome": "Golpe de Tyr",
+    "en": "Double Bowling Bash",
+    "id": 5451,
+    "cd": 0.7,
+    "acd": 1.0
+   },
+   {
+    "nome": "Choque Violento",
+    "en": "Shield Chain Rush",
+    "id": 5453,
+    "cd": 0.35,
+    "acd": 0.5
+   },
+   {
+    "nome": "Chuva de Meteoritos",
+    "en": "Meteor Storm Buster",
+    "id": 5455,
+    "cd": 3.0,
+    "acd": 0.3
+   },
+   {
+    "nome": "Tempestade de Júpiter",
+    "en": "Jupitel Thunderstorm",
+    "id": 5456,
+    "cd": 1.8,
+    "acd": 0.5
+   },
+   {
+    "nome": "Esquife Congelante",
+    "en": "Jack Frost Nova",
+    "id": 5457,
+    "cd": 3.0,
+    "acd": 0.3
+   },
+   {
+    "nome": "Ira da Terra",
+    "en": "Hell's Drive",
+    "id": 5458,
+    "cd": 0.7,
+    "acd": 1.0
+   },
+   {
+    "nome": "Lâminas Devastadoras",
+    "en": "Mega Sonic Blow",
+    "id": 5452,
+    "cd": 0.35,
+    "acd": 0.5
+   },
+   {
+    "nome": "Cortar em Espiral",
+    "en": "Spiral Pierce Max",
+    "id": 5454,
+    "cd": 0.35,
+    "acd": 0.5
+   },
+   {
+    "nome": "Zona Gravitacional",
+    "en": "Ground Gravitation",
+    "id": 5459,
+    "cd": 5.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_GROUNDGRAVITY",
+      1382
+     ]
+    ]
+   },
+   {
+    "nome": "Espectro Napalm",
+    "en": "Napalm Vulcan Strike",
+    "id": 5460,
+    "cd": 0.3,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Breaking Limit",
+    "id": 5461,
+    "cd": 60.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_BREAKINGLIMIT",
+      1383
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Rule Break",
+    "id": 5462,
+    "cd": 60.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_RULEBREAK",
+      1384
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Overcoming Crisis",
+    "id": 5505,
+    "cd": 60.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_OVERCOMING_CRISIS",
+      1671
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Bash",
+    "id": 5,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Provoke",
+    "id": 6,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Impacto Explosivo",
+    "en": "Magnum Break",
+    "id": 7,
+    "cd": 2.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Endure",
+    "id": 8,
+    "cd": 10.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ENDURE",
+      1
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Sight",
+    "id": 10,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Napalm Beat",
+    "id": 11,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Safety Wall",
+    "id": 12,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Soul Strike",
+    "id": 13,
+    "cd": null,
+    "acd": 1.4
+   },
+   {
+    "nome": "Lanças de Gelo",
+    "en": "Cold Bolt",
+    "id": 14,
+    "cd": null,
+    "acd": 1.4
+   },
+   {
+    "nome": null,
+    "en": "Frost Diver",
+    "id": 15,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Stone Curse",
+    "id": 16,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Fire Ball",
+    "id": 17,
+    "cd": null,
+    "acd": 0.7
+   },
+   {
+    "nome": null,
+    "en": "Fire Wall",
+    "id": 18,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Lanças de Fogo",
+    "en": "Fire Bolt",
+    "id": 19,
+    "cd": null,
+    "acd": 1.4
+   },
+   {
+    "nome": "Relâmpago",
+    "en": "Lightning Bolt",
+    "id": 20,
+    "cd": null,
+    "acd": 1.4
+   },
+   {
+    "nome": null,
+    "en": "Thunderstorm",
+    "id": 21,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": null,
+    "en": "Ruwach",
+    "id": 24,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Pneuma",
+    "id": 25,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Teleport",
+    "id": 26,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Warp Portal",
+    "id": 27,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Heal",
+    "id": 28,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Increase AGI",
+    "id": 29,
+    "cd": null,
+    "acd": 0.4,
+    "efst": [
+     [
+      "EFST_INC_AGI",
+      12
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Decrease AGI",
+    "id": 30,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Aqua Benedicta",
+    "id": 31,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Signum Crucis",
+    "id": 32,
+    "cd": null,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_CRUCIS",
+      11
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Angelus",
+    "id": 33,
+    "cd": 30.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_ANGELUS",
+      9
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Blessing",
+    "id": 34,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_BLESSING",
+      10
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Cure",
+    "id": 35,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Item Appraisal",
+    "id": 40,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Vending",
+    "id": 41,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Mammonite",
+    "id": 42,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Concentrar",
+    "en": "Improve Concentration",
+    "id": 45,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_CONCENTRATION",
+      3
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Steal",
+    "id": 50,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Hiding",
+    "id": 51,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_HIDING",
+      4
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Envenom",
+    "id": 52,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Detoxify",
+    "id": 53,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Decorate Cart",
+    "id": 2544,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Impositio Manus",
+    "id": 66,
+    "cd": 30.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_IMPOSITIO",
+      15
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Aspersio",
+    "id": 68,
+    "cd": null,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_ASPERSIO",
+      17
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Sanctuary",
+    "id": 70,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Status Recovery",
+    "id": 72,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": "Magnificat",
+    "en": "Magnificat",
+    "id": 74,
+    "cd": null,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_MAGNIFICAT",
+      20
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Gloria",
+    "id": 75,
+    "cd": null,
+    "acd": 2.0,
+    "efst": [
+     [
+      "EFST_GLORIA",
+      21
+     ]
+    ]
+   },
+   {
+    "nome": "Coluna de Fogo",
+    "en": "Fire Pillar",
+    "id": 80,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": "Supernova",
+    "en": "Sightrasher",
+    "id": 81,
+    "cd": null,
+    "acd": 2.0
+   },
+   {
+    "nome": "Chuva de Meteoros",
+    "en": "Meteor Storm",
+    "id": 83,
+    "cd": 7.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Trovão de Júpiter",
+    "en": "Jupitel Thunder",
+    "id": 84,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Ira de Thor",
+    "en": "Lord of Vermilion",
+    "id": 85,
+    "cd": 5.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Esfera d'Água",
+    "en": "Water Ball",
+    "id": 86,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Ice Wall",
+    "id": 87,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Congelar",
+    "en": "Frost Nova",
+    "id": 88,
+    "cd": null,
+    "acd": 0.2
+   },
+   {
+    "nome": "Nevasca",
+    "en": "Storm Gust",
+    "id": 89,
+    "cd": 6.0,
+    "acd": 1.0
+   },
+   {
+    "nome": "Coluna de Pedra",
+    "en": "Earth Spike",
+    "id": 90,
+    "cd": null,
+    "acd": 1.4
+   },
+   {
+    "nome": "Fúria da Terra",
+    "en": "Heaven's Drive",
+    "id": 91,
+    "cd": 1.0,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Quagmire",
+    "id": 92,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Sense",
+    "id": 93,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Weapon Repair",
+    "id": 108,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Skid Trap",
+    "id": 115,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Land Mine",
+    "id": 116,
+    "cd": null,
+    "acd": 1.0
+   },
+   {
+    "nome": null,
+    "en": "Enchant Poison",
+    "id": 138,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_ENCHANTPOISON",
+      6
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Poison React",
+    "id": 139,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_POISONREACT",
+      7
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Venom Dust",
+    "id": 140,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Venom Splasher",
+    "id": 141,
+    "cd": 2.0,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Mug",
+    "id": 211,
+    "cd": null,
+    "acd": 0.5
+   },
+   {
+    "nome": "Apunhalar",
+    "en": "Back Stab",
+    "id": 212,
+    "cd": 0.5,
+    "acd": 0.5
+   },
+   {
+    "nome": "Ataque Surpresa",
+    "en": "Sightless Mind",
+    "id": 214,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_RAID",
+      395
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Guard",
+    "id": 249,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_AUTOGUARD",
+      58
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Smite",
+    "id": 250,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Shield Boomerang",
+    "id": 251,
+    "cd": null,
+    "acd": 0.7
+   },
+   {
+    "nome": null,
+    "en": "Holy Cross",
+    "id": 253,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Invocar Esfera Espiritual",
+    "en": "Summon Spirit Sphere",
+    "id": 261,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Absorb Spirit Sphere",
+    "id": 262,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Fúria Interior",
+    "en": "Fury",
+    "id": 270,
+    "cd": null,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_EXPLOSIONSPIRITS",
+      86
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Stave Crasher",
+    "id": 365,
+    "cd": null,
+    "acd": 0.3
+   },
+   {
+    "nome": null,
+    "en": "Zen",
+    "id": 401,
+    "cd": null,
+    "acd": null
+   }
+  ],
+  "Animista": [
+   {
+    "nome": "Unhas de Tigre",
+    "en": "Chulho Sonic Claw",
+    "id": 5435,
+    "cd": 0.25,
+    "acd": 0.5
+   },
+   {
+    "nome": null,
+    "en": "Kisul Water Spraying",
+    "id": 5439,
+    "cd": 0.3,
+    "acd": 1.0
+   },
+   {
+    "nome": "Colors of Hynrok",
+    "en": "Colors of Hyunrok",
+    "id": 5444,
+    "cd": null,
+    "acd": null
+   },
+   {
+    "nome": "Rugido do Tigre",
+    "en": "Howling of Chulho",
+    "id": 5436,
+    "cd": 1.0,
+    "acd": null,
+    "efst": [
+     [
+      "EFST_HOGOGONG",
+      1366
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Marine Festival of Kisul",
+    "id": 5440,
+    "cd": 2.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_MARINE_FESTIVAL",
+      1367
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Sandy Festival of Kisul",
+    "id": 5441,
+    "cd": 2.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_SANDY_FESTIVAL",
+      1368
+     ]
+    ]
+   },
+   {
+    "nome": "Brisa Silvestre",
+    "en": "Hyunrok Breeze",
+    "id": 5445,
+    "cd": 4.5,
+    "acd": 0.5
+   },
+   {
+    "nome": "Patada Felina",
+    "en": "Hogogong Strike",
+    "id": 5437,
+    "cd": 0.35,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Kisul Rampage",
+    "id": 5442,
+    "cd": 60.0,
+    "acd": 1.0,
+    "efst": [
+     [
+      "EFST_KI_SUL_RAMPAGE",
+      1369
+     ]
+    ]
+   },
+   {
+    "nome": "Lança Galhada",
+    "en": "Hyunrok Cannon",
+    "id": 5446,
+    "cd": 0.3,
+    "acd": null
+   },
+   {
+    "nome": null,
+    "en": "Temporary Communion",
+    "id": 5447,
+    "cd": 60.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_TEMPORARY_COMMUNION",
+      1377
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Blessing of Mystical Creatures",
+    "id": 5448,
+    "cd": 60.0,
+    "acd": 0.5,
+    "efst": [
+     [
+      "EFST_BLESSING_OF_M_CREATURES",
+      1378
+     ]
+    ]
+   },
+   {
+    "nome": null,
+    "en": "Chulho Battering",
+    "id": 5506,
+    "cd": 0.7,
+    "acd": 0.7
+   },
+   {
+    "nome": null,
+    "en": "Hyunrok Spirit Power",
+    "id": 5507,
+    "cd": 1.0,
+    "acd": 0.7
+   }
+  ]
+ }
+}

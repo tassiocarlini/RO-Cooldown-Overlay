@@ -1,0 +1,5 @@
+* text=auto
+# Arquivos .bat precisam de CRLF (com LF o cmd se perde nos rótulos e no goto)
+*.bat text eol=crlf
+*.exe binary
+*.ico binary
