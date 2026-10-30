@@ -70,7 +70,7 @@ BUFF_TOLERANCIA = 1.5       # s sem ver o ícone antes de dizer que o buff acabo
 MOSTRAR_BUFF = {"Sempre": "sempre", "Só quando faltar": "faltando", "Só quando ativo": "ativo"}
 
 
-VERSAO = "1.0.22"
+VERSAO = "1.0.23"
 NOME_APP = "RO Cooldown Overlay"
 # Repositório no GitHub de onde vêm as atualizações (CHANGELOG.md e .zip da branch abaixo)
 REPO_GITHUB = "tassiocarlini/RO-Cooldown-Overlay"
@@ -2804,7 +2804,15 @@ class Overlay:
             ret_arred(c, 1, 1, self.w - 2, self.h - 2, 10, fill="", outline="#f1c40f", width=2)
 
         if m["ap_h"]:
-            self._desenhar_ap(c, m, agora, edicao)
+            x1 = self.w - pad
+            if L["orientacao"] != "vertical" and not edicao:
+                # buffs escondidos ("Só quando ...") deixam o fim da faixa vazio: a barra
+                # acompanha só até o último ícone que pode aparecer
+                vis = [i for i, (tipo, it) in enumerate(itens)
+                       if not (tipo == "bf" and self._buff_escondido(it))]
+                ult = vis[-1] if vis else 0
+                x1 = min(x1, max(pad + ult * dx + T, pad + max(T, 64)))
+            self._desenhar_ap(c, m, agora, edicao, x1)
         fonte = ("Segoe UI", max(8, int(T * 0.34)), "bold")
         for i, (tipo, it) in enumerate(itens):
             x0, y0 = pad + i * dx, pad + m["ap_off"] + i * dy
@@ -2822,10 +2830,10 @@ class Overlay:
 
     # ---- barra de AP
 
-    def _desenhar_ap(self, c, m, agora, edicao):
+    def _desenhar_ap(self, c, m, agora, edicao, x1):
         """Barra de AP do tamanho da faixa de ícones, com "atual / máximo" no meio."""
         pad, h = m["pad"], m["ap_h"]
-        x0, y0, x1 = pad, pad, self.w - pad
+        x0, y0 = pad, pad
         leitura = getattr(self, "ap", None)
         recente = leitura is not None and agora - getattr(self, "ap_t", -99) < 3
         if edicao and leitura is None:
@@ -3028,10 +3036,13 @@ class Overlay:
                     c.create_text(cx + ddx, cy + ddy, text="!", font=grande, fill="#000000")
         c.create_text(cx, cy, text="!", font=grande, fill=borda)
 
+    def _buff_escondido(self, bf):
+        modo = bf.get("mostrar", "sempre")
+        return (modo == "faltando" and bf["_ativo"]) or (modo == "ativo" and not bf["_ativo"])
+
     def _desenhar_buff(self, c, bf, x0, y0, T, agora, fonte, m):
         ativo = bf["_ativo"]
-        modo = bf.get("mostrar", "sempre")
-        if (modo == "faltando" and ativo) or (modo == "ativo" and not ativo):
+        if self._buff_escondido(bf):
             return False
         vars_ = bf.get("_img_var") or [bf["_img"]]
         atual = vars_[min(bf.get("_var_atual", 0), len(vars_) - 1)]

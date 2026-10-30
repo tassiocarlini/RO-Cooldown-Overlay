@@ -1,5 +1,8 @@
 # Mudanças
 
+## v1.0.23
+- Barra de AP acompanha os buffs: quando um buff com "Só quando faltar" ou "Só quando ativo" está escondido, a barra encolhe até o último ícone visível.
+
 ## v1.0.22
 - Perfis novos começam com ícones de 50 px, 1 px de espaço entre eles e a barra de AP ligada. Perfis que você já tem continuam como estão.
 
