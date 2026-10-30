@@ -1,5 +1,8 @@
 # Mudanças
 
+## v1.0.24
+- Barra de AP volta a ler valores com o dígito 4 (ex.: 140, 146, 44): o 4 da fonte do jogo encosta no dígito seguinte e o programa não reconhecia o número.
+
 ## v1.0.23
 - Barra de AP acompanha os buffs: quando um buff com "Só quando faltar" ou "Só quando ativo" está escondido, a barra encolhe até o último ícone visível.
 

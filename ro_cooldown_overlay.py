@@ -70,7 +70,7 @@ BUFF_TOLERANCIA = 1.5       # s sem ver o ícone antes de dizer que o buff acabo
 MOSTRAR_BUFF = {"Sempre": "sempre", "Só quando faltar": "faltando", "Só quando ativo": "ativo"}
 
 
-VERSAO = "1.0.23"
+VERSAO = "1.0.24"
 NOME_APP = "RO Cooldown Overlay"
 # Repositório no GitHub de onde vêm as atualizações (CHANGELOG.md e .zip da branch abaixo)
 REPO_GITHUB = "tassiocarlini/RO-Cooldown-Overlay"
@@ -682,14 +682,15 @@ FONTE_DIGITOS = {
     "9": ['.###.', '#...#', '#...#', '#...#', '.####', '....#', '#...#', '.###.']
 }
 # Mesma coisa para a fonte menor usada DENTRO das barras de HP/SP/AP (7 pixels de altura).
-# Os desenhos de 4 e 8 não apareciam nos prints e foram deduzidos dos outros dígitos.
+# O desenho do 8 não aparecia nos prints e foi deduzido dos outros dígitos. O traço do 4
+# passa da haste e encosta no dígito seguinte (ver _separar_colados).
 FONTE_DIGITOS_BARRA = {
     "/": ['..#', '..#', '.#.', '.#.', '.#.', '#..', '#..'],
     "0": ['.###.', '#...#', '#...#', '#...#', '#...#', '#...#', '.###.'],
     "1": ['..#', '.##', '#.#', '..#', '..#', '..#', '..#'],
     "2": ['.###.', '#...#', '....#', '...#.', '..#..', '.#...', '#####'],
     "3": ['.###.', '#...#', '....#', '..##.', '....#', '#...#', '.###.'],
-    "4": ['...#.', '..##.', '.#.#.', '#..#.', '#####', '...#.', '...#.'],
+    "4": ['...##.', '..#.#.', '.#..#.', '#...#.', '######', '....#.', '....#.'],
     "5": ['.####', '.#...', '####.', '#...#', '....#', '#...#', '.###.'],
     "6": ['.###.', '#...#', '####.', '#...#', '#...#', '#...#', '.###.'],
     "7": ['#####', '...#.', '...#.', '..#..', '..#..', '.#...', '.#...'],
@@ -725,8 +726,9 @@ def _glifos(mascara):
     return res
 
 
-def _sem_linhas(mascara, comprimento=10):
-    """Apaga traços horizontais longos (bordas de barras e janelas), que não são texto."""
+def _sem_linhas(mascara, comprimento=20):
+    """Apaga traços horizontais longos (bordas de barras e janelas), que não são texto.
+    O traço de "444" colado já dá 18 pixels, por isso o limite não é menor."""
     m = mascara.copy()
     for y in range(m.shape[0]):
         linha = m[y]
@@ -762,9 +764,15 @@ def _faixas(mascara):
 
 def _classificar(g):
     """Qual dígito (ou "/") é este desenho? None se não parecer nenhum."""
+    qual, dif = _parecido(g)
+    return qual if dif <= 0.18 else None
+
+
+def _parecido(g):
+    """O modelo mais parecido com este desenho e quanto difere: (caractere, 0..1)."""
     h, w = g.shape
     if h < 5 or h > 40 or w > 12:
-        return None
+        return None, 1.0
     melhor, qual = 1.0, None
     for ch, t in _modelos_digitos():
         th, tw = t.shape
@@ -778,7 +786,57 @@ def _classificar(g):
             dif = float((r != t).mean()) + 0.04        # tamanho diferente: confia um pouco menos
         if dif < melhor:
             melhor, qual = dif, ch
-    return qual if melhor <= 0.18 else None
+    return qual, melhor
+
+
+def _aparar(g):
+    """Tira colunas e linhas vazias das bordas: (deslocamento x, desenho) ou None se vazio."""
+    cols, linhas = np.nonzero(g.any(axis=0))[0], np.nonzero(g.any(axis=1))[0]
+    if not len(cols):
+        return None
+    return int(cols[0]), g[linhas[0]:linhas[-1] + 1, cols[0]:cols[-1] + 1]
+
+
+def _partir(g, nivel=2):
+    """Corta um desenho com dígitos colados no ponto em que todas as partes parecem dígitos.
+    Devolve [(deslocamento x, desenho)] ou None."""
+    melhor, res = 0.18 * nivel, None
+    for c in range(3, g.shape[1] - 2):
+        esq, dir_ = _aparar(g[:, :c]), _aparar(g[:, c:])
+        if esq is None or dir_ is None:
+            continue
+        q, d = _parecido(esq[1])
+        if q is None or q == "/" or d > 0.18:
+            continue
+        partes, soma = [(esq[0], esq[1])], d
+        q, d = _parecido(dir_[1])
+        if q is not None and q != "/" and d <= 0.18:
+            partes.append((c + dir_[0], dir_[1]))
+            soma += d
+        elif nivel > 1 and dir_[1].shape[1] >= 7:
+            resto = _partir(dir_[1], nivel - 1)
+            if not resto:
+                continue
+            partes += [(c + dir_[0] + dx, p) for dx, p in resto]
+            soma += sum(_parecido(p)[1] for _, p in resto)
+        else:
+            continue
+        if soma < melhor:
+            melhor, res = soma, partes
+    return res
+
+
+def _separar_colados(gl):
+    """Dígitos colados viram um desenho só (ex.: o traço do "4" encosta no "0" de "140");
+    separa os que não parecem nada em partes que pareçam dígitos."""
+    res = []
+    for x, w, g in gl:
+        partes = _partir(g) if w >= 7 and _classificar(g) is None else None
+        if partes:
+            res.extend((x + dx, p.shape[1], p) for dx, p in partes)
+        else:
+            res.append((x, w, g))
+    return res
 
 
 # Rótulo "AP" da janela Informações básicas (mesma fonte, texto preto): usado para achar a
@@ -843,7 +901,7 @@ def ler_fracao(arr):
 def _ler_linha(mascara):
     """Procura "número / número" numa linha de texto."""
     if True:
-        gl = _glifos(mascara)
+        gl = _separar_colados(_glifos(mascara))
         if not gl:
             return None
         tipos = [_classificar(g) for _, _, g in gl]
