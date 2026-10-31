@@ -2,7 +2,8 @@
 
 Uso:  python empacotar.py            (precisa de: pip install -r requirements.txt pyinstaller)
 Sai:  dist/RO Cooldown Overlay/                         pasta com o programa
-      dist/RO-Cooldown-Overlay-vX.Y.Z-Windows.zip       o que vai para a Release
+      dist/RO-Cooldown-Overlay-Windows.zip              o que vai para a Release (nome fixo:
+                                                        o link de download do README não muda)
       dist/notas.md                                     novidades desta versão (do CHANGELOG)
 
 O mesmo script roda no GitHub (.github/workflows/release.yml) e no seu PC (build_exe.bat).
@@ -102,7 +103,7 @@ def main():
     verificar(pasta / f"{NOME}.exe")
     for nome in ("LEIA-ME.txt", "LICENSE", "CHANGELOG.md"):
         shutil.copy2(AQUI / nome, pasta / nome)
-    zip_base = DIST / f"RO-Cooldown-Overlay-v{v}-Windows"
+    zip_base = DIST / "RO-Cooldown-Overlay-Windows"
     shutil.make_archive(str(zip_base), "zip", DIST, NOME)      # o .zip tem a pasta do programa
     (DIST / "notas.md").write_text(texto_notas + "\n", encoding="utf-8")
     print(f"\nPronto: {pasta}\n       {zip_base}.zip")

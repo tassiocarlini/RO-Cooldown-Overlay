@@ -14,17 +14,25 @@ Mostra a **recarga (cooldown) das suas skills no meio da tela** do Ragnarok Onli
 
 > **Como ele funciona:** o programa só *olha a tela*, como um print ou o OBS fariam. Ele **não lê a memória do jogo, não mexe nos arquivos do jogo e não aperta teclas por você**. Mesmo assim, é um programa de terceiros: use por sua conta e risco. Não tem ligação com a Gravity.
 
+<p align="center">
+  <a href="https://github.com/tassiocarlini/RO-Cooldown-Overlay/releases/latest/download/RO-Cooldown-Overlay-Windows.zip"><b>⬇️ Baixar para Windows (.zip)</b></a>
+  &nbsp;·&nbsp;
+  <a href="https://github.com/tassiocarlini/RO-Cooldown-Overlay/releases/latest">Novidades da versão</a>
+</p>
+
 ---
 
 ## ⬇️ Como baixar e instalar
 
-1. Abra a página da [**versão mais nova**](https://github.com/tassiocarlini/RO-Cooldown-Overlay/releases/latest) e baixe o arquivo **`RO-Cooldown-Overlay-vX.Y.Z-Windows.zip`** (em *Assets*).
+1. Clique em [**Baixar para Windows**](https://github.com/tassiocarlini/RO-Cooldown-Overlay/releases/latest/download/RO-Cooldown-Overlay-Windows.zip). O download do `RO-Cooldown-Overlay-Windows.zip` começa na hora e é sempre a versão mais nova.
 2. Clique com o botão direito no `.zip` → **Extrair tudo…** → escolha a **Área de Trabalho** ou **Documentos**.
    *(Não extraia dentro de "Arquivos de Programas".)*
-3. Abra a pasta extraída e dê dois cliques em **`RO Cooldown Overlay.exe`**.
+3. Abra a pasta **`RO Cooldown Overlay`** que foi extraída e dê dois cliques em **`RO Cooldown Overlay.exe`**.
 
 Não precisa instalar Python nem nada mais. Quando sair uma versão nova, o programa avisa e se atualiza sozinho.
 Seus perfis e configurações ficam em `%APPDATA%\RO Cooldown Overlay` (botão **Pasta de dados**), então atualizar ou apagar a pasta do programa não perde nada.
+
+> ⚠️ Não use o botão verde **Code → Download ZIP** para jogar: ele baixa o código-fonte (a versão em Python, mais abaixo), não o programa pronto.
 
 ### Já usava a versão em Python?
 Extraia o `.zip` **dentro da pasta da versão antiga** (onde fica o `ro_cooldown_overlay.py`): na primeira vez, o programa traz seus perfis sozinho.
@@ -101,17 +109,18 @@ Confira em *Detecção* o campo "Título da janela do jogo contém". Ele precisa
 Desmarque "Esconder quando o jogo não estiver em foco", em *Aparência*.
 
 **Onde ficam minhas configurações? Como mando um erro para vocês?**
-Na própria pasta do programa. Clique em **Abrir pasta de dados (logs)**: lá ficam os perfis, o `log.txt` e o `erro.log`. Mande esses dois arquivos de log junto com a descrição do problema numa [Issue](../../issues).
+Em `%APPDATA%\RO Cooldown Overlay` (na versão em Python, na própria pasta do programa). Clique em **Pasta de dados**: lá ficam os perfis, o `log.txt` e o `erro.log`. Mande esses dois arquivos de log junto com a descrição do problema numa [Issue](../../issues).
 
 **O overlay não aparece nos meus prints, no OBS ou no Discord.**
 Isso é de propósito: assim o programa não confunde o próprio overlay com os ícones do jogo. Para mostrar, marque "Aparecer em prints, gravações e lives" em *Aparência* (e deixe o overlay longe da barra de atalhos). Para um print rápido, use o botão **📷 Tirar print**.
 
 **Como atualizo para uma versão nova?**
 O programa avisa sozinho quando sai uma versão nova e atualiza com um clique. Seus perfis e configurações não são apagados.
-Para atualizar à mão, baixe de novo pelo **Code → Download ZIP** e copie os arquivos novos por cima da pasta antiga.
+Para atualizar à mão, baixe de novo pelo [**Baixar para Windows**](https://github.com/tassiocarlini/RO-Cooldown-Overlay/releases/latest/download/RO-Cooldown-Overlay-Windows.zip) e extraia por cima da pasta antiga.
+Quem usa um `.exe` antigo (v1.0.17 a v1.0.20) precisa fazer isso uma vez: essas versões não acham as atualizações novas sozinhas.
 
 **Como desinstalo?**
-Apague a pasta do programa. Suas configurações ficam dentro dela, na pasta `perfis` e no `app.json`.
+Apague a pasta do programa. Para apagar também seus perfis e configurações, apague a pasta `%APPDATA%\RO Cooldown Overlay`.
 
 ---
 
