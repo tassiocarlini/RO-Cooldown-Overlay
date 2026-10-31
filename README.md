@@ -18,19 +18,26 @@ Mostra a **recarga (cooldown) das suas skills no meio da tela** do Ragnarok Onli
 
 ## ⬇️ Como baixar e instalar
 
-1. Nesta página do GitHub, clique no botão verde **Code** e depois em **Download ZIP**.
+1. Abra a página da [**versão mais nova**](https://github.com/tassiocarlini/RO-Cooldown-Overlay/releases/latest) e baixe o arquivo **`RO-Cooldown-Overlay-vX.Y.Z-Windows.zip`** (em *Assets*).
 2. Clique com o botão direito no `.zip` → **Extrair tudo…** → escolha a **Área de Trabalho** ou **Documentos**.
    *(Não extraia dentro de "Arquivos de Programas".)*
 3. Abra a pasta extraída e dê dois cliques em **`RO Cooldown Overlay.exe`**.
 
-Na primeira vez, se o computador não tiver Python, o programa **instala sozinho** o Python e as bibliotecas (leva alguns minutos e mostra o progresso numa janela preta). Nas próximas vezes ele só abre.
-Se algo der errado, ele mostra o que fazer e salva os detalhes em `instalacao.log`, na pasta do programa.
+Não precisa instalar Python nem nada mais. Quando sair uma versão nova, o programa avisa e se atualiza sozinho.
+Seus perfis e configurações ficam em `%APPDATA%\RO Cooldown Overlay` (botão **Pasta de dados**), então atualizar ou apagar a pasta do programa não perde nada.
+
+### Já usava a versão em Python?
+Extraia o `.zip` **dentro da pasta da versão antiga** (onde fica o `ro_cooldown_overlay.py`): na primeira vez, o programa traz seus perfis sozinho.
+Ou, na aba **Avançado**, clique em **Trazer perfis da versão antiga** e escolha a pasta antiga.
 
 ### "O Windows protegeu o computador"
 Isso aparece porque o programa é novo e não tem assinatura paga. Clique em **Mais informações** → **Executar assim mesmo**. Só precisa fazer isso na primeira vez.
 
 ### O antivírus reclamou
-O `RO Cooldown Overlay.exe` é só um atalho que abre o `ro_cooldown_overlay.py` pelo Python, e às vezes é marcado por engano. O código está todo aqui no GitHub para quem quiser conferir. Se preferir, abra pelo **`iniciar.bat`**, que faz a mesma coisa.
+O `.exe` é gerado pelo próprio GitHub, a partir do código desta página (veja a aba *Actions*), com o PyInstaller. Programas feitos assim às vezes são marcados por engano. O código está todo aqui para quem quiser conferir.
+
+### Versão em Python (para quem quer ver ou mexer no código)
+Botão verde **Code** → **Download ZIP**, extraia e abra o **`RO Cooldown Overlay.exe`** da pasta (ou o **`iniciar.bat`**). Na primeira vez, se faltar o Python, ele instala sozinho o Python e as bibliotecas e salva os detalhes em `instalacao.log`. Nessa versão os dados ficam na própria pasta do programa.
 
 ---
 #### 🚨 MUITO IMPORTANTE: Como pegar sua chave da API (grátis, uns 3 minutos)

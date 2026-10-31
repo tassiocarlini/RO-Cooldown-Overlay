@@ -1,54 +1,67 @@
 name: Gerar versão para Windows
 
-# Roda sozinho quando você publica uma Release no GitHub
-# (e também pode ser rodado à mão na aba "Actions").
+# Roda sozinho a cada envio para a main: se a versão do programa (VERSAO) ainda não tem
+# Release, gera o .exe e publica a Release vX.Y.Z com o .zip e as novidades do CHANGELOG.
+# O programa .exe baixa as atualizações dessa Release.
+# Também pode ser rodado à mão na aba "Actions" (sem publicar nada, só gera o .zip).
 on:
-  release:
-    types: [published]
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: release
+  cancel-in-progress: false
+
 jobs:
   windows:
     runs-on: windows-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
 
+      - name: Ver se esta versão já tem Release
+        id: versao
+        shell: pwsh
+        run: |
+          $v = (Select-String -Path ro_cooldown_overlay.py -Pattern '^VERSAO = "([\d.]+)"').Matches[0].Groups[1].Value
+          "tag=v$v" >> $env:GITHUB_OUTPUT
+          gh release view "v$v" *> $null
+          $existe = $LASTEXITCODE -eq 0
+          "gerar=$(-not $existe -or '${{ github.event_name }}' -eq 'workflow_dispatch')" >> $env:GITHUB_OUTPUT
+          "publicar=$(-not $existe -and '${{ github.event_name }}' -eq 'push')" >> $env:GITHUB_OUTPUT
+          Write-Host "Versão v$v - Release já existe: $existe"
+          exit 0
+
       - uses: actions/setup-python@v5
+        if: steps.versao.outputs.gerar == 'True'
         with:
           python-version: "3.12"
 
       - name: Instalar dependências
+        if: steps.versao.outputs.gerar == 'True'
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt pyinstaller==6.11.1
+          pip install -r requirements.txt pyinstaller==6.22.3
 
       - name: Gerar o programa (.exe)
-        run: >
-          pyinstaller --noconfirm --clean --windowed
-          --name "RO Cooldown Overlay"
-          --add-data "banco_skills.json;."
-          --collect-data sv_ttk
-          --icon assets/icone.ico
-          ro_cooldown_overlay.py
-
-      - name: Montar o .zip
-        shell: pwsh
-        run: |
-          Copy-Item LEIA-ME.txt "dist/RO Cooldown Overlay/"
-          $versao = if ($env:GITHUB_EVENT_NAME -eq "release") { $env:GITHUB_REF_NAME } else { "teste" }
-          Compress-Archive -Path "dist/RO Cooldown Overlay" -DestinationPath "RO-Cooldown-Overlay-$versao-Windows.zip"
+        if: steps.versao.outputs.gerar == 'True'
+        run: python empacotar.py
 
       - name: Guardar o .zip nesta execução
+        if: steps.versao.outputs.gerar == 'True'
         uses: actions/upload-artifact@v4
         with:
           name: RO-Cooldown-Overlay-Windows
-          path: "*.zip"
+          path: dist/*.zip
 
-      - name: Anexar o .zip à Release
-        if: github.event_name == 'release'
-        uses: softprops/action-gh-release@v2
-        with:
-          files: "*.zip"
+      - name: Publicar a Release
+        if: steps.versao.outputs.publicar == 'True'
+        shell: pwsh
+        run: |
+          gh release create "${{ steps.versao.outputs.tag }}" (Get-Item dist/*.zip).FullName `
+            --title "${{ steps.versao.outputs.tag }}" --notes-file dist/notas.md --target "$env:GITHUB_SHA"

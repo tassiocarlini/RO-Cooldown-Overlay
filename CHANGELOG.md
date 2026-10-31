@@ -1,5 +1,11 @@
 # Mudanças
 
+## v1.0.26
+- Versão .exe de volta: baixe o .zip na página de versões do GitHub, extraia e abra. Não precisa mais instalar Python.
+- O .exe se atualiza sozinho, igual à versão em Python. Seus dados ficam em %APPDATA%\RO Cooldown Overlay.
+- Quem vem da versão em Python: extraia o .exe dentro da pasta antiga e os perfis vêm sozinhos, ou use "Trazer perfis da versão antiga" na aba Avançado.
+- Corrigido o problema do .exe antigo (v1.0.17 a v1.0.20) que não lia buffs nem o AP.
+
 ## v1.0.25
 - Sons de aviso: um som quando a skill fica pronta e outro quando o buff está acabando (se ele tiver duração) ou some da tela. Escolha o som (Sino, Bip, Suave, Alerta ou Sem som) e o volume na aba Aparência, em "Sons de aviso".
 - Coluna "Som" nas abas Skills e Buffs para deixar mudas as skills e buffs que você não quer ouvir.

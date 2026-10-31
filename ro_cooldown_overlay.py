@@ -53,18 +53,19 @@ import winsound
 import mss
 from PIL import Image, ImageChops, ImageDraw, ImageEnhance, ImageStat, ImageTk
 
+FALTANDO = {}               # biblioteca opcional que não carregou -> erro (vai para o log)
 try:                        # para achar os ícones na tela sozinho
     import numpy as np
-except ImportError:
-    np = None
+except ImportError as e:
+    np, FALTANDO["numpy"] = None, e
 try:
     import cv2
-except ImportError:
-    cv2 = None
+except ImportError as e:
+    cv2, FALTANDO["cv2"] = None, e
 try:                        # tema visual moderno (Windows 11, claro/escuro)
     import sv_ttk
-except ImportError:
-    sv_ttk = None
+except ImportError as e:
+    sv_ttk, FALTANDO["sv_ttk"] = None, e
 
 LIMIAR_PERDIDO = 0.5        # semelhança abaixo disso: o ícone não está mais ali
 LIMIAR_ACHADO = 0.85        # semelhança mínima para aceitar um ícone encontrado
@@ -73,7 +74,7 @@ BUFF_TOLERANCIA = 1.5       # s sem ver o ícone antes de dizer que o buff acabo
 MOSTRAR_BUFF = {"Sempre": "sempre", "Só quando faltar": "faltando", "Só quando ativo": "ativo"}
 
 
-VERSAO = "1.0.25"
+VERSAO = "1.0.26"
 NOME_APP = "RO Cooldown Overlay"
 # Repositório no GitHub de onde vêm as atualizações (CHANGELOG.md e .zip da branch abaixo)
 REPO_GITHUB = "tassiocarlini/RO-Cooldown-Overlay"
@@ -1961,6 +1962,71 @@ def migrar_config_antiga():
     Perfis.salvar(nome, perfil)
 
 
+def tem_dados_antigos(pasta):
+    pasta = Path(pasta)
+    return pasta.resolve() != PASTA.resolve() and (pasta / "perfis").is_dir() and any(
+        (p / "perfil.json").exists() for p in (pasta / "perfis").iterdir())
+
+
+def importar_dados_antigos(pasta, cfg):
+    """Copia perfis e configurações da versão em Python (dados na pasta do programa) para a
+    pasta de dados desta versão. Perfil com o mesmo nome: fica o mais novo, e o outro é
+    guardado como "Nome (antigo)". Opções que faltam em `cfg` (app.json) vêm de lá.
+    Devolve os nomes dos perfis copiados."""
+    pasta = Path(pasta)
+    copiados = []
+    PASTA_PERFIS.mkdir(parents=True, exist_ok=True)
+    for p in sorted((pasta / "perfis").iterdir()):
+        if not (p / "perfil.json").exists():
+            continue
+        destino = PASTA_PERFIS / p.name
+        if (destino / "perfil.json").exists():
+            if (p / "perfil.json").stat().st_mtime <= (destino / "perfil.json").stat().st_mtime:
+                continue                                  # o daqui é mais novo
+            n, guarda = 1, PASTA_PERFIS / f"{p.name} (antigo)"
+            while guarda.exists():
+                n += 1
+                guarda = PASTA_PERFIS / f"{p.name} (antigo {n})"
+            destino.rename(guarda)
+        elif destino.exists():
+            shutil.rmtree(destino)                        # pasta sem perfil.json: sobra
+        shutil.copytree(p, destino)
+        copiados.append(p.name)
+    for k, v in ler_json(pasta / "app.json", {}).items():
+        if not cfg.get(k) and k not in ("ultimo_perfil", "pular_versao"):
+            cfg[k] = v
+    if copiados:
+        cfg["ultimo_perfil"] = copiados[0]
+    meus = ler_json(pasta / "meus_tempos.json", {})
+    if meus:
+        gravar_json(ARQ_MEUS, {**meus, **ler_json(ARQ_MEUS, {})})
+    for nome in ("cache_divinepride", "cache_ragassets"):
+        if (pasta / nome).is_dir():
+            shutil.copytree(pasta / nome, PASTA / nome, dirs_exist_ok=True)
+    registrar(f"Importados da versão antiga ({pasta}): {', '.join(copiados) or 'nenhum perfil'}")
+    return copiados
+
+
+def importar_dados_antigos_sozinho():
+    """Primeira vez do .exe: se ele foi extraído dentro (ou do lado) da versão em Python,
+    traz os perfis de lá sem perguntar (uma vez só)."""
+    if not getattr(sys, "frozen", False):
+        return
+    cfg = ler_json(ARQ_APP, {})
+    if cfg.get("importou_versao_python"):
+        return
+    exe = Path(sys.executable).parent
+    for pasta in (exe, exe.parent):
+        try:
+            if tem_dados_antigos(pasta):
+                importar_dados_antigos(pasta, cfg)
+                cfg["importou_versao_python"] = str(pasta)
+                gravar_json(ARQ_APP, cfg)
+                return
+        except Exception:
+            registrar("Erro ao importar a versão antiga:\n" + traceback.format_exc())
+
+
 # =============================================================== sons de aviso
 
 class Sons:
@@ -3329,6 +3395,7 @@ class Seletor:
 class Painel:
     def __init__(self, root):
         self.root = root
+        importar_dados_antigos_sozinho()
         self.app_cfg = ler_json(ARQ_APP, {"ultimo_perfil": None, "iniciar_auto": False})
         migrar_config_antiga()
         if not Perfis.listar():
@@ -3793,6 +3860,11 @@ class Painel:
         self.var_auto_at = tk.BooleanVar(value=self.app_cfg.get("verificar_atualizacoes", True))
         ttk.Checkbutton(lat, text="Verificar sozinho ao abrir",
                         variable=self.var_auto_at, command=self._on_auto_at).pack(side="left")
+        if getattr(sys, "frozen", False):
+            b_imp = self.bt(lat, "Trazer perfis da versão antiga", "importar", self.importar_versao_antiga)
+            b_imp.pack(side="right")
+            self.dica(b_imp, "Usava a versão em Python (com o ro_cooldown_overlay.py)? Escolha a "
+                             "pasta dela para copiar seus perfis e a chave da Divine Pride.")
         self.lbl_at = ttk.Label(fat, style="Dica.TLabel", text="")
         self.lbl_at.pack(anchor="w", padx=8, pady=(0, 6))
 
@@ -4640,6 +4712,10 @@ class Painel:
             if info is None:
                 self.lbl_at.config(text=f"Você já está na versão mais nova (v{VERSAO}).")
                 return
+            if info["pendente"]:
+                self.lbl_at.config(text=f"A versão {info['tag']} ainda está sendo preparada no "
+                                        "GitHub. Tente de novo em alguns minutos.")
+                return
             self.lbl_at.config(text=f"Versão nova disponível: {info['tag']}")
             if not manual and info["tag"] == self.app_cfg.get("pular_versao"):
                 return
@@ -4722,6 +4798,36 @@ class Painel:
             except queue.Empty:
                 self.win.after(150, esperar)
         esperar()
+
+    def importar_versao_antiga(self):
+        pasta = filedialog.askdirectory(parent=self.win, title="Pasta da versão antiga "
+                                        "(onde fica o ro_cooldown_overlay.py)")
+        if not pasta:
+            return
+        if not tem_dados_antigos(pasta):
+            messagebox.showwarning("Versão antiga", "Não achei perfis nessa pasta.\nEscolha a "
+                                   "pasta onde fica o ro_cooldown_overlay.py.", parent=self.win)
+            return
+        try:
+            tinha_chave = self.app_cfg.get("dp_chave")
+            copiados = importar_dados_antigos(pasta, self.app_cfg)
+            self.app_cfg["importou_versao_python"] = pasta
+            gravar_json(ARQ_APP, self.app_cfg)
+            if self.app_cfg.get("dp_chave") and not tinha_chave:
+                self.var_dp.set(self.app_cfg["dp_chave"])
+                self.testar_dp()                          # liga e testa a chave
+        except Exception as e:
+            registrar("Erro ao importar a versão antiga:\n" + traceback.format_exc())
+            messagebox.showerror("Versão antiga", f"Não consegui copiar: {e}", parent=self.win)
+            return
+        self.cb_perfil["values"] = Perfis.listar()
+        if copiados:
+            self.nome = None                              # não salvar por cima do copiado
+            self.trocar_perfil(copiados[0])
+            self.status(f"{len(copiados)} perfil(is) copiado(s): {', '.join(copiados)}. "
+                        "Perfis mais velhos com o mesmo nome ficaram como \"(antigo)\".")
+        else:
+            self.status("Nada novo para copiar: os perfis daqui são iguais ou mais novos.")
 
     def _on_rag(self):
         self.rag.ligado = bool(self.var_rag.get())
@@ -5411,10 +5517,26 @@ def buscar_versao_nova():
     tag = m.group(1)
     if versao_tupla(tag) <= versao_tupla(VERSAO):
         return None
-    return {"tag": tag, "notas": m.group(2).strip(),
-            "pagina": f"https://github.com/{REPO_GITHUB}",
-            "zip_exe": None, "digest": None,
+    info = {"tag": tag, "notas": m.group(2).strip(),
+            "pagina": f"https://github.com/{REPO_GITHUB}/releases/latest",
+            "zip_exe": None, "digest": None, "pendente": False,
             "zip_fonte": f"https://github.com/{REPO_GITHUB}/archive/refs/heads/{BRANCH_GITHUB}.zip"}
+    if getattr(sys, "frozen", False):
+        # o .exe vem da Release que o GitHub gera sozinho a cada versão nova na main;
+        # logo depois do envio ela ainda está sendo montada (alguns minutos)
+        try:
+            rel = _http(f"https://api.github.com/repos/{REPO_GITHUB}/releases/tags/{tag}")
+        except urllib.error.HTTPError as e:
+            if e.code != 404:
+                raise
+            rel = {}
+        zips = [a for a in rel.get("assets", []) if a.get("name", "").endswith("-Windows.zip")]
+        if zips:
+            info["zip_exe"] = zips[0]["browser_download_url"]
+            info["digest"] = zips[0].get("digest") or ""
+        else:
+            info["pendente"] = True
+    return info
 
 
 # Arquivos do programa trocados ao atualizar a versão em Python (os seus dados nunca são tocados)
@@ -5443,7 +5565,7 @@ def preparar_atualizacao(info, progresso=None):
     if not url:
         raise ValueError("a release não tem o arquivo para Windows")
     dados = _http(url, binario=True, timeout=120, progresso=progresso)
-    if congelado and info.get("digest", "").startswith("sha256:"):
+    if congelado and (info.get("digest") or "").startswith("sha256:"):
         if hashlib.sha256(dados).hexdigest() != info["digest"].split(":", 1)[1]:
             raise ValueError("o arquivo baixado não confere (download corrompido)")
     tmp = Path(tempfile.mkdtemp(prefix="ro_cd_atualiza_"))
@@ -5516,6 +5638,11 @@ def ja_aberto():
 
 
 def main():
+    for nome, erro in FALTANDO.items():
+        registrar(f"Biblioteca {nome} não carregou ({erro}): buffs, AP e busca de ícones "
+                  "podem não funcionar.")
+    if "--verificar" in sys.argv:       # usado ao gerar o .exe: falha se faltar biblioteca
+        sys.exit(1 if FALTANDO else 0)
     if ja_aberto():
         r = tk.Tk()
         r.withdraw()
