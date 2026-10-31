@@ -1,5 +1,10 @@
 # Mudanças
 
+## v1.0.29
+- Janela de busca de skill e buff: a lista de classes e a lista de skills ficam em ordem alfabética.
+- Por dentro: o código foi dividido em partes menores (pasta "rocd"), o que deixa as próximas correções mais rápidas. Nada muda no uso.
+- Versão em Python: na primeira vez que abrir depois de atualizar, o programa baixa sozinho a pasta "rocd" (precisa de internet).
+
 ## v1.0.28
 - Sons do MyInstants: na aba Sons, em "Meus sons", clique em "MyInstants" e cole o link de qualquer som do site. O programa baixa e adiciona ele.
 - Sugestão pronta: o botão "Jungle" baixa o som da Gawr Gura com um clique.

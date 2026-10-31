@@ -24,9 +24,9 @@ BUILD = AQUI / "build"
 
 
 def versao():
-    m = re.search(r'^VERSAO = "([\d.]+)"', (AQUI / "ro_cooldown_overlay.py").read_text(encoding="utf-8"), re.M)
+    m = re.search(r'^VERSAO = "([\d.]+)"', (AQUI / "rocd" / "config.py").read_text(encoding="utf-8"), re.M)
     if not m:
-        sys.exit("Não achei VERSAO no ro_cooldown_overlay.py")
+        sys.exit("Não achei VERSAO no rocd/config.py")
     return m.group(1)
 
 

@@ -28,7 +28,7 @@ jobs:
         id: versao
         shell: pwsh
         run: |
-          $v = (Select-String -Path ro_cooldown_overlay.py -Pattern '^VERSAO = "([\d.]+)"').Matches[0].Groups[1].Value
+          $v = (Select-String -Path rocd/config.py -Pattern '^VERSAO = "([\d.]+)"').Matches[0].Groups[1].Value
           "tag=v$v" >> $env:GITHUB_OUTPUT
           gh release view "v$v" *> $null
           $existe = $LASTEXITCODE -eq 0
