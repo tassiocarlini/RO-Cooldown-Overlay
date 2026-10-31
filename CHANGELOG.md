@@ -1,5 +1,9 @@
 # Mudanças
 
+## v1.0.25
+- Sons de aviso: um som quando a skill fica pronta e outro quando o buff está acabando (se ele tiver duração) ou some da tela. Escolha o som (Sino, Bip, Suave, Alerta ou Sem som) e o volume na aba Aparência, em "Sons de aviso".
+- Coluna "Som" nas abas Skills e Buffs para deixar mudas as skills e buffs que você não quer ouvir.
+
 ## v1.0.24
 - Barra de AP volta a ler valores com o dígito 4 (ex.: 140, 146, 44): o 4 da fonte do jogo encosta no dígito seguinte e o programa não reconhecia o número.
 

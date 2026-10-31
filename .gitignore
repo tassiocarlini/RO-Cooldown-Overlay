@@ -20,3 +20,4 @@ build/
 dist/
 *.spec
 diagnostico_ap/
+sons/

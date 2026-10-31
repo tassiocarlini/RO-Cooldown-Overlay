@@ -45,7 +45,10 @@ if sys.platform != "win32":
     sys.exit("Este overlay só funciona no Windows.")
 
 import queue
+import struct
 import threading
+import wave
+import winsound
 
 import mss
 from PIL import Image, ImageChops, ImageDraw, ImageEnhance, ImageStat, ImageTk
@@ -70,7 +73,7 @@ BUFF_TOLERANCIA = 1.5       # s sem ver o ícone antes de dizer que o buff acabo
 MOSTRAR_BUFF = {"Sempre": "sempre", "Só quando faltar": "faltando", "Só quando ativo": "ativo"}
 
 
-VERSAO = "1.0.24"
+VERSAO = "1.0.25"
 NOME_APP = "RO Cooldown Overlay"
 # Repositório no GitHub de onde vêm as atualizações (CHANGELOG.md e .zip da branch abaixo)
 REPO_GITHUB = "tassiocarlini/RO-Cooldown-Overlay"
@@ -111,6 +114,8 @@ COR_TRANSPARENTE = "#010101"
 COR_PAINEL = (20, 23, 31)              # fundo da caixa dos ícones
 ESTILOS = {"Clássico": "classico", "Moderno": "moderno", "Minimalista": "minimalista"}
 BARRA_H = 5
+PASTA_SONS = PASTA / "sons"                       # sons de aviso gerados pelo programa
+SONS = {"Sem som": None, "Sino": "sino", "Bip": "bip", "Suave": "suave", "Alerta": "alerta"}
 
 PERFIL_PADRAO = {
     "titulo_janela_jogo": "Ragnarok",
@@ -134,6 +139,9 @@ PERFIL_PADRAO = {
         "ap_altura": 0,                # altura da barra de AP em pixels (0 = automática)
         "ap_cor": "#3b82f6",           # cor do preenchimento da barra de AP
         "aviso_vermelho_s": 3.0,
+        "som_skill": "sino",           # som quando a skill volta (None = sem som)
+        "som_buff": "alerta",          # som quando o buff está acabando ou acabou
+        "som_volume": 70,              # 0 a 100
         "origem": None,                # posição do jogo quando o overlay foi posicionado
     },
     "deteccao": {
@@ -1953,6 +1961,67 @@ def migrar_config_antiga():
     Perfis.salvar(nome, perfil)
 
 
+# =============================================================== sons de aviso
+
+class Sons:
+    """Sons curtos gerados pelo próprio programa (.wav) e tocados sem travar o overlay."""
+    TAXA = 22050
+    INTERVALO = 0.35          # s: avisos colados viram um só
+
+    def __init__(self):
+        self._ultimo = -99.0
+
+    @staticmethod
+    def _notas(nome):
+        """(frequência, duração, decaimento) de cada nota; frequência 0 = pausa."""
+        return {"sino": [(1320, 0.45, 7.0)],
+                "bip": [(880, 0.07, 0.0), (0, 0.05, 0.0), (880, 0.07, 0.0)],
+                "suave": [(660, 0.12, 3.0), (990, 0.22, 6.0)],
+                "alerta": [(988, 0.12, 0.0), (0, 0.03, 0.0), (659, 0.18, 2.0)]}[nome]
+
+    def _arquivo(self, nome, volume):
+        arq = PASTA_SONS / f"{nome}_{volume}.wav"
+        if arq.exists():
+            return arq
+        PASTA_SONS.mkdir(parents=True, exist_ok=True)
+        amp = 26000 * volume / 100
+        amostras = []
+        for freq, dur, dec in self._notas(nome):
+            n = int(self.TAXA * dur)
+            for i in range(n):
+                t = i / self.TAXA
+                if not freq:
+                    amostras.append(0)
+                    continue
+                v = math.sin(2 * math.pi * freq * t)
+                if nome == "sino":
+                    v = 0.75 * v + 0.25 * math.sin(2 * math.pi * freq * 2.76 * t)
+                elif nome == "alerta":
+                    v = 0.8 * v + 0.2 * math.sin(2 * math.pi * freq * 3 * t)
+                env = math.exp(-dec * t) * min(1.0, i / 120, (n - i) / 120)   # sem estalo
+                amostras.append(int(amp * v * env))
+        with wave.open(str(arq), "wb") as w:
+            w.setnchannels(1)
+            w.setsampwidth(2)
+            w.setframerate(self.TAXA)
+            w.writeframes(struct.pack(f"<{len(amostras)}h", *amostras))
+        return arq
+
+    def tocar(self, nome, volume, forcar=False):
+        agora = time.monotonic()
+        volume = int(round(volume / 10) * 10)          # de 10 em 10: poucos arquivos
+        if not nome or nome not in SONS.values() or volume <= 0:
+            return
+        if not forcar and agora - self._ultimo < self.INTERVALO:
+            return
+        self._ultimo = agora
+        try:
+            winsound.PlaySound(str(self._arquivo(nome, volume)),
+                               winsound.SND_FILENAME | winsound.SND_ASYNC | winsound.SND_NODEFAULT)
+        except Exception:
+            registrar("Erro ao tocar som:\n" + traceback.format_exc(), chave_rep="som")
+
+
 # =============================================================== overlay
 
 class Overlay:
@@ -1998,6 +2067,7 @@ class Overlay:
         self.w = self.h = 10
         self._arrasto = None
         self._avisou_captura = False
+        self.sons = Sons()
 
         self.canvas.bind("<ButtonPress-1>", self._press)
         self.canvas.bind("<B1-Motion>", self._drag)
@@ -2619,7 +2689,26 @@ class Overlay:
             ativo = agora - b["_visto"] < BUFF_TOLERANCIA
             if ativo and not b["_ativo"]:
                 b["_desde"] = b["_visto"]
+                b["_avisou"] = False
+            elif b["_ativo"] and not ativo and pode_ler:
+                # acabou: só avisa se não avisou há pouco que estava acabando
+                if agora - b.get("_avisou_em", -99.0) > 5:
+                    self.avisar("buff", b)
             b["_ativo"] = ativo
+            dur = b.get("duracao")
+            if ativo and dur and not b.get("_avisou"):
+                resta = dur - (agora - b["_desde"])
+                if 0 < resta <= self.L["aviso_vermelho_s"]:
+                    b["_avisou"], b["_avisou_em"] = True, agora
+                    self.avisar("buff", b)
+
+    def avisar(self, tipo, item):
+        """Toca o som de aviso da skill/buff, se ele estiver ligado."""
+        if not self.ativo or not self.jogo_ok or item.get("som") is False:
+            return
+        L = self.L
+        self.sons.tocar(L.get("som_skill" if tipo == "skill" else "som_buff"),
+                        L.get("som_volume", 70))
 
     def set_mover(self, ligado):
         self.mover = ligado
@@ -2733,10 +2822,12 @@ class Overlay:
                 if agora >= sk["_ini_cd"] + manual and not sk["_delay"]:
                     sk["_contando"] = False
                     sk["_fim"] = agora
+                    self.avisar("skill", sk)
             elif not sk["_delay"]:
                 # Sem recarga manual: acaba quando o ícone volta, e aprende o tempo
                 sk["_contando"] = False
                 sk["_fim"] = agora
+                self.avisar("skill", sk)
                 dur = sk.get("_saida", agora) - sk["_ini_cd"]
                 if dur >= 0.2:
                     sk["aprendido"] = round(dur, 2)
@@ -3577,9 +3668,41 @@ class Painel:
         b_cent = self.bt(lb, "Centralizar", "centro", lambda: self.overlay.centralizar())
         b_cent.pack(side="left", padx=6)
         self.dica(b_cent, "Volta o overlay para o meio da janela do jogo.")
-        ttk.Label(fpos, style="Dica.TLabel", wraplength=360, justify="left",
-                  text="No modo mover: arraste a caixa amarela; a roda do mouse muda o tamanho."
-                  ).pack(anchor="w", padx=8, pady=(0, 8))
+        ttk.Frame(fpos, height=6).pack()
+
+        # --- Sons
+        fsom = ttk.LabelFrame(esq, text="Sons de aviso")
+        fsom.pack(fill="x", pady=(8, 0))
+        fsom.columnconfigure(1, weight=1)
+        self.var_som_skill = tk.StringVar()
+        self.var_som_buff = tk.StringVar()
+        self.var_vol = tk.DoubleVar()
+        for linha, (rotulo, var, chave, ajuda) in enumerate((
+                ("Skill pronta", self.var_som_skill, "som_skill",
+                 "Toca quando a recarga de uma skill termina."),
+                ("Buff acabando", self.var_som_buff, "som_buff",
+                 "Toca quando faltam poucos segundos para o buff acabar (se ele tiver "
+                 "duração) ou quando ele some da tela."))):
+            ajuda += "\nCada skill e buff pode ficar mudo na coluna \"Som\" das abas Skills e Buffs."
+            ttk.Label(fsom, text=rotulo, style="Campo.TLabel").grid(
+                row=linha, column=0, sticky="w", padx=(8, 6), pady=(6, 0))
+            cb = ttk.Combobox(fsom, textvariable=var, state="readonly", width=10, values=list(SONS))
+            cb.grid(row=linha, column=1, sticky="w", pady=(6, 0))
+            cb.bind("<<ComboboxSelected>>", lambda _e, c=chave: self._on_som(c, True))
+            self.dica(cb, ajuda)
+            b = self.bt(fsom, "", "play", lambda c=chave: self._on_som(c, True))
+            b.grid(row=linha, column=2, sticky="e", padx=(4, 8), pady=(6, 0))
+            self.dica(b, "Testar: toca o som escolhido.")
+        ttk.Label(fsom, text="Volume", style="Campo.TLabel").grid(
+            row=2, column=0, sticky="w", padx=(8, 6), pady=(6, 8))
+        fv = ttk.Frame(fsom)
+        fv.grid(row=2, column=1, columnspan=2, sticky="ew", padx=(0, 8), pady=(6, 8))
+        sc = ttk.Scale(fv, from_=0, to=100, orient="horizontal", variable=self.var_vol,
+                       command=self._on_volume)
+        sc.pack(side="left", fill="x", expand=True)
+        self.lbl_vol = ttk.Label(fv, width=5, anchor="e")
+        self.lbl_vol.pack(side="left", padx=(4, 0))
+        self.dica(sc, "Volume dos sons de aviso (0% = mudo).")
 
         # --- Quando mostrar
         fq = ttk.LabelFrame(dir_, text="Quando mostrar")
@@ -3774,7 +3897,7 @@ class Painel:
                       ).grid(row=0, column=0, padx=6, pady=10, sticky="w")
             return
         for col, t in enumerate(("Ícones", "Nome", "", "Mostrar", "Duração",
-                                 "Estado", "")):
+                                 "Estado", "Som", "")):
             ttk.Label(self.lista_buffs, text=t, style="Titulo.TLabel").grid(
                 row=0, column=col, padx=4, sticky="w")
         for i, bf in enumerate(buffs):
@@ -3820,11 +3943,22 @@ class Painel:
 
             bf["_lbl_est"] = ttk.Label(self.lista_buffs, text="—", width=10)
             bf["_lbl_est"].grid(row=r, column=5, padx=2)
+            self._caixa_som(self.lista_buffs, bf, "Tocar o som de aviso quando este buff estiver "
+                                                  "acabando ou sumir.").grid(row=r, column=6, padx=2)
             fo = ttk.Frame(self.lista_buffs)
-            fo.grid(row=r, column=6, padx=(2, 0))
+            fo.grid(row=r, column=7, padx=(2, 0))
             self.bt(fo, "", "cima", lambda k=i: self.mover_buff(k, -1)).pack(side="left")
             self.bt(fo, "", "baixo", lambda k=i: self.mover_buff(k, 1)).pack(side="left", padx=2)
             self.bt(fo, "", "lixeira", lambda k=i: self.remover_buff(k)).pack(side="left", padx=(6, 0))
+
+    def _caixa_som(self, pai, item, ajuda):
+        """Caixinha "Som" de uma linha da lista (skill ou buff)."""
+        var = tk.BooleanVar(value=item.get("som", True))
+        c = ttk.Checkbutton(pai, variable=var, command=lambda: (
+            item.__setitem__("som", bool(var.get())), self.salvar_depois()))
+        item["_var_som"] = var                      # mantém a variável viva
+        self.dica(c, ajuda)
+        return c
 
     def icone_buff(self, eid):
         """Ícone de um buff já baixado: ragassets primeiro, depois Divine Pride."""
@@ -4240,7 +4374,7 @@ class Painel:
     def montar_lista(self):
         for wdg in self.lista.winfo_children():
             wdg.destroy()
-        for col, t in enumerate(("", "Nome", "", "Recarga (s)", "Aprendido", "Estado", "")):
+        for col, t in enumerate(("", "Nome", "", "Recarga (s)", "Aprendido", "Estado", "Som", "")):
             ttk.Label(self.lista, text=t, style="Titulo.TLabel").grid(
                 row=0, column=col, padx=4, sticky="w")
         skills = self.perfil["skills"]
@@ -4252,7 +4386,7 @@ class Painel:
                 "      da sua barra de atalhos (com as skills prontas, sem delay).\n"
                 "  3. Clique em \"Buscar\" em cada linha para escolher o nome da skill.\n"
                 "  4. Clique em \"Iniciar overlay\" e jogue!")
-                      ).grid(row=1, column=0, columnspan=7, pady=12, padx=6, sticky="w")
+                      ).grid(row=1, column=0, columnspan=8, pady=12, padx=6, sticky="w")
             return
         for i, sk in enumerate(skills):
             r = i + 1
@@ -4276,9 +4410,11 @@ class Painel:
             sk["_lbl_apr"].grid(row=r, column=4, padx=4)
             sk["_lbl_est"] = ttk.Label(self.lista, text="—", width=14)
             sk["_lbl_est"].grid(row=r, column=5, padx=4)
+            self._caixa_som(self.lista, sk, "Tocar o som de aviso quando esta skill ficar pronta."
+                            ).grid(row=r, column=6, padx=4)
 
             fb = ttk.Frame(self.lista)
-            fb.grid(row=r, column=6, padx=4)
+            fb.grid(row=r, column=7, padx=4)
             self.bt(fb, "", "cima", lambda k=i: self.mover_skill(k, -1)).pack(side="left")
             self.bt(fb, "", "baixo", lambda k=i: self.mover_skill(k, 1)).pack(side="left", padx=2)
             self.bt(fb, "", "lixeira", lambda k=i: self.remover_skill(k)).pack(side="left", padx=(6, 0))
@@ -4968,6 +5104,11 @@ class Painel:
         self.var_ap_alt.set(alt or max(14, int(L["tamanho"] * 0.3)))
         self.lbl_ap_alt.config(text=f"{alt} px" if alt else "auto")
         self.amostra_ap.config(bg=L.get("ap_cor") or "#3b82f6")
+        inv = {v: k for k, v in SONS.items()}
+        self.var_som_skill.set(inv.get(L.get("som_skill"), "Sem som"))
+        self.var_som_buff.set(inv.get(L.get("som_buff"), "Sem som"))
+        self.var_vol.set(L.get("som_volume", 70))
+        self.lbl_vol.config(text=f"{int(L.get('som_volume', 70))}%")
         self.bt_ap_manual.config(text="Voltar ao automático" if self.perfil.get("area_ap")
                                  else "Marcar à mão")
         self.root.after_idle(self._fim_carregando)
@@ -5020,6 +5161,26 @@ class Painel:
         self.overlay.relayout()
         self.overlay.preview(3)
         self.salvar_depois()
+
+    def _on_som(self, chave, testar=False):
+        if self._carregando:
+            return
+        L = self.perfil["layout"]
+        var = self.var_som_skill if chave == "som_skill" else self.var_som_buff
+        L[chave] = SONS.get(var.get())
+        self.salvar_depois()
+        if testar:
+            self.overlay.sons.tocar(L[chave], L.get("som_volume", 70), forcar=True)
+
+    def _on_volume(self, val):
+        v = int(round(float(val) / 10) * 10)
+        self.lbl_vol.config(text=f"{v}%")
+        if self._carregando or v == self.perfil["layout"].get("som_volume"):
+            return
+        self.perfil["layout"]["som_volume"] = v
+        self.salvar_depois()
+        som = self.perfil["layout"].get("som_skill") or self.perfil["layout"].get("som_buff")
+        self.overlay.sons.tocar(som, v)          # amostra (no máximo 1 a cada 0,35 s)
 
     def _on_sem_foco(self):
         self.perfil["layout"]["esconder_sem_foco"] = bool(self.var_sem_foco.get())
