@@ -1,5 +1,11 @@
 # Mudanças
 
+## v1.0.27
+- Aba nova "Sons": som padrão de skill pronta e de buff acabando, volume, e um som diferente para cada skill e buff (ou "Sem som" para deixar mudo).
+- Seis sons novos: Moeda, Gota, Campainha, Subida, Sonar e Sirene.
+- "Meus sons": adicione seus próprios sons (.mp3 ou .wav) com o nome que quiser. Eles ficam só no seu PC.
+- A coluna "Som" das abas Skills e Buffs foi para a aba Sons.
+
 ## v1.0.26
 - Versão .exe de volta: baixe o .zip na página de versões do GitHub, extraia e abra. Não precisa mais instalar Python.
 - O .exe se atualiza sozinho, igual à versão em Python. Seus dados ficam em %APPDATA%\RO Cooldown Overlay.

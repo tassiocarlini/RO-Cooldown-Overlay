@@ -76,7 +76,7 @@ Botão verde **Code** → **Download ZIP**, extraia e abra o **`RO Cooldown Over
 - **Mover ou mudar o tamanho:** clique em **Mover / redimensionar**, arraste a caixa amarela e use a roda do mouse. Clique em **Concluir posição** no fim.
 - **Contador demora a aparecer?** Em *Detecção*, ajuste "Delay global da sua build" para um valor um pouco acima do seu delay pós-conjuração.
 - **Perfis:** crie um perfil por personagem. Marque "Iniciar automaticamente ao abrir" para não precisar configurar de novo.
-- **Sons de aviso:** na aba Aparência, em *Sons de aviso*, escolha o som de skill pronta e de buff acabando, e o volume. Na coluna **Som** das abas Skills e Buffs você deixa mudo o que não quer ouvir.
+- **Sons de aviso:** na aba **Sons**, escolha o som de skill pronta e de buff acabando e o volume, e um som diferente (ou nenhum) para cada skill e buff. Em **Meus sons** você adiciona seus próprios arquivos `.mp3` ou `.wav`.
 - **Mudou a barra de lugar?** O programa procura os ícones sozinho. Se quiser forçar, clique em **Procurar na tela**.
 
 ### Opcional: Divine Pride (recarga do servidor LATAM e skill "pelo nome")
