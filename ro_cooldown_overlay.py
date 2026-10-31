@@ -38,6 +38,7 @@ import time
 import tkinter as tk
 import traceback
 from ctypes import wintypes
+from html import unescape
 from pathlib import Path
 from tkinter import filedialog, messagebox, simpledialog, ttk
 
@@ -73,7 +74,7 @@ BUFF_TOLERANCIA = 1.5       # s sem ver o ícone antes de dizer que o buff acabo
 MOSTRAR_BUFF = {"Sempre": "sempre", "Só quando faltar": "faltando", "Só quando ativo": "ativo"}
 
 
-VERSAO = "1.0.27"
+VERSAO = "1.0.28"
 NOME_APP = "RO Cooldown Overlay"
 # Repositório no GitHub de onde vêm as atualizações (CHANGELOG.md e .zip da branch abaixo)
 REPO_GITHUB = "tassiocarlini/RO-Cooldown-Overlay"
@@ -132,6 +133,8 @@ SONS_PRONTOS = {
     "sonar": ("Sonar", "puro", [(1047, 1047, 0.9, 4)]),
     "sirene": ("Sirene", "quadrado", [(700, 1100, 0.25, 0), (1100, 700, 0.25, 0)]),
 }
+# Sugestões do MyInstants: o programa só guarda o link; o som é baixado no PC de quem quiser
+SONS_SUGERIDOS = {"Jungle": "https://www.myinstants.com/pt/instant/gawr-gura-a-66933/"}
 
 PERFIL_PADRAO = {
     "titulo_janela_jogo": "Ragnarok",
@@ -2048,6 +2051,46 @@ def importar_dados_antigos_sozinho():
 
 
 # =============================================================== sons de aviso
+
+def baixar_myinstants(link):
+    """Link de um som do MyInstants (a página do som ou o próprio .mp3) -> (nome, bytes do mp3)."""
+    link = (link or "").strip()
+    if not re.match(r"^https?://", link, re.I):
+        link = "https://" + link
+    do_site = lambda u: re.match(r"^https?://([a-z0-9-]+\.)*myinstants\.com/", u, re.I)
+    if not do_site(link):
+        raise ValueError("cole um link do myinstants.com")
+    try:
+        return _baixar_myinstants(link, do_site)
+    except urllib.error.HTTPError as e:
+        raise ValueError(f"o MyInstants respondeu erro {e.code} (o som não existe ou saiu do ar)")
+
+
+def _baixar_myinstants(link, do_site):
+    cab = {"User-Agent": f"Mozilla/5.0 (RO-Cooldown-Overlay/{VERSAO})"}
+    nome = ""
+    if not urllib.parse.urlparse(link).path.lower().endswith(".mp3"):
+        with urllib.request.urlopen(urllib.request.Request(link, headers=cab), timeout=20) as r:
+            pagina = r.read(2_000_000).decode("utf-8", errors="replace")
+        m = (re.search(r'property="og:audio"\s+content="([^"]+?\.mp3)"', pagina) or
+             re.search(r"""(/media/sounds/[^"'\s]+?\.mp3)""", pagina))
+        if not m:
+            raise ValueError("não achei o som nessa página")
+        link = urllib.parse.urljoin(link, m.group(1))
+        if not do_site(link):
+            raise ValueError("o som dessa página não está no myinstants.com")
+        t = re.search(r'id="instant-page-title"[^>]*>([^<]+)<', pagina)
+        nome = unescape(t.group(1)).strip() if t else ""
+    if not nome:
+        nome = Path(urllib.parse.urlparse(link).path).stem.replace("-", " ").replace("_", " ")
+    with urllib.request.urlopen(urllib.request.Request(link, headers=cab), timeout=30) as r:
+        dados = r.read(3_000_001)
+    if len(dados) > 3_000_000:
+        raise ValueError("som grande demais (máximo 3 MB)")
+    if not (dados[:3] == b"ID3" or (len(dados) > 1 and dados[0] == 0xFF and dados[1] & 0xE0 == 0xE0)):
+        raise ValueError("o arquivo baixado não é um MP3")
+    return nome, dados
+
 
 class Sons:
     """Sons de aviso: os prontos são gerados pelo programa (.wav); os seus (.mp3/.wav) ficam
@@ -5384,11 +5427,15 @@ class Painel:
         lb.pack(fill="x", padx=8, pady=(6, 2))
         self.dica(self.bt(lb, "Adicionar som", "mais", self.adicionar_som, amarelo=True),
                   "Escolha um arquivo .mp3 ou .wav do seu PC e dê um nome para ele.").pack(side="left")
+        self.dica(self.bt(lb, "MyInstants", "importar", lambda: self.baixar_do_myinstants()),
+                  "Cole o link de um som do myinstants.com: o programa baixa e adiciona ele."
+                  ).pack(side="left", padx=(6, 0))
         self.dica(self.bt(lb, "", "pasta", lambda: os.startfile(self._pasta_meus_sons())),
                   "Abre a pasta com os seus sons.").pack(side="left", padx=6)
         ttk.Label(fm, style="Dica.TLabel", wraplength=300, justify="left",
-                  text="MP3 ou WAV, de preferência curtinho (1 a 3 s). Ficam só no seu PC e "
-                       "aparecem nas listas de som.").pack(anchor="w", padx=8, pady=(0, 4))
+                  text="Um MP3 ou WAV do seu PC, ou o link de um som do MyInstants. De "
+                       "preferência curtinho (1 a 3 s). Ficam só no seu PC."
+                  ).pack(anchor="w", padx=8, pady=(0, 4))
         self.lista_meus = ttk.Frame(fm)
         self.lista_meus.pack(fill="both", expand=True, padx=8, pady=(0, 8))
 
@@ -5471,6 +5518,14 @@ class Painel:
         for wdg in self.lista_meus.winfo_children():
             wdg.destroy()
         meus = sons.meus()
+        faltam = [n for n in SONS_SUGERIDOS if n.lower() not in {m.lower() for m in meus}]
+        if faltam:
+            sug = ttk.Frame(self.lista_meus)
+            sug.pack(fill="x", pady=(0, 4))
+            ttk.Label(sug, text="Sugestão:", style="Dica.TLabel").pack(side="left")
+            for n in faltam:
+                self.dica(self.bt(sug, n, "importar", lambda n=n: self.baixar_do_myinstants(
+                    SONS_SUGERIDOS[n], n)), f"Baixa o som \"{n}\" do MyInstants.").pack(side="left", padx=4)
         if not meus:
             ttk.Label(self.lista_meus, style="Dica.TLabel", text="Nenhum som seu ainda.").pack(anchor="w")
         for nome in meus:
@@ -5536,28 +5591,77 @@ class Painel:
                                                   initialvalue=arq.stem, parent=self.win))
         if not nome:
             return
+        try:
+            dados = arq.read_bytes()
+        except Exception as e:
+            messagebox.showerror("Adicionar som", f"Não consegui ler o arquivo: {e}", parent=self.win)
+            return
+        self._instalar_som(nome, dados, arq.suffix.lower(), "Adicionar som")
+
+    def baixar_do_myinstants(self, link=None, nome=None):
+        """Baixa um som do MyInstants (em segundo plano) e adiciona aos seus sons."""
+        if link is None:
+            link = simpledialog.askstring(
+                "Som do MyInstants", "Cole o link do som no MyInstants\n"
+                "(ex.: https://www.myinstants.com/pt/instant/...):", parent=self.win)
+            if not link:
+                return
+        self.status("Baixando o som do MyInstants…")
+        fila = queue.Queue()
+
+        def trabalho():
+            try:
+                fila.put(("ok", baixar_myinstants(link)))
+            except Exception as e:
+                fila.put(("erro", e))
+        threading.Thread(target=trabalho, daemon=True).start()
+
+        def esperar():
+            try:
+                tipo, res = fila.get_nowait()
+            except queue.Empty:
+                self.win.after(150, esperar)
+                return
+            if tipo == "erro":
+                registrar(f"MyInstants: não consegui baixar {link} ({res})")
+                self.status("")
+                messagebox.showerror("Som do MyInstants", f"Não consegui baixar o som: {res}",
+                                     parent=self.win)
+                return
+            sugerido, dados = res
+            final = nome or nome_seguro(simpledialog.askstring(
+                "Som do MyInstants", "Nome do som:", initialvalue=nome_seguro(sugerido)[:40],
+                parent=self.win))
+            if final:
+                self._instalar_som(final, dados, ".mp3", "Som do MyInstants")
+            else:
+                self.status("")
+        esperar()
+
+    def _instalar_som(self, nome, dados, ext, titulo):
+        """Grava um som novo em meus_sons, confere se ele toca e atualiza a aba Sons."""
         reservados = {SEM_SOM, PADRAO} | {n for n, _, _ in SONS_PRONTOS.values()}
         if nome.lower() in {r.lower() for r in reservados}:
-            messagebox.showerror("Adicionar som", f"\"{nome}\" já é o nome de um som do programa. "
+            messagebox.showerror(titulo, f"\"{nome}\" já é o nome de um som do programa. "
                                  "Escolha outro nome.", parent=self.win)
             return
         sons = self.overlay.sons
         igual = next((n for n in sons.meus() if n.lower() == nome.lower()), None)
         if igual:
-            if not messagebox.askyesno("Adicionar som", f"Já existe o som \"{igual}\". "
-                                       "Trocar pelo arquivo novo?", parent=self.win):
+            if not messagebox.askyesno(titulo, f"Já existe o som \"{igual}\". "
+                                       "Trocar pelo novo?", parent=self.win):
                 return
             sons.esquecer("meu:" + igual)
             sons.meus()[igual].unlink()
-        destino = self._pasta_meus_sons() / (nome + arq.suffix.lower())
+        destino = self._pasta_meus_sons() / (nome + ext)
         try:
-            shutil.copy2(arq, destino)
+            destino.write_bytes(dados)
         except Exception as e:
-            messagebox.showerror("Adicionar som", f"Não consegui copiar: {e}", parent=self.win)
+            messagebox.showerror(titulo, f"Não consegui salvar o som: {e}", parent=self.win)
             return
         if not sons.preparar(["meu:" + nome]):
             destino.unlink(missing_ok=True)
-            messagebox.showerror("Adicionar som", "Não consegui tocar esse arquivo. Tente outro "
+            messagebox.showerror(titulo, "Não consegui tocar esse som. Tente outro "
                                  ".mp3 ou .wav.", parent=self.win)
             return
         sons.tocar("meu:" + nome, self.perfil["layout"].get("som_volume", 70), forcar=True)

@@ -1,5 +1,9 @@
 # Mudanças
 
+## v1.0.28
+- Sons do MyInstants: na aba Sons, em "Meus sons", clique em "MyInstants" e cole o link de qualquer som do site. O programa baixa e adiciona ele.
+- Sugestão pronta: o botão "Jungle" baixa o som da Gawr Gura com um clique.
+
 ## v1.0.27
 - Aba nova "Sons": som padrão de skill pronta e de buff acabando, volume, e um som diferente para cada skill e buff (ou "Sem som" para deixar mudo).
 - Seis sons novos: Moeda, Gota, Campainha, Subida, Sonar e Sirene.
