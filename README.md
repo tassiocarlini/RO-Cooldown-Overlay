@@ -128,7 +128,15 @@ Apague a pasta do programa. Para apagar também seus perfis e configurações, a
 
 Para quem prefere não usar a instalação automática (Windows 10/11, Python 3.10 ou mais novo):
 
-*(... instruções de instalação manual ...)*
+1. Baixe o Python em [python.org/downloads](https://www.python.org/downloads/windows/). Na instalação, marque **Add python.exe to PATH**.
+2. Baixe o código (botão verde **Code** → **Download ZIP**) e extraia.
+3. Abra o **Prompt de Comando** dentro da pasta extraída (digite `cmd` na barra de endereço do Explorer e aperte Enter) e rode:
+   ```
+   python -m pip install -r requirements.txt
+   ```
+4. Para abrir o programa: `pythonw ro_cooldown_overlay.py` (sem janela preta) ou dois cliques no **`iniciar.bat`**.
+
+O código fica na pasta `rocd/`. Para conferir se está tudo certo depois de mexer nele: `python -m pip install pytest pyflakes` e depois `python -m pytest`.
 
 ---
 

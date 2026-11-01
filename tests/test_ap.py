@@ -1,0 +1,50 @@
+"""Leitura do número de AP."""
+from pathlib import Path
+
+import numpy as np
+from PIL import Image
+
+from rocd.ap import FONTE_DIGITOS, ROTULO_AP, ler_fracao, localizar_ap
+
+DADOS = Path(__file__).parent / "dados"
+
+
+def desenhar(arr, x, y, desenho):
+    for dy, linha in enumerate(desenho):
+        for dx, c in enumerate(linha):
+            if c == "#":
+                arr[y + dy, x + dx] = 0
+
+
+def escrever(arr, x, y, texto, fonte=FONTE_DIGITOS):
+    for c in texto:
+        if c == " ":
+            x += 4
+            continue
+        desenhar(arr, x, y, fonte[c])
+        x += len(fonte[c][0]) + 1
+    return x
+
+
+def test_recorte_real_com_4_colado():
+    """Print do jogo (v1.0.24): o 4 da fonte da barra encosta no dígito seguinte."""
+    arr = np.asarray(Image.open(DADOS / "ap_140_200.png").convert("RGB"))
+    assert ler_fracao(arr) == (140, 200)
+
+
+def test_numero_desenhado():
+    arr = np.full((14, 120, 3), 230, np.uint8)
+    escrever(arr, 5, 3, "53 / 200")
+    assert ler_fracao(arr) == (53, 200)
+
+
+def test_localizar_ap_pelo_rotulo():
+    arr = np.full((120, 400, 3), 230, np.uint8)
+    x, y = 30, 50
+    desenhar(arr, x, y, ROTULO_AP)
+    escrever(arr, x + 60, y, "77 / 150")
+    assert localizar_ap(arr) == ((x, y), (77, 150))
+
+
+def test_sem_numero():
+    assert ler_fracao(np.full((14, 120, 3), 230, np.uint8)) is None

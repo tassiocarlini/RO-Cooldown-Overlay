@@ -546,7 +546,6 @@ class Overlay:
 
     def _buffs_do_site(self):
         """Buffs sem versão salva cujos ícones da Divine Pride já estão no PC."""
-        dp = self.painel.dp
         res = []
         for b in self.buffs:
             if b.get("variantes") or not b.get("efst") or b.get("_rag_pend"):

@@ -16,6 +16,9 @@ nunca ler memória do jogo nem enviar teclas.
 2. Envio para a `main` = release para todos (o CI gera o .exe e a Release). Perguntar antes de enviar.
 
 ## Checagens
+- `python -m pytest` (testes em `tests/`, rodam sem internet e sem abrir janela) e
+  `python -m pyflakes rocd ro_cooldown_overlay.py tests empacotar.py`. O CI roda os dois em todo
+  envio; se falharem, a Release não sai.
 - `python ro_cooldown_overlay.py --verificar` (sai 1 se numpy/cv2/sv_ttk não carregarem).
 - `python empacotar.py` gera o .exe em `dist/` (precisa de pyinstaller==6.22.3).
 

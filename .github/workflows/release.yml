@@ -22,7 +22,22 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt pytest pyflakes
+
+      # Roda em todo envio. Se falhar, a Release não sai.
+      - name: Testes
+        run: |
+          python -m pyflakes rocd ro_cooldown_overlay.py tests empacotar.py
+          python -m pytest -q
 
       - name: Ver se esta versão já tem Release
         id: versao
@@ -37,16 +52,9 @@ jobs:
           Write-Host "Versão v$v - Release já existe: $existe"
           exit 0
 
-      - uses: actions/setup-python@v5
+      - name: Instalar o PyInstaller
         if: steps.versao.outputs.gerar == 'True'
-        with:
-          python-version: "3.12"
-
-      - name: Instalar dependências
-        if: steps.versao.outputs.gerar == 'True'
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt pyinstaller==6.22.3
+        run: pip install pyinstaller==6.22.3
 
       - name: Gerar o programa (.exe)
         if: steps.versao.outputs.gerar == 'True'
@@ -54,7 +62,7 @@ jobs:
 
       - name: Guardar o .zip nesta execução
         if: steps.versao.outputs.gerar == 'True'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: RO-Cooldown-Overlay-Windows
           path: dist/*.zip
