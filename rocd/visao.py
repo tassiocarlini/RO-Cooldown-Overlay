@@ -111,3 +111,9 @@ def semelhanca(a, b, n=3):
 
 def sem_cor_chave(img):
     return img.point(lambda v: max(v, 2))
+
+
+def tela_escura(arr, claro=40, minimo=0.03):
+    """Tela quase toda preta (teleporte, troca de mapa, carregando)? arr = RGB do numpy."""
+    amostra = arr[::6, ::6]
+    return float((amostra.max(axis=2) > claro).mean()) < minimo

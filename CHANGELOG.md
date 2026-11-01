@@ -1,5 +1,8 @@
 # Mudanças
 
+## v1.0.31
+- Som de buff acabando não toca mais à toa no teleporte (tela preta), no alt-tab, com o jogo minimizado ou ao trocar para outro cliente (ex.: o mercador): o buff fica "segurado" no personagem onde foi visto e só conta como acabado se não voltar à tela dele.
+
 ## v1.0.30
 - Visual novo: ícone novo do programa, topo com o logo e as bolinhas "Jogo encontrado" e "Overlay ativo", e barra de status embaixo.
 - Uma cor de destaque só (dourado): botões lisos, caixas de marcar, deslizantes e a aba aberta em dourado.

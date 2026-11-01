@@ -9,13 +9,13 @@ import traceback
 
 from PIL import Image, ImageEnhance, ImageTk
 
-from .config import (BARRA_H, BUFF_TOLERANCIA, COR_PAINEL, COR_TRANSPARENTE, ESCALAS_BUFF,
+from .config import (BARRA_H, BUFF_FOLGA_PAUSA, BUFF_TOLERANCIA, COR_PAINEL, COR_TRANSPARENTE, ESCALAS_BUFF,
     ESCALAS_DP, JANELA_GRUPO, LIMIAR_ACHADO, LIMIAR_ACHADO_DP, LIMIAR_BUFF, LIMIAR_BUFF_SITE,
     LIMIAR_OFICIAL, LIMIAR_PERDIDO, cv2, np, registrar)
 from .janelas import (WDA_EXCLUDEFROMCAPTURE, WS_EX_LAYERED, WS_EX_NOACTIVATE, WS_EX_TOOLWINDOW,
     WS_EX_TRANSPARENT, hwnd_de, janela_no_ponto, Jogo, mudar_estilo, nova_captura, user32)
 from .visao import (cinza, diferenca, mapa_simbolo_suave, miolo, modelos_buff, picos, sem_cor_chave,
-    semelhanca, tem_moldura)
+    semelhanca, tela_escura, tem_moldura)
 from .desenho import contorno_arred, faixa_degrade, icone_arredondado, misturar_cor, ret_arred, texto_contorno
 from .ap import achar_rotulo_ap, achar_rotulos_ap, ler_fracao, localizar_ap
 from .sites import icone_dp_rgb
@@ -140,7 +140,7 @@ class Overlay:
                     cinza_m, branco_m = modelos_buff(im)
                     bf["_tmpls"].append(cinza_m)
                     bf.setdefault("_tmpls_b", []).append(branco_m)
-            bf.update(_ativo=False, _visto=-99.0, _desde=0.0, _score=0.0)
+            bf.update(_ativo=False, _visto=-99.0, _desde=0.0, _score=0.0, _cliente=None)
         self.preparar_imagens()
         self.calcular_caixa()
         self.relayout()
@@ -529,7 +529,7 @@ class Overlay:
         for sk in self.skills:
             sk.update(_delay=False, _cont=0, _fim=0.0, _contando=False, _decidido=True)
         for bf in self.buffs:
-            bf.update(_ativo=False, _visto=-99.0)
+            bf.update(_ativo=False, _visto=-99.0, _cliente=None)
         self._buff_job = None
         self._atualizar_janela()
 
@@ -542,17 +542,21 @@ class Overlay:
             job = self._buff_job
             if not job or cv2 is None or np is None:
                 continue
-            regiao, alvos, ov = job
+            regiao, alvos, ov, geo, hwnd = job
             try:
                 if sct is None:
                     sct = nova_captura()
+                if geo:                         # tela preta = teleporte / troca de mapa
+                    g = sct.grab({"left": geo[0], "top": geo[1], "width": geo[2], "height": geo[3]})
+                    escura = tela_escura(np.frombuffer(g.rgb, np.uint8).reshape(g.height, g.width, 3))
+                    self._tela_escura = (time.monotonic(), escura)
                 shot = sct.grab(regiao)
                 arr = np.asarray(Image.frombytes("RGB", shot.size, shot.rgb))
                 tela_c = cv2.cvtColor(arr, cv2.COLOR_RGB2GRAY)
                 tela_b = mapa_simbolo_suave(arr)
                 ox, oy = ov[0] - regiao["left"], ov[1] - regiao["top"]
                 agora = time.monotonic()
-                res = {}
+                res = {"hwnd": hwnd}              # de qual cliente do jogo é esta leitura
                 brilho = None
                 for chave_b, mods in alvos:
                     melhor, qual, recorte = 0.0, 0, None
@@ -739,17 +743,26 @@ class Overlay:
                                    [im.size for im in b["_imgs"]])))
                  for b in self.buffs if b.get("_tmpls")]
         regiao = self._area_buffs() if (self.ativo and pode_ler and alvos) else None
-        self._buff_job = (regiao, alvos, (self.pos[0], self.pos[1], self.w, self.h)) if regiao else None
+        hwnd = self.jogo.hwnd if self.perfil["titulo_janela_jogo"].strip() else None
+        self._buff_job = ((regiao, alvos, (self.pos[0], self.pos[1], self.w, self.h), self.geo, hwnd)
+                          if regiao else None)
         res = self._buff_res
+        pausa = self._buffs_em_pausa(agora, pode_ler)
         for b in self.buffs:
             r = res.get(id(b))
             if r:
                 b["_score"] = r[0]
                 if r[0] >= LIMIAR_BUFF:
                     b["_visto"] = max(b["_visto"], r[1])
+                    b["_cliente"] = res.get("hwnd")
                     b["_var_atual"] = r[2]          # qual versão do ícone está na tela
                     if r[3] is not None and r[0] >= 0.85 and not self._trocando:
                         self._trocar_por_real(b, r[2], r[3])
+            # outro cliente em foco (ex.: o mercador): o buff é do personagem onde foi visto
+            outro = b.get("_cliente") not in (None, hwnd) and user32.IsWindow(b["_cliente"])
+            if (pausa or outro) and b["_ativo"]:
+                # não dá para ver a tela: segura o buff (e dá um tempo para os ícones voltarem)
+                b["_visto"] = max(b["_visto"], agora + BUFF_FOLGA_PAUSA)
             ativo = agora - b["_visto"] < BUFF_TOLERANCIA
             if ativo and not b["_ativo"]:
                 b["_desde"] = b["_visto"]
@@ -765,6 +778,25 @@ class Overlay:
                 if 0 < resta <= self.L["aviso_vermelho_s"]:
                     b["_avisou"], b["_avisou_em"] = True, agora
                     self.avisar("buff", b)
+
+    def _buffs_em_pausa(self, agora, pode_ler):
+        """Hora em que não dá para ver os buffs: jogo minimizado ou coberto (alt-tab) ou tela
+        preta (teleporte, troca de mapa). Nessa hora nenhum buff pode "acabar"."""
+        if not self.ativo:
+            return False
+        if not pode_ler:
+            return True
+        quando, escura = getattr(self, "_tela_escura", (-99.0, False))
+        if escura and agora - quando < 1.0:
+            return True
+        area = self._area_buffs()
+        if area and self.perfil["titulo_janela_jogo"].strip() and self.jogo.hwnd:
+            cx = area["left"] + area["width"] // 2
+            for fy in (0.2, 0.5, 0.8):
+                if janela_no_ponto(cx, area["top"] + int(area["height"] * fy)) not in (
+                        self.jogo.hwnd, self.meu_hwnd):
+                    return True
+        return False
 
     def avisar(self, tipo, item):
         """Toca o som de aviso da skill/buff, se ele estiver ligado."""

@@ -24,10 +24,11 @@ LIMIAR_PERDIDO = 0.5        # semelhança abaixo disso: o ícone não está mais
 LIMIAR_ACHADO = 0.85        # semelhança mínima para aceitar um ícone encontrado
 LIMIAR_BUFF = 0.80          # semelhança mínima para considerar o buff na tela
 BUFF_TOLERANCIA = 1.5       # s sem ver o ícone antes de dizer que o buff acabou (ícone pisca)
+BUFF_FOLGA_PAUSA = 1.5      # s a mais depois de tela preta / alt-tab para os ícones voltarem
 MOSTRAR_BUFF = {"Sempre": "sempre", "Só quando faltar": "faltando", "Só quando ativo": "ativo"}
 
 
-VERSAO = "1.0.30"
+VERSAO = "1.0.31"
 NOME_APP = "RO Cooldown Overlay"
 # Repositório no GitHub de onde vêm as atualizações (CHANGELOG.md e .zip da branch abaixo)
 REPO_GITHUB = "tassiocarlini/RO-Cooldown-Overlay"
