@@ -17,6 +17,18 @@ WDA_EXCLUDEFROMCAPTURE = 0x11
 
 # =============================================================== utilidades
 
+def barra_escura(win):
+    """Barra de título escura (Windows 10 20H1 ou mais novo; nos antigos não faz nada)."""
+    try:
+        win.update_idletasks()
+        h = user32.GetParent(win.winfo_id())
+        v = ctypes.c_int(1)
+        ctypes.windll.dwmapi.DwmSetWindowAttribute(h, 20, ctypes.byref(v), ctypes.sizeof(v))
+        user32.SetWindowPos(h, 0, 0, 0, 0, 0, 0x37)    # redesenha a moldura, sem mexer nem ativar
+    except Exception:
+        pass
+
+
 def dpi_aware():
     try:
         ctypes.windll.shcore.SetProcessDpiAwareness(2)

@@ -1,5 +1,13 @@
 # Mudanças
 
+## v1.0.30
+- Visual novo: ícone novo do programa, topo com o logo e as bolinhas "Jogo encontrado" e "Overlay ativo", e barra de status embaixo.
+- Uma cor de destaque só (dourado): botões lisos, caixas de marcar, deslizantes e a aba aberta em dourado.
+- Skills, buffs e sons em cartões, com o estado colorido (verde = pronta, dourado = em recarga).
+- Setas, lixeira e ▶ viram só o ícone (acendem com o mouse). Barra de título escura.
+- O overlay mostra o ícone oficial da skill (do cliente LATAM), e não mais o print da sua barra, que às vezes vinha com o número da recarga ou a sombra do delay. Buffs também, quando o ícone oficial é igual ao do jogo. Dá para desligar na aba Aparência ("Ícone oficial do jogo").
+- Barra de AP nova: degradê com brilho, marcas a cada 25%, rótulo "AP" e borda que acende quando o AP está cheio.
+
 ## v1.0.29
 - Janela de busca de skill e buff: a lista de classes e a lista de skills ficam em ordem alfabética.
 - Por dentro: o código foi dividido em partes menores (pasta "rocd"), o que deixa as próximas correções mais rápidas. Nada muda no uso.

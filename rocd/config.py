@@ -27,7 +27,7 @@ BUFF_TOLERANCIA = 1.5       # s sem ver o ícone antes de dizer que o buff acabo
 MOSTRAR_BUFF = {"Sempre": "sempre", "Só quando faltar": "faltando", "Só quando ativo": "ativo"}
 
 
-VERSAO = "1.0.29"
+VERSAO = "1.0.30"
 NOME_APP = "RO Cooldown Overlay"
 # Repositório no GitHub de onde vêm as atualizações (CHANGELOG.md e .zip da branch abaixo)
 REPO_GITHUB = "tassiocarlini/RO-Cooldown-Overlay"
@@ -60,6 +60,7 @@ DP_URL_EFST = "https://www.divine-pride.net/api/database/Efst/{id}"   # ícones 
 ESCALAS_BUFF = [round(0.9 + 0.05 * i, 2) for i in range(23)]          # 0,90x até 2,00x
 LIMIAR_ACHADO_DP = 0.75     # ícone da Divine Pride x ícone na tela (podem diferir um pouco)
 LIMIAR_BUFF_SITE = 0.80     # para aceitar um buff achado pelo ícone da Divine Pride
+LIMIAR_OFICIAL = 0.70       # ícone oficial parecido o bastante com o do jogo para mostrar
 ESCALAS_DP = (1.0, 1.25, 1.5, 2.0)
 ARQ_ANTIGO = PASTA / "ro_cd_config.json"          # config da versão anterior
 PASTA_ICONES_ANTIGA = PASTA / "ro_cd_icones"
@@ -107,6 +108,7 @@ PERFIL_PADRAO = {
         "estilo": "moderno",           # classico | moderno | minimalista
         "fundo_painel": False,         # caixa escura atrás de todos os ícones
         "mostrar_nomes": False,        # nome da skill/buff embaixo do ícone
+        "icone_oficial": True,         # mostra o ícone oficial (não o print da sua barra)
         "mostrar_ap": True,            # barra de AP acima dos ícones
         "ap_altura": 0,                # altura da barra de AP em pixels (0 = automática)
         "ap_cor": "#3b82f6",           # cor do preenchimento da barra de AP

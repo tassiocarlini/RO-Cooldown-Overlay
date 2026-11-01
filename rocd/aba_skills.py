@@ -25,7 +25,7 @@ class AbaSkills:
     def montar_lista(self):
         for wdg in self.lista.winfo_children():
             wdg.destroy()
-        for col, t in enumerate(("", "Nome", "", "Recarga (s)", "Aprendido", "Estado", "")):
+        for col, t in enumerate(("", "SKILL", "", "RECARGA (S)", "APRENDIDO", "ESTADO", "")):
             ttk.Label(self.lista, text=t, style="Titulo.TLabel").grid(
                 row=0, column=col, padx=4, sticky="w")
         skills = self.perfil["skills"]
@@ -41,32 +41,41 @@ class AbaSkills:
             return
         for i, sk in enumerate(skills):
             r = i + 1
-            sk["_thumb"] = ImageTk.PhotoImage(sk["_ref_full"].resize((28, 28), Image.NEAREST))
-            ttk.Label(self.lista, image=sk["_thumb"]).grid(row=r, column=0, padx=4, pady=2)
+            self.cartao(self.lista, r, 7)
+            sk["_thumb"] = ImageTk.PhotoImage((sk.get("_visual") or sk["_ref_full"]).resize(
+                (28, 28), Image.LANCZOS))
+            ttk.Label(self.lista, image=sk["_thumb"], style="Cartao.TLabel").grid(
+                row=r, column=0, padx=(10, 4), pady=9)
 
             vn = tk.StringVar(value=sk.get("nome") or "")
-            ttk.Entry(self.lista, textvariable=vn, width=22).grid(row=r, column=1, padx=(4, 0))
+            ttk.Entry(self.lista, textvariable=vn, width=22, style="Cartao.TEntry").grid(
+                row=r, column=1, padx=(4, 0))
             vn.trace_add("write", lambda *_, s=sk, v=vn: self._on_nome(s, v))
-            self.dica(self.bt(self.lista, "Buscar", "lupa", lambda s=sk: SeletorSkill(self, s)),
+            self.dica(self.bt(self.lista, "Buscar", "lupa", lambda s=sk: SeletorSkill(self, s),
+                              fundo="Cartao"),
                       "Escolher o nome desta skill no banco (a recarga vem junto)."
                       ).grid(row=r, column=2, padx=(4, 4))
 
             vc = tk.StringVar(value=fmt_tempo(sk.get("cd")))
-            ec = ttk.Entry(self.lista, textvariable=vc, width=7, justify="center")
+            ec = ttk.Entry(self.lista, textvariable=vc, width=7, justify="center",
+                           style="Cartao.TEntry")
             ec.grid(row=r, column=3, padx=4)
             vc.trace_add("write", lambda *_, s=sk, v=vc, e=ec: self._on_cd(s, v, e))
             sk["_vars"] = (vn, vc)
 
-            sk["_lbl_apr"] = ttk.Label(self.lista, text=fmt_aprendido(sk), width=10)
+            sk["_lbl_apr"] = ttk.Label(self.lista, text=fmt_aprendido(sk), width=10,
+                                       style="Cartao.Dica.TLabel")
             sk["_lbl_apr"].grid(row=r, column=4, padx=4)
-            sk["_lbl_est"] = ttk.Label(self.lista, text="—", width=14)
+            sk["_lbl_est"] = ttk.Label(self.lista, text="—", width=14, style="Cartao.TLabel",
+                                       font=("Segoe UI", 9, "bold"))
             sk["_lbl_est"].grid(row=r, column=5, padx=4)
 
-            fb = ttk.Frame(self.lista)
-            fb.grid(row=r, column=6, padx=4)
-            self.bt(fb, "", "cima", lambda k=i: self.mover_skill(k, -1)).pack(side="left")
-            self.bt(fb, "", "baixo", lambda k=i: self.mover_skill(k, 1)).pack(side="left", padx=2)
-            self.bt(fb, "", "lixeira", lambda k=i: self.remover_skill(k)).pack(side="left", padx=(6, 0))
+            fb = ttk.Frame(self.lista, style="Cartao.TFrame")
+            fb.grid(row=r, column=6, padx=(4, 10))
+            self.bt(fb, "", "cima", lambda k=i: self.mover_skill(k, -1), fundo="Cartao").pack(side="left")
+            self.bt(fb, "", "baixo", lambda k=i: self.mover_skill(k, 1), fundo="Cartao").pack(side="left")
+            self.bt(fb, "", "lixeira", lambda k=i: self.remover_skill(k), fundo="Cartao").pack(
+                side="left", padx=(4, 0))
 
     def _on_nome(self, sk, var):
         sk["nome"] = var.get()
@@ -205,6 +214,12 @@ class AbaSkills:
                 else:
                     self.pedir_nomes(self.var_classe.get())   # fallback: Divine Pride
                 continue
+            if tipo in ("skill", "status") and isinstance(motivo, tuple) and motivo[0] == "visual":
+                if tipo_r == "ok":                          # ícone oficial para mostrar
+                    self._icone_oficial_chegou()
+                else:                                       # o ragassets não tem: Divine Pride
+                    self.pedir_icone_dp(tipo, ident, motivo)
+                continue
             if tipo == "status" and isinstance(motivo, tuple):
                 bf = next((b for b in self.perfil.get("buffs", []) if id(b) == motivo[1]), None)
                 if bf is not None:
@@ -256,12 +271,30 @@ class AbaSkills:
             sk["id"] = self.banco.id_de(sk.get("nome", ""))
         return sk.get("id")
 
+    def pedir_icone_dp(self, tipo, ident, motivo):
+        """Ícone oficial pela Divine Pride (só com a chave da API)."""
+        if not self.dp.ativo():
+            return
+        if tipo == "status" and motivo[2]:
+            self.dp.pedir_efst(ident, motivo[2], motivo)
+        elif tipo == "skill":
+            self.dp.pedir(ident, motivo)
+
+    def _icone_oficial_chegou(self):
+        self.overlay.preparar_imagens()
+        self.montar_lista()
+        self.montar_buffs()
+
     def _processar_dp(self):
         while True:
             try:
                 tipo, sid, info, motivo, nome_site = self.dp.fila.get_nowait()
             except queue.Empty:
                 return
+            if isinstance(motivo, tuple) and motivo[0] == "visual":
+                if tipo == "ok":
+                    self._icone_oficial_chegou()
+                continue
             if motivo == "nome":
                 if tipo == "ok" and self.banco.definir_nome(sid, nome_site):
                     self._nomes_recebidos += 1
@@ -412,7 +445,7 @@ class AbaSkills:
         if self.overlay.mover:
             self.alternar_mover()
         self.overlay.parar()
-        self.bt_iniciar.config(text="Iniciar overlay", image=self.ic_dest["play"])
+        self.bt_iniciar.config(text="Iniciar overlay", image=self.ic_escuro["play"])
         self.win.withdraw()
 
         aviso = tk.Toplevel(self.root)

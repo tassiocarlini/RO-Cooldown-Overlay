@@ -1,6 +1,8 @@
-"""Desenhos da interface: ícones dos botões, logo, degradês, cantos arredondados."""
+"""Visual do painel: paleta (COR), logo, ícones dos botões, botões e abas."""
 
-from PIL import Image, ImageDraw, ImageEnhance
+import math
+
+from PIL import Image, ImageChops, ImageDraw, ImageEnhance, ImageFilter
 
 from .visao import sem_cor_chave
 
@@ -168,20 +170,64 @@ def windows_usa_tema_escuro():
         return False
 
 
-def logo_app(tam):
-    """Ícone do programa: cronômetro amarelo sobre fundo escuro arredondado."""
-    S = tam * ESC_ICONE
+def _degrade_vertical(w, h, topo, base):
+    col = Image.new("RGBA", (1, h))
+    for y in range(h):
+        t = y / max(1, h - 1)
+        col.putpixel((0, y), tuple(int(a + (b - a) * t) for a, b in zip(topo, base)) + (255,))
+    return col.resize((w, h))
+
+
+def _mascara_arred(S, caixa, raio):
+    m = Image.new("L", (S, S), 0)
+    ImageDraw.Draw(m).rounded_rectangle(caixa, radius=raio, fill=255)
+    return m
+
+
+def desenhar_logo(S=512):
+    """Ícone do programa: quadrado de skill com borda dourada e a sombra da recarga girando."""
     im = Image.new("RGBA", (S, S), (0, 0, 0, 0))
-    ImageDraw.Draw(im).rounded_rectangle((0, 0, S - 1, S - 1), radius=S * 0.22,
-                                         fill=(32, 34, 40, 255))
-    rel = desenhar_icone("relogio", "#f1c40f", tam).resize((S, S), Image.LANCZOS)
-    m = int(S * 0.14)
-    im.alpha_composite(rel.resize((S - 2 * m, S - 2 * m), Image.LANCZOS), (m, m))
-    return im.resize((tam, tam), Image.LANCZOS)
+    im.paste(_degrade_vertical(S, S, (30, 38, 66), (10, 13, 26)), (0, 0),
+             _mascara_arred(S, (0, 0, S - 1, S - 1), int(S * 0.22)))
+    m, r, b = int(S * 0.15), int(S * 0.11), int(S * 0.045)
+    caixa = (m, m, S - m, S - m)
+    im.paste(_degrade_vertical(S, S, (255, 226, 140), (176, 120, 20)), (0, 0),
+             _mascara_arred(S, caixa, r))                                 # borda dourada
+    dentro = (caixa[0] + b, caixa[1] + b, caixa[2] - b, caixa[3] - b)
+    m_dentro = _mascara_arred(S, dentro, r - b)
+    im.paste(_degrade_vertical(S, S, (255, 196, 64), (226, 92, 20)), (0, 0), m_dentro)
+    luz = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    ImageDraw.Draw(luz).ellipse((S * 0.3, S * 0.25, S * 0.7, S * 0.6), fill=(255, 245, 200, 160))
+    im.alpha_composite(luz.filter(ImageFilter.GaussianBlur(S * 0.06)))
+    pronto = 0.32                       # parte que já voltou; o resto é a sombra da recarga
+    sombra = Image.new("L", (S, S), 0)
+    ImageDraw.Draw(sombra).pieslice((-S, -S, 2 * S, 2 * S), -90 + 360 * pronto, 270, fill=200)
+    im.paste(Image.new("RGBA", (S, S), (8, 10, 20, 255)), (0, 0),
+             ImageChops.multiply(sombra, m_dentro))
+    c, ang = S / 2, math.radians(-90 + 360 * pronto)
+    d = ImageDraw.Draw(im)
+    d.line((c, c, c + math.cos(ang) * S * 0.36, c + math.sin(ang) * S * 0.36),
+           fill=(255, 250, 225, 255), width=max(1, int(S * 0.018)))
+    traco = Image.new("RGBA", (S, S), (0, 0, 0, 0))      # meio transparente: misturar, não gravar
+    ImageDraw.Draw(traco).line((c, c, c, dentro[1]), fill=(255, 250, 225, 200),
+                               width=max(1, int(S * 0.012)))
+    im.alpha_composite(traco)
+    return im
 
 
-def imagem_degrade(larg, alt, cor_topo, cor_base, raio=7, borda=None, faixa=None, so_topo=False):
-    """Fundo arredondado com degradê vertical (usado nos botões e nas abas)."""
+_LOGO = None
+
+
+def logo_app(tam):
+    """O ícone do programa no tamanho pedido (desenhado uma vez grande e reduzido)."""
+    global _LOGO
+    if _LOGO is None:
+        _LOGO = desenhar_logo()
+    return _LOGO.resize((tam, tam), Image.LANCZOS)
+
+
+def imagem_degrade(larg, alt, cor_topo, cor_base, raio=7, borda=None):
+    """Fundo arredondado com degradê vertical (cor_topo = cor_base: liso). Usado nos botões."""
     E = 4
     W, H = larg * E, alt * E
     c1, c2 = _rgba(cor_topo), _rgba(cor_base)
@@ -191,41 +237,75 @@ def imagem_degrade(larg, alt, cor_topo, cor_base, raio=7, borda=None, faixa=None
         grad.putpixel((0, y), tuple(int(c1[i] + (c2[i] - c1[i]) * t) for i in range(4)))
     grad = grad.resize((W, H))
     mascara = Image.new("L", (W, H), 0)
-    extra = raio * E if so_topo else 0          # aba: só os cantos de cima arredondados
-    ImageDraw.Draw(mascara).rounded_rectangle((0, 0, W - 1, H - 1 + extra), radius=raio * E, fill=255)
+    ImageDraw.Draw(mascara).rounded_rectangle((0, 0, W - 1, H - 1), radius=raio * E, fill=255)
     im = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     im.paste(grad, (0, 0), mascara)
-    d = ImageDraw.Draw(im)
-    if faixa:                                   # faixa clara no topo (aba selecionada)
-        topo = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-        ImageDraw.Draw(topo).rectangle((0, 0, W, 3 * E), fill=_rgba(faixa))
-        im.paste(topo, (0, 0), Image.composite(mascara, Image.new("L", (W, H), 0),
-                                               topo.split()[3]))
     if borda:
-        d.rounded_rectangle((E // 2, E // 2, W - 1 - E // 2, H - 1 + extra), radius=raio * E,
-                            outline=_rgba(borda), width=E)
+        ImageDraw.Draw(im).rounded_rectangle((E // 2, E // 2, W - 1 - E // 2, H - 1 - E // 2),
+                                             radius=raio * E, outline=_rgba(borda), width=E)
     return im.resize((larg, alt), Image.LANCZOS)
 
 
-# Paleta preto + azul
-DEGRADES = {
-    #            topo       base       borda      (normal, passar o mouse, apertado)
-    "Grad":     (("#0b0f17", "#1e3a8a", "#2f5fd0"), ("#111a2e", "#2754c7", "#5b8cff"),
-                 ("#1e3a8a", "#0b0f17", "#2f5fd0")),
-    "Destaque": (("#3b82f6", "#1d4ed8", "#60a5fa"), ("#4f93ff", "#2563eb", "#93c5fd"),
-                 ("#1d4ed8", "#1e3a8a", "#60a5fa")),
-    "Perigo":   (("#ef4444", "#b91c1c", "#f87171"), ("#f75b5b", "#dc2626", "#fca5a5"),
-                 ("#b91c1c", "#7f1d1d", "#f87171")),
-    "Amarelo":  (("#fde047", "#ca8a04", "#fef08a"), ("#fef08a", "#eab308", "#fef9c3"),
-                 ("#ca8a04", "#a16207", "#fde047")),
+# Paleta do painel: mude aqui para trocar o visual. O fundo é o do tema sv_ttk escuro.
+COR = {
+    "fundo": "#1c1c1c",
+    "cabecalho": "#141414",       # faixa do topo e rodapé
+    "cartao": "#242424",          # linhas das listas
+    "campo": "#2b2b2b",           # botões comuns
+    "borda": "#363636",
+    "borda2": "#4a4a4a",
+    "texto": "#ececec",
+    "mudo": "#8f8f8f",
+    "ouro": "#f5b82e",            # a única cor de destaque
+    "ouro_claro": "#ffc94d",
+    "ouro_escuro": "#d99a12",
+    "texto_ouro": "#1a1408",      # texto em cima do dourado
+    "verde": "#3ecf8e",
+    "vermelho": "#f0616d",
 }
-TEXTO_ESCURO = {"Amarelo"}          # estilos claros: texto e ícone escuros
+
+# Botões lisos: (normal, passar o mouse, apertado), cada um (fundo, borda)
+BOTOES = {
+    "Grad":     ((COR["campo"], COR["borda2"]), ("#343434", "#5c5c5c"), ("#232323", COR["borda2"])),
+    "Destaque": ((COR["ouro"], COR["ouro"]), (COR["ouro_claro"], COR["ouro_claro"]),
+                 (COR["ouro_escuro"], COR["ouro_escuro"])),
+    "Perigo":   ((COR["campo"], COR["borda2"]), ("#3a2a2c", COR["vermelho"]), ("#232323", COR["borda2"])),
+}
+BOTOES["Amarelo"] = BOTOES["Destaque"]
+TEXTO_ESCURO = {"Amarelo", "Destaque"}   # botões claros: texto e ícone escuros
+
+
+def imagem_aba(larg, alt, fundo, linha=None):
+    """Aba lisa; a selecionada ganha um traço embaixo."""
+    im = Image.new("RGBA", (larg, alt), _rgba(fundo))
+    if linha:
+        ImageDraw.Draw(im).rectangle((6, alt - 3, larg - 7, alt - 1), fill=_rgba(linha))
+    return im
+
+
+def dourar(im):
+    """Troca os tons de azul de uma imagem por dourado (o tema sv_ttk vem em azul)."""
+    import colorsys
+    im = im.convert("RGBA")
+    px = im.load()
+    for y in range(im.height):
+        for x in range(im.width):
+            r, g, b, a = px[x, y]
+            if not a:
+                continue
+            h, s, v = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
+            if 0.5 <= h <= 0.66 and s > 0.3:
+                r2, g2, b2 = colorsys.hsv_to_rgb(41 / 360, min(1.0, s * 1.2), v)
+                px[x, y] = (int(r2 * 255), int(g2 * 255), int(b2 * 255), a)
+    return im
 
 
 def icone_arredondado(img, T, raio, fundo=None, brilho=None, cinza=False):
     """Ícone no tamanho T com cantos arredondados. Com fundo conhecido (caixa escura) a borda
     fica suave; sem fundo, os cantos viram a cor transparente da janela (sem serrilhado escuro)."""
-    im = img.convert("RGB").resize((T, T), Image.NEAREST)
+    im = img.convert("RGB")
+    k = max(1, -(-T // max(1, im.width)))         # amplia em pixels inteiros e reduz liso
+    im = im.resize((im.width * k, im.height * k), Image.NEAREST).resize((T, T), Image.LANCZOS)
     if cinza:
         im = im.convert("L").convert("RGB")
     if brilho is not None:
@@ -257,6 +337,35 @@ def ret_arred(c, x0, y0, x1, y1, r, **kw):
     pts = [x0 + r, y0, x1 - r, y0, x1, y0, x1, y0 + r, x1, y1 - r, x1, y1,
            x1 - r, y1, x0 + r, y1, x0, y1, x0, y1 - r, x0, y0 + r, x0, y0]
     return c.create_polygon(pts, smooth=True, **kw)
+
+
+def contorno_arred(c, x0, y0, x1, y1, raio, cor):
+    """Contorno com a mesma curva da faixa_degrade (o smooth do Tk sai mais quadrado e deixa
+    um canto vazado entre a borda e o preenchimento)."""
+    raio = min(raio, (y1 - y0) / 2, (x1 - x0) / 2)
+    pts = []
+    for cx, cy, a0 in ((x1 - raio, y0 + raio, -90), (x1 - raio, y1 - raio, 0),
+                       (x0 + raio, y1 - raio, 90), (x0 + raio, y0 + raio, 180)):
+        for k in range(9):
+            a = math.radians(a0 + k * 90 / 8)
+            pts += [cx + raio * math.cos(a), cy + raio * math.sin(a)]
+    return c.create_polygon(pts, fill="", outline=cor, width=1)
+
+
+def faixa_degrade(c, x0, y0, x1, y1, raio, cor_em):
+    """Retângulo (de pontas redondas se raio > 0) com degradê de cima para baixo, desenhado
+    linha a linha no canvas. cor_em(t) dá a cor na altura t (0 = topo, 1 = base)."""
+    h = int(round(y1 - y0))
+    raio = min(raio, h / 2, (x1 - x0) / 2)
+    for i in range(h):
+        y = y0 + i + 0.5
+        recuo = 0.0
+        if raio:
+            dy = abs(y - (y0 + h / 2)) - (h / 2 - raio)
+            if dy > 0:
+                recuo = raio - math.sqrt(max(0.0, raio * raio - dy * dy))
+        if x1 - recuo > x0 + recuo:
+            c.create_line(x0 + recuo, y, x1 - recuo, y, fill=cor_em(i / max(1, h - 1)))
 
 
 def texto_contorno(canvas, x, y, texto, fonte, cor):

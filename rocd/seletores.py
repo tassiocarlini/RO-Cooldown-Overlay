@@ -6,6 +6,7 @@ from tkinter import ttk
 from PIL import ImageTk
 
 from .config import TODAS
+from .janelas import barra_escura
 
 
 class SeletorSkill:
@@ -71,6 +72,7 @@ class SeletorSkill:
         ent.focus_set()
         self._nomes_vistos = painel._nomes_recebidos
         top.after(1500, self._vigiar_nomes)
+        barra_escura(top)
 
     def _vigiar_nomes(self):
         """Atualiza a lista quando chegam nomes em português da Divine Pride."""

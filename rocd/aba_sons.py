@@ -136,28 +136,31 @@ class AbaSons:
                       text="Adicione skills e buffs nas abas Skills e Buffs.").grid(
                 row=0, column=0, padx=6, pady=10, sticky="w")
         for r, (tipo, item) in enumerate(itens):
-            img = item.get("_ref_full") if tipo == "skill" else (item.get("_imgs") or [None])[0]
+            self.cartao(self.lista_sons, r, 5)
+            img = (item.get("_visual") or item.get("_ref_full") if tipo == "skill" else
+                   (item.get("_visuais") or item.get("_imgs") or [None])[0])
             if img is not None:
-                item["_thumb_som"] = ImageTk.PhotoImage(img.resize((22, 22), Image.NEAREST))
-                ttk.Label(self.lista_sons, image=item["_thumb_som"]).grid(
-                    row=r, column=0, padx=(4, 2), pady=2)
+                item["_thumb_som"] = ImageTk.PhotoImage(img.resize((22, 22), Image.LANCZOS))
+                ttk.Label(self.lista_sons, image=item["_thumb_som"], style="Cartao.TLabel").grid(
+                    row=r, column=0, padx=(8, 2), pady=7)
             nome = item.get("nome") or "(sem nome)"
             ttk.Label(self.lista_sons, text=nome if len(nome) <= 22 else nome[:21] + "…",
-                      width=22).grid(row=r, column=1, padx=4, sticky="w")
+                      width=22, style="Cartao.TLabel").grid(row=r, column=1, padx=4, sticky="w")
             ttk.Label(self.lista_sons, text="Skill" if tipo == "skill" else "Buff",
-                      style="Dica.TLabel", width=5).grid(row=r, column=2, padx=2)
+                      style="Cartao.Dica.TLabel", width=5).grid(row=r, column=2, padx=2)
             som = item.get("som", True)
             atual = (SEM_SOM if som is False else
                      sons.nome(som) if isinstance(som, str) and sons.existe(som) else PADRAO)
             var = tk.StringVar(value=atual)
             item["_var_som"] = var
             cb = ttk.Combobox(self.lista_sons, textvariable=var, state="readonly", width=13,
-                              values=[PADRAO] + opcoes)
-            cb.grid(row=r, column=3, padx=4)
+                              values=[PADRAO] + opcoes, style="Cartao.TCombobox")
+            cb.grid(row=r, column=3, padx=4, pady=6)
             cb.bind("<<ComboboxSelected>>",
                     lambda _e, i=item, t=tipo, v=var: self._on_som_item(i, t, v))
-            self.dica(self.bt(self.lista_sons, "", "play", lambda i=item, t=tipo: self._testar_item(i, t)),
-                      "Testar o som desta skill/buff.").grid(row=r, column=4, padx=(2, 4))
+            self.dica(self.bt(self.lista_sons, "", "play", lambda i=item, t=tipo: self._testar_item(i, t),
+                              fundo="Cartao"),
+                      "Testar o som desta skill/buff.").grid(row=r, column=4, padx=(2, 8), pady=6)
 
         for wdg in self.lista_meus.winfo_children():
             wdg.destroy()

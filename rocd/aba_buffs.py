@@ -83,58 +83,65 @@ class AbaBuffs:
                 "  3. Para outra versão do ícone (outro elemento), clique em \"+ Ícone\".")
                       ).grid(row=0, column=0, padx=6, pady=10, sticky="w")
             return
-        for col, t in enumerate(("Ícones", "Nome", "", "Mostrar", "Duração",
-                                 "Estado", "")):
+        for col, t in enumerate(("ÍCONE", "NOME", "", "MOSTRAR", "DURAÇÃO",
+                                 "ESTADO", "")):
             ttk.Label(self.lista_buffs, text=t, style="Titulo.TLabel").grid(
                 row=0, column=col, padx=4, sticky="w")
         for i, bf in enumerate(buffs):
             r = i + 1
-            fi = ttk.Frame(self.lista_buffs)
-            fi.grid(row=r, column=0, padx=4, pady=3, sticky="w")
-            imgs = bf.get("_imgs") or [icone_dp_rgb(p) for p in
+            self.cartao(self.lista_buffs, r, 7)
+            fi = ttk.Frame(self.lista_buffs, style="Cartao.TFrame")
+            fi.grid(row=r, column=0, padx=(10, 4), pady=9, sticky="w")
+            imgs = bf.get("_visuais") or bf.get("_imgs") or [icone_dp_rgb(p) for p in
                                        (self.icone_buff(e) for _, e in bf.get("efst", [])) if p]
-            bf["_thumbs"] = [ImageTk.PhotoImage(im.resize((24, 24), Image.NEAREST))
+            bf["_thumbs"] = [ImageTk.PhotoImage(im.resize((24, 24), Image.LANCZOS))
                              for im in imgs[:1]]
             for th in bf["_thumbs"]:
-                ttk.Label(fi, image=th).pack(side="left", padx=1)
+                ttk.Label(fi, image=th, style="Cartao.TLabel").pack(side="left", padx=1)
             if not bf["_thumbs"]:
-                ttk.Label(fi, text="—", style="Dica.TLabel").pack(side="left")
+                ttk.Label(fi, text="—", style="Cartao.Dica.TLabel").pack(side="left")
             elif len(imgs) > 1:               # buff com várias versões (ex.: Brisa Leve)
-                ttk.Label(fi, text=f"×{len(imgs)}", style="Dica.TLabel").pack(side="left", padx=2)
+                ttk.Label(fi, text=f"×{len(imgs)}", style="Cartao.Dica.TLabel").pack(side="left", padx=2)
 
             vn = tk.StringVar(value=bf.get("nome", ""))
-            ttk.Entry(self.lista_buffs, textvariable=vn, width=11).grid(row=r, column=1, padx=2)
+            ttk.Entry(self.lista_buffs, textvariable=vn, width=11, style="Cartao.TEntry").grid(
+                row=r, column=1, padx=2)
             vn.trace_add("write", lambda *_, b=bf, v=vn: (b.__setitem__("nome", v.get()),
                                                           self.salvar_depois()))
-            fb = ttk.Frame(self.lista_buffs)
+            fb = ttk.Frame(self.lista_buffs, style="Cartao.TFrame")
             fb.grid(row=r, column=2, padx=2)
-            self.dica(self.bt(fb, "Ícone", "mais", lambda b=bf: self.capturar_variante(b)),
+            self.dica(self.bt(fb, "Ícone", "mais", lambda b=bf: self.capturar_variante(b),
+                              fundo="Cartao"),
                       "Marcar à mão mais uma versão do ícone deste buff.").pack(side="left")
-            self.dica(self.bt(fb, "Auto", "radar", lambda b=bf: self.captura_auto(b)),
+            self.dica(self.bt(fb, "Auto", "radar", lambda b=bf: self.captura_auto(b),
+                              fundo="Cartao"),
                       "Use o buff no jogo com cada elemento/versão: cada ícone novo é salvo "
                       "sozinho.").pack(side="left", padx=(4, 0))
 
             inv = {v: k for k, v in MOSTRAR_BUFF.items()}
             vm = tk.StringVar(value=inv.get(bf.get("mostrar", "sempre"), "Sempre"))
             cb = ttk.Combobox(self.lista_buffs, textvariable=vm, state="readonly", width=10,
-                              values=list(MOSTRAR_BUFF))
+                              values=list(MOSTRAR_BUFF), style="Cartao.TCombobox")
             cb.grid(row=r, column=3, padx=2)
             cb.bind("<<ComboboxSelected>>", lambda _e, b=bf, v=vm: (
                 b.__setitem__("mostrar", MOSTRAR_BUFF[v.get()]), self.salvar_depois()))
 
             vd = tk.StringVar(value=fmt_tempo(bf.get("duracao")))
-            ed = ttk.Entry(self.lista_buffs, textvariable=vd, width=5, justify="center")
+            ed = ttk.Entry(self.lista_buffs, textvariable=vd, width=5, justify="center",
+                           style="Cartao.TEntry")
             ed.grid(row=r, column=4, padx=2)
             vd.trace_add("write", lambda *_, b=bf, v=vd, e=ed: self._on_duracao(b, v, e))
             bf["_tk"] = (vn, vm, vd)
 
-            bf["_lbl_est"] = ttk.Label(self.lista_buffs, text="—", width=10)
+            bf["_lbl_est"] = ttk.Label(self.lista_buffs, text="—", width=10, style="Cartao.TLabel",
+                                       font=("Segoe UI", 9, "bold"))
             bf["_lbl_est"].grid(row=r, column=5, padx=2)
-            fo = ttk.Frame(self.lista_buffs)
-            fo.grid(row=r, column=6, padx=(2, 0))
-            self.bt(fo, "", "cima", lambda k=i: self.mover_buff(k, -1)).pack(side="left")
-            self.bt(fo, "", "baixo", lambda k=i: self.mover_buff(k, 1)).pack(side="left", padx=2)
-            self.bt(fo, "", "lixeira", lambda k=i: self.remover_buff(k)).pack(side="left", padx=(6, 0))
+            fo = ttk.Frame(self.lista_buffs, style="Cartao.TFrame")
+            fo.grid(row=r, column=6, padx=(2, 10))
+            self.bt(fo, "", "cima", lambda k=i: self.mover_buff(k, -1), fundo="Cartao").pack(side="left")
+            self.bt(fo, "", "baixo", lambda k=i: self.mover_buff(k, 1), fundo="Cartao").pack(side="left")
+            self.bt(fo, "", "lixeira", lambda k=i: self.remover_buff(k), fundo="Cartao").pack(
+                side="left", padx=(4, 0))
 
     def icone_buff(self, eid):
         """Ícone de um buff já baixado: ragassets primeiro, depois Divine Pride."""

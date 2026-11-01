@@ -137,7 +137,7 @@ class DivinePride:
                     self.nomes[sid] = dados["name"]
                 ico = PASTA_DP / f"icone_{sid}.png"
                 url_ico = dados.get("iconUrl") if isinstance(dados, dict) else None
-                if url_ico and not ico.exists() and self.ativo() and motivo == "buscar":
+                if url_ico and not ico.exists() and self.ativo() and (motivo == "buscar" or motivo[:1] == ("visual",)):
                     ico.write_bytes(self._abrir(url_ico, json_=False))
                 self.fila.put(("ok", sid, cd, motivo, dados.get("name") if isinstance(dados, dict) else None))
             except Exception as e:

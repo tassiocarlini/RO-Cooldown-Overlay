@@ -1,6 +1,7 @@
 """Janela principal (Painel): base, tema, perfis, aparência e status."""
 
 import os
+import re
 import shutil
 import sys
 import time
@@ -12,11 +13,13 @@ from tkinter import messagebox, simpledialog, ttk
 from PIL import Image, ImageDraw, ImageTk
 
 from .config import ARQ_APP, ESTILOS, NOME_APP, PASTA, TODAS, VERSAO, registrar, sv_ttk
-from .desenho import DEGRADES, NOMES_ICONES, TEXTO_ESCURO, desenhar_icone, imagem_degrade, logo_app
+from .desenho import (BOTOES, COR, NOMES_ICONES, TEXTO_ESCURO, desenhar_icone, dourar,
+                      imagem_aba, imagem_degrade, logo_app)
 from .dados import Banco, fmt_aprendido, gravar_json, ler_json
 from .sites import DivinePride, RagAssets
 from .seletores import SeletorSkill
 from .perfis import importar_dados_antigos_sozinho, migrar_config_antiga, nome_seguro, Perfis
+from .janelas import Jogo, barra_escura
 from .overlay import Overlay
 from .aba_buffs import AbaBuffs
 from .aba_skills import AbaSkills
@@ -74,11 +77,12 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaAvancado):
         # procura versão nova em segundo plano toda vez que o programa abre
         if self.app_cfg.get("verificar_atualizacoes", True):
             self.win.after(4000, lambda: self.verificar_atualizacao(False))
+        barra_escura(self.win)
 
     # ---- tema e ícones
 
     def _aplicar_tema(self):
-        self.escuro = True                       # visual preto + azul
+        self.escuro = True
         st = ttk.Style(self.root)
         self.tema_moderno = False
         if sv_ttk is not None:
@@ -91,78 +95,148 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaAvancado):
                 self.tema_moderno = True
             except Exception:
                 registrar("Tema moderno indisponível:\n" + traceback.format_exc())
+            if self.tema_moderno:
+                try:
+                    self._sv_dourado()
+                except Exception:
+                    registrar("Não deu para dourar o tema:\n" + traceback.format_exc())
         if not self.tema_moderno and "clam" in st.theme_names():
             st.theme_use("clam")
-            st.configure(".", background="#1c1c1c", foreground="#fafafa",
+            st.configure(".", background=COR["fundo"], foreground="#fafafa",
                          fieldbackground="#2b2b2b")
-        self.cor_fundo = str(st.lookup("TFrame", "background") or "") or "#1c1c1c"
+        self.cor_fundo = str(st.lookup("TFrame", "background") or "") or COR["fundo"]
         self.win.configure(bg=self.cor_fundo)
-        st.configure("Dica.TLabel", foreground="#8b95a7")
-        st.configure("Titulo.TLabel", font=("Segoe UI", 9, "bold"), foreground="#9cc3ff")
-        # títulos das seções (caixas) mais visíveis
-        st.configure("TLabelframe.Label", font=("Segoe UI", 10, "bold"), foreground="#9cc3ff")
+        st.configure("Dica.TLabel", foreground=COR["mudo"])
+        st.configure("Titulo.TLabel", font=("Segoe UI", 8, "bold"), foreground=COR["mudo"])
+        st.configure("TLabelframe.Label", font=("Segoe UI", 10, "bold"), foreground=COR["ouro"])
         st.configure("Campo.TLabel", font=("Segoe UI", 10))
+        st.map("TCombobox", selectbackground=[("readonly", "hover", "#3a3a3a"),
+                                              ("readonly", "focus", "#3a3a3a")])
+        st.map("Treeview", background=[("selected", "#3a3220")],
+               foreground=[("selected", COR["ouro_claro"])])
+        self.root.option_add("*TCombobox*Listbox.selectBackground", COR["ouro_escuro"])
+        self.root.option_add("*TCombobox*Listbox.selectForeground", COR["texto_ouro"])
 
-        branco = "#f4f7ff"
-        self.ic = {n: ImageTk.PhotoImage(desenhar_icone(n, branco, 16)) for n in NOMES_ICONES}
-        self.ic_dest = self.ic
-        self.ic_escuro = {n: ImageTk.PhotoImage(desenhar_icone(n, "#1a1a1a", 16)) for n in NOMES_ICONES}
+        def icones(cor):
+            return {n: ImageTk.PhotoImage(desenhar_icone(n, cor, 16)) for n in NOMES_ICONES}
+        self.ic = icones(COR["texto"])
+        self.ic_escuro = icones(COR["texto_ouro"])
+        self.ic_mudo = icones(COR["mudo"])
+        self.ic_ouro = icones(COR["ouro"])
+        self.ic_verm = icones(COR["vermelho"])
         self._logos = [ImageTk.PhotoImage(logo_app(t)) for t in (16, 32, 64)]
+        self.logo_topo = ImageTk.PhotoImage(logo_app(30))
         try:
             self.win.iconphoto(True, *self._logos)
         except tk.TclError:
             pass
         self._criar_estilos(st)
 
+    def _sv_dourado(self):
+        """O tema sv_ttk vem em azul (caixas de marcar, deslizantes, foco): troca por dourado.
+        Recolore a folha de imagens do tema e copia cada pedaço por cima do original."""
+        pasta = Path(sv_ttk.__file__).parent / "theme"
+        info = re.findall(r"^\s*([\w-]+) (\d+) (\d+) (\d+) (\d+)",
+                          (pasta / "sprites_dark.tcl").read_text(encoding="utf-8"), re.M)
+        folha = dourar(Image.open(pasta / "spritesheet_dark.png"))
+        tk_ = self.root.tk
+        for nome, x, y, w, h in info:
+            x, y, w, h = int(x), int(y), int(w), int(h)
+            try:
+                alvo = tk_.eval(f"set ttk::theme::sv_dark::I({nome})")
+            except tk.TclError:
+                continue
+            pedaco = ImageTk.PhotoImage(folha.crop((x, y, x + w, y + h)), master=self.root)
+            tk_.call(alvo, "copy", pedaco, "-compositingrule", "set")
+
     def _criar_estilos(self, st):
-        """Botões com degradê preto→azul (vermelho no de ajuda) e abas bem marcadas."""
+        """Botões lisos (dourado só no principal), botões só com ícone e abas com traço."""
         self._imgs_estilo = []
 
-        def foto(*args, **kw):
-            img = ImageTk.PhotoImage(imagem_degrade(*args, **kw))
+        def foto(im):
+            img = ImageTk.PhotoImage(im)
             self._imgs_estilo.append(img)
             return img
 
-        for nome, (normal, hover, apertado) in DEGRADES.items():
-            i_n = foto(40, 28, *normal[:2], borda=normal[2], raio=6)
-            i_h = foto(40, 28, *hover[:2], borda=hover[2], raio=6)
-            i_p = foto(40, 28, *apertado[:2], borda=apertado[2], raio=6)
-            i_d = foto(40, 28, "#1b1f27", "#14171d", borda="#2a2f3a", raio=6)
+        def botao(fundo, borda):
+            return foto(imagem_degrade(40, 28, fundo, fundo, borda=borda, raio=6))
+
+        i_d = botao("#202020", COR["borda"])
+        for nome, (normal, hover, apertado) in BOTOES.items():
             elem = f"{nome}.botao"
             try:
-                st.element_create(elem, "image", i_n, ("disabled", i_d), ("pressed", i_p),
-                                  ("active", i_h), border=(8, 7, 8, 7), sticky="nsew")
+                st.element_create(elem, "image", botao(*normal), ("disabled", i_d),
+                                  ("pressed", botao(*apertado)), ("active", botao(*hover)),
+                                  border=(8, 7, 8, 7), sticky="nsew")
             except tk.TclError:
                 pass                             # já existe
             estilo = f"{nome}.TButton"
             st.layout(estilo, [(elem, {"sticky": "nsew", "children": [
                 ("Button.padding", {"sticky": "nsew", "children": [
                     ("Button.label", {"sticky": "nsew"})]})]})])
-            st.configure(estilo, foreground="#1a1a1a" if nome in TEXTO_ESCURO else "#ffffff",
-                         padding=(6, 1), anchor="center")
-            st.map(estilo, foreground=[("disabled", "#6b7280")])
-            st.configure(f"Icone.{estilo}", padding=(1, 1))   # botões só com ícone
+            escuro = nome in TEXTO_ESCURO
+            st.configure(estilo, padding=(8, 2), anchor="center",
+                         foreground=COR["texto_ouro"] if escuro else COR["texto"],
+                         font=("Segoe UI", 10, "bold") if escuro else ("Segoe UI", 10))
+            st.map(estilo, foreground=[("disabled", "#6b6b6b")])
+        st.configure("Perigo.TButton", foreground=COR["vermelho"])
         self.estilo_padrao = "Grad.TButton"
         self.estilo_destaque = "Destaque.TButton"
 
-        # Abas: a selecionada fica azul, com faixa clara no topo e texto branco em negrito
-        t_n = foto(40, 34, "#161b26", "#11151d", raio=7, so_topo=True)
-        t_h = foto(40, 34, "#1f2a40", "#141b2a", raio=7, so_topo=True)
-        t_s = foto(40, 34, "#2563eb", "#0f1d3d", raio=7, so_topo=True, faixa="#7cc0ff")
+        # Botão só com ícone: sem caixa; a caixa aparece ao passar o mouse
+        vazio = foto(Image.new("RGBA", (28, 28), (0, 0, 0, 0)))
         try:
-            st.element_create("Aba.tab", "image", t_n, ("selected", t_s), ("active", t_h),
-                              border=(8, 8, 8, 2), sticky="nsew")
+            st.element_create("Icone.botao", "image", vazio,
+                              ("pressed", botao(COR["cartao"], COR["borda2"])),
+                              ("active", botao(COR["campo"], COR["borda2"])),
+                              border=(8, 7, 8, 7), sticky="nsew")
+        except tk.TclError:
+            pass
+        st.layout("Icone.TButton", [("Icone.botao", {"sticky": "nsew", "children": [
+            ("Button.padding", {"sticky": "nsew", "children": [
+                ("Button.label", {"sticky": "nsew"})]})]})])
+        st.configure("Icone.TButton", padding=(4, 3))
+
+        # Abas lisas: a selecionada ganha um traço dourado embaixo
+        t_n = foto(imagem_aba(40, 34, self.cor_fundo))
+        t_s = foto(imagem_aba(40, 34, self.cor_fundo, COR["ouro"]))
+        try:
+            st.element_create("Aba.tab", "image", t_n, ("selected", t_s),
+                              border=(8, 8, 8, 4), sticky="nsew")
         except tk.TclError:
             pass
         st.layout("TNotebook.Tab", [("Aba.tab", {"sticky": "nsew", "children": [
             ("Notebook.padding", {"side": "top", "sticky": "nsew", "children": [
                 ("Notebook.label", {"side": "top", "sticky": ""})]})]})])
-        st.configure("TNotebook.Tab", padding=(18, 7), foreground="#8b95a7")
-        st.configure("TNotebook", tabmargins=(2, 4, 2, 0))
+        st.configure("TNotebook.Tab", padding=(16, 7), foreground=COR["mudo"])
+        # sem a moldura clara do sv_ttk atrás das abas; só uma borda fina em volta do conteúdo
+        st.layout("TNotebook", [("Notebook.client", {"sticky": "nsew"})])
+        st.configure("TNotebook", tabmargins=(2, 4, 2, 0), background=self.cor_fundo,
+                     bordercolor=COR["borda"], lightcolor=COR["borda"], darkcolor=COR["borda"])
         st.map("TNotebook.Tab",
-               foreground=[("selected", "#ffffff"), ("active", "#dbe7ff")],
+               foreground=[("selected", COR["texto"]), ("active", COR["texto"])],
                expand=[("selected", (0, 0, 0, 0))],
                font=[("selected", ("Segoe UI", 10, "bold")), ("!selected", ("Segoe UI", 10))])
+
+        # Cópias dos estilos com outro fundo (cantos dos botões e campos pegam essa cor)
+        for prefixo, cor in (("Cartao", COR["cartao"]), ("Rodape", COR["cabecalho"])):
+            for base in ("TFrame", "TLabel", "Dica.TLabel", "Titulo.TLabel", "Campo.TLabel",
+                         "TCheckbutton", "TRadiobutton", "TEntry", "TCombobox", "TSpinbox",
+                         "Icone.TButton", *(f"{n}.TButton" for n in BOTOES)):
+                st.configure(f"{prefixo}.{base}", background=cor)
+
+    def cartao(self, grade, linha, colunas):
+        """Fundo de cartão atrás de uma linha da grade. Criar antes dos widgets da linha
+        (assim fica por baixo deles) e usar os estilos "Cartao." nos widgets."""
+        f = tk.Frame(grade, bg=COR["cartao"], highlightthickness=1,
+                     highlightbackground=COR["borda"], bd=0)
+        f.grid(row=linha, column=0, columnspan=colunas, sticky="nsew", pady=3)
+        return f
+
+    def aba(self, texto, icone):
+        """Texto e ícone de uma aba (ícone dourado na aba aberta)."""
+        return {"text": " " + texto, "compound": "left",
+                "image": (self.ic_mudo[icone], "selected", self.ic_ouro[icone])}
 
     def dica(self, widget, texto):
         """Explicação que aparece ao parar o mouse em cima de um botão ou opção."""
@@ -175,9 +249,9 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaAvancado):
             j = tk.Toplevel(widget)
             j.overrideredirect(True)
             j.attributes("-topmost", True)
-            tk.Label(j, text=texto, justify="left", wraplength=320, bg="#0f1420", fg="#e6ecf7",
-                     font=("Segoe UI", 9), padx=10, pady=6, bd=1, relief="solid",
-                     highlightthickness=0).pack()
+            tk.Label(j, text=texto, justify="left", wraplength=320, bg=COR["campo"],
+                     fg=COR["texto"], font=("Segoe UI", 9), padx=10, pady=6, bd=0,
+                     highlightthickness=1, highlightbackground=COR["borda2"]).pack()
             x = widget.winfo_rootx() + 8
             y = widget.winfo_rooty() + widget.winfo_height() + 6
             j.geometry(f"+{x}+{y}")
@@ -199,51 +273,77 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaAvancado):
         widget.bind("<ButtonPress>", sair, add="+")
         return widget
 
-    def bt(self, pai, texto, icone, cmd, destaque=False, perigo=False, amarelo=False, **kw):
-        """Botão com ícone à esquerda do texto (ou só o ícone, se texto vazio)."""
+    def bt(self, pai, texto, icone, cmd, destaque=False, perigo=False, amarelo=False, fundo="",
+           **kw):
+        """Botão com ícone à esquerda do texto, ou só o ícone (texto vazio: cinza, dourado com o
+        mouse em cima). fundo: "Cartao" ou "Rodape" para botões nessas faixas."""
+        pre = fundo + "." if fundo else ""
+        if not texto:
+            return ttk.Button(pai, image=(self.ic_mudo[icone], "active", self.ic_ouro[icone]),
+                              command=cmd, style=pre + "Icone.TButton", **kw)
         estilo = ("Amarelo.TButton" if amarelo else "Perigo.TButton" if perigo else
                   self.estilo_destaque if destaque else self.estilo_padrao)
-        if not texto:
-            estilo = "Icone." + estilo
-        icones = self.ic_escuro if amarelo else self.ic
-        return ttk.Button(pai, text=texto, image=icones.get(icone),
-                          compound="left" if texto else "image",
-                          command=cmd, style=estilo, **kw)
+        icones = self.ic_escuro if amarelo or destaque else self.ic_verm if perigo else self.ic
+        return ttk.Button(pai, text=texto, image=icones.get(icone), compound="left",
+                          command=cmd, style=pre + estilo, **kw)
 
     # ---- interface
 
     def _montar_ui(self):
         w = self.win
-        pad = {"padx": 8, "pady": 4}
+
+        # Topo: logo, nome e se o jogo e o overlay estão funcionando
+        topo = tk.Frame(w, bg=COR["cabecalho"])
+        topo.pack(fill="x")
+        tk.Label(topo, image=self.logo_topo, bg=COR["cabecalho"]).pack(side="left", padx=(14, 10),
+                                                                       pady=10)
+        tk.Label(topo, text=NOME_APP, bg=COR["cabecalho"], fg=COR["texto"],
+                 font=("Segoe UI", 13, "bold")).pack(side="left")
+        tk.Label(topo, text=f"v{VERSAO}", bg=COR["cabecalho"], fg=COR["mudo"],
+                 font=("Segoe UI", 9)).pack(side="left", padx=8, pady=(4, 0))
+        self.pilulas = {}
+        for chave in ("overlay", "jogo"):
+            f = tk.Frame(topo, bg=COR["campo"], highlightthickness=1,
+                         highlightbackground=COR["borda"])
+            f.pack(side="right", padx=(0, 14 if chave == "overlay" else 6))
+            c = tk.Canvas(f, width=9, height=9, bg=COR["campo"], highlightthickness=0)
+            bola = c.create_oval(1, 1, 8, 8, fill=COR["mudo"], outline="")
+            c.pack(side="left", padx=(9, 5))
+            lb = tk.Label(f, text="", bg=COR["campo"], fg=COR["texto"], font=("Segoe UI", 9))
+            lb.pack(side="left", padx=(0, 9), pady=3)
+            self.pilulas[chave] = (c, bola, lb)
+        self._jogo_topo = Jogo()                      # só para a bolinha "jogo encontrado"
+        self._jogo_topo_t = -99.0
 
         # Perfil
-        fp = ttk.LabelFrame(w, text="Perfil")
-        fp.pack(fill="x", **pad)
+        fp = ttk.Frame(w)
+        fp.pack(fill="x", padx=12, pady=(12, 4))
+        ttk.Label(fp, text="PERFIL", style="Titulo.TLabel").pack(side="left", padx=(0, 8))
         self.var_perfil = tk.StringVar()
         self.cb_perfil = ttk.Combobox(fp, textvariable=self.var_perfil, state="readonly", width=30)
-        self.cb_perfil.pack(side="left", padx=6, pady=6)
+        self.cb_perfil.pack(side="left")
         self.cb_perfil.bind("<<ComboboxSelected>>",
                             lambda _e: self.trocar_perfil(self.var_perfil.get()))
-        for txt, ic, cmd in (("Novo", "mais", self.novo_perfil),
-                             ("Duplicar", "copiar", self.duplicar_perfil),
+        for txt, ic, cmd in (("Excluir", "lixeira", self.excluir_perfil),
                              ("Renomear", "lapis", self.renomear_perfil),
-                             ("Excluir", "lixeira", self.excluir_perfil)):
-            self.bt(fp, txt, ic, cmd).pack(side="left", padx=2)
+                             ("Duplicar", "copiar", self.duplicar_perfil),
+                             ("Novo", "mais", self.novo_perfil)):
+            self.bt(fp, txt, ic, cmd, perigo=txt == "Excluir").pack(side="right", padx=(6, 0))
 
         # Skills
         # Abas: deixa a janela compacta (cabe em telas de notebook)
         self.abas = nb = ttk.Notebook(w)
-        nb.pack(fill="both", expand=True, padx=8, pady=(4, 4))
+        nb.pack(fill="both", expand=True, padx=8, pady=(6, 4))
         aba_sk, aba_ap, aba_av = ttk.Frame(nb), ttk.Frame(nb), ttk.Frame(nb)
         aba_bf = ttk.Frame(nb)
-        nb.add(aba_sk, text=" Skills", image=self.ic["relogio"], compound="left")
-        nb.add(aba_bf, text=" Buffs", image=self.ic["escudo"], compound="left")
+        nb.add(aba_sk, **self.aba("Skills", "relogio"))
+        nb.add(aba_bf, **self.aba("Buffs", "escudo"))
         self._montar_aba_buffs(aba_bf)
         aba_som = ttk.Frame(nb)
-        nb.add(aba_som, text=" Sons", image=self.ic["som"], compound="left")
+        nb.add(aba_som, **self.aba("Sons", "som"))
         self._montar_aba_sons(aba_som)
-        nb.add(aba_ap, text=" Aparência", image=self.ic["mover"], compound="left")
-        nb.add(aba_av, text=" Avançado", image=self.ic["chave"], compound="left")
+        nb.add(aba_ap, **self.aba("Aparência", "mover"))
+        nb.add(aba_av, **self.aba("Avançado", "chave"))
         self.aba_av = aba_av
 
         fs = ttk.Frame(aba_sk)
@@ -313,6 +413,7 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaAvancado):
         self.var_estilo = tk.StringVar()
         self.var_painel = tk.BooleanVar()
         self.var_nomes = tk.BooleanVar()
+        self.var_oficial = tk.BooleanVar()
         self.var_ap = tk.BooleanVar()
         self.var_ap_alt = tk.DoubleVar()
 
@@ -357,7 +458,13 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaAvancado):
         self.dica(c, "Um fundo escuro agrupando todos os ícones. Ajuda a ler sobre cenários claros.")
         c = ttk.Checkbutton(fi, text="Nome da skill/buff embaixo de cada ícone",
                             variable=self.var_nomes, command=self._on_estilo)
-        c.grid(row=7, column=0, columnspan=3, sticky="w", padx=8, pady=(4, 8))
+        c.grid(row=7, column=0, columnspan=3, sticky="w", padx=8, pady=(4, 0))
+        c = ttk.Checkbutton(fi, text="Ícone oficial do jogo (não o print da sua barra)",
+                            variable=self.var_oficial, command=self._on_estilo)
+        c.grid(row=8, column=0, columnspan=3, sticky="w", padx=8, pady=(4, 8))
+        self.dica(c, "O print da sua barra de atalhos pode vir com o número da recarga ou a "
+                     "sombra do delay. Com isto ligado, o overlay mostra o ícone oficial "
+                     "(ragassets ou Divine Pride); o print continua servindo para detectar.")
 
         # --- Posição na tela
         fpos = ttk.LabelFrame(esq, text="Posição na tela")
@@ -495,26 +602,74 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaAvancado):
         self.lbl_dp.pack(side="left", padx=4)
 
         # Rodapé
-        fr = ttk.Frame(w)
-        self.bt_iniciar = self.bt(fr, "Iniciar overlay", "play", self.alternar_overlay, destaque=True)
+        rod = tk.Frame(w, bg=COR["cabecalho"])
+        fr = ttk.Frame(rod, style="Rodape.TFrame")
+        fr.pack(fill="x", padx=12, pady=(10, 4))
+        self.bt_iniciar = self.bt(fr, "Iniciar overlay", "play", self.alternar_overlay,
+                                  destaque=True, fundo="Rodape")
         self.dica(self.bt_iniciar, "Liga ou desliga o overlay em cima do jogo.")
         self.bt_iniciar.pack(side="left")
         self.var_auto = tk.BooleanVar(value=bool(self.app_cfg.get("iniciar_auto")))
         self.dica(ttk.Checkbutton(fr, text="Iniciar automaticamente ao abrir",
-                                  variable=self.var_auto, command=self._on_auto),
+                                  variable=self.var_auto, command=self._on_auto,
+                                  style="Rodape.TCheckbutton"),
                   "Liga o overlay sozinho toda vez que o programa abrir.").pack(side="left", padx=12)
-        self.dica(self.bt(fr, "Pasta de dados", "pasta", lambda: os.startfile(PASTA)),
+        self.dica(self.bt(fr, "Pasta de dados", "pasta", lambda: os.startfile(PASTA), fundo="Rodape"),
                   "Abre a pasta com seus perfis e os arquivos de log (log.txt, erro.log)."
                   ).pack(side="right")
-        self.dica(self.bt(fr, "Tirar print", "camera", self.tirar_print),
+        self.dica(self.bt(fr, "Tirar print", "camera", self.tirar_print, fundo="Rodape"),
                   "Contagem de 5 s: volte ao jogo e use uma skill. O print sai com o overlay."
                   ).pack(side="right", padx=6)
-        self.lbl_status = ttk.Label(w, text="", style="Dica.TLabel")
-        self.lbl_status.pack(side="bottom", fill="x", padx=10, pady=(0, 8), before=fp)
-        fr.pack(side="bottom", fill="x", padx=8, pady=(4, 2), before=fp)
+        fst = tk.Frame(rod, bg=COR["cabecalho"])
+        fst.pack(fill="x", padx=12, pady=(0, 8))
+        self.bola_status = tk.Canvas(fst, width=8, height=8, bg=COR["cabecalho"],
+                                     highlightthickness=0)
+        self._bola_status = self.bola_status.create_oval(0, 0, 8, 8, fill=COR["mudo"], outline="")
+        self.bola_status.pack(side="left", padx=(0, 6))
+        self.lbl_status = ttk.Label(fst, text="", style="Rodape.Dica.TLabel")
+        self.lbl_status.pack(side="left", fill="x")
+        rod.pack(side="bottom", fill="x", before=fp)
+        tk.Frame(w, bg=COR["borda"], height=1).pack(side="bottom", fill="x", before=fp)
 
     def status(self, txt):
         self.lbl_status.config(text=txt)
+
+    @staticmethod
+    def cor_estado(t):
+        """Cor do texto de estado de uma skill ou buff."""
+        if t.startswith(("pronta", "ATIVO")):
+            return COR["verde"]
+        if t.startswith(("DELAY", "ative")):
+            return COR["ouro"]
+        if t.startswith(("não", "sem", "jogo não", "barra")):
+            return COR["vermelho"]
+        return COR["mudo"]
+
+    def _atualizar_topo(self):
+        """Bolinhas do topo: o jogo foi achado? o overlay está ligado?"""
+        ov = self.overlay
+        agora = time.monotonic()
+        if ov.ativo:
+            achou = ov.geo is not None or ov.jogo.hwnd is not None
+        else:
+            if agora - self._jogo_topo_t > 1.5:
+                self._jogo_topo_t = agora
+                titulo = (self.perfil or {}).get("titulo_janela_jogo", "").strip()
+                self._jogo_topo.hwnd = None
+                if titulo:
+                    self._jogo_topo.localizar(titulo, agora)
+            achou = self._jogo_topo.hwnd is not None
+        for chave, (texto, cor) in (
+                ("jogo", ("Jogo encontrado", COR["verde"]) if achou else
+                 ("Jogo não encontrado", COR["vermelho"])),
+                ("overlay", ("Overlay ativo", COR["ouro"]) if ov.ativo else
+                 ("Overlay parado", COR["mudo"]))):
+            c, bola, lb = self.pilulas[chave]
+            if lb.cget("text") != texto:
+                lb.config(text=texto)
+                c.itemconfig(bola, fill=cor)
+        self.bola_status.itemconfig(self._bola_status,
+                                    fill=COR["ouro"] if ov.ativo else COR["mudo"])
 
     def _rotulo_aba(self, texto, icone, cor):
         """Desenha ícone + texto de uma aba numa imagem (para poder mudar a cor de uma aba só)."""
@@ -638,6 +793,7 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaAvancado):
         self.var_estilo.set(inv.get(L.get("estilo", "moderno"), "Moderno"))
         self.var_painel.set(bool(L.get("fundo_painel")))
         self.var_nomes.set(bool(L.get("mostrar_nomes")))
+        self.var_oficial.set(bool(L.get("icone_oficial", True)))
         self.var_ap.set(bool(L.get("mostrar_ap")))
         alt = int(L.get("ap_altura") or 0)
         self.var_ap_alt.set(alt or max(14, int(L["tamanho"] * 0.3)))
@@ -691,7 +847,10 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaAvancado):
         L["estilo"] = ESTILOS.get(self.var_estilo.get(), "moderno")
         L["fundo_painel"] = bool(self.var_painel.get())
         L["mostrar_nomes"] = bool(self.var_nomes.get())
+        L["icone_oficial"] = bool(self.var_oficial.get())
         self.overlay.preparar_imagens()
+        self.montar_lista()
+        self.montar_buffs()
         self.overlay.relayout()
         self.overlay.preview(3)
         self.salvar_depois()
@@ -726,7 +885,7 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaAvancado):
         ligar = not self.overlay.mover
         self.overlay.set_mover(ligar)
         self.bt_mover.config(text="Concluir posição" if ligar else "Mover / redimensionar",
-                             image=self.ic_dest["check"] if ligar else self.ic["mover"],
+                             image=self.ic["check"] if ligar else self.ic["mover"],
                              style=self.estilo_destaque if ligar else self.estilo_padrao)
         if not ligar:
             self.salvar_depois()
@@ -769,12 +928,12 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaAvancado):
                                 parent=self.win)
             return
         if self.overlay.iniciar():
-            self.bt_iniciar.config(text="Parar overlay", image=self.ic_dest["stop"])
+            self.bt_iniciar.config(text="Parar overlay", image=self.ic_escuro["stop"])
             self.status("Overlay rodando. Pode minimizar esta janela.")
 
     def parar(self):
         self.overlay.parar()
-        self.bt_iniciar.config(text="Iniciar overlay", image=self.ic_dest["play"])
+        self.bt_iniciar.config(text="Iniciar overlay", image=self.ic_escuro["play"])
         self.status("Overlay parado.")
 
     def _on_auto(self):
@@ -818,7 +977,7 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaAvancado):
                     if any(v.startswith("buff_site_") for v in vs):
                         reais = sum(not v.startswith("buff_site_") for v in vs)
                         t += f" · {reais}/{len(vs)}"
-                le.config(text=t)
+                le.config(text=t, foreground=self.cor_estado(t))
         except tk.TclError:
             pass
         try:
@@ -842,8 +1001,12 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaAvancado):
                     t = f"{'DELAY' if sk['_delay'] else 'pronta'} ({sk['_d']:.2f})"
                     if sk.get("_contando"):
                         t += " ⏱"
-                le.config(text=t)
+                le.config(text=t, foreground=self.cor_estado(t))
                 sk["_lbl_apr"].config(text=fmt_aprendido(sk))
+        except tk.TclError:
+            pass
+        try:
+            self._atualizar_topo()
         except tk.TclError:
             pass
         try:

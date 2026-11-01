@@ -11,12 +11,12 @@ from PIL import Image, ImageEnhance, ImageTk
 
 from .config import (BARRA_H, BUFF_TOLERANCIA, COR_PAINEL, COR_TRANSPARENTE, ESCALAS_BUFF,
     ESCALAS_DP, JANELA_GRUPO, LIMIAR_ACHADO, LIMIAR_ACHADO_DP, LIMIAR_BUFF, LIMIAR_BUFF_SITE,
-    LIMIAR_PERDIDO, cv2, np, registrar)
+    LIMIAR_OFICIAL, LIMIAR_PERDIDO, cv2, np, registrar)
 from .janelas import (WDA_EXCLUDEFROMCAPTURE, WS_EX_LAYERED, WS_EX_NOACTIVATE, WS_EX_TOOLWINDOW,
     WS_EX_TRANSPARENT, hwnd_de, janela_no_ponto, Jogo, mudar_estilo, nova_captura, user32)
 from .visao import (cinza, diferenca, mapa_simbolo_suave, miolo, modelos_buff, picos, sem_cor_chave,
     semelhanca, tem_moldura)
-from .desenho import icone_arredondado, misturar_cor, ret_arred, texto_contorno
+from .desenho import contorno_arred, faixa_degrade, icone_arredondado, misturar_cor, ret_arred, texto_contorno
 from .ap import achar_rotulo_ap, achar_rotulos_ap, ler_fracao, localizar_ap
 from .sites import icone_dp_rgb
 from .captura import CapturaAuto
@@ -184,15 +184,78 @@ class Overlay:
             return ImageTk.PhotoImage(icone_arredondado(pil, T, m["raio"], fundo, brilho, cinza))
 
         for sk in self.skills:
-            sk["_img"] = img(sk["_ref_full"])
-            sk["_img_cd"] = img(sk["_ref_full"], 0.35)
+            sk["_visual"] = self._visual_skill(sk)
+            sk["_img"] = img(sk["_visual"])
+            sk["_img_cd"] = img(sk["_visual"], 0.35)
         for bf in self.buffs:
             if not bf.get("_imgs"):
                 bf["_img"] = None
                 continue
-            bf["_img"] = img(bf["_imgs"][0])
-            bf["_img_var"] = [img(im) for im in bf["_imgs"]]
-            bf["_img_off"] = img(bf["_imgs"][0], 0.45, cinza=True)
+            bf["_visuais"] = self._visual_buff(bf)
+            bf["_img"] = img(bf["_visuais"][0])
+            bf["_img_var"] = [img(im) for im in bf["_visuais"]]
+            bf["_img_off"] = img(bf["_visuais"][0], 0.45, cinza=True)
+
+    # ---- imagem mostrada no overlay
+    # O print da sua barra de atalhos serve para detectar a recarga, mas pode vir com o número
+    # da recarga ou a sombra do delay junto. Para mostrar, o padrão é o ícone oficial do jogo.
+
+    def _visual_skill(self, sk):
+        if self.L.get("icone_oficial", True):
+            sid = self.painel._sid(sk)
+            p = self.painel.icone_skill(sid) if sid else None
+            if p:
+                try:
+                    return icone_dp_rgb(p)
+                except Exception:
+                    pass
+            elif sid:
+                self._pedir_icone(sid)
+        return sk["_ref_full"]
+
+    def _visual_buff(self, bf):
+        """Para cada versão capturada, o ícone oficial mais parecido com ela (ex.: os 7
+        elementos da Brisa Leve). A Divine Pride às vezes tem um desenho diferente do cliente
+        LATAM: se nenhum oficial for parecido o bastante, fica a própria captura."""
+        imgs = bf["_imgs"]
+        # buff marcado na tela não guarda o id do ícone: procura pelo nome no banco
+        efst = bf.get("efst") or self.painel.banco.efst_de(bf.get("nome", ""))
+        if not self.L.get("icone_oficial", True) or not efst:
+            return imgs
+        oficiais = []
+        for chave_efst, eid in efst:
+            p = self.painel.icone_buff(eid)
+            if p is None:
+                self._pedir_icone(eid, "status", id(bf), chave_efst)
+            try:
+                oficiais.append(icone_dp_rgb(p) if p else None)
+            except Exception:
+                oficiais.append(None)
+        if not any(oficiais):
+            return imgs
+        if np is None:
+            return imgs
+        cand = [o for o in oficiais if o is not None]
+        res = []
+        for im in imgs:
+            g = cinza(im)
+            nota, melhor = max(((semelhanca(cinza(o.resize(im.size, Image.LANCZOS)), g), k)
+                                for k, o in enumerate(cand)), key=lambda x: x[0])
+            res.append(cand[melhor] if nota >= LIMIAR_OFICIAL else im)
+        return res
+
+    def _pedir_icone(self, ident, tipo="skill", buff=None, chave_efst=None):
+        """Baixa (uma vez) o ícone oficial que falta: ragassets e, se ele não tiver, a Divine
+        Pride (com chave). Quando chega, o painel redesenha."""
+        pedidos = self.__dict__.setdefault("_icones_pedidos", set())
+        if (tipo, ident) in pedidos:
+            return
+        pedidos.add((tipo, ident))
+        motivo = ("visual", buff, chave_efst)
+        if self.painel.rag.ligado:
+            self.painel.rag.pedir(tipo, ident, motivo)
+        else:
+            self.painel.pedir_icone_dp(tipo, ident, motivo)
 
     def calcular_caixa(self):
         com_pos = [s for s in self.skills if s.get("x") is not None]
@@ -993,37 +1056,47 @@ class Overlay:
     # ---- barra de AP
 
     def _desenhar_ap(self, c, m, agora, edicao, x1):
-        """Barra de AP do tamanho da faixa de ícones, com "atual / máximo" no meio."""
+        """Barra de AP do tamanho da faixa de ícones: trilho escuro, preenchimento com brilho em
+        cima e sombra embaixo, marcas a cada 25% e "AP  atual / máximo"."""
         pad, h = m["pad"], m["ap_h"]
         x0, y0 = pad, pad
         leitura = getattr(self, "ap", None)
         recente = leitura is not None and agora - getattr(self, "ap_t", -99) < 3
         if edicao and leitura is None:
             leitura, recente = (53, 200), True       # exemplo para posicionar
-        frac = leitura[0] / leitura[1] if leitura and leitura[1] else 0.0
+        frac = min(1.0, leitura[0] / leitura[1]) if leitura and leitura[1] else 0.0
         raio = 0 if self.estilo == "classico" else h / 2
-        borda = "#2a3142"
+        cor = self.L.get("ap_cor") or "#3b82f6"
+        base = cor if recente else misturar_cor(cor, "#3a4050", 0.75)
 
-        def caixa(xa, xb, **kw):
-            if raio:
-                return ret_arred(c, xa, y0, xb, y0 + h, raio, **kw)
-            return c.create_rectangle(xa, y0, xb, y0 + h, **kw)
-
-        caixa(x0, x1, fill="#161b26", outline=borda, width=1)
+        faixa_degrade(c, x0, y0, x1, y0 + h, raio,
+                      lambda t: misturar_cor("#0b0e14", "#1c2230", t))          # trilho
         if frac > 0:
-            cor = self.L.get("ap_cor") or "#3b82f6"
-            preench = cor if recente else misturar_cor(cor, "#3a4050", 0.75)
-            xb = x0 + max(h if raio else 2, (x1 - x0) * min(1.0, frac))
-            caixa(x0, xb, fill=preench, outline="")
-            if recente and h >= 10:                   # brilho no topo da barra
-                c.create_line(x0 + raio, y0 + 2, max(x0 + raio, xb - raio), y0 + 2,
-                              fill=misturar_cor(cor, "#ffffff", 0.45), width=1)
-        txt = f"{leitura[0]} / {leitura[1]}" if leitura else "AP ?"
-        if not recente and leitura:
-            txt = "AP ?  (" + txt + ")"
-        fonte = ("Segoe UI", max(6, min(int(h * 0.62), 22)), "bold")
-        texto_contorno(c, (x0 + x1) / 2, y0 + h / 2, txt, fonte,
-                       "#ffffff" if recente else "#9aa4b5")
+            xb = x0 + max(h if raio else 2, (x1 - x0) * frac)
+            faixa_degrade(c, x0, y0, xb, y0 + h, raio, lambda t: (
+                misturar_cor(base, "#ffffff", 0.45 * (1 - t / 0.4)) if t < 0.4 else
+                misturar_cor(base, "#000000", 0.4 * (t - 0.4) / 0.6)))
+            for q in (0.25, 0.5, 0.75):                                         # marcas
+                xq = x0 + (x1 - x0) * q
+                if xq < xb - 2 and h >= 10:
+                    c.create_line(xq, y0 + 3, xq, y0 + h - 3,
+                                  fill=misturar_cor(base, "#000000", 0.35))
+        borda = misturar_cor(cor, "#ffffff", 0.35) if frac >= 1 and recente else "#3a4256"
+        if raio:
+            contorno_arred(c, x0, y0, x1, y0 + h, raio, borda)
+        else:
+            c.create_rectangle(x0, y0, x1, y0 + h, outline=borda, width=1)
+        tam = max(6, min(int(h * 0.6), 22))
+        fonte = ("Segoe UI", tam, "bold")
+        cor_txt = "#ffffff" if recente else "#9aa4b5"
+        if leitura is None:
+            texto_contorno(c, (x0 + x1) / 2, y0 + h / 2, "AP ?", fonte, cor_txt)
+            return
+        txt = f"{leitura[0]} / {leitura[1]}" + ("" if recente else "  ?")
+        if x1 - x0 >= 130 and h >= 12:                  # rótulo "AP" à esquerda
+            texto_contorno(c, x0 + max(raio, 4) + tam * 0.9, y0 + h / 2, "AP",
+                           ("Segoe UI", max(6, tam - 2), "bold"), "#e8ecf4")
+        texto_contorno(c, (x0 + x1) / 2, y0 + h / 2, txt, fonte, cor_txt)
 
     def _ler_ap(self, agora):
         """Lê o AP 4 vezes por segundo. Acha sozinho a janela Informações básicas pelo rótulo

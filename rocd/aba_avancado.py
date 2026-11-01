@@ -11,6 +11,7 @@ from PIL import ImageTk
 
 from .config import ARQ_APP, PASTA_DP, VERSAO, registrar
 from .dados import gravar_json
+from .desenho import COR
 from .perfis import importar_dados_antigos, Perfis, tem_dados_antigos
 from .atualizacao import aplicar_atualizacao, buscar_versao_nova, preparar_atualizacao
 
@@ -186,11 +187,11 @@ class AbaAvancado:
         if not hasattr(self, "aba_av"):
             return
         if self.dp.ativo():
-            self.abas.tab(self.aba_av, text=" Avançado", image=self.ic["chave"], compound="left")
+            self.abas.tab(self.aba_av, **self.aba("Avançado", "chave"))
             return
         if not hasattr(self, "_aba_av_vermelha"):
             self._aba_av_vermelha = ImageTk.PhotoImage(self._rotulo_aba(" Avançado", "chave",
-                                                                         "#ff4d4d"))
+                                                                         COR["vermelho"]))
         self.abas.tab(self.aba_av, text="", image=self._aba_av_vermelha, compound="image")
 
     def testar_dp(self):
