@@ -48,9 +48,7 @@ O `.exe` é gerado pelo próprio GitHub, a partir do código desta página (veja
 Botão verde **Code** → **Download ZIP**, extraia e abra o **`RO Cooldown Overlay.exe`** da pasta (ou o **`iniciar.bat`**). Na primeira vez, se faltar o Python, ele instala sozinho o Python e as bibliotecas e salva os detalhes em `instalacao.log`. Nessa versão os dados ficam na própria pasta do programa.
 
 ---
-#### Chave da API da Divine Pride: não precisa mais
-
-O programa baixado pelo **Baixar para Windows** já vem com a chave do aplicativo e funciona sem você fazer nada. Se quiser usar a **sua** chave (ou se usa a versão em Python, que vem sem ela), siga os passos abaixo (grátis, uns 3 minutos). A sua chave tem prioridade sobre a do aplicativo.
+#### Chave da API da Divine Pride: 
 
 > ⚠️ **ATENÇÃO:** A sua chave da API é **pessoal e confidencial** (funciona como uma senha). **Nunca a compartilhe** com ninguém.
 
