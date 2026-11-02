@@ -91,6 +91,17 @@ def test_busca_por_classe_e_buffs(banco):
     assert all(it.get("efst") for it in banco.buscar("", so_buffs=True))
 
 
+def test_buffs_e_skills_ofensivas_separados(banco):
+    buffs = {chave(it["nome"]) for it in banco.buscar("", so_buffs=True, limite=5000)}
+    ofensivas = {chave(it["nome"]) for it in banco.buscar("", limite=5000)}
+    assert buffs and ofensivas and not buffs & ofensivas
+    assert banco.eh_buff("Enchanting Sky")                 # Elo Celestial: só na aba Buffs
+    assert "enchanting sky" not in ofensivas
+    assert not banco.eh_buff("New Moon Kick")              # Eclipse Lunar: dá status, mas é ataque
+    assert any(chave(it.get("en")) == "new moon kick" for it in banco.buscar("new moon"))
+    assert not banco.buscar("new moon", so_buffs=True)
+
+
 def test_recarga_sua_vence_a_padrao(tmp_path, monkeypatch):
     monkeypatch.setattr(dados, "ARQ_MEUS", tmp_path / "meus_tempos.json")
     b = Banco()

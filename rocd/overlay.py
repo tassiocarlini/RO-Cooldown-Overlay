@@ -712,8 +712,9 @@ class Overlay:
             self.painel.montar_buffs()
             self.painel.status(f"{b.get('nome')}: achei o buff na tela e salvei "
                                f"{len(nomes)} versão(ões) do ícone.")
-            if len(nomes) > 1:
-                # Os outros ícones vieram do site; o "Auto" confirma cada um com a sua tela
+            if len(nomes) > 1 and not all(self.painel.rag.icone_status(e) for _, e in b["efst"]):
+                # Os outros ícones vieram da Divine Pride (desenho pode ser outro): o "Auto"
+                # confirma cada um com a sua tela
                 self.painel.root.after(400, lambda bb=b: CapturaAuto(self.painel, bb))
 
     def _trocar_por_real(self, b, qual, recorte):

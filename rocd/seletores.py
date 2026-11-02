@@ -20,7 +20,7 @@ class SeletorSkill:
         sk = self.sk
         b = painel.banco
         self.top = top = tk.Toplevel(painel.win)
-        top.title("Escolher buff" if buff else "Escolher skill")
+        top.title("Escolher buff" if buff else "Escolher skill ofensiva")
         top.geometry("600x480")
         top.configure(bg=painel.cor_fundo)
         top.transient(painel.win)
@@ -42,7 +42,7 @@ class SeletorSkill:
         cont.pack(fill="both", expand=True, padx=8, pady=4)
         self.tv = ttk.Treeview(cont, columns=("nome", "cd", "classes"), show="headings",
                                selectmode="browse")
-        for col, txt, larg in (("nome", "Skill", 200), ("cd", "Recarga", 90),
+        for col, txt, larg in (("nome", "Buff" if buff else "Skill", 200), ("cd", "Recarga", 90),
                                ("classes", "Classes", 220)):
             self.tv.heading(col, text=txt)
             self.tv.column(col, width=larg, anchor="w" if col != "cd" else "center")
@@ -53,8 +53,9 @@ class SeletorSkill:
 
         rodape = ttk.Frame(top)
         rodape.pack(fill="x", padx=8, pady=(4, 8))
-        aviso = ("Recarga padrão sem equipamentos. Se você corrigir o valor depois, "
-                 "o programa lembra (aparece como \"sua\").") if b.ok else (
+        aviso = ("Só buffs. Skills de ataque ficam na aba Skills ofensivas." if buff else
+                 "Só skills ofensivas (buffs ficam na aba Buffs). Recarga padrão sem "
+                 "equipamentos; se você corrigir, o programa lembra.") if b.ok else (
                  "Arquivo banco_skills.json não encontrado na pasta do programa.")
         ttk.Label(rodape, text=aviso, style="Dica.TLabel", wraplength=300).pack(side="left")
         painel.bt(rodape, "Usar", "check", self.usar, destaque=True).pack(side="right")

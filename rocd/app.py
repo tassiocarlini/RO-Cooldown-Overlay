@@ -27,8 +27,12 @@ def main():
     for nome, erro in FALTANDO.items():
         registrar(f"Biblioteca {nome} não carregou ({erro}): buffs, AP e busca de ícones "
                   "podem não funcionar.")
+    if "--verificar-chave" in sys.argv:  # usado ao gerar o .exe: a chave padrão entrou?
+        from .chave import chave_padrao
+        sys.exit(0 if chave_padrao() else 1)
     if "--verificar" in sys.argv:       # usado ao gerar o .exe: falha se faltar biblioteca
-        sys.exit(1 if FALTANDO else 0)
+        from .sites import icone_embutido   # ...ou os ícones embutidos (Brisa Leve)
+        sys.exit(1 if FALTANDO or not icone_embutido(90) else 0)
     if ja_aberto():
         r = tk.Tk()
         r.withdraw()

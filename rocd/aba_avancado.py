@@ -194,6 +194,11 @@ class AbaAvancado:
                                                                          COR["vermelho"]))
         self.abas.tab(self.aba_av, text="", image=self._aba_av_vermelha, compound="image")
 
+    def texto_chave_dp(self):
+        if self.dp.usando_padrao():
+            return "Usando a chave do aplicativo ✓ (pode pôr a sua, se quiser)"
+        return "Chave salva (a sua)." if self.dp.chave else ""
+
     def testar_dp(self):
         self.dp.chave = self.var_dp.get().strip()
         self.app_cfg["dp_chave"] = self.dp.chave
@@ -202,6 +207,8 @@ class AbaAvancado:
         if not self.dp.ativo():
             self.lbl_dp.config(text="Sem chave: usando só o banco local.")
             return
+        if self.dp.usando_padrao():
+            self.status("Campo vazio: usando a chave do aplicativo.")
         (PASTA_DP / "skill_28.json").unlink(missing_ok=True)      # força consulta real
         self.dp.pedir(28, "teste")
         self.lbl_dp.config(text="Testando…")

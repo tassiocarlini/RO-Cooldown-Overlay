@@ -15,7 +15,8 @@
       "EFST_SERVANTWEAPON",
       1172
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -49,7 +50,8 @@
       "EFST_CHARGINGPIERCE",
       1174
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Corte e Massacre",
@@ -90,7 +92,8 @@
       "EFST_VIGOR",
       1178
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Dilacerar",
@@ -138,7 +141,8 @@
       "EFST_ENDURE",
       1
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -151,7 +155,8 @@
       "EFST_AUTOBERSERK",
       132
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -192,7 +197,8 @@
       "EFST_TWOHANDQUICKEN",
       2
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -205,7 +211,8 @@
       "EFST_AUTOCOUNTER",
       43
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": "Impacto de Tyr",
@@ -232,7 +239,8 @@
       "EFST_ONEHANDQUICKEN",
       161
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Lâmina de Aura",
@@ -245,7 +253,8 @@
       "EFST_AURABLADE",
       103
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -258,7 +267,8 @@
       "EFST_PARRYING",
       104
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Dedicação",
@@ -271,7 +281,8 @@
       "EFST_LKCONCENTRATION",
       105
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -284,7 +295,8 @@
       "EFST_TENSIONRELAX",
       106
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -297,7 +309,8 @@
       "EFST_BERSERK",
       107
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -331,7 +344,8 @@
       "EFST_ENCHANTBLADE",
       316
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Onda de Choque",
@@ -351,7 +365,8 @@
       "EFST_DEATHBOUND",
       317
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Lança das Mil Pontas",
@@ -415,7 +430,8 @@
       "EFST_AXE_STOMP",
       1235
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": "Avanço Sísmico",
@@ -449,7 +465,8 @@
       "EFST_D_MACHINE",
       1237
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -462,7 +479,8 @@
       "EFST_ABR_BATTLE_WARIOR",
       1297
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -475,7 +493,8 @@
       "EFST_ABR_DUAL_CANNON",
       1298
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -509,7 +528,8 @@
       "EFST_ABR_MOTHER_NET",
       1299
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -522,7 +542,8 @@
       "EFST_ABR_INFINITY",
       1300
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -591,7 +612,8 @@
       "EFST_SHOUT",
       30
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -625,7 +647,8 @@
       "EFST_ADRENALINE",
       23
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Manejo Perfeito",
@@ -638,7 +661,8 @@
       "EFST_WEAPONPERFECT",
       24
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Força Violenta",
@@ -651,7 +675,8 @@
       "EFST_OVERTHRUST",
       25
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Amplificar Poder",
@@ -664,7 +689,8 @@
       "EFST_MAXIMIZE",
       26
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -684,7 +710,8 @@
       "EFST_ADRENALINE2",
       147
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -697,7 +724,8 @@
       "EFST_MELTDOWN",
       117
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Impulso no Carrinho",
@@ -710,7 +738,8 @@
       "EFST_CARTBOOST",
       118
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -737,7 +766,8 @@
       "EFST_OVERTHRUSTMAX",
       188
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Punho Foguete",
@@ -792,7 +822,8 @@
       "EFST_ACCELERATION",
       361
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -805,7 +836,8 @@
       "EFST_HOVERING",
       362
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -839,7 +871,8 @@
       "EFST_SHAPESHIFT",
       374
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -859,7 +892,8 @@
       "EFST_INFRAREDSCAN",
       375
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -879,7 +913,8 @@
       "EFST_MAGNETICFIELD",
       376
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -892,7 +927,8 @@
       "EFST_NEUTRALBARRIER",
       377
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -905,7 +941,8 @@
       "EFST_STEALTHFIELD",
       379
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -976,7 +1013,8 @@
       "EFST_SHADOW_EXCEED",
       1192
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Adagas Voadoras",
@@ -989,7 +1027,8 @@
       "EFST_DANCING_KNIFE",
       1193
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": "Impacto Brutal",
@@ -1016,7 +1055,8 @@
       "EFST_POTENT_VENOM",
       1194
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Facada",
@@ -1036,7 +1076,8 @@
       "EFST_WEAPONBLOCK_ON",
       1107
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": null,
@@ -1049,7 +1090,8 @@
       "EFST_SHADOW_WEAPON",
       1226
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Revoada Sombria",
@@ -1083,7 +1125,8 @@
       "EFST_HIDING",
       4
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -1138,7 +1181,8 @@
       "EFST_CLOAKING",
       5
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Lâminas Destruidoras",
@@ -1165,7 +1209,8 @@
       "EFST_ENCHANTPOISON",
       6
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -1178,7 +1223,8 @@
       "EFST_POISONREACT",
       7
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -1212,7 +1258,8 @@
       "EFST_EDP",
       114
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Destruidor de Almas",
@@ -1281,7 +1328,8 @@
       "EFST_POISONINGWEAPON",
       341
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -1294,7 +1342,8 @@
       "EFST_WEAPONBLOCKING",
       337
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Retaliação",
@@ -1335,7 +1384,8 @@
       "EFST_CLOAKINGEXCEED",
       333
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -1355,7 +1405,8 @@
       "EFST_HALLUCINATIONWALK",
       334
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Lâminas de Loki",
@@ -1368,7 +1419,8 @@
       "EFST_ROLLINGCUTTER",
       339
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": "Castigo de Loki",
@@ -1404,7 +1456,8 @@
       "EFST_CLIMAX_DES_HU",
       1151
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": "Cascata de Cristal",
@@ -1459,7 +1512,8 @@
       "EFST_CLIMAX_CRYIMP",
       1184
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": "Ciclone",
@@ -1493,7 +1547,8 @@
       "EFST_CLIMAX",
       1152
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Deslize de Pedras",
@@ -1625,7 +1680,8 @@
       "EFST_ENERGYCOAT",
       31
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Coluna de Fogo",
@@ -1729,7 +1785,8 @@
       "EFST_WZ_SIGHTBLASTER",
       198
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -1749,7 +1806,8 @@
       "EFST_MAGICPOWER",
       113
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Vulcão Napalm",
@@ -1818,7 +1876,8 @@
       "EFST_RECOGNIZEDSPELL",
       355
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -1838,7 +1897,8 @@
       "EFST_STASIS",
       356
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Drenar Vida",
@@ -1935,7 +1995,8 @@
       "EFST_TELEKINESIS_INTENSE",
       717
      ]
-    ]
+    ],
+    "buff": true
    }
   ],
   "Cardeal": [
@@ -1957,7 +2018,8 @@
       "EFST_MEDIALE",
       1197
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Argutus Vita",
@@ -1970,7 +2032,8 @@
       "EFST_A_VITA",
       1198
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Argutus Telum",
@@ -1983,7 +2046,8 @@
       "EFST_A_TELUM",
       1199
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Arbitrium",
@@ -2003,7 +2067,8 @@
       "EFST_PRE_ACIES",
       1200
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2023,7 +2088,8 @@
       "EFST_COMPETENTIA",
       1201
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2050,7 +2116,8 @@
       "EFST_RELIGIO",
       1227
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2063,7 +2130,8 @@
       "EFST_BENEDICTUM",
       1228
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Petitio",
@@ -2132,7 +2200,8 @@
       "EFST_INC_AGI",
       12
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2159,7 +2228,8 @@
       "EFST_CRUCIS",
       11
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2172,7 +2242,8 @@
       "EFST_ANGELUS",
       9
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2185,7 +2256,8 @@
       "EFST_BLESSING",
       10
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2219,7 +2291,8 @@
       "EFST_IMPOSITIO",
       15
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2232,7 +2305,8 @@
       "EFST_SUFFRAGIUM",
       16
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2245,7 +2319,8 @@
       "EFST_ASPERSIO",
       17
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2272,7 +2347,8 @@
       "EFST_SLOWPOISON",
       14
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2292,7 +2368,8 @@
       "EFST_KYRIE",
       19
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Magnificat",
@@ -2305,7 +2382,8 @@
       "EFST_MAGNIFICAT",
       20
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2318,7 +2396,8 @@
       "EFST_GLORIA",
       21
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2366,7 +2445,8 @@
       "EFST_ASSUMPTIO2",
       473
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Basílica",
@@ -2379,7 +2459,8 @@
       "EFST_BASILICA_BUFF",
       1122
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Judex",
@@ -2413,7 +2494,8 @@
       "EFST_BLESSING",
       10
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2426,7 +2508,8 @@
       "EFST_INC_AGI",
       12
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2453,7 +2536,8 @@
       "EFST_KYRIE",
       19
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2466,7 +2550,8 @@
       "EFST_ORATIO",
       330
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Lauda Agnus",
@@ -2479,7 +2564,8 @@
       "EFST_LAUDAAGNUS",
       331
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Lauda Ramus",
@@ -2492,7 +2578,8 @@
       "EFST_LAUDARAMUS",
       332
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2505,7 +2592,8 @@
       "EFST_RENOVATIO",
       336
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2532,7 +2620,8 @@
       "EFST_EXPIATIO",
       340
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Gemini Lumen",
@@ -2545,7 +2634,8 @@
       "EFST_DUPLELIGHT",
       350
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2565,7 +2655,8 @@
       "EFST_AB_SECRAMENT",
       472
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Offertorium",
@@ -2578,7 +2669,8 @@
       "EFST_OFFERTORIUM",
       716
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2628,7 +2720,8 @@
       "EFST_CALAMITYGALE",
       1252
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2697,7 +2790,8 @@
       "EFST_CONCENTRATION",
       3
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2850,7 +2944,8 @@
       "EFST_TRUESIGHT",
       115
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -2877,7 +2972,8 @@
       "EFST_WINDWALK",
       116
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Tempestade de Flechas",
@@ -2897,7 +2993,8 @@
       "EFST_FEARBREEZE",
       352
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": "Disparo Certeiro",
@@ -2952,7 +3049,8 @@
       "EFST_WUGDASH",
       358
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": "Investida de Worg",
@@ -2986,7 +3084,8 @@
       "EFST_CAMOUFLAGE",
       360
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3041,7 +3140,8 @@
       "EFST_UNLIMIT",
       722
      ]
-    ]
+    ],
+    "buff": true
    }
   ],
   "Guardião Imperial": [
@@ -3056,7 +3156,8 @@
       "EFST_GUARD_STANCE",
       1202
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3069,7 +3170,8 @@
       "EFST_GUARDIAN_S",
       1204
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3082,7 +3184,8 @@
       "EFST_REBOUND_S",
       1217
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Posição de Ataque",
@@ -3095,7 +3198,8 @@
       "EFST_ATTACK_STANCE",
       1203
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3108,7 +3212,8 @@
       "EFST_ULTIMATE_S",
       1221
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Escudo Divino",
@@ -3121,7 +3226,8 @@
       "EFST_HOLY_S",
       1220
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Lança da Justiça",
@@ -3211,7 +3317,8 @@
       "EFST_ENDURE",
       1
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3224,7 +3331,8 @@
       "EFST_AUTOBERSERK",
       132
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3251,7 +3359,8 @@
       "EFST_AUTOGUARD",
       58
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3278,7 +3387,8 @@
       "EFST_REFLECTSHIELD",
       59
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3305,7 +3415,8 @@
       "EFST_DEVOTION",
       60
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3318,7 +3429,8 @@
       "EFST_PROVIDENCE",
       61
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3331,7 +3443,8 @@
       "EFST_DEFENDER",
       62
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Rapidez com Lança",
@@ -3344,7 +3457,8 @@
       "EFST_SPEARQUICKEN",
       68
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3357,7 +3471,8 @@
       "EFST_CR_SHRINK",
       197
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Gloria Domini",
@@ -3384,7 +3499,8 @@
       "EFST_GOSPEL",
       109
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Choque Rápido",
@@ -3432,7 +3548,8 @@
       "EFST_LG_REFLECTDAMAGE",
       390
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3452,7 +3569,8 @@
       "EFST_FORCEOFVANGUARD",
       391
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3479,7 +3597,8 @@
       "EFST_EXEEDBREAK",
       400
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Lança do Destino",
@@ -3499,7 +3618,8 @@
       "EFST_PRESTIGE",
       402
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3512,7 +3632,8 @@
       "EFST_BANDING",
       405
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Espiral Lunar",
@@ -3525,7 +3646,8 @@
       "EFST_OVERBRANDREADY",
       1315
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": "Luz da Criação",
@@ -3545,7 +3667,8 @@
       "EFST_BENEDICTIO",
       18
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Aegis Inferi",
@@ -3572,7 +3695,8 @@
       "EFST_INSPIRATION",
       407
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3585,7 +3709,8 @@
       "EFST_KINGS_GRACE",
       723
      ]
-    ]
+    ],
+    "buff": true
    }
   ],
   "Cientista": [
@@ -3614,7 +3739,8 @@
       "EFST_PROTECTSHADOWEQUIP",
       1247
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Atirar Ácido Álgido",
@@ -3676,7 +3802,8 @@
       "EFST_RESEARCHREPORT",
       1248
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3759,7 +3886,8 @@
       "EFST_SHOUT",
       30
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3821,7 +3949,8 @@
       "EFST_PROTECTWEAPON",
       54
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3834,7 +3963,8 @@
       "EFST_PROTECTSHIELD",
       55
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3847,7 +3977,8 @@
       "EFST_PROTECTARMOR",
       56
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3860,7 +3991,8 @@
       "EFST_PROTECTHELM",
       57
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3873,7 +4005,8 @@
       "EFST_HOMUN_TIME",
       1303
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3963,7 +4096,8 @@
       "EFST_GN_CARTBOOST",
       461
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -3983,7 +4117,8 @@
       "EFST_BLOOD_SUCKER",
       464
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Esporo Explosivo",
@@ -4031,7 +4166,8 @@
       "EFST_HELLS_PLANT_ARMOR",
       1165
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -4044,7 +4180,8 @@
       "EFST_MANDRAGORA",
       470
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -4094,7 +4231,8 @@
       "EFST_ABYSS_DAGGER",
       1243
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": "Salto Revés",
@@ -4121,7 +4259,8 @@
       "EFST_ABYSSFORCEWEAPON",
       1244
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Sangue-Frio",
@@ -4134,7 +4273,8 @@
       "EFST_ABYSS_SLAYER",
       1245
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Meteoro Ômega",
@@ -4210,7 +4350,8 @@
       "EFST_HIDING",
       4
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -4293,7 +4434,8 @@
       "EFST_RAID",
       395
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": null,
@@ -4369,7 +4511,8 @@
       "EFST_CHASEWALK",
       119
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -4382,7 +4525,8 @@
       "EFST_SWORDREJECT",
       120
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Preservar",
@@ -4395,7 +4539,8 @@
       "EFST_PRESERVE",
       181
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -4422,7 +4567,8 @@
       "EFST_REPRODUCE",
       385
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Desejo das Sombras",
@@ -4435,7 +4581,8 @@
       "EFST_AUTOSHADOWSPELL",
       393
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -4462,7 +4609,8 @@
       "EFST_BODYPAINT",
       399
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -4475,7 +4623,8 @@
       "EFST_INVISIBILITY",
       403
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -4488,7 +4637,8 @@
       "EFST_DEADLYINFECT",
       404
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -4592,7 +4742,8 @@
       "EFST_ANKLESNARE",
       45
      ]
-    ]
+    ],
+    "buff": true
    }
   ],
   "Elementalista": [
@@ -4607,7 +4758,8 @@
       "EFST_SPELL_ENCHANTING",
       1271
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -4669,7 +4821,8 @@
       "EFST_SUMMON_ELEMENTAL_ARDOR",
       1272
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -4682,7 +4835,8 @@
       "EFST_SUMMON_ELEMENTAL_DILUVIO",
       1273
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -4695,7 +4849,8 @@
       "EFST_SUMMON_ELEMENTAL_PROCELLA",
       1274
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -4708,7 +4863,8 @@
       "EFST_SUMMON_ELEMENTAL_TERREMOTUS",
       1275
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -4721,7 +4877,8 @@
       "EFST_SUMMON_ELEMENTAL_SERPENS",
       1276
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Círculo Elemental",
@@ -4741,7 +4898,8 @@
       "EFST_ELEMENTAL_VEIL",
       1301
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -4845,7 +5003,8 @@
       "EFST_ENERGYCOAT",
       31
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -4886,7 +5045,8 @@
       "EFST_MAGICROD",
       63
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -4906,7 +5066,8 @@
       "EFST_AUTOSPELL",
       65
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Encantar com Chama",
@@ -4919,7 +5080,8 @@
       "EFST_PROPERTYFIRE",
       90
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Encantar com Geada",
@@ -4932,7 +5094,8 @@
       "EFST_PROPERTYWATER",
       91
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Encantar com Ventania",
@@ -4945,7 +5108,8 @@
       "EFST_PROPERTYWIND",
       92
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Encantar com Terremoto",
@@ -4958,7 +5122,8 @@
       "EFST_PROPERTYGROUND",
       93
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -5076,7 +5241,8 @@
       "EFST_MEMORIZE",
       127
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -5103,7 +5269,8 @@
       "EFST_DOUBLECASTING",
       186
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -5116,7 +5283,8 @@
       "EFST_PROPERTYWALK",
       431
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -5129,7 +5297,8 @@
       "EFST_PROPERTYWALK",
       431
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Punho Arcano",
@@ -5142,7 +5311,8 @@
       "EFST_SPELLFIST",
       432
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Castigo de Nerthus",
@@ -5190,7 +5360,8 @@
       "EFST_STRIKING",
       445
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -5324,7 +5495,8 @@
       "EFST_POWERFUL_FAITH",
       1160
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Mantra da Saúde",
@@ -5337,7 +5509,8 @@
       "EFST_FIRM_FAITH",
       1162
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Oleum Sanctum",
@@ -5350,7 +5523,8 @@
       "EFST_HOLY_OIL",
       1190
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": "Mantra da Energia",
@@ -5363,7 +5537,8 @@
       "EFST_SINCERE_FAITH",
       1161
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Punho Labareda",
@@ -5376,7 +5551,8 @@
       "EFST_MASSIVE_F_BLASTER",
       1326
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": "Técnica da Mão Explosiva",
@@ -5403,7 +5579,8 @@
       "EFST_FIRST_FAITH_POWER",
       1234
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Auréola do Juiz",
@@ -5416,7 +5593,8 @@
       "EFST_SECOND_JUDGE",
       1232
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Palma Fervorosa",
@@ -5471,7 +5649,8 @@
       "EFST_THIRD_EXOR_FLAME",
       1233
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -5526,7 +5705,8 @@
       "EFST_INC_AGI",
       12
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -5553,7 +5733,8 @@
       "EFST_CRUCIS",
       11
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -5566,7 +5747,8 @@
       "EFST_ANGELUS",
       9
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -5579,7 +5761,8 @@
       "EFST_BLESSING",
       10
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -5641,7 +5824,8 @@
       "EFST_STEELBODY",
       87
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -5661,7 +5845,8 @@
       "EFST_EXPLOSIONSPIRITS",
       86
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Punho Supremo de Asura",
@@ -5716,7 +5901,8 @@
       "EFST_ANKLESNARE",
       45
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -5785,7 +5971,8 @@
       "EFST_CRESCENTELBOW",
       419
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -5798,7 +5985,8 @@
       "EFST_CURSEDCIRCLE_TARGET",
       417
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -5811,7 +5999,8 @@
       "EFST_LIGHTNINGWALK",
       413
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Pancada Corporal",
@@ -5838,7 +6027,8 @@
       "EFST_RAISINGDRAGON",
       410
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -5886,7 +6076,8 @@
       "EFST_GENTLETOUCH_ENERGYGAIN",
       425
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Chakra da Fúria",
@@ -5899,7 +6090,8 @@
       "EFST_GENTLETOUCH_CHANGE",
       426
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Chakra do Vigor",
@@ -5912,7 +6104,8 @@
       "EFST_GENTLETOUCH_REVITALIZE",
       427
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Rugido do Leão",
@@ -5955,7 +6148,8 @@
       "EFST_MYSTIC_SYMPHONY",
       1256
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -5968,7 +6162,8 @@
       "EFST_KVASIR_SONATA",
       1257
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Atirar Rosas",
@@ -6009,7 +6204,8 @@
       "EFST_GEF_NOCTURN",
       1259
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6029,7 +6225,8 @@
       "EFST_AIN_RHAPSODY",
       1260
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6042,7 +6239,8 @@
       "EFST_MUSICAL_INTERLUDE",
       1261
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6055,7 +6253,8 @@
       "EFST_JAWAII_SERENADE",
       1262
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6075,7 +6274,8 @@
       "EFST_PRON_MARCH",
       1263
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6095,7 +6295,8 @@
       "EFST_CONCENTRATION",
       3
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6157,7 +6358,8 @@
       "EFST_WHISTLE",
       70
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6170,7 +6372,8 @@
       "EFST_ASSASSINCROSS",
       71
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Poema de Bragi",
@@ -6183,7 +6386,8 @@
       "EFST_POEMBRAGI",
       72
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6196,7 +6400,8 @@
       "EFST_APPLEIDUN",
       73
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6209,7 +6414,8 @@
       "EFST_ADAPTATION",
       1089
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6222,7 +6428,8 @@
       "EFST_BDPLAYING",
       69
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6242,7 +6449,8 @@
       "EFST_RICHMANKIM",
       78
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6255,7 +6463,8 @@
       "EFST_ETERNALCHAOS",
       79
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6268,7 +6477,8 @@
       "EFST_DRUMBATTLEFIELD",
       80
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6281,7 +6491,8 @@
       "EFST_RINGNIBELUNGEN",
       81
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6294,7 +6505,8 @@
       "EFST_ROKISWEIL",
       82
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6307,7 +6519,8 @@
       "EFST_INTOABYSS",
       83
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6320,7 +6533,8 @@
       "EFST_SIEGFRIED",
       84
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6354,7 +6568,8 @@
       "EFST_MARIONETTE_MASTER",
       121
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6374,7 +6589,8 @@
       "EFST_HERMODE",
       190
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6394,7 +6610,8 @@
       "EFST_RUSH_WINDMILL",
       442
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6407,7 +6624,8 @@
       "EFST_ECHOSONG",
       443
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6420,7 +6638,8 @@
       "EFST_HARMONIZE",
       444
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Ruído Estridente",
@@ -6461,7 +6680,8 @@
       "EFST_SIREN",
       434
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6488,7 +6708,8 @@
       "EFST_SIRCLEOFNATURE",
       436
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6508,7 +6729,8 @@
       "EFST_GLOOMYDAY",
       438
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6528,7 +6750,8 @@
       "EFST_SONG_OF_MANA",
       439
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6541,7 +6764,8 @@
       "EFST_DANCE_WITH_WUG",
       441
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6554,7 +6778,8 @@
       "EFST_SOUND_OF_DESTRUCTION",
       1126
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6567,7 +6792,8 @@
       "EFST_SATURDAY_NIGHT_FEVER",
       448
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6580,7 +6806,8 @@
       "EFST_LERADS_DEW",
       451
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6593,7 +6820,8 @@
       "EFST_MELODYOFSINK",
       452
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6606,7 +6834,8 @@
       "EFST_BEYOND_OF_WARCRY",
       453
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6619,7 +6848,8 @@
       "EFST_UNLIMITED_HUMMING_VOICE",
       454
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6632,7 +6862,8 @@
       "EFST_FRIGG_SONG",
       715
      ]
-    ]
+    ],
+    "buff": true
    }
   ],
   "Diva": [
@@ -6654,7 +6885,8 @@
       "EFST_MYSTIC_SYMPHONY",
       1256
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6667,7 +6899,8 @@
       "EFST_KVASIR_SONATA",
       1257
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Atirar Rosas",
@@ -6708,7 +6941,8 @@
       "EFST_GEF_NOCTURN",
       1259
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6728,7 +6962,8 @@
       "EFST_AIN_RHAPSODY",
       1260
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6741,7 +6976,8 @@
       "EFST_MUSICAL_INTERLUDE",
       1261
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6754,7 +6990,8 @@
       "EFST_JAWAII_SERENADE",
       1262
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6774,7 +7011,8 @@
       "EFST_PRON_MARCH",
       1263
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6794,7 +7032,8 @@
       "EFST_CONCENTRATION",
       3
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6856,7 +7095,8 @@
       "EFST_HUMMING",
       74
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6869,7 +7109,8 @@
       "EFST_DONTFORGETME",
       75
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6882,7 +7123,8 @@
       "EFST_FORTUNEKISS",
       76
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6895,7 +7137,8 @@
       "EFST_SERVICEFORYOU",
       77
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6908,7 +7151,8 @@
       "EFST_ADAPTATION",
       1089
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6921,7 +7165,8 @@
       "EFST_BDPLAYING",
       69
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6941,7 +7186,8 @@
       "EFST_RICHMANKIM",
       78
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6954,7 +7200,8 @@
       "EFST_ETERNALCHAOS",
       79
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6967,7 +7214,8 @@
       "EFST_DRUMBATTLEFIELD",
       80
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6980,7 +7228,8 @@
       "EFST_RINGNIBELUNGEN",
       81
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -6993,7 +7242,8 @@
       "EFST_ROKISWEIL",
       82
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7006,7 +7256,8 @@
       "EFST_INTOABYSS",
       83
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7019,7 +7270,8 @@
       "EFST_SIEGFRIED",
       84
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7053,7 +7305,8 @@
       "EFST_MARIONETTE_MASTER",
       121
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7073,7 +7326,8 @@
       "EFST_HERMODE",
       190
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7093,7 +7347,8 @@
       "EFST_SWING",
       429
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7106,7 +7361,8 @@
       "EFST_SYMPHONY_LOVE",
       430
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7119,7 +7375,8 @@
       "EFST_MOONLIT_SERENADE",
       447
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Ruído Estridente",
@@ -7160,7 +7417,8 @@
       "EFST_SIREN",
       434
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7187,7 +7445,8 @@
       "EFST_SIRCLEOFNATURE",
       436
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7207,7 +7466,8 @@
       "EFST_GLOOMYDAY",
       438
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7227,7 +7487,8 @@
       "EFST_SONG_OF_MANA",
       439
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7240,7 +7501,8 @@
       "EFST_DANCE_WITH_WUG",
       441
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7253,7 +7515,8 @@
       "EFST_SOUND_OF_DESTRUCTION",
       1126
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7266,7 +7529,8 @@
       "EFST_SATURDAY_NIGHT_FEVER",
       448
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7279,7 +7543,8 @@
       "EFST_LERADS_DEW",
       451
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7292,7 +7557,8 @@
       "EFST_MELODYOFSINK",
       452
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7305,7 +7571,8 @@
       "EFST_BEYOND_OF_WARCRY",
       453
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7318,7 +7585,8 @@
       "EFST_UNLIMITED_HUMMING_VOICE",
       454
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7331,7 +7599,8 @@
       "EFST_FRIGG_SONG",
       715
      ]
-    ]
+    ],
+    "buff": true
    }
   ],
   "Mestre Celestial": [
@@ -7416,7 +7685,8 @@
       "EFST_SKY_ENCHANT",
       1392
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7450,7 +7720,8 @@
       "EFST_RUN",
       133
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7463,7 +7734,8 @@
       "EFST_STORMKICK_ON",
       135
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7483,7 +7755,8 @@
       "EFST_DOWNKICK_ON",
       137
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7503,7 +7776,8 @@
       "EFST_TURNKICK_ON",
       139
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7523,7 +7797,8 @@
       "EFST_COUNTER_ON",
       141
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7543,7 +7818,8 @@
       "EFST_DODGE_ON",
       143
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7587,7 +7863,8 @@
       "EFST_PROPERTYDARK",
       146
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7621,7 +7898,8 @@
       "EFST_SG_SUN_WARM",
       165
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7634,7 +7912,8 @@
       "EFST_SG_SUN_WARM",
       165
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7647,7 +7926,8 @@
       "EFST_SG_SUN_WARM",
       165
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7660,7 +7940,8 @@
       "EFST_SUN_COMFORT",
       169
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7673,7 +7954,8 @@
       "EFST_MOON_COMFORT",
       170
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7686,7 +7968,8 @@
       "EFST_STAR_COMFORT",
       171
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7713,7 +7996,8 @@
       "EFST_LIGHTOFMOON",
       1035
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7726,7 +8010,8 @@
       "EFST_LUNARSTANCE",
       1038
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Chute Lunar",
@@ -7746,7 +8031,8 @@
       "EFST_LIGHTOFSTAR",
       1037
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Postura Estelar",
@@ -7759,7 +8045,8 @@
       "EFST_STARSTANCE",
       1043
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Eclipse Lunar",
@@ -7772,7 +8059,8 @@
       "EFST_NEWMOON",
       1042
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": null,
@@ -7806,7 +8094,8 @@
       "EFST_UNIVERSESTANCE",
       1039
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Chuva Estelar",
@@ -7819,7 +8108,8 @@
       "EFST_FALLINGSTAR",
       1048
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7839,7 +8129,8 @@
       "EFST_DIMENSION",
       1044
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -7866,7 +8157,8 @@
       "EFST_LIGHTOFSUN",
       1036
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Postura Solar",
@@ -7879,7 +8171,8 @@
       "EFST_SUNSTANCE",
       1040
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Explosão Solar",
@@ -7915,7 +8208,8 @@
       "EFST_TALISMAN_OF_PROTECTION",
       1356
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Talismã do Guerreiro",
@@ -7928,7 +8222,8 @@
       "EFST_TALISMAN_OF_WARRIOR",
       1357
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Talismã do Mago",
@@ -7941,7 +8236,8 @@
       "EFST_TALISMAN_OF_MAGICIAN",
       1358
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Exorcizar Assombração",
@@ -7975,7 +8271,8 @@
       "EFST_TALISMAN_OF_FIVE_ELEMENTS",
       1359
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Talismã do Dragão",
@@ -7995,7 +8292,8 @@
       "EFST_T_SECOND_GOD",
       1361
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": "Talismã da Fênix",
@@ -8036,7 +8334,8 @@
       "EFST_HEAVEN_AND_EARTH",
       1365
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8049,7 +8348,8 @@
       "EFST_RUN",
       133
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8062,7 +8362,8 @@
       "EFST_STORMKICK_ON",
       135
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8082,7 +8383,8 @@
       "EFST_DOWNKICK_ON",
       137
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8102,7 +8404,8 @@
       "EFST_TURNKICK_ON",
       139
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8122,7 +8425,8 @@
       "EFST_COUNTER_ON",
       141
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8142,7 +8446,8 @@
       "EFST_DODGE_ON",
       143
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8186,7 +8491,8 @@
       "EFST_PROPERTYDARK",
       146
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8213,7 +8519,8 @@
       "EFST_SOULLINK",
       149
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8226,7 +8533,8 @@
       "EFST_SOULLINK",
       149
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8239,7 +8547,8 @@
       "EFST_SOULLINK",
       149
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8252,7 +8561,8 @@
       "EFST_SOULLINK",
       149
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8265,7 +8575,8 @@
       "EFST_SOULLINK",
       149
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8278,7 +8589,8 @@
       "EFST_SOULLINK",
       149
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8291,7 +8603,8 @@
       "EFST_SOULLINK",
       149
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8304,7 +8617,8 @@
       "EFST_SOULLINK",
       149
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8317,7 +8631,8 @@
       "EFST_SOULLINK",
       149
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8330,7 +8645,8 @@
       "EFST_SOULLINK",
       149
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8343,7 +8659,8 @@
       "EFST_SOULLINK",
       149
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8356,7 +8673,8 @@
       "EFST_SOULLINK",
       149
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8369,7 +8687,8 @@
       "EFST_SOULLINK",
       149
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8382,7 +8701,8 @@
       "EFST_SOULLINK",
       149
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8395,7 +8715,8 @@
       "EFST_SOULLINK",
       149
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8408,7 +8729,8 @@
       "EFST_KAIZEL",
       156
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8421,7 +8743,8 @@
       "EFST_KAAHI",
       157
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8434,7 +8757,8 @@
       "EFST_KAUPE",
       158
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8447,7 +8771,8 @@
       "EFST_KAITE",
       153
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8502,7 +8827,8 @@
       "EFST_SOULLINK",
       149
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8515,7 +8841,8 @@
       "EFST_SOULGOLEM",
       1059
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8528,7 +8855,8 @@
       "EFST_SOULSHADOW",
       1056
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8541,7 +8869,8 @@
       "EFST_SOULFALCON",
       1058
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Espírito da Fada",
@@ -8554,7 +8883,8 @@
       "EFST_SOULFAIRY",
       1057
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Necroexplosão",
@@ -8602,7 +8932,8 @@
       "EFST_SOULUNITY",
       1055
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8622,7 +8953,8 @@
       "EFST_SOULREAPER",
       1054
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8642,7 +8974,8 @@
       "EFST_SOULCOLLECT",
       1053
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8720,7 +9053,8 @@
       "EFST_SHADOW_CLOCK",
       1393
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": "Huuma Aderente",
@@ -8803,7 +9137,8 @@
       "EFST_NIGHTMARE",
       1395
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": null,
@@ -8886,7 +9221,8 @@
       "EFST_NJ_UTSUSEMI",
       206
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8899,7 +9235,8 @@
       "EFST_NJ_BUNSINJYUTSU",
       207
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Pétalas Flamejantes",
@@ -8975,7 +9312,8 @@
       "EFST_NJ_NEN",
       208
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -8995,7 +9333,8 @@
       "EFST_HIDING",
       4
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Impacto Cruzado",
@@ -9057,7 +9396,8 @@
       "EFST_MEIKYOUSISUI",
       646
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -9140,7 +9480,8 @@
       "EFST_IZAYOI",
       652
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -9153,7 +9494,8 @@
       "EFST_KG_KAGEHUMI",
       654
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -9173,7 +9515,8 @@
       "EFST_KAGEMUSYA",
       656
      ]
-    ]
+    ],
+    "buff": true
    }
   ],
   "Shiranui": [
@@ -9237,7 +9580,8 @@
       "EFST_SHADOW_CLOCK",
       1393
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": "Huuma Aderente",
@@ -9320,7 +9664,8 @@
       "EFST_NIGHTMARE",
       1395
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": null,
@@ -9403,7 +9748,8 @@
       "EFST_NJ_UTSUSEMI",
       206
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -9416,7 +9762,8 @@
       "EFST_NJ_BUNSINJYUTSU",
       207
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Pétalas Flamejantes",
@@ -9492,7 +9839,8 @@
       "EFST_NJ_NEN",
       208
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -9512,7 +9860,8 @@
       "EFST_HIDING",
       4
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Impacto Cruzado",
@@ -9574,7 +9923,8 @@
       "EFST_MEIKYOUSISUI",
       646
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -9657,7 +10007,8 @@
       "EFST_IZAYOI",
       652
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Distorção Crescente",
@@ -9670,7 +10021,8 @@
       "EFST_ZANGETSU",
       657
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -9683,7 +10035,8 @@
       "EFST_GENSOU",
       659
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -9705,7 +10058,8 @@
       "EFST_INTENSIVE_AIM",
       1345
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Carta na Manga",
@@ -9718,7 +10072,8 @@
       "EFST_HIDDEN_CARD",
       1354
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Arremessar Explosivo",
@@ -9794,7 +10149,8 @@
       "EFST_AUTO_FIRING_LAUNCHEREFST",
       1353
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -9856,7 +10212,8 @@
       "EFST_GS_MADNESSCANCEL",
       203
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -9869,7 +10226,8 @@
       "EFST_GS_ADJUSTMENT",
       209
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -9882,7 +10240,8 @@
       "EFST_GS_ACCURACY",
       210
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -9895,7 +10254,8 @@
       "EFST_GS_MAGICAL_BULLET",
       966
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -9950,7 +10310,8 @@
       "EFST_GS_GATLINGFEVER",
       204
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10033,7 +10394,8 @@
       "EFST_E_CHAIN",
       753
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10074,7 +10436,8 @@
       "EFST_P_ALTER",
       758
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10115,7 +10478,8 @@
       "EFST_HEAT_BARREL",
       759
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10207,7 +10571,8 @@
       "EFST_GROUNDGRAVITY",
       1382
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": "Espectro Napalm",
@@ -10227,7 +10592,8 @@
       "EFST_BREAKINGLIMIT",
       1383
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10240,7 +10606,8 @@
       "EFST_RULEBREAK",
       1384
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10253,7 +10620,8 @@
       "EFST_OVERCOMING_CRISIS",
       1671
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10287,7 +10655,8 @@
       "EFST_ENDURE",
       1
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10419,7 +10788,8 @@
       "EFST_INC_AGI",
       12
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10446,7 +10816,8 @@
       "EFST_CRUCIS",
       11
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10459,7 +10830,8 @@
       "EFST_ANGELUS",
       9
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10472,7 +10844,8 @@
       "EFST_BLESSING",
       10
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10513,7 +10886,8 @@
       "EFST_CONCENTRATION",
       3
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10533,7 +10907,8 @@
       "EFST_HIDING",
       4
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10567,7 +10942,8 @@
       "EFST_IMPOSITIO",
       15
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10580,7 +10956,8 @@
       "EFST_ASPERSIO",
       17
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10607,7 +10984,8 @@
       "EFST_MAGNIFICAT",
       20
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10620,7 +10998,8 @@
       "EFST_GLORIA",
       21
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Coluna de Fogo",
@@ -10745,7 +11124,8 @@
       "EFST_ENCHANTPOISON",
       6
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10758,7 +11138,8 @@
       "EFST_POISONREACT",
       7
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10799,7 +11180,8 @@
       "EFST_RAID",
       395
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": null,
@@ -10812,7 +11194,8 @@
       "EFST_AUTOGUARD",
       58
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10860,7 +11243,8 @@
       "EFST_EXPLOSIONSPIRITS",
       86
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10910,7 +11294,8 @@
       "EFST_HOGOGONG",
       1366
      ]
-    ]
+    ],
+    "buff": false
    },
    {
     "nome": null,
@@ -10923,7 +11308,8 @@
       "EFST_MARINE_FESTIVAL",
       1367
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10936,7 +11322,8 @@
       "EFST_SANDY_FESTIVAL",
       1368
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Brisa Silvestre",
@@ -10963,7 +11350,8 @@
       "EFST_KI_SUL_RAMPAGE",
       1369
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": "Lança Galhada",
@@ -10983,7 +11371,8 @@
       "EFST_TEMPORARY_COMMUNION",
       1377
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,
@@ -10996,7 +11385,8 @@
       "EFST_BLESSING_OF_M_CREATURES",
       1378
      ]
-    ]
+    ],
+    "buff": true
    },
    {
     "nome": null,

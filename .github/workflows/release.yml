@@ -56,8 +56,12 @@ jobs:
         if: steps.versao.outputs.gerar == 'True'
         run: pip install pyinstaller==6.22.3
 
+      # A chave padrão da Divine Pride vem do segredo do repositório (Settings > Secrets and
+      # variables > Actions > DP_CHAVE_PADRAO) e entra embaralhada só dentro do .exe.
       - name: Gerar o programa (.exe)
         if: steps.versao.outputs.gerar == 'True'
+        env:
+          DP_CHAVE_PADRAO: ${{ secrets.DP_CHAVE_PADRAO }}
         run: python empacotar.py
 
       - name: Guardar o .zip nesta execução

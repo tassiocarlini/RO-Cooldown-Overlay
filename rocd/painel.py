@@ -336,7 +336,7 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaAvancado):
         nb.pack(fill="both", expand=True, padx=8, pady=(6, 4))
         aba_sk, aba_ap, aba_av = ttk.Frame(nb), ttk.Frame(nb), ttk.Frame(nb)
         aba_bf = ttk.Frame(nb)
-        nb.add(aba_sk, **self.aba("Skills", "relogio"))
+        nb.add(aba_sk, **self.aba("Skills ofensivas", "relogio"))
         nb.add(aba_bf, **self.aba("Buffs", "escudo"))
         self._montar_aba_buffs(aba_bf)
         aba_som = ttk.Frame(nb)
@@ -596,9 +596,7 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaAvancado):
         ttk.Entry(fdp, textvariable=self.var_dp, width=34, show="•").pack(side="left")
         self.bt(fdp, "Salvar e testar", "check", self.testar_dp).pack(side="left", padx=6)
         self.bt(fdp, "Como pegar a chave?", "ajuda", self.ajuda_dp, perigo=True).pack(side="left")
-        self.lbl_dp = ttk.Label(fdp, style="Dica.TLabel",
-                                text=""
-                                if not self.dp.ativo() else "Chave salva.")
+        self.lbl_dp = ttk.Label(fdp, style="Dica.TLabel", text=self.texto_chave_dp())
         self.lbl_dp.pack(side="left", padx=4)
 
         # Rodapé
@@ -728,10 +726,6 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaAvancado):
         if self.overlay.ativo and not self.overlay.itens():
             self.parar()
         self.status(f"Perfil \"{nome}\" carregado.")
-        try:
-            self.importar_pacotes_da_pasta()
-        except Exception:
-            registrar("Erro ao procurar pacotes de buffs:\n" + traceback.format_exc())
 
     def _pedir_nome(self, titulo, inicial=""):
         nome = simpledialog.askstring(titulo, "Nome do perfil (ex.: nome do personagem):",

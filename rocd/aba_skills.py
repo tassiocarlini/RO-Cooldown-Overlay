@@ -1,4 +1,4 @@
-"""Painel, aba Skills: lista, busca, Divine Pride e marcar ícones na tela."""
+"""Painel, aba Skills ofensivas: lista, busca, Divine Pride e marcar ícones na tela."""
 
 import os
 import queue
@@ -18,7 +18,7 @@ from .perfis import Perfis
 
 
 class AbaSkills:
-    """Métodos do Painel (aba Skills: lista, busca, Divine Pride e marcar ícones na tela)."""
+    """Métodos do Painel (aba Skills ofensivas: lista, busca, Divine Pride e marcar ícones)."""
 
     # ---- lista de skills
 
@@ -48,13 +48,23 @@ class AbaSkills:
                 row=r, column=0, padx=(10, 4), pady=9)
 
             vn = tk.StringVar(value=sk.get("nome") or "")
-            ttk.Entry(self.lista, textvariable=vn, width=22, style="Cartao.TEntry").grid(
-                row=r, column=1, padx=(4, 0))
+            en = ttk.Entry(self.lista, textvariable=vn, width=22, style="Cartao.TEntry")
+            en.grid(row=r, column=1, padx=(4, 0))
             vn.trace_add("write", lambda *_, s=sk, v=vn: self._on_nome(s, v))
-            self.dica(self.bt(self.lista, "Buscar", "lupa", lambda s=sk: SeletorSkill(self, s),
-                              fundo="Cartao"),
-                      "Escolher o nome desta skill no banco (a recarga vem junto)."
-                      ).grid(row=r, column=2, padx=(4, 4))
+            if self.banco.eh_buff(sk.get("nome", "")):
+                # buff colocado aqui antes da separação: avisa e oferece mudar de aba
+                en.state(["invalid"])
+                self.dica(self.bt(self.lista, "Para Buffs", "escudo",
+                                  lambda k=i: self.mover_para_buffs(k), perigo=True,
+                                  fundo="Cartao"),
+                          f"{sk['nome']} é buff, não skill ofensiva: a recarga não é o tempo "
+                          "do buff. Clique para mover para a aba Buffs."
+                          ).grid(row=r, column=2, padx=(4, 4))
+            else:
+                self.dica(self.bt(self.lista, "Buscar", "lupa", lambda s=sk: SeletorSkill(self, s),
+                                  fundo="Cartao"),
+                          "Escolher o nome desta skill no banco (a recarga vem junto)."
+                          ).grid(row=r, column=2, padx=(4, 4))
 
             vc = tk.StringVar(value=fmt_tempo(sk.get("cd")))
             ec = ttk.Entry(self.lista, textvariable=vc, width=7, justify="center",
@@ -79,8 +89,10 @@ class AbaSkills:
 
     def _on_nome(self, sk, var):
         sk["nome"] = var.get()
+        if self.banco.eh_buff(sk["nome"]):
+            self.status(f"{sk['nome']} é buff: coloque na aba Buffs, não em Skills ofensivas.")
         # Nome digitado igual a uma skill do banco e recarga vazia: preenche sozinho
-        if not self._preenchendo and sk.get("cd") is None:
+        elif not self._preenchendo and sk.get("cd") is None:
             cd, _ = self.banco.recarga(sk["nome"])
             if cd:
                 self._preencher_cd(sk, cd)
@@ -149,9 +161,8 @@ class AbaSkills:
 
     def atualizar_icones_buffs(self):
         """Buffs criados "pelo nome" antes do ragassets: as versões ainda não confirmadas na
-        tela (vindas da Divine Pride) são trocadas pelos ícones do cliente LATAM."""
-        if not self.rag.ligado:
-            return
+        tela (vindas da Divine Pride) são trocadas pelos ícones do cliente LATAM (os que vêm
+        dentro do programa ou os do ragassets)."""
         for bf in self.perfil.get("buffs", []):
             if not bf.get("efst") or not any(v.startswith("buff_site_")
                                              for v in bf.get("variantes", [])):
@@ -365,6 +376,24 @@ class AbaSkills:
             self.montar_lista()
             self.overlay.preview()
             self.salvar_depois()
+
+    def mover_para_buffs(self, k):
+        """Tira o buff da aba Skills ofensivas e o adiciona na aba Buffs pelo nome."""
+        nome = self.perfil["skills"][k].get("nome", "")
+        if not messagebox.askyesno(
+                "Mover para Buffs",
+                f"{nome} é buff. Tirar de Skills ofensivas e colocar na aba Buffs?\n\n"
+                "Na aba Buffs o programa avisa quando o buff acaba (e não a recarga).",
+                parent=self.win):
+            return
+        self.perfil["skills"].pop(k)
+        self.salvar_agora()
+        self.overlay.carregar_perfil(self.perfil, Perfis.pasta(self.nome))
+        self.montar_lista()
+        if not any(b.get("nome") == nome for b in self.perfil.get("buffs", [])):
+            self.adicionar_buff_por_nome(nome)
+        else:
+            self.status(f"{nome} já estava na aba Buffs.")
 
     def remover_skill(self, k):
         sk = self.perfil["skills"][k]

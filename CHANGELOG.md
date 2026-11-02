@@ -1,5 +1,13 @@
 # Mudanças
 
+## v1.0.32
+- Aba "Skills" virou "Skills ofensivas". Buffs (ex.: Elo Celestial) só aparecem na busca da aba Buffs, e skills de ataque só na busca de Skills ofensivas, para não confundir recarga com tempo de buff. Skills de ataque que também dão status (ex.: Eclipse Lunar) ficam em Skills ofensivas.
+- Buff que já estava na aba Skills fica com o nome em vermelho e o botão "Para Buffs", que move ele para a aba certa.
+- Brisa Leve: os 7 ícones dos elementos (地 風 水 火 念 暗 聖) agora vêm dentro do programa, com o desenho do jogo. Antes vinham da Divine Pride com outro desenho e o buff não era achado. É só "Buff pelo nome" → Brisa Leve e pronto: sem baixar, sem marcar na tela e sem a janela "Auto".
+- Buffs da Brisa Leve criados antes com os ícones errados são corrigidos sozinhos ao abrir o perfil.
+- Saíram os botões Importar/Exportar da aba Buffs (e a importação automática de pacotes .zip): não são mais necessários.
+- A Divine Pride funciona sem configurar nada: o programa já vem com a chave do aplicativo. Quem quiser pode pôr a própria chave na aba Avançado (ela tem prioridade).
+
 ## v1.0.31
 - Som de buff acabando não toca mais à toa no teleporte (tela preta), no alt-tab, com o jogo minimizado ou ao trocar para outro cliente (ex.: o mercador): o buff fica "segurado" no personagem onde foi visto e só conta como acabado se não voltar à tela dele.
 

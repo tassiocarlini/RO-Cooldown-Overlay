@@ -28,7 +28,7 @@ BUFF_FOLGA_PAUSA = 1.5      # s a mais depois de tela preta / alt-tab para os í
 MOSTRAR_BUFF = {"Sempre": "sempre", "Só quando faltar": "faltando", "Só quando ativo": "ativo"}
 
 
-VERSAO = "1.0.31"
+VERSAO = "1.0.32"
 NOME_APP = "RO Cooldown Overlay"
 # Repositório no GitHub de onde vêm as atualizações (CHANGELOG.md e .zip da branch abaixo)
 REPO_GITHUB = "tassiocarlini/RO-Cooldown-Overlay"
@@ -42,12 +42,6 @@ else:
     PASTA = Path(__file__).resolve().parent.parent
     PASTA_RECURSOS = PASTA
 PASTA.mkdir(parents=True, exist_ok=True)
-
-# Pastas onde o programa procura pacotes de buffs (buffs*.zip) para importar sozinho:
-# a pasta do programa (.exe ou .py) e a pasta de dados
-PASTAS_PACOTES = list(dict.fromkeys([
-    Path(sys.executable).parent if getattr(sys, "frozen", False) else Path(__file__).resolve().parent.parent,
-    PASTA]))
 
 PASTA_PERFIS = PASTA / "perfis"
 ARQ_APP = PASTA / "app.json"

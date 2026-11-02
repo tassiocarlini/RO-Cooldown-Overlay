@@ -48,9 +48,11 @@ O `.exe` é gerado pelo próprio GitHub, a partir do código desta página (veja
 Botão verde **Code** → **Download ZIP**, extraia e abra o **`RO Cooldown Overlay.exe`** da pasta (ou o **`iniciar.bat`**). Na primeira vez, se faltar o Python, ele instala sozinho o Python e as bibliotecas e salva os detalhes em `instalacao.log`. Nessa versão os dados ficam na própria pasta do programa.
 
 ---
-#### 🚨 MUITO IMPORTANTE: Como pegar sua chave da API (grátis, uns 3 minutos)
+#### Chave da API da Divine Pride: não precisa mais
 
-> ⚠️ **ATENÇÃO:** A sua chave da API é **pessoal e confidencial** (funciona como uma senha). Siga os passos abaixo para gerar a sua e **nunca a compartilhe** com ninguém.
+O programa baixado pelo **Baixar para Windows** já vem com a chave do aplicativo e funciona sem você fazer nada. Se quiser usar a **sua** chave (ou se usa a versão em Python, que vem sem ela), siga os passos abaixo (grátis, uns 3 minutos). A sua chave tem prioridade sobre a do aplicativo.
+
+> ⚠️ **ATENÇÃO:** A sua chave da API é **pessoal e confidencial** (funciona como uma senha). **Nunca a compartilhe** com ninguém.
 
 1. **Crie uma conta** na Divine Pride: abra [divine-pride.net](https://www.divine-pride.net) e clique em **Register**, no canto de cima.
    O cadastro é feito pelo fórum do site. Preencha usuário, e-mail e senha e, se pedirem, confirme pelo link que chega no seu e-mail.
@@ -81,13 +83,13 @@ Botão verde **Code** → **Download ZIP**, extraia e abra o **`RO Cooldown Over
 
 ### Opcional: Divine Pride (recarga do servidor LATAM e skill "pelo nome")
 
-Sem isso o programa já funciona normalmente. Com a chave da Divine Pride você ganha:
+O programa já vem com a chave do aplicativo (na versão .exe), então isto já funciona sozinho. Com a Divine Pride você ganha:
 - a **recarga oficial do servidor LATAM** de cada skill (em vez do valor padrão);
 - o botão **+ Skill pelo nome**: escolhe a skill pela busca e o programa baixa o ícone e acha na sua barra de atalhos sozinho, sem precisar marcar na tela.
 
 #### Cuidados com a chave
-- A chave é **pessoal**: cada pessoa usa a sua. **Não poste nem envie a sua para ninguém**.
-- Ela fica guardada só no seu computador (`app.json`, na pasta de dados do programa).
+- A sua chave é **pessoal**. **Não poste nem envie a sua para ninguém**. Deixar o campo vazio usa a chave do aplicativo.
+- A sua chave fica guardada só no seu computador (`app.json`, na pasta de dados do programa).
 - O programa consulta **somente as skills que você usa**, uma de cada vez, e guarda as respostas no seu PC por 30 dias, seguindo as regras de uso da API da Divine Pride. Ele não baixa o banco de dados inteiro.
 
 #### Deu erro?

@@ -95,7 +95,10 @@ class Banco:
                     if it is None:
                         it = {"nome": nome, "pt": bool(x.get("nome")), "en": x.get("en") or "",
                               "cd": None, "classes": [], "id": x.get("id"),
-                              "efst": x.get("efst") or []}
+                              "efst": x.get("efst") or [],
+                              # buff = dá ícone de status e não causa dano (aba Buffs);
+                              # o resto é skill ofensiva (aba Skills ofensivas)
+                              "buff": x.get("buff", bool(x.get("efst")))}
                         self.itens[k] = it
                         if x.get("en"):
                             self.itens.setdefault(chave(x["en"]), it)
@@ -132,6 +135,11 @@ class Banco:
         it = self.itens.get(chave(nome))
         return it.get("efst") or [] if it else []
 
+    def eh_buff(self, nome):
+        """A skill é buff (vai na aba Buffs, não na de skills ofensivas)?"""
+        it = self.itens.get(chave(nome))
+        return bool(it and it.get("buff"))
+
     def id_de(self, nome):
         it = self.itens.get(chave(nome))
         return it.get("id") if it else None
@@ -162,12 +170,13 @@ class Banco:
         return k in self.itens or k in self.meus
 
     def buscar(self, texto, classe=TODAS, limite=400, so_buffs=False):
-        """Busca pelo nome em português ou em inglês, sem ligar para acentos."""
+        """Busca pelo nome em português ou em inglês, sem ligar para acentos. so_buffs=True
+        lista só buffs; False, só skills ofensivas (um não aparece na busca do outro)."""
         q = chave(texto)
         unicos = {id(it): it for it in self.itens.values()}
         res = []
         for it in unicos.values():
-            if so_buffs and not it.get("efst"):
+            if bool(it.get("buff")) != so_buffs:
                 continue
             if classe and classe != TODAS and classe not in it["classes"]:
                 continue

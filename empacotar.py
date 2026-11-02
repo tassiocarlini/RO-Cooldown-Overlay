@@ -7,6 +7,8 @@ Sai:  dist/RO Cooldown Overlay/                         pasta com o programa
       dist/notas.md                                     novidades desta versão (do CHANGELOG)
 
 O mesmo script roda no GitHub (.github/workflows/release.yml) e no seu PC (build_exe.bat).
+Chave padrão da Divine Pride: se a variável DP_CHAVE_PADRAO existir (no GitHub vem do segredo
+de mesmo nome), ela entra embaralhada só dentro do .exe (rocd/_chave.py, apagado no fim).
 """
 import os
 import re
@@ -16,6 +18,9 @@ import sys
 from pathlib import Path
 
 import PyInstaller.__main__
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from rocd.chave import esconder  # noqa: E402
 
 AQUI = Path(__file__).resolve().parent
 NOME = "RO Cooldown Overlay"
@@ -66,6 +71,16 @@ def arquivo_versao(v):
     return arq
 
 
+def verificar_chave(exe):
+    """O .exe tem mesmo a chave padrão? (sem mostrar a chave)"""
+    (BUILD / "dados_verificacao").mkdir(parents=True, exist_ok=True)
+    r = subprocess.run([str(exe), "--verificar-chave"], timeout=120,
+                       env={**os.environ, "APPDATA": str(BUILD / "dados_verificacao")})
+    if r.returncode != 0:
+        sys.exit("O .exe gerado não ficou com a chave padrão da Divine Pride.")
+    print("Verificação: chave padrão da Divine Pride embutida.")
+
+
 def verificar(exe):
     """Abre o .exe com --verificar: falha se numpy, cv2 ou sv_ttk não carregarem dentro dele
     (já aconteceu: sem numpy, buffs e AP param e o programa não avisa)."""
@@ -78,26 +93,49 @@ def verificar(exe):
         log = dados / NOME / "log.txt"
         print(log.read_text(encoding="utf-8") if log.exists() else "(sem log)")
         sys.exit(f"O .exe gerado não carrega todas as bibliotecas (código {r.returncode}).")
-    print("Verificação: numpy, cv2 e sv_ttk carregam dentro do .exe.")
+    print("Verificação: numpy, cv2, sv_ttk e os ícones embutidos carregam dentro do .exe.")
 
 
 def main():
     v = versao()
     texto_notas = notas(v)
     print(f"Gerando {NOME} v{v}…")
+    chave = os.environ.get("DP_CHAVE_PADRAO", "").strip()
+    arq_chave = AQUI / "rocd" / "_chave.py"
+    if chave:
+        arq_chave.write_text(esconder(chave), encoding="utf-8")
+        print("Com a chave padrão da Divine Pride (embaralhada).")
+    else:
+        arq_chave.unlink(missing_ok=True)
+        print("Sem DP_CHAVE_PADRAO: o .exe sai sem chave padrão (cada um usa a sua).")
+    try:
+        gerar_exe(v)
+    finally:
+        arq_chave.unlink(missing_ok=True)          # nunca fica no PC nem vai para o git
+    pasta = DIST / NOME
+    if chave:
+        verificar_chave(pasta / f"{NOME}.exe")
+    finalizar(pasta, texto_notas)
+
+
+def gerar_exe(v):
     PyInstaller.__main__.run([
         "--noconfirm", "--clean", "--windowed",
         "--name", NOME,
         "--icon", str(AQUI / "assets" / "icone.ico"),
         "--version-file", str(arquivo_versao(v)),
         "--add-data", f"{AQUI / 'banco_skills.json'};.",
+        "--add-data", f"{AQUI / 'rocd' / 'icones'};rocd/icones",      # ícones de status embutidos
         "--collect-data", "sv_ttk",
+        "--hidden-import", "rocd._chave",
         "--distpath", str(DIST),
         "--workpath", str(BUILD),
         "--specpath", str(BUILD),
         str(AQUI / "ro_cooldown_overlay.py"),
     ])
-    pasta = DIST / NOME
+
+
+def finalizar(pasta, texto_notas):
     for dll in pasta.glob("_internal/cv2/opencv_videoio_ffmpeg*.dll"):
         dll.unlink()                               # 30 MB só para vídeo: o programa não usa
     verificar(pasta / f"{NOME}.exe")

@@ -133,7 +133,7 @@ class AbaSons:
                  [("buff", b) for b in self.perfil.get("buffs", [])])
         if not itens:
             ttk.Label(self.lista_sons, style="Dica.TLabel",
-                      text="Adicione skills e buffs nas abas Skills e Buffs.").grid(
+                      text="Adicione skills e buffs nas abas Skills ofensivas e Buffs.").grid(
                 row=0, column=0, padx=6, pady=10, sticky="w")
         for r, (tipo, item) in enumerate(itens):
             self.cartao(self.lista_sons, r, 5)

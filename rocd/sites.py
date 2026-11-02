@@ -8,10 +8,12 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+from pathlib import Path
 
 from PIL import Image
 
 from .config import DP_URL, DP_URL_EFST, PASTA, PASTA_DP, VERSAO, registrar
+from .chave import chave_padrao
 from .dados import extrair_recarga
 
 
@@ -20,7 +22,8 @@ class DivinePride:
     Só pede à API as skills dos seus perfis, uma por vez e com cache, como a API pede."""
 
     def __init__(self, chave_api):
-        self.chave = (chave_api or "").strip()
+        self.chave = (chave_api or "").strip()      # a sua (aba Avançado); vazia = a do aplicativo
+        self.padrao = chave_padrao()
         self.fila = queue.Queue()
         self.pedidos = queue.Queue()
         self.cds = {}
@@ -40,8 +43,14 @@ class DivinePride:
         self._ultimo = 0.0
         threading.Thread(target=self._trabalhar, daemon=True).start()
 
+    def chave_em_uso(self):
+        return self.chave or self.padrao
+
+    def usando_padrao(self):
+        return not self.chave and bool(self.padrao)
+
     def ativo(self):
-        return bool(self.chave)
+        return bool(self.chave_em_uso())
 
     def icone(self, sid):
         p = PASTA_DP / f"icone_{sid}.png"
@@ -69,7 +78,7 @@ class DivinePride:
             else:
                 if not self.ativo():
                     raise ValueError("sem chave da API")
-                url = DP_URL_EFST.format(id=eid) + "?apiKey=" + urllib.parse.quote(self.chave)
+                url = DP_URL_EFST.format(id=eid) + "?apiKey=" + urllib.parse.quote(self.chave_em_uso())
                 dados = self._abrir(url)
                 registrar(f"Divine Pride: buff {eid} recebido: "
                           + json.dumps(dados, ensure_ascii=False)[:1000])
@@ -125,7 +134,7 @@ class DivinePride:
                 else:
                     if not self.ativo():
                         raise ValueError("sem chave da API")
-                    url = DP_URL.format(id=sid) + "?apiKey=" + urllib.parse.quote(self.chave)
+                    url = DP_URL.format(id=sid) + "?apiKey=" + urllib.parse.quote(self.chave_em_uso())
                     dados = self._abrir(url)
                     arq.write_text(json.dumps(dados, ensure_ascii=False), encoding="utf-8")
                     registrar(f"Divine Pride: skill {sid} recebida: "
@@ -146,6 +155,15 @@ class DivinePride:
 
 
 PASTA_RAG = PASTA / "cache_ragassets"
+# Ícones de status que vêm dentro do programa (desenho do cliente LATAM, conferido no jogo):
+# o ragassets não tem estes e a Divine Pride tem um desenho diferente (ex.: Brisa Leve).
+ICONES_EMBUTIDOS = Path(__file__).resolve().parent / "icones"
+
+
+def icone_embutido(eid):
+    p = ICONES_EMBUTIDOS / f"status_{eid}.png"
+    return p if p.exists() else None
+
 RAG_URL = "https://assets.latam-tools.com.br"
 
 
@@ -190,7 +208,7 @@ class RagAssets:
 
     def icone_status(self, eid):
         p = PASTA_RAG / f"status_{eid}.png"
-        return p if p.exists() else None
+        return icone_embutido(eid) or (p if p.exists() else None)
 
     def icone_skill(self, sid):
         p = PASTA_RAG / f"skill_{sid}.png"
