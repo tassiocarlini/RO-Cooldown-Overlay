@@ -28,7 +28,7 @@ BUFF_FOLGA_PAUSA = 1.5      # s a mais depois de tela preta / alt-tab para os í
 MOSTRAR_BUFF = {"Sempre": "sempre", "Só quando faltar": "faltando", "Só quando ativo": "ativo"}
 
 
-VERSAO = "1.0.32"
+VERSAO = "1.0.33"
 NOME_APP = "RO Cooldown Overlay"
 # Repositório no GitHub de onde vêm as atualizações (CHANGELOG.md e .zip da branch abaixo)
 REPO_GITHUB = "tassiocarlini/RO-Cooldown-Overlay"

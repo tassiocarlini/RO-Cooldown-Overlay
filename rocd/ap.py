@@ -235,7 +235,94 @@ def ler_fracao(arr):
             lido = _ler_linha(mascara)
             if lido:
                 return lido
+    # 2º: skins em que o preenchimento da barra tem borda preta (linha de baixo e coluna da
+    #     ponta) passando por cima dos números
+    preto = a.max(axis=2) < 60
+    if preto.mean() <= 0.5:
+        for mascara in _faixas(_reparar(preto)):
+            lido = _ler_linha(mascara)
+            if lido:
+                return lido
     return None
+
+
+def _moldura(mascara, comprimento=20):
+    """Pixels que podem ser da moldura da barra: traços horizontais longos e os traços
+    verticais altos que encostam neles (a ponta do preenchimento)."""
+    H, W = mascara.shape
+    horiz = np.zeros_like(mascara)
+    for y in range(H):
+        x = 0
+        while x < W:
+            if not mascara[y, x]:
+                x += 1
+                continue
+            ini = x
+            while x < W and mascara[y, x]:
+                x += 1
+            if x - ini >= comprimento:
+                horiz[y, ini:x] = True
+    res = horiz.copy()
+    for x in range(W):
+        y = 0
+        while y < H:
+            if not mascara[y, x]:
+                y += 1
+                continue
+            ini = y
+            while y < H and mascara[y, x]:
+                y += 1
+            if y - ini >= 8 and horiz[max(0, ini - 1):min(H, y + 1), x].any():
+                res[ini:y, x] = True
+    return res
+
+
+def _correlacao(img, t):
+    """Soma de img * t em cada posição em que t cabe inteiro em img."""
+    if cv2 is not None:
+        return cv2.matchTemplate(img, t, cv2.TM_CCORR)
+    janelas = np.lib.stride_tricks.sliding_window_view(img, t.shape)
+    return np.einsum("ijkl,kl->ij", janelas, t)
+
+
+def _reparar(mascara):
+    """Tira a moldura da barra e, onde ela passa por cima de um dígito, completa o dígito com o
+    modelo que melhor combina com o resto dele."""
+    incerto = _moldura(mascara)
+    conhecido = ~incerto
+    limpo = mascara & conhecido
+    if not incerto.any():
+        return limpo
+    H, W = mascara.shape
+    tinta, vazio, visto = (np.float32(m) for m in (limpo, conhecido & ~mascara, conhecido))
+    cands = []
+    for ch, t in _modelos_digitos():
+        th, tw = t.shape
+        if th + 2 > H or tw + 2 > W:
+            continue
+        tf = np.float32(t)
+        n_k = _correlacao(visto, np.ones_like(tf))
+        dif = (_correlacao(tinta, 1 - tf) + _correlacao(vazio, tf)) / np.maximum(n_k, 1)
+        tinta_vista = _correlacao(visto, tf) / tf.sum()
+        ok = (dif <= 0.1) & (tinta_vista >= 0.4) & (n_k < th * tw - 0.5)   # cobre algo incerto
+        for y, x in zip(*np.nonzero(ok)):
+            if y == 0 or x == 0 or y + th >= H or x + tw >= W:
+                continue
+            # em volta do dígito não pode haver tinta (senão é pedaço de outro desenho)
+            borda = np.concatenate([limpo[y:y + th, x - 1], limpo[y:y + th, x + tw],
+                                    limpo[y - 1, x:x + tw], limpo[y + th, x:x + tw]])
+            if borda.sum() <= 1:
+                cands.append((float(dif[y, x]), -int(t.sum()), int(y), int(x), t))
+    res = limpo.copy()
+    ocupado = np.zeros_like(mascara)
+    for _, _, y, x, t in sorted(cands, key=lambda c: c[:4]):
+        th, tw = t.shape
+        if ocupado[y:y + th, x:x + tw].any():
+            continue
+        ocupado[y:y + th, x:x + tw] = True
+        inc = incerto[y:y + th, x:x + tw]
+        res[y:y + th, x:x + tw][inc] = t[inc]
+    return res
 
 
 def _ler_linha(mascara):
@@ -251,6 +338,15 @@ def _ler_linha(mascara):
 
         def numero(indices):
             if not indices or any(tipos[i] in (None, "/") for i in indices):
+                return None
+            # desenho que não parece nada colado ao número: falta um dígito (ex.: a borda da
+            # barra cortou o 6 de "67" e sobrou só o 7)
+            ini, fim = indices[0], indices[-1]
+            if ini > 0 and tipos[ini - 1] is None and \
+                    gl[ini][0] - (gl[ini - 1][0] + gl[ini - 1][1]) <= junto:
+                return None
+            if fim + 1 < len(gl) and tipos[fim + 1] is None and \
+                    gl[fim + 1][0] - (gl[fim][0] + gl[fim][1]) <= junto:
                 return None
             return int("".join(tipos[i] for i in indices))
 

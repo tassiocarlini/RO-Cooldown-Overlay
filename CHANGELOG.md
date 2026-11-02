@@ -1,5 +1,9 @@
 # Mudanças
 
+## v1.0.33
+- Barra de AP: em skins em que o preenchimento da barra tem borda preta (ex.: barra verde), a ponta do preenchimento passava por cima dos números e o AP saía errado (67 lido como 7) ou não era lido. Agora o programa ignora a borda e completa o dígito coberto.
+- Maestria Arcana: o ícone do buff agora vem dentro do programa (o ragassets não tem e o da Divine Pride vem estragado).
+
 ## v1.0.32
 - Aba "Skills" virou "Skills ofensivas". Buffs (ex.: Elo Celestial) só aparecem na busca da aba Buffs, e skills de ataque só na busca de Skills ofensivas, para não confundir recarga com tempo de buff. Skills de ataque que também dão status (ex.: Eclipse Lunar) ficam em Skills ofensivas.
 - Buff que já estava na aba Skills fica com o nome em vermelho e o botão "Para Buffs", que move ele para a aba certa.

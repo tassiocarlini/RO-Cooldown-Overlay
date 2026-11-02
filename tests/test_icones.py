@@ -19,3 +19,10 @@ def test_embutido_vem_antes_do_ragassets():
     rag = RagAssets.__new__(RagAssets)                 # sem rede nem threads
     eid = int(next(ICONES_EMBUTIDOS.glob("status_*.png")).stem.split("_")[1])
     assert rag.icone_status(eid) == icone_embutido(eid)
+
+
+def test_maestria_arcana_tem_icone_embutido():
+    """O ragassets não tem o ícone 355 e o da Divine Pride vem embaralhado."""
+    efst = Banco().efst_de("Recognized Spell")
+    assert [e for _, e in efst] == [355]
+    assert Image.open(icone_embutido(355)).size == (32, 32)
