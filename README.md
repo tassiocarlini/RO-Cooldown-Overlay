@@ -48,7 +48,9 @@ O `.exe` é gerado pelo próprio GitHub, a partir do código desta página (veja
 Botão verde **Code** → **Download ZIP**, extraia e abra o **`RO Cooldown Overlay.exe`** da pasta (ou o **`iniciar.bat`**). Na primeira vez, se faltar o Python, ele instala sozinho o Python e as bibliotecas e salva os detalhes em `instalacao.log`. Nessa versão os dados ficam na própria pasta do programa.
 
 ---
-#### Chave da API da Divine Pride: 
+#### Chave da API da Divine Pride
+
+O programa baixado pelo **Baixar para Windows** vem com uma chave do aplicativo só para a **configuração inicial**. Depois disso, você precisa pôr a **sua** chave (a versão em Python já vem sem ela). Siga os passos abaixo (grátis, uns 3 minutos). A sua chave tem prioridade sobre a do aplicativo.
 
 > ⚠️ **ATENÇÃO:** A sua chave da API é **pessoal e confidencial** (funciona como uma senha). **Nunca a compartilhe** com ninguém.
 
@@ -81,12 +83,12 @@ Botão verde **Code** → **Download ZIP**, extraia e abra o **`RO Cooldown Over
 
 ### Opcional: Divine Pride (recarga do servidor LATAM e skill "pelo nome")
 
-O programa já vem com a chave do aplicativo (na versão .exe), então isto já funciona sozinho. Com a Divine Pride você ganha:
+A chave do aplicativo (na versão .exe) serve só para a configuração inicial. Para continuar usando, ponha a sua chave (veja [Chave da API da Divine Pride](#chave-da-api-da-divine-pride)). Com a Divine Pride você ganha:
 - a **recarga oficial do servidor LATAM** de cada skill (em vez do valor padrão);
 - o botão **+ Skill pelo nome**: escolhe a skill pela busca e o programa baixa o ícone e acha na sua barra de atalhos sozinho, sem precisar marcar na tela.
 
 #### Cuidados com a chave
-- A sua chave é **pessoal**. **Não poste nem envie a sua para ninguém**. Deixar o campo vazio usa a chave do aplicativo.
+- A sua chave é **pessoal**. **Não poste nem envie a sua para ninguém**.
 - A sua chave fica guardada só no seu computador (`app.json`, na pasta de dados do programa).
 - O programa consulta **somente as skills que você usa**, uma de cada vez, e guarda as respostas no seu PC por 30 dias, seguindo as regras de uso da API da Divine Pride. Ele não baixa o banco de dados inteiro.
 
