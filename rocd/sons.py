@@ -1,9 +1,13 @@
 """Sons de aviso (gerados, seus e do MyInstants), tocados pelo Windows (MCI)."""
 
+import array
+import base64
 import ctypes
 import math
 import re
 import struct
+import subprocess
+import threading
 import time
 import traceback
 import urllib.error
@@ -13,7 +17,76 @@ import wave
 from html import unescape
 from pathlib import Path
 
-from .config import PASTA_MEUS_SONS, PASTA_SONS, SEM_SOM, SONS_PRONTOS, VERSAO, registrar
+from .config import (PASTA_MEUS_SONS, PASTA_SONS, SEM_SOM, SONS_PRONTOS, SONS_VOZ, VERSAO,
+                     registrar)
+
+
+# =============================================================== sons de voz
+
+# Script do PowerShell que fala "Recall" com uma voz do Windows ($genero: Female/Male) e grava
+# em $saida. Primeiro as vozes novas (WinRT: no Windows em português vem a masculina Daniel),
+# depois as antigas (SAPI). A última linha diz qual voz falou; "outra" = não tinha voz do gênero.
+VOZ_PS = r"""
+$ErrorActionPreference = 'Stop'
+function Texto($cultura) { if ($cultura -match '^(pt|es)') { 'Ric' + [char]0xF3 + 'l!' } else { 'Recall!' } }
+try {
+    [Windows.Media.SpeechSynthesis.SpeechSynthesizer, Windows.Media.SpeechSynthesis, ContentType = WindowsRuntime] | Out-Null
+    Add-Type -AssemblyName System.Runtime.WindowsRuntime
+    $vozes = @([Windows.Media.SpeechSynthesis.SpeechSynthesizer]::AllVoices | Where-Object { "$($_.Gender)" -eq $genero })
+    $voz = @($vozes | Where-Object { $_.Language -like 'pt*' }) + $vozes | Select-Object -First 1
+    if ($voz) {
+        $s = New-Object Windows.Media.SpeechSynthesis.SpeechSynthesizer
+        $s.Voice = $voz
+        $asTask = [System.WindowsRuntimeSystemExtensions].GetMethods() | Where-Object {
+            $_.Name -eq 'AsTask' -and $_.GetParameters().Count -eq 1 -and
+            $_.GetParameters()[0].ParameterType.Name -eq 'IAsyncOperation`1' } | Select-Object -First 1
+        $t = $asTask.MakeGenericMethod([Windows.Media.SpeechSynthesis.SpeechSynthesisStream]).Invoke(
+            $null, @($s.SynthesizeTextToStreamAsync((Texto $voz.Language))))
+        $t.Wait(-1) | Out-Null
+        $in = [System.IO.WindowsRuntimeStreamExtensions]::AsStreamForRead($t.Result)
+        $out = [System.IO.File]::Create($saida)
+        $in.CopyTo($out)
+        $out.Close()
+        'winrt ' + $voz.DisplayName
+        exit 0
+    }
+} catch { "winrt falhou: $_" }
+Add-Type -AssemblyName System.Speech
+$s = New-Object System.Speech.Synthesis.SpeechSynthesizer
+$todas = @($s.GetInstalledVoices() | Where-Object Enabled | ForEach-Object VoiceInfo)
+$certas = @($todas | Where-Object { "$($_.Gender)" -eq $genero })
+$v = @($certas | Where-Object { $_.Culture.Name -like 'pt*' }) + $certas + $todas | Select-Object -First 1
+$s.SelectVoice($v.Name)
+$s.SetOutputToWaveFile($saida)
+$s.Speak((Texto $v.Culture.Name))
+$s.Dispose()
+if ($certas) { 'sapi ' + $v.Name } else { 'outra ' + $v.Name }
+"""
+
+
+def ajustar_voz(origem, destino, tom=1.0):
+    """Corta o silêncio do começo e do fim (o aviso sai na hora), deixa no volume dos sons
+    prontos e muda o tom (tom < 1 = mais grave; usado quando falta voz do gênero pedido)."""
+    with wave.open(str(origem), "rb") as w:
+        canais, largura, taxa = w.getnchannels(), w.getsampwidth(), w.getframerate()
+        quadros = w.readframes(w.getnframes())
+    if largura == 2:
+        a = array.array("h", quadros)
+        altos = [i // canais for i, v in enumerate(a) if abs(v) > 600]
+        if altos:
+            ini = max(0, altos[0] - int(taxa * 0.02))
+            fim = min(len(a) // canais, altos[-1] + int(taxa * 0.08))
+            a = a[ini * canais:fim * canais]
+        pico = max((abs(v) for v in a), default=0)
+        if pico:
+            g = 26000 / pico
+            a = array.array("h", (max(-32768, min(32767, int(v * g))) for v in a))
+        quadros = a.tobytes()
+    with wave.open(str(destino), "wb") as w:
+        w.setnchannels(canais)
+        w.setsampwidth(largura)
+        w.setframerate(int(taxa * tom))
+        w.writeframes(quadros)
 
 
 # =============================================================== sons de aviso
@@ -68,6 +141,8 @@ class Sons:
         self._ultimo = -99.0
         self._abertos = {}    # chave -> apelido no MCI (aberto uma vez: a 1ª abertura é lenta)
         self._n = 0
+        self._trava_voz = threading.Lock()
+        self._voz_falhou = set()
 
     # ---- quais sons existem
 
@@ -83,6 +158,7 @@ class Sons:
         """Nome na tela -> chave, na ordem das listas (chave None = sem som)."""
         out = {SEM_SOM: None}
         out.update({nome: chave for chave, (nome, _, _) in SONS_PRONTOS.items()})
+        out.update({nome: chave for chave, (nome, _) in SONS_VOZ.items()})
         out.update({nome: "meu:" + nome for nome in self.meus()})
         return out
 
@@ -94,7 +170,7 @@ class Sons:
             return False
         if chave.startswith("meu:"):
             return chave[4:] in self.meus()
-        return chave in SONS_PRONTOS
+        return chave in SONS_PRONTOS or chave in SONS_VOZ
 
     # ---- arquivos
 
@@ -128,9 +204,53 @@ class Sons:
             w.writeframes(struct.pack(f"<{len(amostras)}h", *amostras))
         return arq
 
+    def _gerar_voz(self, chave):
+        """Grava o .wav do som de voz na 1ª vez (PowerShell sem janela, menos de 1 s).
+        Se não der, não tenta de novo até o programa reabrir."""
+        arq = PASTA_SONS / f"{chave}.wav"
+        with self._trava_voz:
+            if arq.exists():
+                return arq
+            if chave in self._voz_falhou:
+                return None
+            PASTA_SONS.mkdir(parents=True, exist_ok=True)
+            tmp = arq.with_name(f"{chave}.tmp.wav")
+            genero = SONS_VOZ[chave][1]
+            caminho = str(tmp).replace("'", "''")
+            script = f"$genero = '{genero}'\n$saida = '{caminho}'\n" + VOZ_PS
+            try:
+                r = subprocess.run(
+                    ["powershell", "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass",
+                     "-EncodedCommand", base64.b64encode(script.encode("utf-16-le")).decode()],
+                    capture_output=True, text=True, timeout=60,
+                    creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+                linhas = (r.stdout or "").strip().splitlines()
+                qual = linhas[-1] if linhas else ""
+                if not tmp.exists():
+                    raise RuntimeError(f"{qual} {(r.stderr or '').strip()[:300]}".strip())
+                tom = 1.0
+                if qual.startswith("outra"):          # sem voz do gênero: muda o tom da que tem
+                    tom = 0.8 if genero == "Male" else 1.2
+                ajustar_voz(tmp, arq, tom)
+                registrar(f"Som {chave} gerado ({qual}).")
+                return arq
+            except Exception as e:
+                self._voz_falhou.add(chave)
+                registrar(f"Não consegui gerar o som de voz {chave}: {e}")
+                return None
+            finally:
+                tmp.unlink(missing_ok=True)
+
+    def gerar_vozes(self):
+        """Grava de antemão os sons de voz que faltam (rodar fora da tela, numa thread)."""
+        for chave in SONS_VOZ:
+            self._gerar_voz(chave)
+
     def _arquivo(self, chave):
         if chave.startswith("meu:"):
             return self.meus().get(chave[4:])
+        if chave in SONS_VOZ:
+            return self._gerar_voz(chave)
         return self._gerar(chave)
 
     @staticmethod

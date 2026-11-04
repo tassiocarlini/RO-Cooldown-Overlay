@@ -1,5 +1,11 @@
 # Mudanças
 
+## v1.0.34
+- Nova aba "Cronômetro": contagem regressiva para o recall (padrão 3:00), numa caixinha só dela por cima do jogo, separada das skills e buffs. Aparece mesmo com o overlay parado.
+- O botão redondo da caixinha reinicia a contagem. Clicar nele não tira o foco do jogo. Arraste a caixinha para mudar de lugar; a roda do mouse (ou "Tamanho da caixa" na aba) muda o tamanho.
+- Nos últimos segundos (padrão 10, você escolhe) os números piscam em vermelho e amarelo. Dá para escolher um som para esse momento e outro para quando zerar, ou deixar só um deles (ou nenhum) com "Sem som".
+- Sons novos: "Recall (voz feminina)" e "Recall (voz masculina)", falados pelas vozes do Windows no seu PC. São o padrão do cronômetro e também aparecem nas listas de som das skills e buffs.
+
 ## v1.0.33
 - Barra de AP: em skins em que o preenchimento da barra tem borda preta (ex.: barra verde), a ponta do preenchimento passava por cima dos números e o AP saía errado (67 lido como 7) ou não era lido. Agora o programa ignora a borda e completa o dígito coberto.
 - Maestria Arcana: o ícone do buff agora vem dentro do programa (o ragassets não tem e o da Divine Pride vem estragado).

@@ -414,6 +414,7 @@ class AbaSkills:
         self.app_cfg["visivel_em_capturas"] = bool(self.var_capturas.get())
         gravar_json(ARQ_APP, self.app_cfg)
         self.overlay.atualizar_captura()
+        self.cronometro.atualizar_captura()
 
     def tirar_print(self):
         """Contagem de 5 s para você voltar ao jogo e usar uma skill; depois salva um print

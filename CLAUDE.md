@@ -6,7 +6,7 @@ nunca ler memória do jogo nem enviar teclas.
 ## Onde fica cada coisa
 - `ro_cooldown_overlay.py`: só a porta de entrada (e baixa `rocd/` se faltar). Não pôr código aqui.
 - `rocd/`: o programa. Mapa dos módulos no docstring de `rocd/__init__.py`.
-- O Painel é dividido por aba: `class Painel(AbaSkills, AbaBuffs, AbaSons, AbaAvancado)` em
+- O Painel é dividido por aba: `class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado)` em
   `rocd/painel.py`; os métodos de cada aba ficam em `rocd/aba_*.py`.
 - `VERSAO` fica em `rocd/config.py` (lida também por `empacotar.py` e pelo CI).
 

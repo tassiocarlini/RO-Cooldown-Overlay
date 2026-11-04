@@ -2,6 +2,7 @@
 
 import copy
 import json
+import math
 import re
 import unicodedata
 
@@ -26,6 +27,12 @@ def ler_tempo(txt):
 
 def fmt_tempo(v):
     return "" if v is None else f"{v:g}"
+
+
+def fmt_contagem(seg):
+    """Segundos que faltam -> "4:59" (arredonda para cima: só mostra 0:00 quando acabou)."""
+    s = max(0, math.ceil(seg - 1e-6))
+    return f"{s // 60}:{s % 60:02d}"
 
 
 def fmt_aprendido(sk):

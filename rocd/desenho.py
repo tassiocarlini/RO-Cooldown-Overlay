@@ -145,6 +145,23 @@ def desenhar_icone(nome, cor="#e6e6e6", tam=18):
                    (S * 0.50, S * 0.80), (S * 0.30, S * 0.62), (S * 0.14, S * 0.62)], fill=c)
         for r in (S * 0.14, S * 0.28):
             d.arc((S * 0.50 - r, cy - r, S * 0.50 + r, cy + r), start=-50, end=50, fill=c, width=w)
+    elif nome == "ampulheta":            # aba do cronômetro do recall
+        linha((S * 0.24, T), (S * 0.76, T))
+        linha((S * 0.24, B), (S * 0.76, B))
+        d.polygon([(S * 0.32, T), (S * 0.68, T), (S * 0.68, S * 0.30), (S * 0.54, cy),
+                   (S * 0.68, S * 0.70), (S * 0.68, B), (S * 0.32, B), (S * 0.32, S * 0.70),
+                   (S * 0.46, cy), (S * 0.32, S * 0.30)], outline=c, width=w)
+        d.polygon([(S * 0.38, B - w), (S * 0.62, B - w), (cx, S * 0.64)], fill=c)
+    elif nome == "reiniciar":            # seta em volta (botão do cronômetro)
+        r = S * 0.30
+        d.arc((cx - r, cy - r, cx + r, cy + r), start=-60, end=230, fill=c, width=w)
+        a = math.radians(230)
+        px, py = cx + r * math.cos(a), cy + r * math.sin(a)
+        fx, fy = -math.sin(a), math.cos(a)           # para onde a seta aponta
+        nx, ny = math.cos(a), math.sin(a)            # para fora do círculo
+        k = S * 0.16
+        d.polygon([(px + fx * k, py + fy * k), (px + nx * k, py + ny * k),
+                   (px - nx * k, py - ny * k)], fill=c)
     elif nome == "relogio":              # logo do app: cronômetro com varredura
         circulo(cx, S * 0.56, S * 0.34)
         d.pieslice((cx - S * 0.26, S * 0.56 - S * 0.26, cx + S * 0.26, S * 0.56 + S * 0.26),
@@ -156,7 +173,8 @@ def desenhar_icone(nome, cor="#e6e6e6", tam=18):
 
 NOMES_ICONES = ["play", "stop", "camera", "pasta", "lupa", "mais", "mais_circulo", "selecao", "radar",
          "mover", "centro", "chave", "ajuda", "check", "copiar", "lapis", "lixeira", "cima",
-         "baixo", "fechar", "relogio", "escudo", "exportar", "importar", "som"]
+         "baixo", "fechar", "relogio", "escudo", "exportar", "importar", "som", "ampulheta",
+         "reiniciar"]
 
 
 

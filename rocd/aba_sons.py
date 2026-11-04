@@ -9,7 +9,8 @@ from tkinter import filedialog, messagebox, simpledialog, ttk
 
 from PIL import Image, ImageTk
 
-from .config import PADRAO, PASTA_MEUS_SONS, SEM_SOM, SONS_PRONTOS, SONS_SUGERIDOS, registrar
+from .config import (PADRAO, PASTA_MEUS_SONS, SEM_SOM, SONS_PRONTOS, SONS_SUGERIDOS, SONS_VOZ,
+                     registrar)
 from .perfis import nome_seguro
 from .sons import baixar_myinstants
 
@@ -287,7 +288,8 @@ class AbaSons:
 
     def _instalar_som(self, nome, dados, ext, titulo):
         """Grava um som novo em meus_sons, confere se ele toca e atualiza a aba Sons."""
-        reservados = {SEM_SOM, PADRAO} | {n for n, _, _ in SONS_PRONTOS.values()}
+        reservados = ({SEM_SOM, PADRAO} | {n for n, _, _ in SONS_PRONTOS.values()} |
+                      {n for n, _ in SONS_VOZ.values()})
         if nome.lower() in {r.lower() for r in reservados}:
             messagebox.showerror(titulo, f"\"{nome}\" já é o nome de um som do programa. "
                                  "Escolha outro nome.", parent=self.win)

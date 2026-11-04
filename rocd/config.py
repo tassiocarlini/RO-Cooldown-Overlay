@@ -28,7 +28,7 @@ BUFF_FOLGA_PAUSA = 1.5      # s a mais depois de tela preta / alt-tab para os í
 MOSTRAR_BUFF = {"Sempre": "sempre", "Só quando faltar": "faltando", "Só quando ativo": "ativo"}
 
 
-VERSAO = "1.0.33"
+VERSAO = "1.0.34"
 NOME_APP = "RO Cooldown Overlay"
 # Repositório no GitHub de onde vêm as atualizações (CHANGELOG.md e .zip da branch abaixo)
 REPO_GITHUB = "tassiocarlini/RO-Cooldown-Overlay"
@@ -82,6 +82,11 @@ SONS_PRONTOS = {
     "sonar": ("Sonar", "puro", [(1047, 1047, 0.9, 4)]),
     "sirene": ("Sirene", "quadrado", [(700, 1100, 0.25, 0), (1100, 700, 0.25, 0)]),
 }
+# Sons de voz: falados pelas vozes do Windows no PC de quem usa. chave -> (nome, gênero da voz)
+SONS_VOZ = {
+    "recall_fem": ("Recall (voz feminina)", "Female"),
+    "recall_masc": ("Recall (voz masculina)", "Male"),
+}
 # Sugestões do MyInstants: o programa só guarda o link; o som é baixado no PC de quem quiser
 SONS_SUGERIDOS = {"Jungle": "https://www.myinstants.com/pt/instant/gawr-gura-a-66933/"}
 
@@ -125,6 +130,17 @@ PERFIL_PADRAO = {
 }
 
 JANELA_GRUPO = 0.15   # s: ícones que escurecem juntos dentro disso = delay global
+
+# Cronômetro do recall (fica no app.json: vale para todos os perfis)
+CRONOMETRO_PADRAO = {
+    "ligado": False,
+    "tempo": 180,                      # s contados a cada reinício
+    "aviso": 10,                       # s antes do fim: pisca e toca som_aviso
+    "som_aviso": "recall_fem",         # None = sem som
+    "som_fim": "recall_fem",           # quando chega a zero
+    "tamanho": 28,                     # altura dos números em pixels
+    "x": None, "y": None,              # None = no alto, centralizado na tela
+}
 
 
 ARQ_LOG = PASTA / "log.txt"

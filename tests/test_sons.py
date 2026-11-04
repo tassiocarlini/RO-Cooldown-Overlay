@@ -1,13 +1,14 @@
 """Sons gerados e download do MyInstants (sem internet: as respostas são falsas)."""
 import io
+import struct
 import urllib.request
 import wave
 
 import pytest
 
 from rocd import sons
-from rocd.config import SEM_SOM, SONS_PRONTOS
-from rocd.sons import Sons, baixar_myinstants
+from rocd.config import SEM_SOM, SONS_PRONTOS, SONS_VOZ
+from rocd.sons import Sons, ajustar_voz, baixar_myinstants
 
 MP3 = b"ID3" + b"\0" * 100
 
@@ -88,6 +89,45 @@ def test_gera_todos_os_sons_prontos(pastas):
     for k in SONS_PRONTOS:
         with wave.open(str(s._arquivo(k))) as w:
             assert w.getnframes() > 1000
+
+
+def _wav(arq, amostras, taxa=16000):
+    with wave.open(str(arq), "wb") as w:
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(taxa)
+        w.writeframes(struct.pack(f"<{len(amostras)}h", *amostras))
+
+
+def test_ajustar_voz_corta_silencio_e_normaliza(tmp_path):
+    fala = [3000, -3000] * 800                       # 0,1 s de "voz" baixa
+    _wav(tmp_path / "a.wav", [0] * 16000 + fala + [0] * 16000)
+    ajustar_voz(tmp_path / "a.wav", tmp_path / "b.wav", tom=0.8)
+    with wave.open(str(tmp_path / "b.wav")) as w:
+        assert w.getframerate() == 12800             # tom mais grave
+        n = w.getnframes()
+        a = struct.unpack(f"<{n}h", w.readframes(n))
+    assert n < 1600 + 16000 * 0.11                   # sobra só um respiro antes e depois
+    assert max(abs(v) for v in a) == 26000
+
+
+def test_sons_de_voz_nas_opcoes(pastas):
+    s = Sons()
+    for chave, (nome, _) in SONS_VOZ.items():
+        assert s.opcoes()[nome] == chave and s.existe(chave)
+
+
+def test_voz_que_falha_nao_tenta_de_novo(pastas, monkeypatch):
+    chamadas = []
+
+    def run(*a, **k):
+        chamadas.append(a)
+        raise OSError("sem powershell")
+    monkeypatch.setattr(sons.subprocess, "run", run)
+    s = Sons()
+    chave = next(iter(SONS_VOZ))
+    assert s._arquivo(chave) is None and s._arquivo(chave) is None
+    assert len(chamadas) == 1
 
 
 def test_opcoes_e_meus_sons(pastas):

@@ -986,7 +986,8 @@ class Overlay:
             cx, cy = self.pos[0] + self.w // 2, self.pos[1] + self.h // 2
             dentro = gx <= cx < gx + gw and gy <= cy < gy + gh
             # Se o overlay está em cima do jogo, só aparece se nada estiver cobrindo o jogo ali
-            self.jogo_ok = not dentro or janela_no_ponto(cx, cy) in (self.jogo.hwnd, self.meu_hwnd)
+            self.jogo_ok = not dentro or janela_no_ponto(cx, cy) in (
+                self.jogo.hwnd, self.meu_hwnd, self.painel.cronometro.hwnd)
             self.estado_jogo = "" if self.jogo_ok else "jogo coberto"
         self._atualizar_janela()
 

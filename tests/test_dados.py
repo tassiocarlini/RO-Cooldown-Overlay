@@ -2,8 +2,8 @@
 import pytest
 
 from rocd import dados
-from rocd.dados import (Banco, chave, extrair_recarga, fmt_tempo, gravar_json, ler_json,
-                        ler_tempo, mesclar, _segundos)
+from rocd.dados import (Banco, chave, extrair_recarga, fmt_contagem, fmt_tempo, gravar_json,
+                        ler_json, ler_tempo, mesclar, _segundos)
 
 
 @pytest.mark.parametrize("txt, esperado", [
@@ -18,6 +18,14 @@ def test_fmt_tempo():
     assert fmt_tempo(None) == ""
     assert fmt_tempo(4.5) == "4.5"
     assert fmt_tempo(12.0) == "12"
+
+
+@pytest.mark.parametrize("seg, esperado", [
+    (300, "5:00"), (299.4, "5:00"), (299, "4:59"), (10, "0:10"), (0.2, "0:01"), (0, "0:00"),
+    (-3, "0:00"), (5400, "90:00"),
+])
+def test_fmt_contagem(seg, esperado):
+    assert fmt_contagem(seg) == esperado
 
 
 def test_chave_sem_acento():
