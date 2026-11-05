@@ -42,21 +42,11 @@ class AbaBuffs:
         self.lbl_area = ttk.Label(barra, style="Dica.TLabel")
         self.lbl_area.pack(side="left", padx=8)
         ttk.Label(f, style="Dica.TLabel", wraplength=760, justify="left",
-                  text="Clique em \"Buff pelo nome\", escolha o buff e pronto: o programa usa os "
-                       "ícones oficiais do jogo (todas as versões, ex.: os 7 elementos da Brisa Leve) "
-                       "e acha o buff na tela quando ele estiver ativo."
+                  text="O programa usa os ícones oficiais do jogo (todas as versões, ex.: os 7 "
+                       "elementos da Brisa Leve) e acha o buff na tela quando ele estiver ativo."
                   ).pack(anchor="w", padx=8, pady=(2, 4))
-        cont = ttk.Frame(f)
-        cont.pack(fill="both", expand=True, padx=6, pady=4)
-        self.buffs_cv = tk.Canvas(cont, highlightthickness=0, height=150, bg=self.cor_fundo)
-        sb = ttk.Scrollbar(cont, orient="vertical", command=self.buffs_cv.yview)
-        self.lista_buffs = ttk.Frame(self.buffs_cv)
-        self.lista_buffs.bind("<Configure>", lambda _e: self.buffs_cv.configure(
-            scrollregion=self.buffs_cv.bbox("all")))
-        self.buffs_cv.create_window((0, 0), window=self.lista_buffs, anchor="nw")
-        self.buffs_cv.configure(yscrollcommand=sb.set)
-        self.buffs_cv.pack(side="left", fill="both", expand=True)
-        sb.pack(side="right", fill="y")
+        self.lista_buffs = self.lista_rolavel(f, padx=6, pady=4)
+        self.lista_buffs.columnconfigure(1, weight=1)    # o nome do buff estica
 
     def montar_buffs(self):
         for wdg in self.lista_buffs.winfo_children():
@@ -65,11 +55,10 @@ class AbaBuffs:
         self.lbl_area.config(text="Área: marcada ✓" if a else "Área: lado direito")
         buffs = self.perfil.get("buffs", [])
         if not buffs:
-            ttk.Label(self.lista_buffs, justify="left", text=(
-                "Nenhum buff ainda.\n"
-                "  1. Clique em \"Buff pelo nome\" e escolha o buff (ex.: Brisa Leve).\n"
-                "  2. No jogo, deixe o buff ativo: o programa acha o ícone sozinho.")
-                      ).grid(row=0, column=0, padx=6, pady=10, sticky="w")
+            self.lista_vazia(self.lista_buffs, "Nenhum buff ainda", (
+                "1. Escolha o buff pelo nome (ex.: Brisa Leve).\n"
+                "2. No jogo, deixe o buff ativo: o programa acha o ícone sozinho."),
+                "Buff pelo nome", lambda: SeletorSkill(self, None, buff=True))
             return
         for col, t in enumerate(("ÍCONE", "NOME", "", "MOSTRAR", "DURAÇÃO",
                                  "ESTADO", "")):
@@ -93,7 +82,7 @@ class AbaBuffs:
 
             vn = tk.StringVar(value=bf.get("nome", ""))
             ttk.Entry(self.lista_buffs, textvariable=vn, width=11, style="Cartao.TEntry").grid(
-                row=r, column=1, padx=2)
+                row=r, column=1, padx=2, sticky="ew")
             vn.trace_add("write", lambda *_, b=bf, v=vn: (b.__setitem__("nome", v.get()),
                                                           self.salvar_depois()))
             fb = ttk.Frame(self.lista_buffs, style="Cartao.TFrame")
@@ -127,8 +116,7 @@ class AbaBuffs:
             vd.trace_add("write", lambda *_, b=bf, v=vd, e=ed: self._on_duracao(b, v, e))
             bf["_tk"] = (vn, vm, vd)
 
-            bf["_lbl_est"] = ttk.Label(self.lista_buffs, text="—", width=10, style="Cartao.TLabel",
-                                       font=("Segoe UI", 9, "bold"))
+            bf["_lbl_est"] = self.etiqueta_estado(self.lista_buffs)
             bf["_lbl_est"].grid(row=r, column=5, padx=2)
             fo = ttk.Frame(self.lista_buffs, style="Cartao.TFrame")
             fo.grid(row=r, column=6, padx=(2, 10))

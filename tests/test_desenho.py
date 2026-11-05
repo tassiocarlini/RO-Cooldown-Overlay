@@ -33,6 +33,21 @@ def test_dourar_troca_so_o_azul():
     assert out.getpixel((2, 0))[3] == 128
 
 
+def test_ardosia_troca_so_o_cinza():
+    from rocd.desenho import ardosia
+    im = Image.new("RGBA", (4, 1))
+    im.putpixel((0, 0), (28, 28, 28, 255))         # fundo do sv_ttk
+    im.putpixel((1, 0), (245, 184, 46, 255))       # dourado fica
+    im.putpixel((2, 0), (250, 250, 250, 255))      # claro quase não muda
+    im.putpixel((3, 0), (47, 47, 47, 90))          # transparência fica
+    out = ardosia(im)
+    assert "#%02x%02x%02x" % out.getpixel((0, 0))[:3] == COR["fundo"]
+    assert out.getpixel((1, 0)) == (245, 184, 46, 255)
+    assert out.getpixel((2, 0)) == (250, 250, 250, 255)
+    r, g, b, a = out.getpixel((3, 0))
+    assert b > g > r and a == 90                   # puxou para o azul
+
+
 def test_aba_selecionada_tem_traco():
     normal = imagem_aba(40, 34, COR["fundo"])
     sel = imagem_aba(40, 34, COR["fundo"], COR["ouro"])

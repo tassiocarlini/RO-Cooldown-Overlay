@@ -90,20 +90,8 @@ class AbaSons:
         ttk.Label(fi, style="Dica.TLabel", wraplength=440, justify="left",
                   text=f"\"{PADRAO}\" usa o som padrão ao lado. \"{SEM_SOM}\" deixa a skill ou o "
                        "buff mudo.").pack(anchor="w", padx=8, pady=(6, 4))
-        cont = ttk.Frame(fi)
-        cont.pack(fill="both", expand=True, padx=6, pady=(0, 6))
-        self.sons_cv = tk.Canvas(cont, highlightthickness=0, height=150, bg=self.cor_fundo)
-        sb = ttk.Scrollbar(cont, orient="vertical", command=self.sons_cv.yview)
-        self.lista_sons = ttk.Frame(self.sons_cv)
-        self.lista_sons.bind("<Configure>", lambda _e: self.sons_cv.configure(
-            scrollregion=self.sons_cv.bbox("all")))
-        self.sons_cv.create_window((0, 0), window=self.lista_sons, anchor="nw")
-        self.sons_cv.configure(yscrollcommand=sb.set)
-        self.sons_cv.pack(side="left", fill="both", expand=True)
-        sb.pack(side="right", fill="y")
-        rolar = lambda e: self.sons_cv.yview_scroll(-1 if e.delta > 0 else 1, "units")
-        self.sons_cv.bind("<Enter>", lambda _e: self.sons_cv.bind_all("<MouseWheel>", rolar))
-        self.sons_cv.bind("<Leave>", lambda _e: self.sons_cv.unbind_all("<MouseWheel>"))
+        self.lista_sons = self.lista_rolavel(fi, padx=6, pady=(0, 6))
+        self.lista_sons.columnconfigure(1, weight=1)     # o nome estica
         self.abas.bind("<<NotebookTabChanged>>", lambda _e: self.montar_sons()
                        if self.abas.select() == str(aba) else None)
 
@@ -145,8 +133,8 @@ class AbaSons:
                 ttk.Label(self.lista_sons, image=item["_thumb_som"], style="Cartao.TLabel").grid(
                     row=r, column=0, padx=(8, 2), pady=7)
             nome = item.get("nome") or "(sem nome)"
-            ttk.Label(self.lista_sons, text=nome if len(nome) <= 22 else nome[:21] + "…",
-                      width=22, style="Cartao.TLabel").grid(row=r, column=1, padx=4, sticky="w")
+            ttk.Label(self.lista_sons, text=nome if len(nome) <= 30 else nome[:29] + "…",
+                      style="Cartao.TLabel").grid(row=r, column=1, padx=4, sticky="w")
             ttk.Label(self.lista_sons, text="Skill" if tipo == "skill" else "Buff",
                       style="Cartao.Dica.TLabel", width=5).grid(row=r, column=2, padx=2)
             som = item.get("som", True)

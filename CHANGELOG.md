@@ -1,5 +1,16 @@
 # Mudanças
 
+## v1.0.35
+- Visual novo na janela do programa: tons de azul-escuro (como o logo e o overlay) no lugar do cinza, e o dourado só nos botões principais e no que está selecionado.
+- Uma fonte só em toda a janela. No Windows 10 cada campo saía com uma fonte diferente (as listas da aba Sons, por exemplo).
+- Perfil: os botões Novo, Duplicar, Renomear e Excluir foram para o botão ⋯ ao lado do perfil.
+- O estado de cada skill e buff virou uma etiqueta colorida: "Pronta"/"Ativo" em verde, "Em recarga"/"Delay"/"Ative no jogo" em dourado, "Sem ícone"/"Jogo não encontrado" em vermelho. Os números da detecção (ex.: 0.33) aparecem ao parar o mouse em cima.
+- As listas de skills, buffs e sons ocupam a largura toda e não cortam mais os nomes (ex.: "Postura do Universo"). A barra de rolagem só aparece quando não cabe tudo, e a roda do mouse rola a lista mesmo com o mouse em cima de um campo.
+- Seções sem moldura (nada de caixa dentro de caixa). Na aba Aparência, as explicações óbvias saíram da tela e ficam ao parar o mouse em cima ou no ícone (?).
+- A aba Avançado não fica mais vermelha sem a chave da Divine Pride: aparece só uma bolinha no ícone. Ela também rola em telas baixas (antes a parte da Divine Pride podia ficar cortada). O botão "Como pegar a chave?" deixou de ser vermelho.
+- Aba Cronômetro: "segundos", os botões ▶ e o tamanho ficam colados ao campo.
+- Lista de skills ou de buffs vazia: mostra os passos e o botão "Skill pelo nome" / "Buff pelo nome".
+
 ## v1.0.34
 - Nova aba "Cronômetro": contagem regressiva para o recall (padrão 3:00), numa caixinha só dela por cima do jogo, separada das skills e buffs. Aparece mesmo com o overlay parado.
 - O botão redondo da caixinha reinicia a contagem. Clicar nele não tira o foco do jogo. Arraste a caixinha para mudar de lugar; a roda do mouse (ou "Tamanho da caixa" na aba) muda o tamanho.

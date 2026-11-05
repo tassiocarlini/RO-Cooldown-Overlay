@@ -191,7 +191,7 @@ class Cronometro:
         bx, by = w - pad - bd, (h - bd) // 2
         self._botao = (bx, by, bx + bd, by + bd)
         sobre = self._sobre_botao
-        c.create_oval(*self._botao, fill="#343434" if sobre else COR["campo"],
+        c.create_oval(*self._botao, fill=COR["campo_hover"] if sobre else COR["campo"],
                       outline=COR["ouro"] if sobre else COR["borda2"])
         c.create_image(bx + bd / 2, by + bd / 2,
                        image=self._icone(max(10, int(bd * 0.62)), COR["ouro"] if sobre else COR["texto"]))

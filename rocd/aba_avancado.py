@@ -11,7 +11,7 @@ from PIL import ImageTk
 
 from .config import ARQ_APP, PASTA_DP, VERSAO, registrar
 from .dados import gravar_json
-from .desenho import COR
+from .desenho import COR, com_aviso, desenhar_icone
 from .perfis import importar_dados_antigos, Perfis, tem_dados_antigos
 from .atualizacao import aplicar_atualizacao, buscar_versao_nova, preparar_atualizacao
 
@@ -25,13 +25,19 @@ class AbaAvancado:
         self.app_cfg["verificar_atualizacoes"] = bool(self.var_auto_at.get())
         gravar_json(ARQ_APP, self.app_cfg)
 
+    def aviso_atualizacao(self, texto):
+        """Texto embaixo do botão de atualizar (a linha só ocupa espaço quando tem algo)."""
+        self.lbl_at.config(text=texto)
+        if texto and not self.lbl_at.winfo_manager():
+            self.lbl_at.pack(anchor="w", padx=8, pady=(0, 6))
+
     def verificar_atualizacao(self, manual):
         """Consulta o GitHub em segundo plano; se houver versão nova, pergunta se quer instalar."""
         if getattr(self, "_verificando", False):
             return
         self._verificando = True
         if manual:
-            self.lbl_at.config(text="Procurando versão nova…")
+            self.aviso_atualizacao("Procurando versão nova…")
         fila = queue.Queue()
 
         def trabalho():
@@ -52,16 +58,16 @@ class AbaAvancado:
             gravar_json(ARQ_APP, self.app_cfg)
             if tipo == "erro":
                 registrar(f"Atualização: não consegui consultar ({info})")
-                self.lbl_at.config(text=f"Não consegui verificar agora: {info}")
+                self.aviso_atualizacao(f"Não consegui verificar agora: {info}")
                 return
             if info is None:
-                self.lbl_at.config(text=f"Você já está na versão mais nova (v{VERSAO}).")
+                self.aviso_atualizacao(f"Você já está na versão mais nova (v{VERSAO}).")
                 return
             if info["pendente"]:
-                self.lbl_at.config(text=f"A versão {info['tag']} ainda está sendo preparada no "
-                                        "GitHub. Tente de novo em alguns minutos.")
+                self.aviso_atualizacao(f"A versão {info['tag']} ainda está sendo preparada no "
+                                       "GitHub. Tente de novo em alguns minutos.")
                 return
-            self.lbl_at.config(text=f"Versão nova disponível: {info['tag']}")
+            self.aviso_atualizacao(f"Versão nova disponível: {info['tag']}")
             if not manual and info["tag"] == self.app_cfg.get("pular_versao"):
                 return
             self._oferecer_atualizacao(info)
@@ -106,7 +112,7 @@ class AbaAvancado:
 
     def _instalar_atualizacao(self, info):
         fila = queue.Queue()
-        self.lbl_at.config(text="Baixando a atualização… 0%")
+        self.aviso_atualizacao("Baixando a atualização… 0%")
         self.status(f"Baixando a versão {info['tag']}…")
 
         def trabalho():
@@ -123,17 +129,17 @@ class AbaAvancado:
                 while True:
                     tipo, dado = fila.get_nowait()
                     if tipo == "prog":
-                        self.lbl_at.config(text=f"Baixando a atualização… {int(dado * 100)}%")
+                        self.aviso_atualizacao(f"Baixando a atualização… {int(dado * 100)}%")
                         continue
                     if tipo == "erro":
                         registrar(f"Atualização falhou: {dado}")
-                        self.lbl_at.config(text=f"A atualização falhou: {dado}")
+                        self.aviso_atualizacao(f"A atualização falhou: {dado}")
                         messagebox.showerror(
                             "Atualização", f"Não consegui atualizar: {dado}\n\nVocê pode baixar a "
                             f"versão nova à mão em:\n{info['pagina']}", parent=self.win)
                         return
                     tmp, origem = dado
-                    self.lbl_at.config(text="Instalando e reiniciando…")
+                    self.aviso_atualizacao("Instalando e reiniciando…")
                     self.salvar_agora()
                     gravar_json(ARQ_APP, self.app_cfg)
                     registrar(f"Atualizando de v{VERSAO} para {info['tag']}.")
@@ -183,16 +189,20 @@ class AbaAvancado:
             self.rag.pedir("nomes", None, "nomes")
 
     def atualizar_aba_avancado(self):
-        """Aba Avançado em vermelho enquanto a chave da Divine Pride não estiver configurada."""
+        """Bolinha vermelha no ícone da aba Avançado enquanto a chave da Divine Pride não estiver
+        configurada."""
         if not hasattr(self, "aba_av"):
             return
         if self.dp.ativo():
             self.abas.tab(self.aba_av, **self.aba("Avançado", "chave"))
             return
-        if not hasattr(self, "_aba_av_vermelha"):
-            self._aba_av_vermelha = ImageTk.PhotoImage(self._rotulo_aba(" Avançado", "chave",
-                                                                         COR["vermelho"]))
-        self.abas.tab(self.aba_av, text="", image=self._aba_av_vermelha, compound="image")
+        if not hasattr(self, "_ic_av_aviso"):
+            self._ic_av_aviso = [ImageTk.PhotoImage(com_aviso(desenhar_icone("chave", cor, 16),
+                                                              COR["vermelho"]))
+                                 for cor in (COR["mudo"], COR["ouro"])]
+        normal, aberta = self._ic_av_aviso
+        self.abas.tab(self.aba_av, text=" Avançado", compound="left",
+                      image=(normal, "selected", aberta))
 
     def texto_chave_dp(self):
         if self.dp.usando_padrao():

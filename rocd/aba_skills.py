@@ -25,20 +25,19 @@ class AbaSkills:
     def montar_lista(self):
         for wdg in self.lista.winfo_children():
             wdg.destroy()
+        skills = self.perfil["skills"]
+        if not skills:
+            self.lista_vazia(self.lista, "Nenhuma skill ainda", (
+                "1. Abra o Ragnarok em modo janela (ou janela sem bordas).\n"
+                "2. Escolha a skill pelo nome: o programa baixa o ícone e acha ela na sua barra "
+                "de atalhos.\n"
+                "   (Ou use \"Marcar ícones na tela\" e arraste um quadrado sobre cada skill.)\n"
+                "3. Clique em \"Iniciar overlay\" e jogue!"),
+                "Skill pelo nome", lambda: SeletorSkill(self, None, nova=True))
+            return
         for col, t in enumerate(("", "SKILL", "", "RECARGA (S)", "APRENDIDO", "ESTADO", "")):
             ttk.Label(self.lista, text=t, style="Titulo.TLabel").grid(
                 row=0, column=col, padx=4, sticky="w")
-        skills = self.perfil["skills"]
-        if not skills:
-            ttk.Label(self.lista, justify="left", text=(
-                "Primeiros passos:\n"
-                "  1. Abra o Ragnarok em modo janela (ou janela sem bordas).\n"
-                "  2. Clique em \"Marcar ícones na tela\" e arraste um quadrado sobre cada skill\n"
-                "      da sua barra de atalhos (com as skills prontas, sem delay).\n"
-                "  3. Clique em \"Buscar\" em cada linha para escolher o nome da skill.\n"
-                "  4. Clique em \"Iniciar overlay\" e jogue!")
-                      ).grid(row=1, column=0, columnspan=7, pady=12, padx=6, sticky="w")
-            return
         for i, sk in enumerate(skills):
             r = i + 1
             self.cartao(self.lista, r, 7)
@@ -49,7 +48,7 @@ class AbaSkills:
 
             vn = tk.StringVar(value=sk.get("nome") or "")
             en = ttk.Entry(self.lista, textvariable=vn, width=22, style="Cartao.TEntry")
-            en.grid(row=r, column=1, padx=(4, 0))
+            en.grid(row=r, column=1, padx=(4, 0), sticky="ew")
             vn.trace_add("write", lambda *_, s=sk, v=vn: self._on_nome(s, v))
             if self.banco.eh_buff(sk.get("nome", "")):
                 # buff colocado aqui antes da separação: avisa e oferece mudar de aba
@@ -76,8 +75,7 @@ class AbaSkills:
             sk["_lbl_apr"] = ttk.Label(self.lista, text=fmt_aprendido(sk), width=10,
                                        style="Cartao.Dica.TLabel")
             sk["_lbl_apr"].grid(row=r, column=4, padx=4)
-            sk["_lbl_est"] = ttk.Label(self.lista, text="—", width=14, style="Cartao.TLabel",
-                                       font=("Segoe UI", 9, "bold"))
+            sk["_lbl_est"] = self.etiqueta_estado(self.lista)
             sk["_lbl_est"].grid(row=r, column=5, padx=4)
 
             fb = ttk.Frame(self.lista, style="Cartao.TFrame")

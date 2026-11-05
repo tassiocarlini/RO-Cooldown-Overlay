@@ -162,6 +162,9 @@ def desenhar_icone(nome, cor="#e6e6e6", tam=18):
         k = S * 0.16
         d.polygon([(px + fx * k, py + fy * k), (px + nx * k, py + ny * k),
                    (px - nx * k, py - ny * k)], fill=c)
+    elif nome == "pontos":               # menu (⋯)
+        for x in (S * 0.22, cx, S * 0.78):
+            circulo(x, cy, S * 0.085, preench=True)
     elif nome == "relogio":              # logo do app: cronômetro com varredura
         circulo(cx, S * 0.56, S * 0.34)
         d.pieslice((cx - S * 0.26, S * 0.56 - S * 0.26, cx + S * 0.26, S * 0.56 + S * 0.26),
@@ -174,7 +177,7 @@ def desenhar_icone(nome, cor="#e6e6e6", tam=18):
 NOMES_ICONES = ["play", "stop", "camera", "pasta", "lupa", "mais", "mais_circulo", "selecao", "radar",
          "mover", "centro", "chave", "ajuda", "check", "copiar", "lapis", "lixeira", "cima",
          "baixo", "fechar", "relogio", "escudo", "exportar", "importar", "som", "ampulheta",
-         "reiniciar"]
+         "reiniciar", "pontos"]
 
 
 
@@ -264,16 +267,22 @@ def imagem_degrade(larg, alt, cor_topo, cor_base, raio=7, borda=None):
     return im.resize((larg, alt), Image.LANCZOS)
 
 
-# Paleta do painel: mude aqui para trocar o visual. O fundo é o do tema sv_ttk escuro.
+# Paleta do painel: mude aqui para trocar o visual. Azul-ardósia como o logo e o overlay;
+# os cinzas do tema sv_ttk são trocados por estes tons (ardosia()).
 COR = {
-    "fundo": "#1c1c1c",
-    "cabecalho": "#141414",       # faixa do topo e rodapé
-    "cartao": "#242424",          # linhas das listas
-    "campo": "#2b2b2b",           # botões comuns
-    "borda": "#363636",
-    "borda2": "#4a4a4a",
-    "texto": "#ececec",
-    "mudo": "#8f8f8f",
+    "fundo": "#121826",
+    "cabecalho": "#0c111c",       # faixa do topo e rodapé
+    "cartao": "#182032",          # linhas das listas
+    "campo": "#1f283b",           # botões comuns
+    "campo_hover": "#283349",
+    "campo_apertado": "#171e2e",
+    "borda": "#2a3549",
+    "borda2": "#3a465d",
+    "borda_hover": "#56647f",
+    "selecao": "#33476b",         # texto selecionado nos campos
+    "texto": "#e8ecf3",
+    "mudo": "#8d97ab",            # 6:1 sobre o fundo
+    "desligado": "#5b6579",
     "ouro": "#f5b82e",            # a única cor de destaque
     "ouro_claro": "#ffc94d",
     "ouro_escuro": "#d99a12",
@@ -282,12 +291,25 @@ COR = {
     "vermelho": "#f0616d",
 }
 
+# Escala de fontes do painel (Segoe UI existe no Windows 10 e 11; a "Variable" do sv_ttk, só no 11)
+FONTE = {
+    "titulo": ("Segoe UI Semibold", 14),
+    "secao": ("Segoe UI Semibold", 10),
+    "corpo": ("Segoe UI", 10),
+    "forte": ("Segoe UI Semibold", 10),
+    "dica": ("Segoe UI", 9),
+    "estado": ("Segoe UI Semibold", 9),
+    "rotulo": ("Segoe UI Semibold", 8),  # rótulos em maiúsculas (PERFIL, colunas)
+}
+
 # Botões lisos: (normal, passar o mouse, apertado), cada um (fundo, borda)
 BOTOES = {
-    "Grad":     ((COR["campo"], COR["borda2"]), ("#343434", "#5c5c5c"), ("#232323", COR["borda2"])),
+    "Grad":     ((COR["campo"], COR["borda2"]), (COR["campo_hover"], COR["borda_hover"]),
+                 (COR["campo_apertado"], COR["borda2"])),
     "Destaque": ((COR["ouro"], COR["ouro"]), (COR["ouro_claro"], COR["ouro_claro"]),
                  (COR["ouro_escuro"], COR["ouro_escuro"])),
-    "Perigo":   ((COR["campo"], COR["borda2"]), ("#3a2a2c", COR["vermelho"]), ("#232323", COR["borda2"])),
+    "Perigo":   ((COR["campo"], COR["borda2"]), ("#33232f", COR["vermelho"]),
+                 (COR["campo_apertado"], COR["borda2"])),
 }
 BOTOES["Amarelo"] = BOTOES["Destaque"]
 TEXTO_ESCURO = {"Amarelo", "Destaque"}   # botões claros: texto e ícone escuros
@@ -316,6 +338,35 @@ def dourar(im):
                 r2, g2, b2 = colorsys.hsv_to_rgb(41 / 360, min(1.0, s * 1.2), v)
                 px[x, y] = (int(r2 * 255), int(g2 * 255), int(b2 * 255), a)
     return im
+
+
+def ardosia(im, fundo=None):
+    """Troca os cinzas neutros de uma imagem por azul-ardósia: o cinza 28 (fundo do sv_ttk)
+    vira COR["fundo"] e os tons claros quase não mudam. Cores e transparência ficam."""
+    mult = [c / 28 for c in _rgba(fundo or COR["fundo"])[:3]]
+    im = im.convert("RGBA")
+    px = im.load()
+    for y in range(im.height):
+        for x in range(im.width):
+            r, g, b, a = px[x, y]
+            if not a or max(r, g, b) - min(r, g, b) > 6:
+                continue
+            v = (r + g + b) / 3
+            w = min(1.0, max(0.0, (v - 48) / 120))      # 0 nos escuros, 1 dos claros para cima
+            px[x, y] = tuple(min(255, round(v * (m * (1 - w) + w))) for m in mult) + (a,)
+    return im
+
+
+def com_aviso(im, cor):
+    """Ícone com uma bolinha no canto de cima (algo naquela aba pede atenção)."""
+    E = 4
+    S = im.width * E
+    bola = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    r = S * 0.19
+    ImageDraw.Draw(bola).ellipse((S - 2 * r, 0, S, 2 * r), fill=_rgba(cor))
+    out = im.convert("RGBA")
+    out.alpha_composite(bola.resize(im.size, Image.LANCZOS))
+    return out
 
 
 def icone_arredondado(img, T, raio, fundo=None, brilho=None, cinza=False):

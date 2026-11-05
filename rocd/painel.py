@@ -10,11 +10,11 @@ import traceback
 from pathlib import Path
 from tkinter import messagebox, simpledialog, ttk
 
-from PIL import Image, ImageDraw, ImageTk
+from PIL import Image, ImageTk
 
 from .config import ARQ_APP, ESTILOS, NOME_APP, PASTA, TODAS, VERSAO, registrar, sv_ttk
-from .desenho import (BOTOES, COR, NOMES_ICONES, TEXTO_ESCURO, desenhar_icone, dourar,
-                      imagem_aba, imagem_degrade, logo_app)
+from .desenho import (BOTOES, COR, FONTE, NOMES_ICONES, TEXTO_ESCURO, ardosia, desenhar_icone,
+                      dourar, imagem_aba, imagem_degrade, logo_app, misturar_cor)
 from .dados import Banco, fmt_aprendido, gravar_json, ler_json
 from .sites import DivinePride, RagAssets
 from .seletores import SeletorSkill
@@ -32,6 +32,10 @@ from .aba_cronometro import AbaCronometro
 # =============================================================== painel
 
 class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
+    COR_ESTADO = {"ok": COR["verde"], "alerta": COR["ouro"], "erro": COR["vermelho"],
+                  "neutro": COR["mudo"]}
+    LARG_ESTADO = 128               # largura da etiqueta de estado (cabe "Jogo não encontrado")
+
     def __init__(self, root):
         self.root = root
         importar_dados_antigos_sozinho()
@@ -42,7 +46,7 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
 
         self.win = tk.Toplevel(root)
         self.win.title(f"{NOME_APP} v{VERSAO}")
-        alt = min(680, self.win.winfo_screenheight() - 80)
+        alt = min(720, self.win.winfo_screenheight() - 80)
         self.win.geometry(f"880x{alt}+40+20")
         self.win.minsize(760, 520)
         self.win.protocol("WM_DELETE_WINDOW", self.sair)
@@ -91,6 +95,9 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         if sv_ttk is not None:
             try:
                 sv_ttk.set_theme("dark", self.root)
+                for chave, cor in (("-bg", COR["fundo"]), ("-fg", COR["texto"]),
+                                   ("-selbg", COR["selecao"]), ("-selfg", COR["texto"])):
+                    self.root.tk.call("set", f"ttk::theme::sv_dark::colors({chave})", cor)
                 try:
                     self.root.tk.call("configure_colors")   # aplica as cores já, sem esperar evento
                 except tk.TclError:
@@ -105,16 +112,18 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
                     registrar("Não deu para dourar o tema:\n" + traceback.format_exc())
         if not self.tema_moderno and "clam" in st.theme_names():
             st.theme_use("clam")
-            st.configure(".", background=COR["fundo"], foreground="#fafafa",
-                         fieldbackground="#2b2b2b")
+            st.configure(".", background=COR["fundo"], foreground=COR["texto"],
+                         fieldbackground=COR["campo"])
         self.cor_fundo = str(st.lookup("TFrame", "background") or "") or COR["fundo"]
         self.win.configure(bg=self.cor_fundo)
-        st.configure("Dica.TLabel", foreground=COR["mudo"])
-        st.configure("Titulo.TLabel", font=("Segoe UI", 8, "bold"), foreground=COR["mudo"])
-        st.configure("TLabelframe.Label", font=("Segoe UI", 10, "bold"), foreground=COR["ouro"])
-        st.configure("Campo.TLabel", font=("Segoe UI", 10))
-        st.map("TCombobox", selectbackground=[("readonly", "hover", "#3a3a3a"),
-                                              ("readonly", "focus", "#3a3a3a")])
+        self._aplicar_fontes(st)
+        st.configure("Dica.TLabel", foreground=COR["mudo"], font=FONTE["dica"])
+        st.configure("Titulo.TLabel", font=FONTE["rotulo"], foreground=COR["mudo"])
+        st.configure("TLabelframe.Label", font=FONTE["secao"], foreground=COR["texto"])
+        st.configure("Campo.TLabel", font=FONTE["corpo"])
+        st.map("TCombobox", selectbackground=[("readonly", "hover", COR["campo_hover"]),
+                                              ("readonly", "focus", COR["campo_hover"])])
+        st.configure("Treeview", background=COR["fundo"], fieldbackground=COR["fundo"])
         st.map("Treeview", background=[("selected", "#3a3220")],
                foreground=[("selected", COR["ouro_claro"])])
         self.root.option_add("*TCombobox*Listbox.selectBackground", COR["ouro_escuro"])
@@ -135,13 +144,31 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
             pass
         self._criar_estilos(st)
 
+    def _aplicar_fontes(self, st):
+        """Uma escala de fontes só (FONTE). As fontes do sv_ttk pedem a Segoe UI Variable, que
+        não existe no Windows 10: cada campo caía numa fonte diferente."""
+        for nome, chave in (("SunValleyCaptionFont", "dica"), ("SunValleyBodyFont", "corpo"),
+                            ("SunValleyBodyStrongFont", "forte"),
+                            ("SunValleyBodyLargeFont", "secao"),
+                            ("SunValleySubtitleFont", "titulo")):
+            familia, tam = FONTE[chave]
+            try:
+                self.root.tk.call("font", "configure", nome, "-family", familia, "-size", tam)
+            except tk.TclError:
+                pass                             # sem sv_ttk
+        st.configure(".", font=FONTE["corpo"])
+        for classe in ("TEntry", "TCombobox", "TSpinbox"):
+            self.root.option_add(f"*{classe}.font", FONTE["corpo"])
+        self.root.option_add("*TCombobox*Listbox.font", FONTE["corpo"])
+
     def _sv_dourado(self):
-        """O tema sv_ttk vem em azul (caixas de marcar, deslizantes, foco): troca por dourado.
-        Recolore a folha de imagens do tema e copia cada pedaço por cima do original."""
+        """O tema sv_ttk vem em azul (caixas de marcar, deslizantes, foco) e cinza: troca o azul
+        por dourado e o cinza por azul-ardósia. Recolore a folha de imagens do tema e copia cada
+        pedaço por cima do original."""
         pasta = Path(sv_ttk.__file__).parent / "theme"
         info = re.findall(r"^\s*([\w-]+) (\d+) (\d+) (\d+) (\d+)",
                           (pasta / "sprites_dark.tcl").read_text(encoding="utf-8"), re.M)
-        folha = dourar(Image.open(pasta / "spritesheet_dark.png"))
+        folha = ardosia(dourar(Image.open(pasta / "spritesheet_dark.png")))
         tk_ = self.root.tk
         for nome, x, y, w, h in info:
             x, y, w, h = int(x), int(y), int(w), int(h)
@@ -164,7 +191,7 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         def botao(fundo, borda):
             return foto(imagem_degrade(40, 28, fundo, fundo, borda=borda, raio=6))
 
-        i_d = botao("#202020", COR["borda"])
+        i_d = botao(COR["cartao"], COR["borda"])
         for nome, (normal, hover, apertado) in BOTOES.items():
             elem = f"{nome}.botao"
             try:
@@ -180,8 +207,8 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
             escuro = nome in TEXTO_ESCURO
             st.configure(estilo, padding=(8, 2), anchor="center",
                          foreground=COR["texto_ouro"] if escuro else COR["texto"],
-                         font=("Segoe UI", 10, "bold") if escuro else ("Segoe UI", 10))
-            st.map(estilo, foreground=[("disabled", "#6b6b6b")])
+                         font=FONTE["forte"] if escuro else FONTE["corpo"])
+            st.map(estilo, foreground=[("disabled", COR["desligado"])])
         st.configure("Perigo.TButton", foreground=COR["vermelho"])
         self.estilo_padrao = "Grad.TButton"
         self.estilo_destaque = "Destaque.TButton"
@@ -219,7 +246,22 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         st.map("TNotebook.Tab",
                foreground=[("selected", COR["texto"]), ("active", COR["texto"])],
                expand=[("selected", (0, 0, 0, 0))],
-               font=[("selected", ("Segoe UI", 10, "bold")), ("!selected", ("Segoe UI", 10))])
+               font=[("selected", FONTE["forte"]), ("!selected", FONTE["corpo"])])
+
+        # Seções sem moldura: o título separa uma da outra (nada de caixa dentro de caixa)
+        try:
+            st.element_create("Secao.border", "image", vazio, border=0, sticky="nsew")
+        except tk.TclError:
+            pass
+        st.layout("TLabelframe", [("Secao.border", {"sticky": "nsew"})])
+        st.configure("TLabelframe", labelmargins=(8, 6, 0, 2))
+
+        # Etiquetas de estado (Pronta, Em recarga...): pílula na cor do tipo, bem apagada
+        self.pilula_estado = {}
+        for tipo, cor in self.COR_ESTADO.items():
+            fundo = misturar_cor(COR["cartao"], cor, 0.16)
+            self.pilula_estado[tipo] = foto(imagem_degrade(self.LARG_ESTADO, 22, fundo, fundo,
+                                                           raio=11))
 
         # Cópias dos estilos com outro fundo (cantos dos botões e campos pegam essa cor)
         for prefixo, cor in (("Cartao", COR["cartao"]), ("Rodape", COR["cabecalho"])):
@@ -242,18 +284,22 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
                 "image": (self.ic_mudo[icone], "selected", self.ic_ouro[icone])}
 
     def dica(self, widget, texto):
-        """Explicação que aparece ao parar o mouse em cima de um botão ou opção."""
+        """Explicação que aparece ao parar o mouse em cima de um botão ou opção. texto pode ser
+        uma função (texto que muda); vazio = não mostra nada."""
         estado = {"janela": None, "agendado": None}
 
         def mostrar():
             estado["agendado"] = None
             if estado["janela"] or not widget.winfo_exists():
                 return
+            t = texto() if callable(texto) else texto
+            if not t:
+                return
             j = tk.Toplevel(widget)
             j.overrideredirect(True)
             j.attributes("-topmost", True)
-            tk.Label(j, text=texto, justify="left", wraplength=320, bg=COR["campo"],
-                     fg=COR["texto"], font=("Segoe UI", 9), padx=10, pady=6, bd=0,
+            tk.Label(j, text=t, justify="left", wraplength=320, bg=COR["campo"],
+                     fg=COR["texto"], font=FONTE["dica"], padx=10, pady=6, bd=0,
                      highlightthickness=1, highlightbackground=COR["borda2"]).pack()
             x = widget.winfo_rootx() + 8
             y = widget.winfo_rooty() + widget.winfo_height() + 6
@@ -275,6 +321,91 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         widget.bind("<Leave>", sair, add="+")
         widget.bind("<ButtonPress>", sair, add="+")
         return widget
+
+    def ajuda(self, pai, texto, fundo=""):
+        """Ícone (?) que mostra a explicação ao passar o mouse (no lugar de um parágrafo fixo)."""
+        estilo = f"{fundo}.TLabel" if fundo else "TLabel"
+        return self.dica(ttk.Label(pai, image=self.ic_mudo["ajuda"], style=estilo, cursor="hand2"),
+                         texto)
+
+    def lista_rolavel(self, pai, **pack):
+        """Lista com rolagem: as linhas ocupam a largura toda e a barra de rolagem só aparece
+        quando não cabe tudo. Devolve o quadro onde as linhas entram (grid)."""
+        cont = ttk.Frame(pai)
+        cont.pack(fill="both", expand=True, **pack)
+        cv = tk.Canvas(cont, highlightthickness=0, height=150, bg=self.cor_fundo)
+        sb = ttk.Scrollbar(cont, orient="vertical", command=cv.yview)
+        quadro = ttk.Frame(cv)
+        janela = cv.create_window((0, 0), window=quadro, anchor="nw")
+        quadro.bind("<Configure>", lambda _e: cv.configure(scrollregion=cv.bbox("all")))
+        cv.bind("<Configure>", lambda e: cv.itemconfigure(janela, width=e.width))
+
+        def rolagem(ini, fim):
+            sb.set(ini, fim)
+            if float(ini) <= 0 and float(fim) >= 1:
+                sb.pack_forget()
+            elif not sb.winfo_manager():
+                sb.pack(side="right", fill="y", before=cv)
+        cv.configure(yscrollcommand=rolagem)
+        cv.pack(side="left", fill="both", expand=True)
+
+        def rolar(e):
+            if sb.winfo_manager():
+                cv.yview_scroll(-1 if e.delta > 0 else 1, "units")
+
+        def saiu(_e):
+            # entrar num campo da lista também conta como sair do canvas: só solta fora dela
+            sob = cv.winfo_containing(*cv.winfo_pointerxy())
+            if sob is None or not str(sob).startswith(str(cv)):
+                cv.unbind_all("<MouseWheel>")
+        cv.bind("<Enter>", lambda _e: cv.bind_all("<MouseWheel>", rolar))
+        cv.bind("<Leave>", saiu)
+        return quadro
+
+    def lista_vazia(self, pai, titulo, passos, botao, cmd):
+        """Lista sem nada: título, os passos e o botão que resolve."""
+        f = ttk.Frame(pai)
+        f.grid(row=0, column=0, columnspan=8, sticky="w", padx=8, pady=16)
+        ttk.Label(f, text=titulo, font=FONTE["secao"]).pack(anchor="w")
+        ttk.Label(f, text=passos, style="Dica.TLabel", justify="left").pack(anchor="w",
+                                                                            pady=(4, 10))
+        self.bt(f, botao, "mais_circulo", cmd, amarelo=True).pack(anchor="w")
+
+    def etiqueta_estado(self, pai):
+        """Etiqueta do estado de uma skill ou buff numa linha da lista (ver pintar_estado)."""
+        lb = tk.Label(pai, text="—", image=self.pilula_estado["neutro"], compound="center",
+                      font=FONTE["estado"], fg=COR["mudo"], bg=COR["cartao"], bd=0)
+        lb.detalhe, lb.tipo = "", "neutro"
+        self.dica(lb, lambda: lb.detalhe)
+        return lb
+
+    def pintar_estado(self, lb, texto, tipo, detalhe=""):
+        """Texto curto na etiqueta e cor pelo tipo (ok, alerta, erro, neutro); os números da
+        detecção ficam no detalhe (aparece com o mouse em cima)."""
+        lb.detalhe = detalhe
+        if (lb.cget("text"), lb.tipo) != (texto, tipo):
+            lb.tipo = tipo
+            lb.config(text=texto, fg=self.COR_ESTADO[tipo], image=self.pilula_estado[tipo])
+
+    def abrir_menu(self, botao, itens):
+        """Menu que abre embaixo do botão. itens: (texto, ícone, comando, perigo) ou None
+        (separador)."""
+        m = tk.Menu(self.win, tearoff=0, bg=COR["campo"], fg=COR["texto"], bd=0,
+                    activebackground=COR["campo_hover"], activeforeground=COR["texto"],
+                    font=FONTE["corpo"], relief="flat")
+        for item in itens:
+            if item is None:
+                m.add_separator()
+                continue
+            texto, icone, cmd, perigo = item
+            m.add_command(label=f"  {texto}", command=cmd, compound="left",
+                          image=(self.ic_verm if perigo else self.ic)[icone],
+                          foreground=COR["vermelho"] if perigo else COR["texto"],
+                          activeforeground=COR["vermelho"] if perigo else COR["texto"])
+        try:
+            m.tk_popup(botao.winfo_rootx(), botao.winfo_rooty() + botao.winfo_height() + 2)
+        finally:
+            m.grab_release()
 
     def bt(self, pai, texto, icone, cmd, destaque=False, perigo=False, amarelo=False, fundo="",
            **kw):
@@ -301,9 +432,9 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         tk.Label(topo, image=self.logo_topo, bg=COR["cabecalho"]).pack(side="left", padx=(14, 10),
                                                                        pady=10)
         tk.Label(topo, text=NOME_APP, bg=COR["cabecalho"], fg=COR["texto"],
-                 font=("Segoe UI", 13, "bold")).pack(side="left")
+                 font=FONTE["titulo"]).pack(side="left")
         tk.Label(topo, text=f"v{VERSAO}", bg=COR["cabecalho"], fg=COR["mudo"],
-                 font=("Segoe UI", 9)).pack(side="left", padx=8, pady=(4, 0))
+                 font=FONTE["dica"]).pack(side="left", padx=8, pady=(4, 0))
         self.pilulas = {}
         for chave in ("overlay", "jogo"):
             f = tk.Frame(topo, bg=COR["campo"], highlightthickness=1,
@@ -312,7 +443,7 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
             c = tk.Canvas(f, width=9, height=9, bg=COR["campo"], highlightthickness=0)
             bola = c.create_oval(1, 1, 8, 8, fill=COR["mudo"], outline="")
             c.pack(side="left", padx=(9, 5))
-            lb = tk.Label(f, text="", bg=COR["campo"], fg=COR["texto"], font=("Segoe UI", 9))
+            lb = tk.Label(f, text="", bg=COR["campo"], fg=COR["texto"], font=FONTE["dica"])
             lb.pack(side="left", padx=(0, 9), pady=3)
             self.pilulas[chave] = (c, bola, lb)
         self._jogo_topo = Jogo()                      # só para a bolinha "jogo encontrado"
@@ -327,11 +458,14 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         self.cb_perfil.pack(side="left")
         self.cb_perfil.bind("<<ComboboxSelected>>",
                             lambda _e: self.trocar_perfil(self.var_perfil.get()))
-        for txt, ic, cmd in (("Excluir", "lixeira", self.excluir_perfil),
-                             ("Renomear", "lapis", self.renomear_perfil),
-                             ("Duplicar", "copiar", self.duplicar_perfil),
-                             ("Novo", "mais", self.novo_perfil)):
-            self.bt(fp, txt, ic, cmd, perigo=txt == "Excluir").pack(side="right", padx=(6, 0))
+        b_menu = self.bt(fp, "", "pontos", lambda: self.abrir_menu(b_menu, (
+            ("Novo perfil", "mais", self.novo_perfil, False),
+            ("Duplicar", "copiar", self.duplicar_perfil, False),
+            ("Renomear", "lapis", self.renomear_perfil, False),
+            None,
+            ("Excluir perfil", "lixeira", self.excluir_perfil, True))))
+        b_menu.pack(side="left", padx=(4, 0))
+        self.dica(b_menu, "Novo, duplicar, renomear ou excluir perfil.")
 
         # Skills
         # Abas: deixa a janela compacta (cabe em telas de notebook)
@@ -385,20 +519,8 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
                        "ou digite a recarga (12, 4.5 ou 1:30). Vazio = aprender sozinho."
                   ).pack(anchor="w", padx=8)
 
-        cont = ttk.Frame(fs)
-        cont.pack(fill="both", expand=True, padx=6, pady=6)
-        self.lista_cv = tk.Canvas(cont, highlightthickness=0, height=150, bg=self.cor_fundo)
-        sb = ttk.Scrollbar(cont, orient="vertical", command=self.lista_cv.yview)
-        self.lista = ttk.Frame(self.lista_cv)
-        self.lista.bind("<Configure>", lambda _e: self.lista_cv.configure(
-            scrollregion=self.lista_cv.bbox("all")))
-        self.lista_cv.create_window((0, 0), window=self.lista, anchor="nw")
-        self.lista_cv.configure(yscrollcommand=sb.set)
-        self.lista_cv.pack(side="left", fill="both", expand=True)
-        sb.pack(side="right", fill="y")
-        rolar = lambda e: self.lista_cv.yview_scroll(-1 if e.delta > 0 else 1, "units")
-        self.lista_cv.bind("<Enter>", lambda _e: self.lista_cv.bind_all("<MouseWheel>", rolar))
-        self.lista_cv.bind("<Leave>", lambda _e: self.lista_cv.unbind_all("<MouseWheel>"))
+        self.lista = self.lista_rolavel(fs, padx=6, pady=6)
+        self.lista.columnconfigure(1, weight=1)          # o nome da skill estica
 
         # Aparência
         # Duas colunas de seções: à esquerda o visual dos ícones e a posição,
@@ -423,15 +545,18 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         self.var_ap = tk.BooleanVar()
         self.var_ap_alt = tk.DoubleVar()
 
-        def deslizante(pai, linha, rotulo, de, ate, var, cmd, ajuda):
+        def deslizante(pai, linha, rotulo, de, ate, var, cmd, ajuda, visivel=False):
+            """Rótulo, deslizante e valor; a ajuda fica no tooltip (embaixo só se visivel)."""
             ttk.Label(pai, text=rotulo, style="Campo.TLabel").grid(
                 row=linha, column=0, sticky="w", padx=(8, 6), pady=(6, 0))
             sc = ttk.Scale(pai, from_=de, to=ate, orient="horizontal", variable=var, command=cmd)
             sc.grid(row=linha, column=1, sticky="ew", pady=(6, 0))
             valor = ttk.Label(pai, width=7, anchor="e")
             valor.grid(row=linha, column=2, sticky="e", padx=(4, 8), pady=(6, 0))
-            ttk.Label(pai, text=ajuda, style="Dica.TLabel", wraplength=360, justify="left").grid(
-                row=linha + 1, column=0, columnspan=3, sticky="w", padx=8)
+            if visivel:
+                ttk.Label(pai, text=ajuda, style="Dica.TLabel", wraplength=360,
+                          justify="left").grid(row=linha + 1, column=0, columnspan=3, sticky="w",
+                                               padx=8)
             self.dica(sc, ajuda)
             return valor
 
@@ -501,11 +626,12 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
                 (self.var_capturas, "Aparecer em prints e lives",
                  self._on_capturas, "Para OBS, Discord e prints. Com esta opção ligada, deixe o "
                                     "overlay longe da barra de atalhos do jogo.")):
-            c = ttk.Checkbutton(fq, text=txt, variable=var, command=cmd)
-            c.pack(anchor="w", padx=8, pady=(6, 0))
+            lin = ttk.Frame(fq)
+            lin.pack(anchor="w", padx=8, pady=(6, 0))
+            c = ttk.Checkbutton(lin, text=txt, variable=var, command=cmd)
+            c.pack(side="left")
             self.dica(c, ajuda)
-            ttk.Label(fq, text=ajuda, style="Dica.TLabel", wraplength=340, justify="left").pack(
-                anchor="w", padx=34)
+            self.ajuda(lin, ajuda).pack(side="left", padx=(6, 0))
         ttk.Frame(fq, height=6).pack()
 
         # --- Barra de AP
@@ -519,7 +645,8 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         self.lbl_ap.grid(row=1, column=0, columnspan=3, sticky="w", padx=34)
         self.lbl_ap_alt = deslizante(fap, 2, "Altura da barra", 8, 40, self.var_ap_alt,
                                      self._on_ap_altura, "Fica colada acima dos ícones. Deixe a "
-                                     "janela Informações básicas aberta no jogo: o AP é lido dela.")
+                                     "janela Informações básicas aberta no jogo: o AP é lido dela.",
+                                     visivel=True)
         lc = ttk.Frame(fap)
         lc.grid(row=4, column=0, columnspan=3, sticky="w", padx=8, pady=(8, 8))
         b_cor = self.bt(lc, "Cor da barra", "lapis", self._escolher_cor_ap)
@@ -536,7 +663,9 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
                           "a quem dá suporte.")
 
         # Detecção
-        fd = ttk.LabelFrame(aba_av, text="Detecção das skills (só mexa se algo não funcionar)")
+        # Aba Avançado com rolagem: em tela baixa (notebook) nada fica cortado
+        av = self.lista_rolavel(aba_av)
+        fd = ttk.LabelFrame(av, text="Detecção das skills (só mexa se algo não funcionar)")
         fd.pack(fill="x", padx=4, pady=(8, 4))
         self.var_min = tk.StringVar()
         self.var_lim = tk.StringVar()
@@ -565,7 +694,7 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         self.var_titulo.trace_add("write", lambda *_: self._on_deteccao())
 
         # Divine Pride
-        fat = ttk.LabelFrame(aba_av, text="Atualizações")
+        fat = ttk.LabelFrame(av, text="Atualizações")
         fat.pack(fill="x", padx=4, pady=4)
         lat = ttk.Frame(fat)
         lat.pack(fill="x", padx=8, pady=(6, 2))
@@ -583,10 +712,10 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
             b_imp.pack(side="right")
             self.dica(b_imp, "Usava a versão em Python (com o ro_cooldown_overlay.py)? Escolha a "
                              "pasta dela para copiar seus perfis e a chave da Divine Pride.")
-        self.lbl_at = ttk.Label(fat, style="Dica.TLabel", text="")
-        self.lbl_at.pack(anchor="w", padx=8, pady=(0, 6))
+        self.lbl_at = ttk.Label(fat, style="Dica.TLabel", text="")   # ver aviso_atualizacao()
+        ttk.Frame(fat, height=6).pack()
 
-        frag = ttk.LabelFrame(aba_av, text="Fonte principal: ragassets (latam-tools)")
+        frag = ttk.LabelFrame(av, text="Fonte principal: ragassets (latam-tools)")
         frag.pack(fill="x", padx=4, pady=4)
         self.var_rag = tk.BooleanVar(value=bool(self.app_cfg.get("usar_ragassets", True)))
         ttk.Checkbutton(frag, text="Baixar ícones e nomes do ragassets (do cliente LATAM, sem chave)",
@@ -594,14 +723,14 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         self.lbl_rag = ttk.Label(frag, style="Dica.TLabel", text="")
         self.lbl_rag.pack(anchor="w", padx=34, pady=(0, 6))
 
-        fdp = ttk.LabelFrame(aba_av, text="Divine Pride (opcional: recarga do LATAM e ícones)")
+        fdp = ttk.LabelFrame(av, text="Divine Pride (opcional: recarga do LATAM e ícones)")
         fdp.pack(fill="x", padx=4, pady=4)
         ttk.Label(fdp, image=self.ic["chave"]).pack(side="left", padx=(6, 2), pady=6)
         ttk.Label(fdp, text="Chave da API:").pack(side="left", padx=(0, 4), pady=6)
         self.var_dp = tk.StringVar(value=self.app_cfg.get("dp_chave", ""))
         ttk.Entry(fdp, textvariable=self.var_dp, width=34, show="•").pack(side="left")
         self.bt(fdp, "Salvar e testar", "check", self.testar_dp).pack(side="left", padx=6)
-        self.bt(fdp, "Como pegar a chave?", "ajuda", self.ajuda_dp, perigo=True).pack(side="left")
+        self.bt(fdp, "Como pegar a chave?", "ajuda", self.ajuda_dp).pack(side="left")
         self.lbl_dp = ttk.Label(fdp, style="Dica.TLabel", text=self.texto_chave_dp())
         self.lbl_dp.pack(side="left", padx=4)
 
@@ -639,15 +768,56 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         self.lbl_status.config(text=txt)
 
     @staticmethod
-    def cor_estado(t):
-        """Cor do texto de estado de uma skill ou buff."""
-        if t.startswith(("pronta", "ATIVO")):
-            return COR["verde"]
-        if t.startswith(("DELAY", "ative")):
-            return COR["ouro"]
-        if t.startswith(("não", "sem", "jogo não", "barra")):
-            return COR["vermelho"]
-        return COR["mudo"]
+    def _estado_jogo(texto):
+        """Estado do jogo (minimizado, não encontrado...) como etiqueta."""
+        return texto[:1].upper() + texto[1:], "erro" if "não" in texto else "alerta", ""
+
+    def estado_skill(self, sk):
+        """(texto, tipo, detalhe) da etiqueta de estado de uma skill."""
+        ov = self.overlay
+        if not ov.ativo:
+            return "Parado", "neutro", ""
+        if ov.geo is None and ov.estado_jogo:
+            return self._estado_jogo(ov.estado_jogo)
+        if not sk.get("_vis", True):
+            return "Barra coberta", "alerta", "Tem algo na frente da barra de atalhos do jogo."
+        if sk.get("x") is None:
+            if "_tmpl" in sk:
+                return "Procurando…", "neutro", "Procurando o ícone na tela do jogo."
+            return "Sem ícone", "erro", "Marque o ícone na tela ou escolha a skill pelo nome."
+        if sk.get("_sumiu"):
+            return "Fora da tela", "erro", "O ícone não está mais na barra de atalhos."
+        if sk.get("_perdido_desde") is not None:
+            return "Procurando…", "neutro", "O ícone sumiu de onde estava; procurando de novo."
+        detalhe = f"Escurecimento do ícone: {sk['_d']:.2f}"
+        if sk.get("_contando"):
+            return "Em recarga", "alerta", detalhe
+        if sk["_delay"]:
+            return "Delay", "alerta", detalhe + " (escurecido, ainda não conta como recarga)"
+        return "Pronta", "ok", detalhe
+
+    def estado_buff(self, bf):
+        """(texto, tipo, detalhe) da etiqueta de estado de um buff."""
+        ov = self.overlay
+        if not bf.get("_tmpls") and bf.get("efst"):
+            if not all(self.icone_buff(e) for _, e in bf["efst"]):
+                return "Baixando…", "neutro", "Baixando os ícones oficiais do buff."
+            if bf.get("_aguardando_tela"):
+                return ("Ative no jogo", "alerta",
+                        "Deixe o buff ativo no jogo para o programa achar o ícone na tela.")
+            return "Procurando…", "neutro", ""
+        if not bf.get("_tmpls"):
+            return "Sem ícone", "erro", "Marque o ícone do buff com \"Ícone\"."
+        if not ov.ativo:
+            return "Parado", "neutro", ""
+        if ov.geo is None and ov.estado_jogo:
+            return self._estado_jogo(ov.estado_jogo)
+        detalhe = f"Semelhança com o ícone: {bf['_score']:.2f}"
+        vs = bf.get("variantes", [])
+        if any(v.startswith("buff_site_") for v in vs):
+            reais = sum(not v.startswith("buff_site_") for v in vs)
+            detalhe += f"\n{reais} de {len(vs)} versões do ícone já vistas no jogo"
+        return ("Ativo", "ok", detalhe) if bf["_ativo"] else ("Inativo", "neutro", detalhe)
 
     def _atualizar_topo(self):
         """Bolinhas do topo: o jogo foi achado? o overlay está ligado?"""
@@ -674,39 +844,6 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
                 c.itemconfig(bola, fill=cor)
         self.bola_status.itemconfig(self._bola_status,
                                     fill=COR["ouro"] if ov.ativo else COR["mudo"])
-
-    def _rotulo_aba(self, texto, icone, cor):
-        """Desenha ícone + texto de uma aba numa imagem (para poder mudar a cor de uma aba só)."""
-        import tkinter.font as tkfont
-        try:
-            f = tkfont.Font(root=self.root, family="Segoe UI", size=10, weight="bold")
-            px = max(10, int(f.metrics("linespace") * 0.8))
-        except tk.TclError:
-            px = 13
-        from PIL import ImageFont
-        fonte = None
-        pasta_fontes = Path(os.environ.get("WINDIR", "C:/Windows")) / "Fonts"
-        for nome in ("segoeuib.ttf", "arialbd.ttf", str(pasta_fontes / "segoeuib.ttf"),
-                     "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"):
-            try:
-                fonte = ImageFont.truetype(nome, px)
-                break
-            except OSError:
-                continue
-        if fonte is None:
-            try:
-                fonte = ImageFont.load_default(size=px)
-            except TypeError:
-                fonte = ImageFont.load_default()
-        ic = desenhar_icone(icone, cor, 16)
-        caixa = ImageDraw.Draw(Image.new("RGBA", (1, 1))).textbbox((0, 0), texto, font=fonte)
-        larg_t, alt_t = caixa[2] - caixa[0], caixa[3] - caixa[1]
-        alt = max(ic.height, alt_t + 4)
-        im = Image.new("RGBA", (ic.width + 2 + larg_t + 2, alt), (0, 0, 0, 0))
-        im.alpha_composite(ic, (0, (alt - ic.height) // 2))
-        ImageDraw.Draw(im).text((ic.width + 2 - caixa[0], (alt - alt_t) // 2 - caixa[1]), texto,
-                                font=fonte, fill=cor)
-        return im
 
     # ---- perfis
 
@@ -962,22 +1099,7 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
                 le = bf.get("_lbl_est")
                 if le is None or not le.winfo_exists():
                     continue
-                if not bf.get("_tmpls") and bf.get("efst"):
-                    t = ("ative no jogo" if bf.get("_aguardando_tela") else "procurando…") \
-                        if all(self.icone_buff(e) for _, e in bf["efst"]) else "baixando…"
-                elif not bf.get("_tmpls"):
-                    t = "sem ícone"
-                elif not self.overlay.ativo:
-                    t = "parado"
-                elif self.overlay.geo is None and self.overlay.estado_jogo:
-                    t = self.overlay.estado_jogo
-                else:
-                    t = f"{'ATIVO' if bf['_ativo'] else 'inativo'} ({bf['_score']:.2f})"
-                    vs = bf.get("variantes", [])
-                    if any(v.startswith("buff_site_") for v in vs):
-                        reais = sum(not v.startswith("buff_site_") for v in vs)
-                        t += f" · {reais}/{len(vs)}"
-                le.config(text=t, foreground=self.cor_estado(t))
+                self.pintar_estado(le, *self.estado_buff(bf))
         except tk.TclError:
             pass
         try:
@@ -985,23 +1107,7 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
                 le = sk.get("_lbl_est")
                 if le is None or not le.winfo_exists():
                     continue
-                if not self.overlay.ativo:
-                    t = "parado"
-                elif self.overlay.geo is None and self.overlay.estado_jogo:
-                    t = self.overlay.estado_jogo
-                elif not sk.get("_vis", True):
-                    t = "barra coberta"
-                elif sk.get("x") is None:
-                    t = "procurando na tela…" if "_tmpl" in sk else "sem ícone"
-                elif sk.get("_sumiu"):
-                    t = "não está na tela"
-                elif sk.get("_perdido_desde") is not None:
-                    t = "procurando…"
-                else:
-                    t = f"{'DELAY' if sk['_delay'] else 'pronta'} ({sk['_d']:.2f})"
-                    if sk.get("_contando"):
-                        t += " ⏱"
-                le.config(text=t, foreground=self.cor_estado(t))
+                self.pintar_estado(le, *self.estado_skill(sk))
                 sk["_lbl_apr"].config(text=fmt_aprendido(sk))
         except tk.TclError:
             pass

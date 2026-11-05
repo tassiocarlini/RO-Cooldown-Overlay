@@ -16,65 +16,66 @@ class AbaCronometro:
         f.pack(fill="both", expand=True, padx=4, pady=6)
         fc = ttk.LabelFrame(f, text="Cronômetro do recall")
         fc.pack(fill="x")
-        fc.columnconfigure(2, weight=1)
+        fc.columnconfigure(1, weight=1)          # sobra de largura vai para os campos, não rótulos
 
         self.var_crono = tk.BooleanVar(value=bool(cfg["ligado"]))
         c = ttk.Checkbutton(fc, text="Mostrar o cronômetro na tela", variable=self.var_crono,
                             command=self._on_crono)
-        c.grid(row=0, column=0, columnspan=3, sticky="w", padx=8, pady=(6, 0))
+        c.grid(row=0, column=0, columnspan=2, sticky="w", padx=8, pady=(6, 0))
         self.dica(c, "Uma caixinha só dele, por cima do jogo e separada das skills e buffs. "
                      "Aparece mesmo com o overlay parado.")
 
         self.var_crono_tempo = tk.StringVar(value=fmt_contagem(cfg["tempo"]))
         self.var_crono_aviso = tk.StringVar(value=f"{cfg['aviso']:g}")
-        e_tempo = ttk.Entry(fc, textvariable=self.var_crono_tempo, width=8)
-        sp_aviso = ttk.Spinbox(fc, from_=1, to=600, increment=1, width=6,
-                               textvariable=self.var_crono_aviso)
+        self.var_crono_tam = tk.DoubleVar(value=cfg["tamanho"])
 
-        def lista_som(chave):
+        def lista_som(pai, chave):
             var = tk.StringVar(value=self.overlay.sons.nome(cfg.get(chave)))
-            cb = ttk.Combobox(fc, textvariable=var, state="readonly", width=22,
+            cb = ttk.Combobox(pai, textvariable=var, state="readonly", width=22,
                               postcommand=lambda: cb.configure(
                                   values=list(self.overlay.sons.opcoes())))
             cb.bind("<<ComboboxSelected>>", lambda _e: self._on_crono_som(chave, var))
             return cb
 
-        for linha, (rotulo, widget, depois, ajuda) in enumerate((
-                ("Tempo", e_tempo, "",
+        # rótulo à esquerda; o campo e o que vem depois dele (unidade, botão) juntos à direita
+        for linha, (rotulo, criar, depois, ajuda) in enumerate((
+                ("Tempo", lambda p: ttk.Entry(p, textvariable=self.var_crono_tempo, width=8), "",
                  "Quanto tempo contar a cada reinício. Ex.: 300, 3:00 ou 4:30."),
-                ("Avisar quando faltar", sp_aviso, "segundos",
+                ("Avisar quando faltar",
+                 lambda p: ttk.Spinbox(p, from_=1, to=600, increment=1, width=6,
+                                       textvariable=self.var_crono_aviso), "segundos",
                  "Nos últimos segundos os números piscam em vermelho e amarelo."),
-                ("Som faltando pouco", lista_som("som_aviso"), "som_aviso",
+                ("Som faltando pouco", lambda p: lista_som(p, "som_aviso"), "som_aviso",
                  "Toca quando faltam os segundos acima. \"Sem som\" = não toca."),
-                ("Som ao zerar", lista_som("som_fim"), "som_fim",
-                 "Toca quando a contagem chega a zero. \"Sem som\" = não toca.")), start=1):
+                ("Som ao zerar", lambda p: lista_som(p, "som_fim"), "som_fim",
+                 "Toca quando a contagem chega a zero. \"Sem som\" = não toca."),
+                ("Tamanho da caixa",
+                 lambda p: ttk.Scale(p, from_=cr.TAM_MIN, to=cr.TAM_MAX, orient="horizontal",
+                                     length=220, variable=self.var_crono_tam,
+                                     command=self._on_crono_tam), "tamanho",
+                 "Altura dos números; a caixa cresce junto. A roda do mouse em cima do "
+                 "cronômetro faz o mesmo.")), start=1):
             ttk.Label(fc, text=rotulo, style="Campo.TLabel").grid(
-                row=linha, column=0, sticky="w", padx=(8, 6), pady=(8, 0))
-            widget.grid(row=linha, column=1, sticky="w", pady=(8, 0))
+                row=linha, column=0, sticky="w", padx=(8, 16), pady=(8, 0))
+            cel = ttk.Frame(fc)
+            cel.grid(row=linha, column=1, sticky="w", pady=(8, 0))
+            widget = criar(cel)
+            widget.pack(side="left")
             if depois.startswith("som_"):
-                self.dica(self.bt(fc, "", "play", lambda q=depois: cr.tocar(q)),
-                          "Testar: toca o som escolhido (volume da aba Sons).").grid(
-                    row=linha, column=2, sticky="w", padx=4, pady=(8, 0))
+                self.dica(self.bt(cel, "", "play", lambda q=depois: cr.tocar(q)),
+                          "Testar: toca o som escolhido (volume da aba Sons).").pack(
+                    side="left", padx=4)
+            elif depois == "tamanho":
+                self.lbl_crono_tam = ttk.Label(cel, text=f"{cfg['tamanho']} px")
+                self.lbl_crono_tam.pack(side="left", padx=8)
             elif depois:
-                ttk.Label(fc, text=depois).grid(row=linha, column=2, sticky="w", padx=6,
-                                                pady=(8, 0))
+                ttk.Label(cel, text=depois).pack(side="left", padx=8)
             self.dica(widget, ajuda)
         self.var_crono_tempo.trace_add("write", lambda *_: self._on_crono_tempo())
         self.var_crono_aviso.trace_add("write", lambda *_: self._on_crono_aviso())
 
-        ttk.Label(fc, text="Tamanho da caixa", style="Campo.TLabel").grid(
-            row=5, column=0, sticky="w", padx=(8, 6), pady=(8, 0))
-        self.var_crono_tam = tk.DoubleVar(value=cfg["tamanho"])
-        sc = ttk.Scale(fc, from_=cr.TAM_MIN, to=cr.TAM_MAX, orient="horizontal", length=220,
-                       variable=self.var_crono_tam, command=self._on_crono_tam)
-        sc.grid(row=5, column=1, sticky="w", pady=(8, 0))
-        self.lbl_crono_tam = ttk.Label(fc, text=f"{cfg['tamanho']} px")
-        self.lbl_crono_tam.grid(row=5, column=2, sticky="w", padx=6, pady=(8, 0))
-        self.dica(sc, "Altura dos números; a caixa cresce junto. A roda do mouse em cima do "
-                      "cronômetro faz o mesmo.")
-
         lb = ttk.Frame(fc)
-        lb.grid(row=6, column=0, columnspan=3, sticky="w", padx=8, pady=(12, 4))
+        lb.grid(row=6, column=0, columnspan=2, sticky="w", padx=8, pady=(12, 4))
         self.dica(self.bt(lb, "Reiniciar agora", "reiniciar", cr.reiniciar, amarelo=True),
                   "Começa a contagem do zero (o mesmo que o botão redondo do cronômetro)."
                   ).pack(side="left")
@@ -84,7 +85,7 @@ class AbaCronometro:
                   text="Na tela: clique no botão redondo para reiniciar, arraste o resto da caixa "
                        "para mudar de lugar e use a roda do mouse para aumentar ou diminuir. "
                        "Clicar nele não tira o foco do jogo."
-                  ).grid(row=7, column=0, columnspan=3, sticky="w", padx=8, pady=(0, 8))
+                  ).grid(row=7, column=0, columnspan=2, sticky="w", padx=8, pady=(0, 8))
 
     def sincronizar_cronometro(self):
         """O tamanho mudou pela roda do mouse no cronômetro: acompanha na aba."""
