@@ -1,5 +1,10 @@
 # Mudanças
 
+## v1.0.37
+- Consumíveis já vêm com a duração do jogo ao escolher pelo nome (ex.: Estimulante 30 min, Churrasco de Selvagem 5 min): o aviso de "buff acabando" funciona sem digitar nada. Na busca, a coluna mostra os ícones e a duração.
+- Relógio do ícone: o programa lê o véu claro que o jogo desenha no ícone do buff (o tempo que já passou). Buff que já estava ativo quando o programa viu fica com o tempo certo, e buff renovado volta a contar do começo (e a avisar). Vale para todo buff com duração.
+- Barra de AP mais estável: um instante sem o rótulo "AP" (ex.: mouse em cima da janela) não faz mais o programa perder a janela Informações básicas e procurar na tela toda.
+
 ## v1.0.36
 - Aba Buffs: consumíveis entram na busca "Buff pelo nome" (Estimulante, Poção de Velocidade, poções de ASPD, comidas de atributo, Manuk, pergaminhos, sais de banho, bônus de EXP/DROP e outros). Valem para qualquer classe e aparecem depois dos buffs da classe. No filtro de classe, "Consumível" mostra só eles.
 - Comidas de atributo têm duas versões (comum e da loja); o programa acha as duas.
