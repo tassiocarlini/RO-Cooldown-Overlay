@@ -168,7 +168,10 @@ class AbaBuffs:
                     "para eu achar o tamanho do ícone na tela.")
 
     def _novo_buff(self, nome, capturar):
-        bf = {"nome": nome, "variantes": [], "mostrar": "sempre", "duracao": None}
+        # consumível com duração conhecida (ex.: Estimulante, 30 min): o aviso de "acabando"
+        # já funciona sem a pessoa digitar nada
+        bf = {"nome": nome, "variantes": [], "mostrar": "sempre",
+              "duracao": self.banco.duracao_de(nome)}
         self.perfil.setdefault("buffs", []).append(bf)
         self.salvar_agora()
         self.overlay.carregar_perfil(self.perfil, Perfis.pasta(self.nome))

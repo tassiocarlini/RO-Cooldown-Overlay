@@ -7,6 +7,7 @@ from PIL import ImageTk
 
 from .config import TODAS
 from .consumiveis import GRUPO
+from .dados import fmt_duracao
 from .janelas import barra_escura
 
 
@@ -43,7 +44,7 @@ class SeletorSkill:
         cont.pack(fill="both", expand=True, padx=8, pady=4)
         self.tv = ttk.Treeview(cont, columns=("nome", "cd", "classes"), show="headings",
                                selectmode="browse")
-        for col, txt, larg in (("nome", "Buff" if buff else "Skill", 200), ("cd", "Recarga", 90),
+        for col, txt, larg in (("nome", "Buff" if buff else "Skill", 200), ("cd", "Ícones" if buff else "Recarga", 120 if buff else 90),
                                ("classes", "Classes", 220)):
             self.tv.heading(col, text=txt)
             self.tv.column(col, width=larg, anchor="w" if col != "cd" else "center")
@@ -93,6 +94,8 @@ class SeletorSkill:
             if self.buff:
                 n = len(it.get("efst") or [])
                 txt_cd = f"{n} ícones" if n > 1 else "1 ícone"
+                if it.get("duracao"):
+                    txt_cd += f" · {fmt_duracao(it['duracao'])}"
             else:
                 cd, origem = self.painel.banco.recarga(it["nome"])
                 txt_cd = "—" if cd is None else f"{cd:g} s" + (

@@ -140,3 +140,13 @@ def test_consumiveis_na_busca_de_buffs():
     todos = b.buscar("", classe, so_buffs=True)
     vistos = [bool(it.get("consumivel")) for it in todos]
     assert vistos == sorted(vistos)                                 # buffs da classe primeiro
+
+
+def test_duracao_dos_consumiveis():
+    from rocd.dados import fmt_duracao
+    b = Banco()
+    assert b.duracao_de("Estimulante") == 1800
+    assert b.duracao_de("Comida de FOR") is None            # varia com o item (+1 a +10)
+    assert b.duracao_de("nada disso") is None
+    assert [fmt_duracao(s) for s in (1800, 3600, 90, 10, 300)] == \
+        ["30 min", "1 h", "1:30", "10 s", "5 min"]

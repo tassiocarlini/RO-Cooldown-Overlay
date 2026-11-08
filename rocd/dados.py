@@ -30,6 +30,17 @@ def fmt_tempo(v):
     return "" if v is None else f"{v:g}"
 
 
+def fmt_duracao(seg):
+    """1800 -> "30 min", 90 -> "1:30", 10 -> "10 s", 3600 -> "1 h"."""
+    if seg >= 3600 and seg % 3600 == 0:
+        return f"{seg // 3600:g} h"
+    if seg >= 60 and seg % 60 == 0:
+        return f"{seg // 60:g} min"
+    if seg >= 60:
+        return fmt_contagem(seg)
+    return f"{seg:g} s"
+
+
 def fmt_contagem(seg):
     """Segundos que faltam -> "4:59" (arredonda para cima: só mostra 0:00 quando acabou)."""
     s = max(0, math.ceil(seg - 1e-6))
@@ -116,10 +127,11 @@ class Banco:
                     it["classes"].append(classe)
                 if it["cd"] is None and x.get("cd"):
                     it["cd"] = x["cd"]
-        for nome, ids in CONSUMIVEIS:                  # poções, comidas...: buffs de todas as classes
+        for nome, ids, dur in CONSUMIVEIS:             # poções, comidas...: buffs de todas as classes
             self.itens.setdefault(chave(nome), {
                 "nome": nome, "pt": True, "en": "", "cd": None, "classes": [GRUPO], "id": None,
-                "efst": [["", i] for i in ids], "buff": True, "consumivel": True})
+                "efst": [["", i] for i in ids], "buff": True, "consumivel": True,
+                "duracao": dur})
         self.classes.sort(key=chave)                   # ordem alfabética, sem ligar para acentos
         for it in self.itens.values():
             it["classes"].sort(key=chave)
@@ -146,6 +158,11 @@ class Banco:
         """Ícones de status (buff) da skill: lista de [chave, id]."""
         it = self.itens.get(chave(nome))
         return it.get("efst") or [] if it else []
+
+    def duracao_de(self, nome):
+        """Duração conhecida do buff em segundos (consumíveis), ou None."""
+        it = self.itens.get(chave(nome))
+        return it.get("duracao") if it else None
 
     def eh_buff(self, nome):
         """A skill é buff (vai na aba Buffs, não na de skills ofensivas)?"""

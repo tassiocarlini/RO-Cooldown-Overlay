@@ -18,12 +18,20 @@ from .visao import (cinza, diferenca, mapa_simbolo_suave, miolo, modelos_buff, p
     semelhanca, tela_escura, tem_moldura)
 from .desenho import contorno_arred, faixa_degrade, icone_arredondado, misturar_cor, ret_arred, texto_contorno
 from .ap import achar_rotulo_ap, achar_rotulos_ap, ler_fracao, localizar_ap
+from .relogio import arte_do_icone, fracao_passada, inicio_estimado
 from .sites import icone_dp_rgb
 from .captura import CapturaAuto
 from .sons import Sons
 
 
 # =============================================================== overlay
+
+# Relógio do ícone de buff: as últimas leituras precisam concordar até max(10 s, 3% da duração)
+RELOGIO_TOL, RELOGIO_TOL_MIN = 0.03, 10.0
+
+# Quadros seguidos sem o rótulo "AP" no lugar guardado antes de procurar na tela toda (0,25 s cada)
+AP_FALHAS_ROTULO = 3
+
 
 class Overlay:
     def __init__(self, root, painel):
@@ -129,6 +137,7 @@ class Overlay:
                       _ncc=1.0, _perdido_desde=None, _sumiu=False, _ult_busca=-99.0)
         for bf in self.buffs:
             bf["_imgs"], bf["_tmpls"], bf["_tmpls_b"], bf["_site"] = [], [], [], []
+            bf["_arte"] = []
             for arq in bf.get("variantes", []):
                 try:
                     im = Image.open(pasta / arq).convert("RGB")
@@ -140,7 +149,9 @@ class Overlay:
                     cinza_m, branco_m = modelos_buff(im)
                     bf["_tmpls"].append(cinza_m)
                     bf.setdefault("_tmpls_b", []).append(branco_m)
-            bf.update(_ativo=False, _visto=-99.0, _desde=0.0, _score=0.0, _cliente=None)
+                    bf["_arte"].append(arte_do_icone(im))
+            bf.update(_ativo=False, _visto=-99.0, _desde=0.0, _score=0.0, _cliente=None,
+                      _relogio=[])
         self.preparar_imagens()
         self.calcular_caixa()
         self.relayout()
@@ -558,8 +569,8 @@ class Overlay:
                 agora = time.monotonic()
                 res = {"hwnd": hwnd}              # de qual cliente do jogo é esta leitura
                 brilho = None
-                for chave_b, mods in alvos:
-                    melhor, qual, recorte = 0.0, 0, None
+                for chave_b, mods, artes in alvos:
+                    melhor, qual, recorte, onde = 0.0, 0, None, None
                     for n_var, (t_c, t_b, do_site, (W, H)) in enumerate(mods):
                         # ícone translúcido: o cinza "vê" o cenário por trás e pode confundir;
                         # por isso o cinza só é usado quando o ícone não tem traços claros
@@ -574,9 +585,10 @@ class Overlay:
                         if x1 > x0 and y1 > y0:
                             r[y0:y1, x0:x1] = -1
                         if not do_site:
-                            v = float(r.max())
+                            _, v, _, (lx, ly) = cv2.minMaxLoc(r)
                             if v == v and v > melhor:
                                 melhor, qual, recorte = v, n_var, None
+                                onde = (lx - (W - tw) // 2, ly - (H - th) // 2, W, H)
                             continue
                         # versão vinda da Divine Pride: só vale se tiver a moldura de ícone de buff
                         if brilho is None:
@@ -590,8 +602,15 @@ class Overlay:
                                     fx, fy = lx - mx_, ly - my_
                                     recorte = Image.fromarray(arr).crop((fx, fy, fx + W, fy + H))
                                     melhor, qual = v, n_var
+                                    onde = (fx, fy, W, H)
                                 break
-                    res[chave_b] = (melhor, agora, qual, recorte)
+                    relogio = None
+                    if artes is not None and onde and melhor >= LIMIAR_BUFF:
+                        fx, fy, W, H = onde
+                        if fx >= 0 and fy >= 0 and fx + W <= arr.shape[1] and fy + H <= arr.shape[0]:
+                            relogio = fracao_passada(arr[fy:fy + H, fx:fx + W],
+                                                     artes[qual] if qual < len(artes) else None)
+                    res[chave_b] = (melhor, agora, qual, recorte, relogio)
                 self._buff_res = res
             except Exception:
                 registrar("Erro ao ler buffs:\n" + traceback.format_exc(), chave_rep="buffs")
@@ -741,7 +760,9 @@ class Overlay:
             self._verificar_buffs_do_site(agora)
         alvos = [(id(b), list(zip(b["_tmpls"], b.get("_tmpls_b") or [None] * len(b["_tmpls"]),
                                    b.get("_site") or [False] * len(b["_tmpls"]),
-                                   [im.size for im in b["_imgs"]])))
+                                   [im.size for im in b["_imgs"]])),
+                  # buff com duração: lê também o relógio do ícone (quanto já passou)
+                  b.get("_arte") if b.get("duracao") else None)
                  for b in self.buffs if b.get("_tmpls")]
         regiao = self._area_buffs() if (self.ativo and pode_ler and alvos) else None
         hwnd = self.jogo.hwnd if self.perfil["titulo_janela_jogo"].strip() else None
@@ -768,17 +789,36 @@ class Overlay:
             if ativo and not b["_ativo"]:
                 b["_desde"] = b["_visto"]
                 b["_avisou"] = False
+                b["_relogio"] = []
             elif b["_ativo"] and not ativo and pode_ler:
                 # acabou: só avisa se não avisou há pouco que estava acabando
                 if agora - b.get("_avisou_em", -99.0) > 5:
                     self.avisar("buff", b)
             b["_ativo"] = ativo
             dur = b.get("duracao")
+            if ativo and dur and r and r[0] >= LIMIAR_BUFF and len(r) > 4:
+                self._acertar_pelo_relogio(b, r[1], r[4], dur)
             if ativo and dur and not b.get("_avisou"):
                 resta = dur - (agora - b["_desde"])
                 if 0 < resta <= self.L["aviso_vermelho_s"]:
                     b["_avisou"], b["_avisou_em"] = True, agora
                     self.avisar("buff", b)
+
+    def _acertar_pelo_relogio(self, b, quando, relogio, dur):
+        """Acerta o começo do buff pelo relógio do ícone: buff que já estava ativo quando o
+        programa viu (ex.: abriu o programa no meio) e buff renovado (o véu volta ao começo)."""
+        leit = b.setdefault("_relogio", [])
+        if relogio is None or (leit and leit[-1][0] == quando):
+            return                                     # sem leitura nova
+        leit.append((quando, relogio[0]))
+        del leit[:-5]
+        tol = max(RELOGIO_TOL_MIN, dur * RELOGIO_TOL)
+        ini = inicio_estimado(leit, dur, tol)
+        if ini is None or abs(ini - b["_desde"]) <= tol:
+            return
+        if ini > b["_desde"]:                          # renovado: conta de novo e volta a avisar
+            b["_avisou"] = False
+        b["_desde"] = ini
 
     def _buffs_em_pausa(self, agora, pode_ler):
         """Hora em que não dá para ver os buffs: jogo minimizado ou coberto (alt-tab) ou tela
@@ -1176,9 +1216,14 @@ class Overlay:
             loc = achar_rotulo_ap(arr)
             self._ap_ultimo_trecho = arr
             if loc is None or abs(loc[0] - ox) > 2 or abs(loc[1] - oy) > 2:
-                self._ap_rotulo, self._ap_ult_busca = None, -99.0
-                self._buscar_ap(agora)
+                # Um quadro sem o rótulo (mouse em cima, algo passando por cima) não quer dizer
+                # que a janela mudou: pula a leitura e só procura de novo depois de 3 seguidos.
+                self._ap_rotulo_falhas = getattr(self, "_ap_rotulo_falhas", 0) + 1
+                if self._ap_rotulo_falhas >= AP_FALHAS_ROTULO:
+                    self._perder_rotulo_ap()
+                    self._buscar_ap(agora)
                 return
+            self._ap_rotulo_falhas = 0
             arr = arr[:, ox + 13:]
         lido = ler_fracao(arr) if arr is not None else None
         if lido is None:
@@ -1186,7 +1231,7 @@ class Overlay:
             if manual:
                 self._ap_manual_falhas = getattr(self, "_ap_manual_falhas", 0) + 1
             elif self._ap_falhas >= 4:                     # janela mudou de lugar ou fechou
-                self._ap_rotulo = None
+                self._perder_rotulo_ap()
             return
         self._ap_falhas = 0
         if manual:
@@ -1236,6 +1281,14 @@ class Overlay:
             self._fila_ap.put(achado)
         threading.Thread(target=trabalho, daemon=True).start()
 
+    def _perder_rotulo_ap(self):
+        """Larga o lugar do rótulo "AP", mas lembra dele: se a busca na tela toda falhar
+        (ex.: o quadro pego bem quando algo cobria a janela), volta a testar o lugar antigo."""
+        if getattr(self, "_ap_rotulo", None):
+            self._ap_rotulo_antigo = self._ap_rotulo
+        self._ap_rotulo, self._ap_ult_busca = None, -99.0
+        self._ap_falhas = self._ap_rotulo_falhas = 0
+
     def _receber_busca_ap(self):
         fila = getattr(self, "_fila_ap", None)
         while fila is not None:
@@ -1246,6 +1299,11 @@ class Overlay:
             self._ap_buscando = False
             if achado:
                 self._ap_rotulo, self._ap_falhas = achado, 0
+                self._ap_rotulo_antigo = achado
+            elif getattr(self, "_ap_rotulo", None) is None:
+                # não achou em lugar nenhum: testa de novo onde estava (a leitura confere se o
+                # rótulo está lá antes de ler; se não estiver, larga e procura de novo)
+                self._ap_rotulo = getattr(self, "_ap_rotulo_antigo", None)
 
     # ---- peças do desenho
 
