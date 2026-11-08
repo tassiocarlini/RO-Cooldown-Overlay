@@ -31,7 +31,8 @@ class AbaBuffs:
         self.dica(self.bt(barra, "Buff pelo nome", "mais_circulo",
                           lambda: SeletorSkill(self, None, buff=True), amarelo=True),
                   "Escolha o buff pelo nome e pronto: o programa já tem os ícones do jogo "
-                  "e acha o buff na tela quando ele estiver ativo.").pack(side="left")
+                  "e acha o buff na tela quando ele estiver ativo. Consumíveis (Estimulante, "
+                  "poções, comidas) também estão na busca.").pack(side="left")
         self.dica(self.bt(barra, "Marcar na tela", "mais", self.adicionar_buff),
                   "Só se o buff não estiver na busca: com ele ativo no jogo, marque o ícone "
                   "na coluna de buffs (à direita da tela).").pack(side="left", padx=4)
@@ -43,7 +44,8 @@ class AbaBuffs:
         self.lbl_area.pack(side="left", padx=8)
         ttk.Label(f, style="Dica.TLabel", wraplength=760, justify="left",
                   text="O programa usa os ícones oficiais do jogo (todas as versões, ex.: os 7 "
-                       "elementos da Brisa Leve) e acha o buff na tela quando ele estiver ativo."
+                       "elementos da Brisa Leve) e acha o buff na tela quando ele estiver ativo. "
+                       "Consumíveis (Estimulante, poções, comidas) entram do mesmo jeito."
                   ).pack(anchor="w", padx=8, pady=(2, 4))
         self.lista_buffs = self.lista_rolavel(f, padx=6, pady=4)
         self.lista_buffs.columnconfigure(1, weight=1)    # o nome do buff estica
@@ -56,7 +58,7 @@ class AbaBuffs:
         buffs = self.perfil.get("buffs", [])
         if not buffs:
             self.lista_vazia(self.lista_buffs, "Nenhum buff ainda", (
-                "1. Escolha o buff pelo nome (ex.: Brisa Leve).\n"
+                "1. Escolha o buff ou consumível pelo nome (ex.: Brisa Leve, Estimulante).\n"
                 "2. No jogo, deixe o buff ativo: o programa acha o ícone sozinho."),
                 "Buff pelo nome", lambda: SeletorSkill(self, None, buff=True))
             return

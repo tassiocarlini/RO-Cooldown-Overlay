@@ -1,5 +1,10 @@
 # Mudanças
 
+## v1.0.36
+- Aba Buffs: consumíveis entram na busca "Buff pelo nome" (Estimulante, Poção de Velocidade, poções de ASPD, comidas de atributo, Manuk, pergaminhos, sais de banho, bônus de EXP/DROP e outros). Valem para qualquer classe e aparecem depois dos buffs da classe. No filtro de classe, "Consumível" mostra só eles.
+- Comidas de atributo têm duas versões (comum e da loja); o programa acha as duas.
+- Alguns consumíveis antigos não têm ícone no ragassets: o ícone vem da Divine Pride (com a chave) ou é marcado na tela com "Ícone" / "Auto".
+
 ## v1.0.35
 - Visual novo na janela do programa: tons de azul-escuro (como o logo e o overlay) no lugar do cinza, e o dourado só nos botões principais e no que está selecionado.
 - Uma fonte só em toda a janela. No Windows 10 cada campo saía com uma fonte diferente (as listas da aba Sons, por exemplo).

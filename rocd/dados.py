@@ -7,6 +7,7 @@ import re
 import unicodedata
 
 from .config import ARQ_BANCO, ARQ_MEUS, TODAS
+from .consumiveis import CONSUMIVEIS, GRUPO
 
 
 def ler_tempo(txt):
@@ -115,6 +116,10 @@ class Banco:
                     it["classes"].append(classe)
                 if it["cd"] is None and x.get("cd"):
                     it["cd"] = x["cd"]
+        for nome, ids in CONSUMIVEIS:                  # poções, comidas...: buffs de todas as classes
+            self.itens.setdefault(chave(nome), {
+                "nome": nome, "pt": True, "en": "", "cd": None, "classes": [GRUPO], "id": None,
+                "efst": [["", i] for i in ids], "buff": True, "consumivel": True})
         self.classes.sort(key=chave)                   # ordem alfabética, sem ligar para acentos
         for it in self.itens.values():
             it["classes"].sort(key=chave)
@@ -178,24 +183,30 @@ class Banco:
 
     def buscar(self, texto, classe=TODAS, limite=400, so_buffs=False):
         """Busca pelo nome em português ou em inglês, sem ligar para acentos. so_buffs=True
-        lista só buffs; False, só skills ofensivas (um não aparece na busca do outro)."""
+        lista só buffs; False, só skills ofensivas (um não aparece na busca do outro).
+        Consumíveis valem para qualquer classe e vêm depois dos buffs da classe;
+        classe=GRUPO lista só eles."""
         q = chave(texto)
         unicos = {id(it): it for it in self.itens.values()}
         res = []
         for it in unicos.values():
             if bool(it.get("buff")) != so_buffs:
                 continue
-            if classe and classe != TODAS and classe not in it["classes"]:
+            consumivel = bool(it.get("consumivel"))
+            if classe == GRUPO and not consumivel:
+                continue
+            if classe and classe not in (TODAS, GRUPO) and not consumivel                     and classe not in it["classes"]:
                 continue
             kn, ke = chave(it["nome"]), chave(it.get("en"))
             if q and q not in kn and q not in ke:
                 continue
-            res.append((kn, it))
+            res.append(((consumivel, kn), it))
         if not so_buffs:
             for k, m in self.meus.items():
                 if k not in self.itens and (not q or q in k):
-                    res.append((k, {"nome": m["nome"], "cd": None, "classes": [], "pt": True}))
-        res.sort(key=lambda r: r[0])                   # ordem alfabética
+                    res.append(((False, k), {"nome": m["nome"], "cd": None, "classes": [],
+                                             "pt": True}))
+        res.sort(key=lambda r: r[0])                   # ordem alfabética (consumíveis no fim)
         return [r[1] for r in res[:limite]]
 
     def salvar_meu(self, nome, cd):

@@ -6,6 +6,7 @@ from tkinter import ttk
 from PIL import ImageTk
 
 from .config import TODAS
+from .consumiveis import GRUPO
 from .janelas import barra_escura
 
 
@@ -35,7 +36,7 @@ class SeletorSkill:
         ttk.Label(l1, text="Classe:").pack(side="left", padx=(8, 0))
         self.var_cl = tk.StringVar(value=painel.perfil.get("classe", TODAS))
         cb = ttk.Combobox(l1, textvariable=self.var_cl, state="readonly", width=20,
-                          values=[TODAS] + b.classes)
+                          values=[TODAS] + ([GRUPO] if buff else []) + b.classes)
         cb.pack(side="left", padx=6)
 
         cont = ttk.Frame(top)
@@ -53,7 +54,8 @@ class SeletorSkill:
 
         rodape = ttk.Frame(top)
         rodape.pack(fill="x", padx=8, pady=(4, 8))
-        aviso = ("Só buffs. Skills de ataque ficam na aba Skills ofensivas." if buff else
+        aviso = ("Buffs da classe e consumíveis (poções, comidas...). Skills de ataque "
+                 "ficam na aba Skills ofensivas." if buff else
                  "Só skills ofensivas (buffs ficam na aba Buffs). Recarga padrão sem "
                  "equipamentos; se você corrigir, o programa lembra.") if b.ok else (
                  "Arquivo banco_skills.json não encontrado na pasta do programa.")

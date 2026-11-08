@@ -284,7 +284,7 @@ class AbaSkills:
         """Ícone oficial pela Divine Pride (só com a chave da API)."""
         if not self.dp.ativo():
             return
-        if tipo == "status" and motivo[2]:
+        if tipo == "status" and motivo[2] is not None:     # "" = consumível (sem chave EFST)
             self.dp.pedir_efst(ident, motivo[2], motivo)
         elif tipo == "skill":
             self.dp.pedir(ident, motivo)

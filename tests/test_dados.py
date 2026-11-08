@@ -123,3 +123,20 @@ def test_recarga_sua_vence_a_padrao(tmp_path, monkeypatch):
     assert (tmp_path / "meus_tempos.json").exists()
     b.salvar_meu(it["nome"], None)                # volta para a padrão
     assert b.recarga(it["nome"]) == (it["cd"], "padrão")
+
+
+def test_consumiveis_na_busca_de_buffs():
+    from rocd.consumiveis import GRUPO
+    b = Banco()
+    assert b.eh_buff("Estimulante")
+    assert b.efst_de("estimulante") == [["", 1509]]
+    assert [e for _, e in b.efst_de("Comida de FOR")] == [241, 271]
+    classe = b.classes[0]
+    achados = b.buscar("estimul", classe, so_buffs=True)
+    assert [it["nome"] for it in achados] == ["Estimulante"]      # vale para qualquer classe
+    assert not b.buscar("estimulante", classe, so_buffs=False)      # não é skill ofensiva
+    so_cons = b.buscar("", GRUPO, so_buffs=True)
+    assert so_cons and all(it.get("consumivel") for it in so_cons)
+    todos = b.buscar("", classe, so_buffs=True)
+    vistos = [bool(it.get("consumivel")) for it in todos]
+    assert vistos == sorted(vistos)                                 # buffs da classe primeiro

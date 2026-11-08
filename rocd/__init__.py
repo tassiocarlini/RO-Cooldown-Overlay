@@ -6,7 +6,8 @@ Módulos (cada um importa só dos que estão acima dele na lista):
   visao         comparar imagens: semelhanca(), mapa_simbolo(), molduras
   desenho       paleta COR (mude aqui o visual), logo, ícones dos botões, abas
   ap            leitura do número de AP (dígitos da fonte do jogo)
-  dados         Banco de skills, JSON, ler_tempo() / fmt_tempo()
+  consumiveis   lista de consumíveis com ícone de buff (Estimulante, poções, comidas)
+  dados         Banco de skills (+ consumíveis), JSON, ler_tempo() / fmt_tempo()
   sites         DivinePride (API) e RagAssets (latam-tools)
   perfis        Perfis e importação de dados de versões antigas
   captura       CapturaAuto: acha um ícone de skill ou buff na tela
