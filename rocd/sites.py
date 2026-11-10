@@ -156,7 +156,10 @@ class DivinePride:
 
 PASTA_RAG = PASTA / "cache_ragassets"
 # Ícones de status que vêm dentro do programa (desenho do cliente LATAM, conferido no jogo):
-# o ragassets não tem estes e a Divine Pride tem um desenho diferente (ex.: Brisa Leve).
+# o ragassets não tem estes e a Divine Pride tem um desenho diferente (ex.: Brisa Leve) ou
+# embaralhado. Os de consumíveis antigos (poções de ASPD, pílulas, cartas MVP...) saíram do
+# data.grf do cliente (texture/effect): o nome do arquivo deles fica no executável do jogo, e
+# não no stateiconimginfo.lub que o ragassets lê.
 ICONES_EMBUTIDOS = Path(__file__).resolve().parent / "icones"
 
 

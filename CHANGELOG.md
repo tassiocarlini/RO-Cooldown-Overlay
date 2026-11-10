@@ -1,5 +1,8 @@
 # Mudanças
 
+## v1.0.38
+- Mais consumíveis com ícone pronto, sem chave da Divine Pride e sem marcar na tela: Poção da Concentração, Poção do Despertar, Poção da Fúria, Poção Energizante, Pílula de HP, Pílula de SP, Acarajé, Biscoito da Papisa e os pergaminhos Tao Gunka, Abelha Rainha, Orc Herói e Senhor dos Orcs. O ícone vem do próprio cliente LATAM, dentro do programa.
+
 ## v1.0.37
 - Consumíveis já vêm com a duração do jogo ao escolher pelo nome (ex.: Estimulante 30 min, Churrasco de Selvagem 5 min): o aviso de "buff acabando" funciona sem digitar nada. Na busca, a coluna mostra os ícones e a duração.
 - Relógio do ícone: o programa lê o véu claro que o jogo desenha no ícone do buff (o tempo que já passou). Buff que já estava ativo quando o programa viu fica com o tempo certo, e buff renovado volta a contar do começo (e a avisar). Vale para todo buff com duração.

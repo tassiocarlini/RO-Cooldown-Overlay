@@ -21,6 +21,21 @@ def test_embutido_vem_antes_do_ragassets():
     assert rag.icone_status(eid) == icone_embutido(eid)
 
 
+def test_consumiveis_sem_ragassets_tem_icone_embutido():
+    """Ids antigos que o ragassets não tem (404): o ícone vem do data.grf do cliente LATAM."""
+    from rocd.consumiveis import CONSUMIVEIS
+    embutidos = {"Poção da Concentração": 37, "Poção do Despertar": 38, "Poção da Fúria": 39,
+                 "Poção Energizante": 579, "Pílula de HP": 297, "Pílula de SP": 299, "Acarajé": 414,
+                 "Biscoito da Papisa": 423, "Pergaminho Tao Gunka": 368,
+                 "Pergaminho Abelha Rainha": 369, "Pergaminho Orc Herói": 370,
+                 "Pergaminho Senhor dos Orcs": 371}
+    ids = {nome: e for nome, efst, _ in CONSUMIVEIS for e in efst}
+    for nome, eid in embutidos.items():
+        assert ids[nome] == eid, nome                  # o nome continua apontando para este id
+        im = Image.open(icone_embutido(eid))
+        assert im.size == (32, 32) and im.mode == "RGBA", nome
+
+
 def test_maestria_arcana_tem_icone_embutido():
     """O ragassets não tem o ícone 355 e o da Divine Pride vem embaralhado."""
     efst = Banco().efst_de("Recognized Spell")
