@@ -2,6 +2,7 @@
 
 ## v1.0.41
 - Removido o tempo automático dos buffs (BETA) da v1.0.40: estava atrapalhando as skills ofensivas. A aba Buffs volta a ser como na v1.0.39.
+- Skills ofensivas: novo botão "Área da barra" (igual ao "Área dos buffs"). Marque a região onde a barra de atalhos pode ficar: a busca fica só nela e o programa confere a posição dos ícones a cada 2 s. Se você mexer a barra um pouquinho, ele acha os ícones de novo sozinho, em vez de achar que a skill entrou em recarga.
 
 ## v1.0.40
 - Aba Buffs: nova caixa "AUTO (BETA)" em cada buff. Marcada, o programa mede a duração olhando o relógio do ícone do buff no jogo (o véu claro que gira), sem depender do nível da skill. Não precisa digitar a duração: o campo vira só o palpite inicial.

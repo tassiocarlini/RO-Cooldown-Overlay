@@ -505,6 +505,13 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         self.dica(self.bt(barra, "Procurar na tela", "radar", self.procurar_icones),
                   "Mudou a barra de atalhos de lugar? O programa procura os ícones de novo."
                   ).pack(side="left")
+        self.dica(self.bt(barra, "Área da barra", "selecao", self.marcar_area_skills),
+                  "Opcional: marque a região onde a sua barra de atalhos pode ficar. A busca "
+                  "fica só nela (mais leve) e o programa confere a posição dos ícones a cada "
+                  "2 s: se você mexer a barra um pouquinho, ele acha os ícones de novo sozinho."
+                  ).pack(side="left", padx=4)
+        self.lbl_area_sk = ttk.Label(barra, style="Dica.TLabel")
+        self.lbl_area_sk.pack(side="left", padx=8)
         barra2 = ttk.Frame(fs)
         barra2.pack(fill="x", padx=6, pady=(2, 2))
         ttk.Label(barra2, text="Sua classe:").pack(side="left")

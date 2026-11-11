@@ -25,6 +25,8 @@ class AbaSkills:
     def montar_lista(self):
         for wdg in self.lista.winfo_children():
             wdg.destroy()
+        self.lbl_area_sk.config(text="Área: marcada ✓" if self.perfil.get("area_skills")
+                                else "Área: janela toda")
         skills = self.perfil["skills"]
         if not skills:
             self.lista_vazia(self.lista, "Nenhuma skill ainda", (
@@ -534,3 +536,24 @@ class AbaSkills:
         self.win.lift()
         if self._estava_ativo:
             self.iniciar()
+
+    def marcar_area_skills(self):
+        """Marca a região onde a barra de atalhos pode ficar (busca só nela)."""
+        def pronto(regioes, tela, mon):
+            if not regioes:
+                return
+            x0 = min(r[0] for r in regioes)
+            y0 = min(r[1] for r in regioes)
+            x1 = max(r[0] + r[2] for r in regioes)
+            y1 = max(r[1] + r[3] for r in regioes)
+            self.perfil["area_skills"] = {"x": x0 + mon["left"], "y": y0 + mon["top"],
+                                          "w": x1 - x0, "h": y1 - y0,
+                                          "origem": self.overlay.origem_agora()}
+            self.salvar_agora()
+            self.montar_lista()
+            self.overlay.procurar_todos()
+            self.status("Área da barra de skills marcada.")
+        self._capturar_com_contagem(
+            "Mostre o jogo com a barra de atalhos na tela",
+            "Arraste um retângulo cobrindo a área onde a barra de skills pode ficar "
+            "(deixe uma folga em volta)", pronto)

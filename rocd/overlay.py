@@ -70,6 +70,8 @@ class Overlay:
         self._trocando = False
         threading.Thread(target=self._loop_buffs, daemon=True).start()
         self.pendentes = set()
+        self._rotina_ids = set()       # pedidos da conferência a cada 2 s (sem log nem aviso)
+        self._ult_conferencia = 0.0
         self.sct = None
         self.caixa = None
         self.frames = 0
@@ -379,11 +381,13 @@ class Overlay:
         if self.busca_disponivel():
             for sk in self.skills:
                 self.pendentes.add(id(sk))
+            self._rotina_ids = set()
 
     def _pedir_busca(self, sk, agora):
         if self.busca_disponivel() and agora - sk["_ult_busca"] > 3.0:
             sk["_ult_busca"] = agora
             self.pendentes.add(id(sk))
+            self._rotina_ids.discard(id(sk))
 
     def _disparar_busca(self):
         if self.buscando and time.monotonic() - self.busca_desde > 20:
@@ -404,20 +408,45 @@ class Overlay:
             else:
                 alvos.append((id(sk), sk["_tmpl"], sk["_margem"], (1.0,)))
         self.pendentes.clear()
+        rotina = self._rotina_ids >= {a[0] for a in alvos}   # só a conferência a cada 2 s
+        self._rotina_ids = set()
         if not alvos:
             return
-        if self.geo:
+        regiao = self._area_skills()
+        if regiao is None and self.geo:
             gx, gy, gw, gh = self.geo
             regiao = {"left": gx, "top": gy, "width": gw, "height": gh}
-        else:
+        elif regiao is None:
             with nova_captura() as sct:
                 regiao = dict(sct.monitors[1])
         self.buscando = True
         self.busca_desde = time.monotonic()
-        registrar(f"Busca iniciada: {len(alvos)} ícone(s) na área {regiao}")
-        threading.Thread(target=self._buscar, args=(alvos, regiao), daemon=True).start()
+        if not rotina:
+            registrar(f"Busca iniciada: {len(alvos)} ícone(s) na área {regiao}")
+        threading.Thread(target=self._buscar, args=(alvos, regiao, rotina), daemon=True).start()
 
-    def _buscar(self, alvos, regiao):
+    def _area_skills(self):
+        """Área marcada onde a barra de atalhos pode ficar (None = janela toda do jogo)."""
+        a = self.perfil.get("area_skills") if self.perfil else None
+        if not a:
+            return None
+        dx, dy = self.delta(a.get("origem"))
+        return {"left": a["x"] + dx, "top": a["y"] + dy, "width": a["w"], "height": a["h"]}
+
+    def _conferir_posicoes(self, agora):
+        """Com a área da barra marcada: a cada 2 s procura de novo os ícones já achados, para
+        seguir a barra se ela for mexida um pouquinho (o ícone meio fora do lugar ainda parece
+        o mesmo e seria lido como delay)."""
+        if (self.buscando or self.pendentes or not self.busca_disponivel()
+                or self._area_skills() is None or agora - self._ult_conferencia < 2.0):
+            return
+        self._ult_conferencia = agora
+        ids = {id(sk) for sk in self.skills
+               if sk.get("x") is not None and "_tmpl" in sk and not sk.get("_do_site")}
+        self._rotina_ids = ids
+        self.pendentes |= ids
+
+    def _buscar(self, alvos, regiao, rotina=False):
         """Roda em segundo plano: procura cada ícone na área do jogo."""
         res = {}
         t0 = time.monotonic()
@@ -453,6 +482,7 @@ class Overlay:
         except Exception:
             res["_erro"] = traceback.format_exc()
         res["_tempo"] = time.monotonic() - t0
+        res["_rotina"] = rotina
         self.fila_busca.put((res, [a[0] for a in alvos]))
 
     def _aplicar_buscas(self):
@@ -462,6 +492,7 @@ class Overlay:
             except queue.Empty:
                 return
             self.buscando = False
+            rotina = res.get("_rotina") and not self.busca_manual
             manual, self.busca_manual = self.busca_manual, False
             if "_erro" in res:
                 registrar("Erro na busca:\n" + res["_erro"])
@@ -489,6 +520,8 @@ class Overlay:
                     else:
                         faltam.append(nome)
                     continue
+                if rotina and not (r and r[2] >= LIMIAR_ACHADO and not no_overlay):
+                    continue                      # conferência: não achou agora, deixa como está
                 if r and r[2] >= LIMIAR_ACHADO and not no_overlay:
                     achados += 1
                     nx, ny = r[0] - dx, r[1] - dy
@@ -501,6 +534,8 @@ class Overlay:
                 else:
                     sk["_sumiu"] = True
                     faltam.append(nome)
+            if rotina and not moveu:
+                continue                          # conferência sem novidade: sem log nem aviso
             registrar(f"Busca concluída em {res.get('_tempo', 0):.2f} s:\n" + "\n".join(linhas))
             if self._recarregar:
                 self._recarregar = False
@@ -510,6 +545,8 @@ class Overlay:
             elif moveu:
                 self.calcular_caixa()
                 self.painel.salvar_depois()
+            if rotina:
+                faltam = []                       # conferência: só avisa quem mudou de lugar
             if manual or moveu or faltam or novos:
                 txt = f"Busca concluída: {achados} de {len(linhas)} ícone(s) encontrados"
                 if novos:
@@ -1067,6 +1104,8 @@ class Overlay:
                     sk["_sumiu"] = False
                 self.atualizar_estado(sk, sk["_d"], agora)
             self.processar_cooldowns(agora)
+        if self.ativo and (geo or not titulo):
+            self._conferir_posicoes(agora)
         if geo or not titulo:
             self._disparar_busca()
         self._aplicar_buscas()

@@ -97,6 +97,7 @@ PERFIL_PADRAO = {
     "skills": [],
     "buffs": [],                       # buffs vigiados (cada um com 1+ versões de ícone)
     "area_buffs": None,                # área da tela onde ficam os ícones de buff
+    "area_skills": None,               # área onde a barra de atalhos (skills) pode ficar
     "area_ap": None,                   # onde aparece "AP 53 / 200" na janela Informações básicas
     "layout": {
         "x": None, "y": None,          # None = centralizado
