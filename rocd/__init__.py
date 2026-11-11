@@ -6,7 +6,7 @@ Módulos (cada um importa só dos que estão acima dele na lista):
   visao         comparar imagens: semelhanca(), mapa_simbolo(), molduras
   desenho       paleta COR (mude aqui o visual), logo, ícones dos botões, abas
   ap            leitura do número de AP (dígitos da fonte do jogo)
-  relogio       relógio do ícone de buff: quanto do buff já passou (buff já ativo ou renovado) e tempo automático (BETA)
+  relogio       relógio do ícone de buff: quanto do buff já passou (buff já ativo ou renovado)
   consumiveis   lista de consumíveis com ícone de buff (Estimulante, poções, comidas)
   dados         Banco de skills (+ consumíveis), JSON, ler_tempo() / fmt_tempo()
   sites         DivinePride (API) e RagAssets (latam-tools)

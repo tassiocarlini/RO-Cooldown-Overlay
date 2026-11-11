@@ -15,7 +15,7 @@ from PIL import Image, ImageTk
 from .config import ARQ_APP, ESTILOS, NOME_APP, PASTA, TODAS, VERSAO, registrar, sv_ttk
 from .desenho import (BOTOES, COR, FONTE, NOMES_ICONES, TEXTO_ESCURO, ardosia, desenhar_icone,
                       dourar, imagem_aba, imagem_degrade, logo_app, misturar_cor)
-from .dados import Banco, fmt_aprendido, fmt_contagem, gravar_json, ler_json
+from .dados import Banco, fmt_aprendido, gravar_json, ler_json
 from .sites import DivinePride, RagAssets
 from .seletores import SeletorSkill
 from .perfis import importar_dados_antigos_sozinho, migrar_config_antiga, nome_seguro, Perfis
@@ -817,16 +817,6 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         if any(v.startswith("buff_site_") for v in vs):
             reais = sum(not v.startswith("buff_site_") for v in vs)
             detalhe += f"\n{reais} de {len(vs)} versões do ícone já vistas no jogo"
-        if bf.get("auto"):
-            vistas = bf.get("duracoes_vistas") or []
-            if bf["_ativo"] and not bf.get("_dur"):
-                return "Medindo…", "ok", detalhe + "\nTempo automático: medindo o relógio do ícone."
-            if bf["_ativo"]:
-                detalhe += (f"\nTempo automático: duração {'de uns ' if bf.get('_aprox') else 'de '}"
-                            f"{fmt_contagem(bf['_dur'])}")
-            if vistas:
-                detalhe += "\nDurações já vistas até o fim: " + ", ".join(
-                    fmt_contagem(d) for d in vistas)
         return ("Ativo", "ok", detalhe) if bf["_ativo"] else ("Inativo", "neutro", detalhe)
 
     def _atualizar_topo(self):

@@ -18,7 +18,7 @@ from .visao import (cinza, diferenca, mapa_simbolo_suave, miolo, modelos_buff, p
     semelhanca, tela_escura, tem_moldura)
 from .desenho import contorno_arred, faixa_degrade, icone_arredondado, misturar_cor, ret_arred, texto_contorno
 from .ap import achar_rotulo_ap, achar_rotulos_ap, ler_fracao, localizar_ap
-from .relogio import RelogioAuto, arte_do_icone, fracao_passada, inicio_estimado
+from .relogio import arte_do_icone, fracao_passada, inicio_estimado
 from .sites import icone_dp_rgb
 from .captura import CapturaAuto
 from .sons import Sons
@@ -151,8 +151,7 @@ class Overlay:
                     bf.setdefault("_tmpls_b", []).append(branco_m)
                     bf["_arte"].append(arte_do_icone(im))
             bf.update(_ativo=False, _visto=-99.0, _desde=0.0, _score=0.0, _cliente=None,
-                      _relogio=[], _auto=None, _auto_t=None, _viu_sem=False, _visto_real=-99.0,
-                      _dur=None, _aprox=False)
+                      _relogio=[])
         self.preparar_imagens()
         self.calcular_caixa()
         self.relayout()
@@ -762,8 +761,8 @@ class Overlay:
         alvos = [(id(b), list(zip(b["_tmpls"], b.get("_tmpls_b") or [None] * len(b["_tmpls"]),
                                    b.get("_site") or [False] * len(b["_tmpls"]),
                                    [im.size for im in b["_imgs"]])),
-                  # buff com duração ou com tempo automático: lê também o relógio do ícone
-                  b.get("_arte") if (b.get("duracao") or b.get("auto")) else None)
+                  # buff com duração: lê também o relógio do ícone (quanto já passou)
+                  b.get("_arte") if b.get("duracao") else None)
                  for b in self.buffs if b.get("_tmpls")]
         regiao = self._area_buffs() if (self.ativo and pode_ler and alvos) else None
         hwnd = self.jogo.hwnd if self.perfil["titulo_janela_jogo"].strip() else None
@@ -777,13 +776,10 @@ class Overlay:
                 b["_score"] = r[0]
                 if r[0] >= LIMIAR_BUFF:
                     b["_visto"] = max(b["_visto"], r[1])
-                    b["_visto_real"] = r[1]
                     b["_cliente"] = res.get("hwnd")
                     b["_var_atual"] = r[2]          # qual versão do ícone está na tela
                     if r[3] is not None and r[0] >= 0.85 and not self._trocando:
                         self._trocar_por_real(b, r[2], r[3])
-                elif not pausa and agora - r[1] < 1.0:
-                    b["_viu_sem"] = True            # o programa olhou e o buff não estava lá
             # outro cliente em foco (ex.: o mercador): o buff é do personagem onde foi visto
             outro = b.get("_cliente") not in (None, hwnd) and user32.IsWindow(b["_cliente"])
             if (pausa or outro) and b["_ativo"]:
@@ -794,57 +790,19 @@ class Overlay:
                 b["_desde"] = b["_visto"]
                 b["_avisou"] = False
                 b["_relogio"] = []
-                b["_auto"] = None
             elif b["_ativo"] and not ativo and pode_ler:
-                self._guardar_duracao_vista(b)
                 # acabou: só avisa se não avisou há pouco que estava acabando
                 if agora - b.get("_avisou_em", -99.0) > 5:
                     self.avisar("buff", b)
             b["_ativo"] = ativo
             dur = b.get("duracao")
-            lido = ativo and r and r[0] >= LIMIAR_BUFF and len(r) > 4
-            if ativo and b.get("auto"):
-                dur = self._tempo_automatico(b, r if lido else None, dur)
-            else:
-                b["_auto"], b["_aprox"] = None, False
-                if lido and dur:
-                    self._acertar_pelo_relogio(b, r[1], r[4], dur)
-            b["_dur"] = dur
+            if ativo and dur and r and r[0] >= LIMIAR_BUFF and len(r) > 4:
+                self._acertar_pelo_relogio(b, r[1], r[4], dur)
             if ativo and dur and not b.get("_avisou"):
                 resta = dur - (agora - b["_desde"])
                 if 0 < resta <= self.L["aviso_vermelho_s"]:
                     b["_avisou"], b["_avisou_em"] = True, agora
                     self.avisar("buff", b)
-
-    def _tempo_automatico(self, b, r, dur):
-        """Tempo automático (BETA): a duração vem da velocidade do véu do ícone, e não do
-        campo Duração (que vira só o palpite até a primeira medida). Devolve a duração."""
-        ra = b.get("_auto")
-        if ra is None:
-            # buff que apareceu com o programa olhando: a hora do começo é conhecida
-            ra = b["_auto"] = RelogioAuto(b["_desde"], b.get("_viu_sem"),
-                                          [dur] + list(b.get("duracoes_vistas") or []))
-            b["_auto_t"] = None
-        if r and r[4] is not None and r[1] != b.get("_auto_t"):
-            b["_auto_t"] = r[1]
-            if ra.ler(r[1], r[4][0]):                  # renovado: volta a avisar
-                b["_avisou"] = False
-        b["_desde"], b["_aprox"] = ra.inicio, ra.aprox
-        return ra.duracao
-
-    def _guardar_duracao_vista(self, b):
-        """O buff acabou: se o programa viu do começo ao fim, guarda a duração exata no
-        perfil (uma por nível já visto) para as próximas vezes."""
-        ra = b.get("_auto")
-        d = ra.duracao_vista(b.get("_visto_real", -99.0)) if ra else None
-        if not d:
-            return
-        todas = b.get("duracoes_vistas") or []
-        # mesma duração já vista: fica a maior (quem perde o buff no finzinho vê uma menor)
-        d = max([d] + [x for x in todas if abs(x - d) <= 0.05 * d])
-        vistas = [x for x in todas if abs(x - d) > 0.05 * d]
-        b["duracoes_vistas"] = (vistas + [d])[-8:]
-        self.painel.salvar_depois()
 
     def _acertar_pelo_relogio(self, b, quando, relogio, dur):
         """Acerta o começo do buff pelo relógio do ícone: buff que já estava ativo quando o
@@ -1424,13 +1382,11 @@ class Overlay:
                       m["barra"] / 2, fill="#22c55e", outline="")     # tracinho verde = ativo
         else:
             self._borda(c, x0, y0, T, m, "#22c55e", 2)
-        dur = bf.get("_dur") if bf.get("auto") else bf.get("duracao")
+        dur = bf.get("duracao")
         if dur:
             resta = dur - (agora - bf["_desde"])
             if resta > 0:
                 txt = f"{int(resta // 60)}m" if resta >= 60 else f"{math.ceil(resta)}"
-                if bf.get("auto") and bf.get("_aprox"):
-                    txt = "~" + txt                    # medida do véu ainda grosseira
                 cor = "#ff5555" if resta <= self.L["aviso_vermelho_s"] else "#ffffff"
                 texto_contorno(c, x0 + T / 2, y0 + T / 2, txt, fonte, cor)
         return True

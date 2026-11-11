@@ -1,5 +1,8 @@
 # Mudanças
 
+## v1.0.41
+- Removido o tempo automático dos buffs (BETA) da v1.0.40: estava atrapalhando as skills ofensivas. A aba Buffs volta a ser como na v1.0.39.
+
 ## v1.0.40
 - Aba Buffs: nova caixa "AUTO (BETA)" em cada buff. Marcada, o programa mede a duração olhando o relógio do ícone do buff no jogo (o véu claro que gira), sem depender do nível da skill. Não precisa digitar a duração: o campo vira só o palpite inicial.
 - No começo o tempo é uma estimativa e aparece com `~` no ícone (ex.: `~2m`); ela vai acertando conforme o buff anda. Depois de ver o buff do começo ao fim uma vez, o programa guarda a duração e o tempo fica exato (guarda uma por nível já visto).
