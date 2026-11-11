@@ -1,4 +1,5 @@
-"""Cronômetro do recall: janela própria, sempre por cima do jogo, com botão de reiniciar."""
+"""Cronômetro do recall: janela própria, sempre por cima do jogo, com botões de play/pausa e
+de reiniciar."""
 
 import re
 import threading
@@ -12,16 +13,18 @@ from PIL import ImageTk
 from .config import ARQ_APP, COR_PAINEL, COR_TRANSPARENTE, CRONOMETRO_PADRAO, registrar
 from .janelas import (WDA_EXCLUDEFROMCAPTURE, WS_EX_LAYERED, WS_EX_NOACTIVATE, WS_EX_TOOLWINDOW,
                       hwnd_de, mudar_estilo, user32)
-from .desenho import COR, desenhar_icone, ret_arred
+from .desenho import COR, desenhar_icone, misturar_cor, ret_arred
 from .dados import fmt_contagem, gravar_json
 
 
 class Cronometro:
     """Contagem regressiva do recall. Fica numa janela só dela (separada das skills e buffs),
     aparece com ou sem o overlay ligado e aceita clique sem tirar o foco do jogo: o botão
-    redondo reinicia a contagem, o resto da caixa arrasta e a roda do mouse muda o tamanho."""
+    verde inicia/pausa, o dourado reinicia a contagem, o resto da caixa arrasta e a roda do
+    mouse muda o tamanho."""
     PISCA = 0.5               # s: troca de cor nos últimos segundos
     TAM_MIN, TAM_MAX = 14, 96
+    COR_BOTAO = {"play": COR["verde"], "reiniciar": COR["ouro"]}
 
     def __init__(self, root, painel):
         self.painel = painel
@@ -40,12 +43,13 @@ class Cronometro:
         self.visivel = False
         self.hwnd = None
         self.inicio = None        # time.monotonic() do último reinício (None = nunca iniciado)
+        self.pausa = None         # segundos que faltavam ao pausar (None = não está pausado)
         self._avisou = False
         self._acabou = False
         self._arrasto = None
-        self._apertou = False
-        self._sobre_botao = False
-        self._botao = (0, 0, 0, 0)
+        self._apertou = None      # botão em que o clique começou ("play"/"reiniciar")
+        self._sobre_botao = None  # botão embaixo do mouse
+        self._botoes = {}         # nome -> (x0, y0, x1, y1)
         self._fontes = None
         self._icones = {}
         self._tam = None
@@ -73,14 +77,33 @@ class Cronometro:
 
     def restante(self, agora=None):
         total = self.cfg["tempo"]
+        if self.pausa is not None:
+            return self.pausa
         if self.inicio is None:
             return total
         return max(0.0, total - ((agora or time.monotonic()) - self.inicio))
 
+    @property
+    def contando(self):
+        """Iniciado, sem pausa e ainda não zerou."""
+        return self.inicio is not None and self.pausa is None and self.restante() > 0
+
     def reiniciar(self):
+        """Volta ao tempo cheio e já começa a contar."""
         self.inicio = time.monotonic()
+        self.pausa = None
         self._avisou = self._acabou = False
         self.painel.overlay.sons.preparar([self.cfg.get("som_aviso"), self.cfg.get("som_fim")])
+
+    def play_pausa(self):
+        """Contando: pausa. Pausado: continua de onde parou. Parado ou zerado: começa do cheio."""
+        if self.pausa is not None:
+            self.inicio = time.monotonic() - (self.cfg["tempo"] - self.pausa)
+            self.pausa = None
+        elif self.contando:
+            self.pausa = self.restante()
+        else:
+            self.reiniciar()
 
     def tocar(self, qual):
         """qual: "som_aviso" (faltando pouco) ou "som_fim" (chegou a zero)."""
@@ -103,7 +126,7 @@ class Cronometro:
             return
         agora = time.monotonic()
         r = self.restante(agora)
-        if self.inicio is not None:
+        if self.inicio is not None and self.pausa is None:
             if not self._avisou and 0 < r <= cfg["aviso"] < cfg["tempo"]:
                 self._avisou = True
                 self.tocar("som_aviso")
@@ -149,11 +172,11 @@ class Cronometro:
             self._fontes = (T, grande, peq)
         return self._fontes
 
-    def _icone(self, tam, cor):
-        if (tam, cor) not in self._icones:
-            self._icones[(tam, cor)] = ImageTk.PhotoImage(desenhar_icone("reiniciar", cor, tam),
-                                                          master=self.win)
-        return self._icones[(tam, cor)]
+    def _icone(self, nome, tam, cor):
+        if (nome, tam, cor) not in self._icones:
+            self._icones[(nome, tam, cor)] = ImageTk.PhotoImage(desenhar_icone(nome, cor, tam),
+                                                                master=self.win)
+        return self._icones[(nome, tam, cor)]
 
     def desenhar(self, agora, r):
         cfg = self.cfg
@@ -161,8 +184,9 @@ class Cronometro:
         modelo = re.sub(r"\d", "0", fmt_contagem(cfg["tempo"]))    # largura fixa
         pad = max(6, T // 3)
         alt_num, alt_rot = grande.metrics("linespace"), peq.metrics("linespace")
-        bd = int(alt_num * 0.8)                                    # diâmetro do botão
-        w = pad + grande.measure(modelo) + pad + bd + pad
+        bd = int(alt_num * 0.8)                                    # diâmetro dos botões
+        vao = max(4, pad // 2)                                     # entre os dois botões
+        w = pad + grande.measure(modelo) + pad + bd + vao + bd + pad
         h = pad // 2 + alt_rot + alt_num + pad // 2
         if self._tam != (w, h):
             self._tam = (w, h)
@@ -174,6 +198,8 @@ class Cronometro:
 
         if self.inicio is None:
             cor, rotulo, borda = COR["mudo"], "RECALL", COR["borda2"]
+        elif self.pausa is not None:
+            cor, rotulo, borda = COR["mudo"], "PAUSADO", COR["borda2"]
         elif r <= 0:
             cor, rotulo, borda = COR["verde"], "RECALL!", COR["verde"]
         elif r <= cfg["aviso"]:
@@ -188,19 +214,32 @@ class Cronometro:
         c.create_text(pad, pad // 2, text=rotulo, font=peq, fill=COR["mudo"], anchor="nw")
         c.create_text(pad, pad // 2 + alt_rot, text=fmt_contagem(r), font=grande, fill=cor,
                       anchor="nw")
-        bx, by = w - pad - bd, (h - bd) // 2
-        self._botao = (bx, by, bx + bd, by + bd)
-        sobre = self._sobre_botao
-        c.create_oval(*self._botao, fill=COR["campo_hover"] if sobre else COR["campo"],
-                      outline=COR["ouro"] if sobre else COR["borda2"])
-        c.create_image(bx + bd / 2, by + bd / 2,
-                       image=self._icone(max(10, int(bd * 0.62)), COR["ouro"] if sobre else COR["texto"]))
+        by = (h - bd) // 2
+        bx_rein = w - pad - bd
+        bx_play = bx_rein - vao - bd
+        self._botoes = {"play": (bx_play, by, bx_play + bd, by + bd),
+                        "reiniciar": (bx_rein, by, bx_rein + bd, by + bd)}
+        icones = {"play": "pausa" if self.contando else "play", "reiniciar": "reiniciar"}
+        tam_ic = max(10, int(bd * 0.62))
+        for nome, caixa in self._botoes.items():
+            # cada botão na sua cor: fundo puxado para ela, borda e ícone nela (mais forte com o mouse)
+            base, sobre = self.COR_BOTAO[nome], self._sobre_botao == nome
+            c.create_oval(*caixa, fill=misturar_cor(COR["campo"], base, 0.34 if sobre else 0.18),
+                          outline=base if sobre else misturar_cor(COR["borda2"], base, 0.6))
+            ic = misturar_cor(base, "#ffffff", 0.3) if sobre else base
+            c.create_image((caixa[0] + caixa[2]) / 2, (caixa[1] + caixa[3]) / 2,
+                           image=self._icone(icones[nome], tam_ic, ic))
 
-    # ---- mouse: botão reinicia, o resto arrasta, roda muda o tamanho
+    # ---- mouse: botões (play/pausa, reiniciar), o resto arrasta, roda muda o tamanho
 
     def _no_botao(self, e):
-        x0, y0, x1, y1 = self._botao
-        return e is not None and x0 <= e.x <= x1 and y0 <= e.y <= y1
+        """Nome do botão embaixo do mouse, ou None."""
+        if e is None:
+            return None
+        for nome, (x0, y0, x1, y1) in self._botoes.items():
+            if x0 <= e.x <= x1 and y0 <= e.y <= y1:
+                return nome
+        return None
 
     def _mouse(self, e):
         sobre = self._no_botao(e)
@@ -223,9 +262,9 @@ class Cronometro:
             self._arrasto = None
             self.cfg["x"], self.cfg["y"] = self.win.winfo_x(), self.win.winfo_y()
             self.salvar()
-        elif self._apertou and self._no_botao(e):
-            self.reiniciar()
-        self._apertou = False
+        elif self._apertou and self._no_botao(e) == self._apertou:
+            (self.play_pausa if self._apertou == "play" else self.reiniciar)()
+        self._apertou = None
 
     def mudar_tamanho(self, T):
         self.cfg["tamanho"] = max(self.TAM_MIN, min(self.TAM_MAX, int(T)))

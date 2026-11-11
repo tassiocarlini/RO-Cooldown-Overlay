@@ -1,5 +1,8 @@
 # Mudanças
 
+## v1.0.39
+- Cronômetro: novo botão verde de play/pausa ao lado do de reiniciar (que agora é dourado). Ele pausa a contagem e continua de onde parou; parado ou zerado, começa do tempo cheio. Pausado, a caixinha mostra "PAUSADO" e não toca som. Na aba Cronômetro também há o botão "Play / Pausar".
+
 ## v1.0.38
 - Mais consumíveis com ícone pronto, sem chave da Divine Pride e sem marcar na tela: Poção da Concentração, Poção do Despertar, Poção da Fúria, Poção Energizante, Pílula de HP, Pílula de SP, Acarajé, Biscoito da Papisa e os pergaminhos Tao Gunka, Abelha Rainha, Orc Herói e Senhor dos Orcs. O ícone vem do próprio cliente LATAM, dentro do programa.
 

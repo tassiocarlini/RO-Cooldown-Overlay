@@ -50,6 +50,9 @@ def desenhar_icone(nome, cor="#e6e6e6", tam=18):
         d.polygon([(S * 0.30, S * 0.18), (S * 0.30, S * 0.82), (S * 0.84, S * 0.50)], fill=c)
     elif nome == "stop":
         ret(S * 0.22, S * 0.22, S * 0.78, S * 0.78, preench=True)
+    elif nome == "pausa":
+        ret(S * 0.24, S * 0.20, S * 0.42, S * 0.80, preench=True, raio=S * 0.05)
+        ret(S * 0.58, S * 0.20, S * 0.76, S * 0.80, preench=True, raio=S * 0.05)
     elif nome == "camera":
         ret(L, S * 0.30, R, B, raio=S * 0.10)
         d.polygon([(S * 0.34, S * 0.30), (S * 0.42, S * 0.18), (S * 0.58, S * 0.18), (S * 0.66, S * 0.30)], fill=c)
@@ -174,7 +177,7 @@ def desenhar_icone(nome, cor="#e6e6e6", tam=18):
     return im.resize((tam, tam), Image.LANCZOS)
 
 
-NOMES_ICONES = ["play", "stop", "camera", "pasta", "lupa", "mais", "mais_circulo", "selecao", "radar",
+NOMES_ICONES = ["play", "pausa", "stop", "camera", "pasta", "lupa", "mais", "mais_circulo", "selecao", "radar",
          "mover", "centro", "chave", "ajuda", "check", "copiar", "lapis", "lixeira", "cima",
          "baixo", "fechar", "relogio", "escudo", "exportar", "importar", "som", "ampulheta",
          "reiniciar", "pontos"]

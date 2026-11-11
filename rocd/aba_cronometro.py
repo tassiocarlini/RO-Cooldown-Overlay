@@ -76,13 +76,17 @@ class AbaCronometro:
 
         lb = ttk.Frame(fc)
         lb.grid(row=6, column=0, columnspan=2, sticky="w", padx=8, pady=(12, 4))
-        self.dica(self.bt(lb, "Reiniciar agora", "reiniciar", cr.reiniciar, amarelo=True),
-                  "Começa a contagem do zero (o mesmo que o botão redondo do cronômetro)."
+        self.dica(self.bt(lb, "Play / Pausar", "play", cr.play_pausa),
+                  "Pausa a contagem ou continua de onde parou; parado ou zerado, começa do "
+                  "tempo cheio (o mesmo que o botão verde do cronômetro)."
                   ).pack(side="left")
+        self.dica(self.bt(lb, "Reiniciar agora", "reiniciar", cr.reiniciar, amarelo=True),
+                  "Começa a contagem do zero (o mesmo que o botão dourado do cronômetro)."
+                  ).pack(side="left", padx=(6, 0))
         self.dica(self.bt(lb, "Voltar para o alto da tela", "centro", cr.centralizar),
                   "Põe o cronômetro de novo no alto, no meio da tela.").pack(side="left", padx=6)
         ttk.Label(fc, style="Dica.TLabel", wraplength=760, justify="left",
-                  text="Na tela: clique no botão redondo para reiniciar, arraste o resto da caixa "
+                  text="Na tela: o botão verde inicia e pausa, o dourado reinicia; arraste o resto da caixa "
                        "para mudar de lugar e use a roda do mouse para aumentar ou diminuir. "
                        "Clicar nele não tira o foco do jogo."
                   ).grid(row=7, column=0, columnspan=2, sticky="w", padx=8, pady=(0, 8))

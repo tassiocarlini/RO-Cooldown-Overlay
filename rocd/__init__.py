@@ -15,7 +15,7 @@ Módulos (cada um importa só dos que estão acima dele na lista):
   seletores     SeletorSkill (busca pelo nome) e Seletor (marcar área na tela)
   sons          Sons (MCI do Windows) e download do MyInstants
   overlay       Overlay: lê a tela, recargas, buffs, AP e desenha os ícones
-  cronometro    Cronometro: contagem do recall numa janela própria, com botão de reiniciar
+  cronometro    Cronometro: contagem do recall numa janela própria, com botões de play/pausa e reiniciar
   atualizacao   atualização pelo GitHub
   aba_skills    métodos do Painel da aba Skills ofensivas (+ marcar ícones, Divine Pride)
   aba_buffs     métodos do Painel da aba Buffs (+ barra de AP)
