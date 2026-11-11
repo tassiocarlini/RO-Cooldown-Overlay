@@ -62,13 +62,13 @@ class AbaBuffs:
                 "2. No jogo, deixe o buff ativo: o programa acha o ícone sozinho."),
                 "Buff pelo nome", lambda: SeletorSkill(self, None, buff=True))
             return
-        for col, t in enumerate(("ÍCONE", "NOME", "", "MOSTRAR", "DURAÇÃO",
+        for col, t in enumerate(("ÍCONE", "NOME", "", "MOSTRAR", "DURAÇÃO", "AUTO (BETA)",
                                  "ESTADO", "")):
             ttk.Label(self.lista_buffs, text=t, style="Titulo.TLabel").grid(
                 row=0, column=col, padx=4, sticky="w")
         for i, bf in enumerate(buffs):
             r = i + 1
-            self.cartao(self.lista_buffs, r, 7)
+            self.cartao(self.lista_buffs, r, 8)
             fi = ttk.Frame(self.lista_buffs, style="Cartao.TFrame")
             fi.grid(row=r, column=0, padx=(10, 4), pady=9, sticky="w")
             imgs = bf.get("_visuais") or bf.get("_imgs") or [icone_dp_rgb(p) for p in
@@ -116,12 +116,22 @@ class AbaBuffs:
                            style="Cartao.TEntry")
             ed.grid(row=r, column=4, padx=2)
             vd.trace_add("write", lambda *_, b=bf, v=vd, e=ed: self._on_duracao(b, v, e))
-            bf["_tk"] = (vn, vm, vd)
+            va = tk.BooleanVar(value=bool(bf.get("auto")))
+            self.dica(ttk.Checkbutton(
+                self.lista_buffs, variable=va, style="Cartao.TCheckbutton",
+                command=lambda b=bf, v=va: (b.__setitem__("auto", bool(v.get())),
+                                            self.salvar_depois())),
+                "BETA: mede a duração olhando o relógio do ícone do buff no jogo (o véu claro "
+                "que gira), sem depender do nível da skill. Os primeiros segundos são uma "
+                "estimativa (aparece com ~ no ícone) e ela vai acertando conforme o buff anda. "
+                "Depois de ver o buff do começo ao fim uma vez, o tempo fica exato. O campo "
+                "Duração vira só o palpite inicial e pode ficar vazio.").grid(row=r, column=5)
+            bf["_tk"] = (vn, vm, vd, va)
 
             bf["_lbl_est"] = self.etiqueta_estado(self.lista_buffs)
-            bf["_lbl_est"].grid(row=r, column=5, padx=2)
+            bf["_lbl_est"].grid(row=r, column=6, padx=2)
             fo = ttk.Frame(self.lista_buffs, style="Cartao.TFrame")
-            fo.grid(row=r, column=6, padx=(2, 10))
+            fo.grid(row=r, column=7, padx=(2, 10))
             self.bt(fo, "", "cima", lambda k=i: self.mover_buff(k, -1), fundo="Cartao").pack(side="left")
             self.bt(fo, "", "baixo", lambda k=i: self.mover_buff(k, 1), fundo="Cartao").pack(side="left")
             self.bt(fo, "", "lixeira", lambda k=i: self.remover_buff(k), fundo="Cartao").pack(

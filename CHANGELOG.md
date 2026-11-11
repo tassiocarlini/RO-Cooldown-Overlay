@@ -1,5 +1,11 @@
 # Mudanças
 
+## v1.0.40
+- Aba Buffs: nova caixa "AUTO (BETA)" em cada buff. Marcada, o programa mede a duração olhando o relógio do ícone do buff no jogo (o véu claro que gira), sem depender do nível da skill. Não precisa digitar a duração: o campo vira só o palpite inicial.
+- No começo o tempo é uma estimativa e aparece com `~` no ícone (ex.: `~2m`); ela vai acertando conforme o buff anda. Depois de ver o buff do começo ao fim uma vez, o programa guarda a duração e o tempo fica exato (guarda uma por nível já visto).
+- Buff renovado, ou recebido em outro nível, é medido de novo. Morrer ou perder o buff antes do fim não estraga a duração guardada.
+- É BETA: vem desligada. Sem a caixa marcada, tudo funciona como antes.
+
 ## v1.0.39
 - Cronômetro: novo botão verde de play/pausa ao lado do de reiniciar (que agora é dourado). Ele pausa a contagem e continua de onde parou; parado ou zerado, começa do tempo cheio. Pausado, a caixinha mostra "PAUSADO" e não toca som. Na aba Cronômetro também há o botão "Play / Pausar".
 
