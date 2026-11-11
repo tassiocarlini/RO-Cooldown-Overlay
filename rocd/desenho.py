@@ -292,6 +292,8 @@ COR = {
     "texto_ouro": "#1a1408",      # texto em cima do dourado
     "verde": "#3ecf8e",
     "vermelho": "#f0616d",
+    "dp": "#a78bfa",              # caixa da chave da Divine Pride (cor só dela)
+    "dp_fundo": "#231f3d",
 }
 
 # Escala de fontes do painel (Segoe UI existe no Windows 10 e 11; a "Variable" do sv_ttk, só no 11)

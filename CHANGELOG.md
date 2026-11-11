@@ -1,5 +1,8 @@
 # Mudanças
 
+## v1.0.42
+- Aba Avançado: a chave da Divine Pride agora fica no topo, numa caixa roxa em destaque com o campo da chave, o botão "Salvar e testar" e o "Como pegar a chave?".
+
 ## v1.0.41
 - Removido o tempo automático dos buffs (BETA) da v1.0.40: estava atrapalhando as skills ofensivas. A aba Buffs volta a ser como na v1.0.39.
 - Skills ofensivas: novo botão "Área da barra" (igual ao "Área dos buffs"). Marque a região onde a barra de atalhos pode ficar: a busca fica só nela e o programa confere a posição dos ícones a cada 2 s. Se você mexer a barra um pouquinho, ele acha os ícones de novo sozinho, em vez de achar que a skill entrou em recarga.

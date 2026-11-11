@@ -264,7 +264,8 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
                                                            raio=11))
 
         # Cópias dos estilos com outro fundo (cantos dos botões e campos pegam essa cor)
-        for prefixo, cor in (("Cartao", COR["cartao"]), ("Rodape", COR["cabecalho"])):
+        for prefixo, cor in (("Cartao", COR["cartao"]), ("Rodape", COR["cabecalho"]),
+                             ("ChaveDP", COR["dp_fundo"])):
             for base in ("TFrame", "TLabel", "Dica.TLabel", "Titulo.TLabel", "Campo.TLabel",
                          "TCheckbutton", "TRadiobutton", "TEntry", "TCombobox", "TSpinbox",
                          "Icone.TButton", *(f"{n}.TButton" for n in BOTOES)):
@@ -730,16 +731,32 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         self.lbl_rag = ttk.Label(frag, style="Dica.TLabel", text="")
         self.lbl_rag.pack(anchor="w", padx=34, pady=(0, 6))
 
-        fdp = ttk.LabelFrame(av, text="Divine Pride (opcional: recarga do LATAM e ícones)")
-        fdp.pack(fill="x", padx=4, pady=4)
-        ttk.Label(fdp, image=self.ic["chave"]).pack(side="left", padx=(6, 2), pady=6)
-        ttk.Label(fdp, text="Chave da API:").pack(side="left", padx=(0, 4), pady=6)
+        # Chave da Divine Pride: caixa roxa com borda grossa, para achar fácil
+        fdp = tk.Frame(av, bg=COR["dp_fundo"], highlightthickness=2,
+                       highlightbackground=COR["dp"], highlightcolor=COR["dp"], bd=0)
+        fdp.pack(fill="x", padx=8, pady=(12, 8), before=fd)   # primeira coisa da aba
+        cab = tk.Frame(fdp, bg=COR["dp_fundo"])
+        cab.pack(fill="x", padx=12, pady=(10, 2))
+        self._ic_dp = ImageTk.PhotoImage(desenhar_icone("chave", COR["dp"], 22))
+        tk.Label(cab, image=self._ic_dp, bg=COR["dp_fundo"]).pack(side="left", padx=(0, 8))
+        tk.Label(cab, text="CHAVE DA DIVINE PRIDE", bg=COR["dp_fundo"], fg=COR["dp"],
+                 font=FONTE["titulo"]).pack(side="left")
+        tk.Label(fdp, text="Opcional: traz a recarga das skills do LATAM e os ícones. "
+                           "Cole a sua chave da API e clique em Salvar e testar.",
+                 bg=COR["dp_fundo"], fg=COR["texto"], font=FONTE["dica"],
+                 wraplength=740, justify="left").pack(anchor="w", padx=12, pady=(0, 8))
+        lin = ttk.Frame(fdp, style="ChaveDP.TFrame")
+        lin.pack(fill="x", padx=12, pady=(0, 4))
+        ttk.Label(lin, text="Chave da API:", style="ChaveDP.Campo.TLabel").pack(
+            side="left", padx=(0, 6))
         self.var_dp = tk.StringVar(value=self.app_cfg.get("dp_chave", ""))
-        ttk.Entry(fdp, textvariable=self.var_dp, width=34, show="•").pack(side="left")
-        self.bt(fdp, "Salvar e testar", "check", self.testar_dp).pack(side="left", padx=6)
-        self.bt(fdp, "Como pegar a chave?", "ajuda", self.ajuda_dp).pack(side="left")
-        self.lbl_dp = ttk.Label(fdp, style="Dica.TLabel", text=self.texto_chave_dp())
-        self.lbl_dp.pack(side="left", padx=4)
+        ttk.Entry(lin, textvariable=self.var_dp, width=38, show="•",
+                  style="ChaveDP.TEntry").pack(side="left")
+        self.bt(lin, "Salvar e testar", "check", self.testar_dp, amarelo=True,
+                fundo="ChaveDP").pack(side="left", padx=6)
+        self.bt(lin, "Como pegar a chave?", "ajuda", self.ajuda_dp, fundo="ChaveDP").pack(side="left")
+        self.lbl_dp = ttk.Label(fdp, style="ChaveDP.Dica.TLabel", text=self.texto_chave_dp())
+        self.lbl_dp.pack(anchor="w", padx=12, pady=(2, 10))
 
         # Rodapé
         rod = tk.Frame(w, bg=COR["cabecalho"])
