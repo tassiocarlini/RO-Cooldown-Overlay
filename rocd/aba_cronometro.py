@@ -1,21 +1,22 @@
-"""Painel, aba Cronômetro (contagem do recall)."""
+"""Painel, aba Utilidades (cronômetro do recall e último local)."""
 
 import tkinter as tk
 from tkinter import ttk
 
 from .dados import fmt_contagem, ler_tempo
+from .desenho import COR
 
 
 class AbaCronometro:
-    """Métodos do Painel (aba Cronômetro)."""
+    """Métodos do Painel (aba Utilidades)."""
 
     def _montar_aba_cronometro(self, aba):
         cr = self.cronometro
         cfg = cr.cfg
-        f = ttk.Frame(aba)
-        f.pack(fill="both", expand=True, padx=4, pady=6)
-        fc = ttk.LabelFrame(f, text="Cronômetro do recall")
-        fc.pack(fill="x")
+        # cada recurso numa caixa; a aba rola quando não cabe tudo na janela
+        f = self.lista_rolavel(aba, padx=4, pady=6)
+        f.columnconfigure(0, weight=1)
+        fc = self._caixa(f, 0, "Cronômetro do recall")
         fc.columnconfigure(1, weight=1)          # sobra de largura vai para os campos, não rótulos
 
         self.var_crono = tk.BooleanVar(value=bool(cfg["ligado"]))
@@ -90,6 +91,86 @@ class AbaCronometro:
                        "para mudar de lugar e use a roda do mouse para aumentar ou diminuir. "
                        "Clicar nele não tira o foco do jogo."
                   ).grid(row=7, column=0, columnspan=2, sticky="w", padx=8, pady=(0, 8))
+        self._montar_ultimo_local(f)
+
+    def _caixa(self, pai, linha, titulo):
+        """Seção com borda em volta (uma por recurso da aba)."""
+        borda = tk.Frame(pai, bg=self.cor_fundo, highlightthickness=1,
+                         highlightbackground=COR["borda2"], bd=0)
+        borda.grid(row=linha, column=0, sticky="ew", padx=(0, 6), pady=(0, 10))
+        sec = ttk.LabelFrame(borda, text=titulo)
+        sec.pack(fill="x", padx=8, pady=6)
+        return sec
+
+    # ---- Último local (Last Spot)
+
+    def _montar_ultimo_local(self, f):
+        ul = self.ultimo_local
+        fu = self._caixa(f, 1, "Último local (Last Spot)")
+        self.var_ultimo = tk.BooleanVar(value=bool(ul.cfg["ligado"]))
+        c = ttk.Checkbutton(fu, text="Marcar no mini mapa com um X onde eu estava antes de teleportar",
+                            variable=self.var_ultimo, command=self._on_ultimo)
+        c.pack(anchor="w", padx=8, pady=(6, 0))
+        self.dica(c, "Funciona mesmo com o overlay parado. Precisa do mini mapa aberto no jogo.")
+        lt = ttk.Frame(fu)
+        lt.pack(anchor="w", padx=8, pady=(8, 0))
+        ttk.Label(lt, text="Tamanho do X", style="Campo.TLabel").pack(side="left", padx=(0, 16))
+        self.var_ultimo_tam = tk.DoubleVar(value=ul.cfg["tamanho"])
+        esc = ttk.Scale(lt, from_=ul.TAM_MIN, to=ul.TAM_MAX, orient="horizontal", length=220,
+                        variable=self.var_ultimo_tam, command=self._on_ultimo_tam)
+        esc.pack(side="left")
+        self.dica(esc, "Largura do X no mini mapa, em pixels.")
+        self.lbl_ultimo_tam = ttk.Label(lt, text=f"{ul.cfg['tamanho']} px")
+        self.lbl_ultimo_tam.pack(side="left", padx=8)
+        lb = ttk.Frame(fu)
+        lb.pack(anchor="w", padx=8, pady=(10, 4))
+        self.dica(self.bt(lb, "Marcar mini mapa", "selecao", self.marcar_minimapa),
+                  "Arraste um retângulo bem em cima do mini mapa (só o quadrado do mapa). "
+                  "Sem marcar, o programa usa o canto de cima, à direita, do jogo.").pack(side="left")
+        self.dica(self.bt(lb, "Apagar o X", "lixeira", self.apagar_ultimo_local, perigo=True),
+                  "Tira o X do mini mapa até o próximo teleporte.").pack(side="left", padx=6)
+        self.lbl_ultimo_area = ttk.Label(lb)
+        self.lbl_ultimo_area.pack(side="left", padx=8)
+        self._atualizar_ultimo_area()
+        ttk.Label(fu, style="Dica.TLabel", wraplength=760, justify="left",
+                  text="X verde: você está no mesmo mapa (ex.: depois da Asa de Mosca). X vermelho: você "
+                       "está em outro mapa; o X fica guardado até você voltar. O programa acha você pela "
+                       "seta branca do mini mapa: só olha a tela."
+                  ).pack(anchor="w", padx=8, pady=(0, 8))
+
+    def _atualizar_ultimo_area(self):
+        marcada = bool(self.ultimo_local.cfg.get("area"))
+        self.lbl_ultimo_area.config(text="Mini mapa marcado ✓" if marcada else "Mini mapa: canto do jogo")
+
+    def _on_ultimo(self):
+        self.ultimo_local.cfg["ligado"] = bool(self.var_ultimo.get())
+        self.ultimo_local.salvar()
+
+    def _on_ultimo_tam(self, val):
+        T = int(round(float(val)))
+        self.lbl_ultimo_tam.config(text=f"{T} px")
+        if T != self.ultimo_local.cfg["tamanho"]:
+            self.ultimo_local.cfg["tamanho"] = T
+            self.ultimo_local.salvar()
+
+    def apagar_ultimo_local(self):
+        self.ultimo_local.apagar()
+        self.status("X do último local apagado.")
+
+    def marcar_minimapa(self):
+        def pronto(regioes, tela, mon):
+            if not regioes:
+                return
+            x0, y0, w, h = regioes[-1]
+            self.ultimo_local.cfg["area"] = {"x": x0 + mon["left"], "y": y0 + mon["top"], "w": w, "h": h,
+                                             "origem": self.overlay.origem_agora()}
+            self.ultimo_local.salvar()
+            self.ultimo_local.apagar()          # o X antigo era de outra área
+            self._atualizar_ultimo_area()
+            self.status("Mini mapa marcado.")
+        self._capturar_com_contagem(
+            "Mostre o jogo com o mini mapa aberto",
+            "Arraste um retângulo bem em cima do mini mapa (só o quadrado do mapa)", pronto)
 
     def sincronizar_cronometro(self):
         """O tamanho mudou pela roda do mouse no cronômetro: acompanha na aba."""

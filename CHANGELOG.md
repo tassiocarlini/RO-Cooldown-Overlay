@@ -1,5 +1,15 @@
 # Mudanças
 
+## v1.0.43
+- A aba "Cronômetro" agora se chama "Utilidades" (cronômetro do recall e último local). Cada recurso fica numa caixa própria, e a aba ganhou barra de rolagem quando não cabe tudo na janela.
+- Novo: Último local (Last Spot), na aba Utilidades. Ligado, o programa marca com um X no mini mapa o lugar onde você estava antes de teleportar (Asa de Mosca, teleporte, troca de mapa).
+- X verde: você ainda está no mesmo mapa. X vermelho: você está em outro mapa; o X fica guardado até você voltar. O botão "Apagar o X" tira a marca. O tamanho do X é ajustável ("Tamanho do X").
+- O X aparece em prints e lives. Ele some enquanto você está em cima dele (para não tapar a sua seta).
+- O programa acha você pela seta branca do mini mapa (só olha a tela). Se ele não achar, use "Marcar mini mapa" e arraste um retângulo bem em cima do mini mapa.
+- Mais leve: o overlay só redesenha o que mudou, os buffs são conferidos primeiro no lugar onde estavam e a leitura do mini mapa roda à parte. No PC de teste o uso de processador caiu de uns 40% para uns 17% de um núcleo, com o overlay mais rápido (28 leituras por segundo, antes 23).
+- Menos memória: a reserva de memória caiu de uns 560 MB para uns 80 MB (o programa usava uma linha de trabalho por núcleo do PC sem precisar).
+- Salvar ficou seguro: perfil e configurações são gravados num arquivo à parte e só depois trocados, então desligar o PC no meio não estraga nada. Se um perfil não abrir, o programa guarda uma cópia (perfil.estragado...) em vez de gravar por cima.
+
 ## v1.0.42
 - Aba Avançado: a chave da Divine Pride agora fica no topo, numa caixa roxa em destaque com o campo da chave, o botão "Salvar e testar" e o "Como pegar a chave?".
 

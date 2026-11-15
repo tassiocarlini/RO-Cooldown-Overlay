@@ -7,6 +7,11 @@ from pathlib import Path
 
 
 FALTANDO = {}               # biblioteca opcional que não carregou -> erro (vai para o log)
+# numpy e OpenCV abrem uma linha de trabalho por núcleo do PC e reservam memória para cada uma
+# (medido: 558 MB num PC de 16 núcleos). As imagens daqui são pequenas: uma linha só basta e a
+# reserva cai para uns 80 MB. Tem de vir antes de importar as duas.
+for _var in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "OPENCV_FOR_THREADS_NUM"):
+    os.environ.setdefault(_var, "1")
 try:                        # para achar os ícones na tela sozinho
     import numpy as np
 except ImportError as e:
@@ -28,7 +33,7 @@ BUFF_FOLGA_PAUSA = 1.5      # s a mais depois de tela preta / alt-tab para os í
 MOSTRAR_BUFF = {"Sempre": "sempre", "Só quando faltar": "faltando", "Só quando ativo": "ativo"}
 
 
-VERSAO = "1.0.42"
+VERSAO = "1.0.43"
 NOME_APP = "RO Cooldown Overlay"
 # Repositório no GitHub de onde vêm as atualizações (CHANGELOG.md e .zip da branch abaixo)
 REPO_GITHUB = "tassiocarlini/RO-Cooldown-Overlay"
@@ -141,6 +146,13 @@ CRONOMETRO_PADRAO = {
     "som_fim": "recall_fem",           # quando chega a zero
     "tamanho": 28,                     # altura dos números em pixels
     "x": None, "y": None,              # None = no alto, centralizado na tela
+}
+
+# Último local (Last Spot): X no mini mapa onde você estava antes de teleportar (app.json)
+ULTIMO_LOCAL_PADRAO = {
+    "ligado": False,
+    "area": None,                      # mini mapa marcado na tela (None = canto de cima à direita)
+    "tamanho": 14,                     # largura do X em pixels
 }
 
 

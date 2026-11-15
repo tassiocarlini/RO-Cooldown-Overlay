@@ -5,6 +5,7 @@ import json
 import re
 import shutil
 import sys
+import time
 import traceback
 from pathlib import Path
 
@@ -31,10 +32,23 @@ class Perfis:
 
     @staticmethod
     def carregar(nome):
+        arq = PASTA_PERFIS / nome / "perfil.json"
         try:
-            dados = json.loads((PASTA_PERFIS / nome / "perfil.json").read_text(encoding="utf-8"))
-        except Exception:
+            dados = json.loads(arq.read_text(encoding="utf-8"))
+            if not isinstance(dados, dict):
+                raise ValueError("perfil.json não é um perfil")
+        except FileNotFoundError:
             dados = {}
+        except Exception as e:
+            # arquivo estragado: guarda uma cópia antes que o próximo salvamento grave por cima
+            dados = {}
+            try:
+                guarda = arq.with_name(f"perfil.estragado.{time.strftime('%Y%m%d-%H%M%S')}.json")
+                shutil.copy2(arq, guarda)
+                registrar(f"Perfil \"{nome}\": o perfil.json não abriu ({e}). Cópia guardada em "
+                          f"{guarda.name}; o perfil começa do zero.")
+            except Exception:
+                registrar(f"Perfil \"{nome}\": o perfil.json não abriu ({e}).")
         perfil = mesclar(PERFIL_PADRAO, dados)
         if dados:
             # na 1.0.22 o padrão mudou só para perfis novos; os já salvos mantêm o antigo

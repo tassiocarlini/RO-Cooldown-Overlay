@@ -3,8 +3,10 @@
 import copy
 import json
 import math
+import os
 import re
 import unicodedata
+from pathlib import Path
 
 from .config import ARQ_BANCO, ARQ_MEUS, TODAS
 from .consumiveis import CONSUMIVEIS, GRUPO
@@ -75,7 +77,16 @@ def ler_json(arq, padrao):
 
 
 def gravar_json(arq, dados):
-    arq.write_text(json.dumps(dados, indent=2, ensure_ascii=False), encoding="utf-8")
+    """Grava num arquivo ao lado e só então troca pelo de verdade: se o PC desligar no meio,
+    o arquivo antigo continua inteiro (nunca fica pela metade)."""
+    arq = Path(arq)
+    texto = json.dumps(dados, indent=2, ensure_ascii=False)
+    tmp = arq.with_name(arq.name + ".tmp")
+    with open(tmp, "w", encoding="utf-8") as f:
+        f.write(texto)
+        f.flush()
+        os.fsync(f.fileno())
+    os.replace(tmp, arq)
 
 
 # =============================================================== banco de skills

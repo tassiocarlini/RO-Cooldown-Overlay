@@ -33,6 +33,33 @@ RELOGIO_TOL, RELOGIO_TOL_MIN = 0.03, 10.0
 AP_FALHAS_ROTULO = 3
 
 
+class _Gravador:
+    """Faz o papel do Canvas para o desenho: só anota os create_...() pedidos."""
+
+    def __init__(self):
+        self.ops = []
+
+    def __getattr__(self, nome):
+        if not nome.startswith("create_"):
+            raise AttributeError(nome)
+
+        def anotar(*args, **kw):
+            self.ops.append((nome, args, kw))
+            return 0
+        return anotar
+
+
+def _plano(args):
+    """Coordenadas de um create_...() numa lista só (o polígono vem como lista de pontos)."""
+    out = []
+    for a in args:
+        if isinstance(a, (list, tuple)):
+            out.extend(a)
+        else:
+            out.append(a)
+    return out
+
+
 class Overlay:
     def __init__(self, root, painel):
         self.root = root
@@ -78,6 +105,8 @@ class Overlay:
         self.w = self.h = 10
         self._arrasto = None
         self._avisou_captura = False
+        self._ops_ant = None           # o que está desenhado agora (lista do _Gravador)
+        self._ids = []                 # item do Canvas de cada peça dessa lista
         self.sons = Sons()
 
         self.canvas.bind("<ButtonPress-1>", self._press)
@@ -585,6 +614,8 @@ class Overlay:
 
     def _loop_buffs(self):
         sct = None
+        perto = {}                  # (buff, versão) -> onde o ícone estava na última leitura
+        perto_reg = None
         while True:
             time.sleep(0.3)
             job = self._buff_job
@@ -606,9 +637,32 @@ class Overlay:
                 agora = time.monotonic()
                 res = {"hwnd": hwnd}              # de qual cliente do jogo é esta leitura
                 brilho = None
+                if perto_reg != regiao:           # a área mudou: os lugares guardados não valem
+                    perto, perto_reg = {}, dict(regiao)
                 for chave_b, mods, artes in alvos:
                     melhor, qual, recorte, onde = 0.0, 0, None, None
+                    # 1º só em volta de onde o ícone estava (rápido). Procurar na área toda custa
+                    # caro e só é preciso quando ele não está mais lá (acabou ou mudou de lugar).
                     for n_var, (t_c, t_b, do_site, (W, H)) in enumerate(mods):
+                        pos = perto.get((chave_b, n_var))
+                        if do_site or pos is None:
+                            continue
+                        tela, t = (tela_b, t_b) if t_b is not None else (tela_c, t_c)
+                        th, tw = t.shape
+                        xa, ya = max(0, pos[0] - 3), max(0, pos[1] - 3)
+                        xb, yb = min(tela.shape[1], pos[0] + tw + 3), min(tela.shape[0], pos[1] + th + 3)
+                        if xb - xa < tw or yb - ya < th:
+                            continue
+                        if xa < ox + ov[2] and xb > ox and ya < oy + ov[3] and yb > oy:
+                            continue                  # em cima do próprio overlay: procura normal
+                        r = cv2.matchTemplate(tela[ya:yb, xa:xb], t, cv2.TM_CCOEFF_NORMED)
+                        _, v, _, (lx, ly) = cv2.minMaxLoc(r)
+                        if v == v and v >= LIMIAR_BUFF and v > melhor:
+                            lx, ly = lx + xa, ly + ya
+                            melhor, qual, recorte = v, n_var, None
+                            onde = (lx - (W - tw) // 2, ly - (H - th) // 2, W, H)
+                            perto[(chave_b, n_var)] = (lx, ly)
+                    for n_var, (t_c, t_b, do_site, (W, H)) in (() if onde else enumerate(mods)):
                         # ícone translúcido: o cinza "vê" o cenário por trás e pode confundir;
                         # por isso o cinza só é usado quando o ícone não tem traços claros
                         tela, t = (tela_b, t_b) if t_b is not None else (tela_c, t_c)
@@ -626,6 +680,8 @@ class Overlay:
                             if v == v and v > melhor:
                                 melhor, qual, recorte = v, n_var, None
                                 onde = (lx - (W - tw) // 2, ly - (H - th) // 2, W, H)
+                                if v >= LIMIAR_BUFF:
+                                    perto[(chave_b, n_var)] = (lx, ly)
                             continue
                         # versão vinda da Divine Pride: só vale se tiver a moldura de ícone de buff
                         if brilho is None:
@@ -1020,12 +1076,15 @@ class Overlay:
                     self.painel.salvar_depois()
 
     def loop(self):
+        t0 = time.monotonic()
         try:
             self._tick()
         except Exception:
             registrar("Erro no loop:\n" + traceback.format_exc(), chave_rep="loop")
         fps = self.perfil["deteccao"]["fps"] if self.perfil else 20
-        self.root.after(max(10, 1000 // max(1, int(fps))), self.loop)
+        # desconta o tempo que a volta levou (a captura espera a tela): o ritmo fica o pedido
+        gasto = int((time.monotonic() - t0) * 1000)
+        self.root.after(max(5, 1000 // max(1, int(fps)) - gasto), self.loop)
 
     def _tick(self):
         agora = time.monotonic()
@@ -1064,7 +1123,8 @@ class Overlay:
             dentro = gx <= cx < gx + gw and gy <= cy < gy + gh
             # Se o overlay está em cima do jogo, só aparece se nada estiver cobrindo o jogo ali
             self.jogo_ok = not dentro or janela_no_ponto(cx, cy) in (
-                self.jogo.hwnd, self.meu_hwnd, self.painel.cronometro.hwnd)
+                self.jogo.hwnd, self.meu_hwnd, self.painel.cronometro.hwnd,
+                self.painel.ultimo_local.hwnd)
             self.estado_jogo = "" if self.jogo_ok else "jogo coberto"
         self._atualizar_janela()
 
@@ -1121,8 +1181,26 @@ class Overlay:
     # ---- desenho
 
     def desenhar(self, agora, foco):
+        """Monta a lista do que desenhar e só mexe na janela se ela mudou desde a última vez.
+        Redesenhar uma janela transparente é caro; parado (skills prontas), não gasta nada."""
+        g = _Gravador()
+        self._montar_desenho(g, agora, foco)
+        ant, self._ops_ant = self._ops_ant, g.ops
+        if g.ops == ant:
+            return
         c = self.canvas
+        if ant and len(ant) == len(g.ops) and all(a[0] == n[0] for a, n in zip(ant, g.ops)):
+            # mesmas peças (só mudou um número, uma cor, a largura da barra): mexe só nelas
+            for ident, a, n in zip(self._ids, ant, g.ops):
+                if a[1] != n[1]:
+                    c.coords(ident, *_plano(n[1]))
+                if a[2] != n[2]:
+                    c.itemconfig(ident, **n[2])
+            return
         c.delete("all")
+        self._ids = [getattr(c, nome)(*args, **kw) for nome, args, kw in g.ops]
+
+    def _montar_desenho(self, c, agora, foco):
         itens = self.itens()
         if not self.janela_visivel or not (itens or self.mostrar_ap()):
             return
@@ -1358,12 +1436,12 @@ class Overlay:
         bh = m["barra"]
         if self.estilo == "classico":
             c.create_rectangle(x0, yb, x0 + T, yb + bh, fill="#222222", outline="")
-            c.create_rectangle(x0, yb, x0 + T * frac, yb + bh, fill=cor, outline="")
+            c.create_rectangle(x0, yb, x0 + round(T * frac), yb + bh, fill=cor, outline="")
             return
         r = bh / 2
         ret_arred(c, x0, yb, x0 + T, yb + bh, r, fill="#2a3040", outline="")
         if frac > 0:
-            ret_arred(c, x0, yb, x0 + max(bh, T * frac), yb + bh, r, fill=cor, outline="")
+            ret_arred(c, x0, yb, x0 + max(bh, round(T * frac)), yb + bh, r, fill=cor, outline="")
 
     def _nome(self, c, nome, x0, y0, T, m):
         """Nome embaixo do ícone, cortado com "…" para não encostar no vizinho."""

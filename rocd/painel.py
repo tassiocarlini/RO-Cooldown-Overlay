@@ -22,6 +22,7 @@ from .perfis import importar_dados_antigos_sozinho, migrar_config_antiga, nome_s
 from .janelas import Jogo, barra_escura
 from .overlay import Overlay
 from .cronometro import Cronometro
+from .ultimo_local import UltimoLocal
 from .aba_buffs import AbaBuffs
 from .aba_skills import AbaSkills
 from .aba_avancado import AbaAvancado
@@ -72,6 +73,7 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
 
         self.overlay = Overlay(root, self)
         self.cronometro = Cronometro(root, self)
+        self.ultimo_local = UltimoLocal(root, self)
         self._montar_ui()
         self.atualizar_aba_avancado()
 
@@ -481,7 +483,7 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         nb.add(aba_som, **self.aba("Sons", "som"))
         self._montar_aba_sons(aba_som)
         aba_cr = ttk.Frame(nb)
-        nb.add(aba_cr, **self.aba("Cronômetro", "ampulheta"))
+        nb.add(aba_cr, **self.aba("Utilidades", "ampulheta"))
         self._montar_aba_cronometro(aba_cr)
         nb.add(aba_ap, **self.aba("Aparência", "mover"))
         nb.add(aba_av, **self.aba("Avançado", "chave"))
