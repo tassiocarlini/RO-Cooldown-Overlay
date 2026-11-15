@@ -3,11 +3,17 @@ name: Gerar versão para Windows
 # Roda sozinho a cada envio para a main: se a versão do programa (VERSAO) ainda não tem
 # Release, gera o .exe e publica a Release vX.Y.Z com o .zip e as novidades do CHANGELOG.
 # O programa .exe baixa as atualizações dessa Release.
-# Também pode ser rodado à mão na aba "Actions" (sem publicar nada, só gera o .zip).
+# Também pode ser rodado à mão na aba "Actions" (sem publicar nada, só gera o .zip; marcando
+# "Avisar no Discord", posta o aviso no canal para testar).
 on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      discord:
+        description: "Avisar no Discord também (teste)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -77,3 +83,23 @@ jobs:
         run: |
           gh release create "${{ steps.versao.outputs.tag }}" (Get-Item dist/*.zip).FullName `
             --title "${{ steps.versao.outputs.tag }}" --notes-file dist/notas.md --target "$env:GITHUB_SHA"
+
+      # Avisa no canal do Discord (segredo DISCORD_WEBHOOK). Sem o segredo, pula; se o Discord
+      # falhar, a Release continua publicada. Uma mensagem do Discord aceita até 2000 letras.
+      - name: Avisar no Discord
+        if: steps.versao.outputs.publicar == 'True' || inputs.discord
+        continue-on-error: true
+        shell: pwsh
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          if (-not $env:DISCORD_WEBHOOK) { Write-Host "Sem o segredo DISCORD_WEBHOOK: não avisei."; exit 0 }
+          $tag = "${{ steps.versao.outputs.tag }}"
+          $cab = "**RO Cooldown Overlay $tag**`n"
+          $fim = "`n`nBaixar: https://github.com/${{ github.repository }}/releases/tag/$tag"
+          $notas = (Get-Content dist/notas.md -Raw -Encoding utf8).Trim()
+          $max = 2000 - $cab.Length - $fim.Length
+          if ($notas.Length -gt $max) { $notas = $notas.Substring(0, $max - 4).TrimEnd() + "`n..." }
+          $corpo = @{ content = $cab + $notas + $fim; allowed_mentions = @{ parse = @() } } | ConvertTo-Json -Compress
+          Invoke-RestMethod -Uri $env:DISCORD_WEBHOOK -Method Post `
+            -ContentType "application/json; charset=utf-8" -Body ([Text.Encoding]::UTF8.GetBytes($corpo))
