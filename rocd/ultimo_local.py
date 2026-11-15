@@ -22,6 +22,7 @@ SALTO = 4.0             # px no mini mapa de uma leitura para a outra = teleport
 SUMIU_MAX = 4.0         # s sem ver a seta: depois disso, sem tela preta, não conta como teleporte
 LIMIAR_MAPA = 0.5       # semelhança mínima do desenho do mini mapa para ser o mesmo mapa
 INTERVALO = 0.15        # s entre leituras
+SEGURA = 1.5            # s que o X continua na tela depois de a seta sumir (print, piscada)
 PERTO = 8               # px: com a seta a essa distância do X (mais meio X), o X some
 
 
@@ -140,6 +141,7 @@ class UltimoLocal:
         self._pedido = None      # área do mini mapa para a linha de leitura (None = não ler)
         self._leitura = None     # (número, quando, área, seta, assinatura, tela preta)
         self._lida = 0           # número da última leitura já usada
+        self._vista = (-99.0, None, None)   # (quando, seta, assinatura) da última vez com seta
         self._desenho = None     # (geometria, x, y, cor) já desenhado
         self._verde = True
         self._ult_mapa = -99.0
@@ -229,8 +231,14 @@ class UltimoLocal:
                 registrar(f"Último local guardado: ({p[0]:.0f}, {p[1]:.0f}) no mini mapa")
                 self._ult_mapa = -99.0
         salvo = self.rastreio.salvo
-        # mostra só com o mini mapa aberto (seta vista) e o jogo na frente
-        if salvo is None or seta is None or not self.jogo.em_foco():
+        # Mostra com o mini mapa à vista (a seta foi achada na tela). Não exige o jogo em foco:
+        # a ferramenta de print e o próprio painel tiram o foco, e o X sumia bem na hora do print.
+        # Se outra janela cobrir o mini mapa, a seta deixa de ser vista e o X some sozinho.
+        if seta is not None:
+            self._vista = (agora, seta, sig)
+        elif agora - self._vista[0] <= SEGURA:
+            seta, sig = self._vista[1], self._vista[2]    # sumiu um instante: segura o X
+        if salvo is None or seta is None:
             return self._esconder()
         T = self.tamanho()
         if math.hypot(seta[0] - salvo[0][0], seta[1] - salvo[0][1]) <= T / 2 + PERTO:

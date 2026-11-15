@@ -1,5 +1,8 @@
 # Mudanças
 
+## v1.0.44
+- Último local: o X não some mais na hora do print. Antes ele só aparecia com o jogo em foco, e a ferramenta de print (ou clicar no painel) tirava o foco. Agora ele aparece sempre que o mini mapa está à vista e continua por 1,5 s se a seta sumir um instante.
+
 ## v1.0.43
 - A aba "Cronômetro" agora se chama "Utilidades" (cronômetro do recall e último local). Cada recurso fica numa caixa própria, e a aba ganhou barra de rolagem quando não cabe tudo na janela.
 - Novo: Último local (Last Spot), na aba Utilidades. Ligado, o programa marca com um X no mini mapa o lugar onde você estava antes de teleportar (Asa de Mosca, teleporte, troca de mapa).
