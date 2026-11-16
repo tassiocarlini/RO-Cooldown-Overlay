@@ -1,5 +1,9 @@
 # Mudanças
 
+## v1.0.45
+- Novo: transparência do overlay, na aba Aparência. O deslizante "Transparência do overlay" vai de 0% (sólido) a 85%: quanto maior, mais você enxerga o jogo por trás dos ícones, dos números e da barra de AP. Fica salvo em cada perfil. No modo mover o overlay continua sólido, para a caixa amarela aparecer bem.
+- Aba Aparência mais organizada: cada assunto fica numa caixa própria com título (Tamanho e fila dos ícones, Estilo dos ícones, Posição na tela, Transparência, Quando mostrar, Barra de AP).
+
 ## v1.0.44
 - Último local: o X não some mais na hora do print. Antes ele só aparecia com o jogo em foco, e a ferramenta de print (ou clicar no painel) tirava o foco. Agora ele aparece sempre que o mini mapa está à vista e continua por 1,5 s se a seta sumir um instante.
 

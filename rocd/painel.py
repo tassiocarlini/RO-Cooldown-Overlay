@@ -12,7 +12,8 @@ from tkinter import messagebox, simpledialog, ttk
 
 from PIL import Image, ImageTk
 
-from .config import ARQ_APP, ESTILOS, NOME_APP, PASTA, TODAS, VERSAO, registrar, sv_ttk
+from .config import (ARQ_APP, ESTILOS, NOME_APP, PASTA, TODAS, TRANSPARENCIA_MAX, VERSAO, registrar,
+                     sv_ttk)
 from .desenho import (BOTOES, COR, FONTE, NOMES_ICONES, TEXTO_ESCURO, ardosia, desenhar_icone,
                       dourar, imagem_aba, imagem_degrade, logo_app, misturar_cor)
 from .dados import Banco, fmt_aprendido, gravar_json, ler_json
@@ -533,8 +534,8 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         self.lista.columnconfigure(1, weight=1)          # o nome da skill estica
 
         # Aparência
-        # Duas colunas de seções: à esquerda o visual dos ícones e a posição,
-        # à direita quando o overlay aparece e a barra de AP.
+        # Duas colunas de caixas, uma por assunto: à esquerda o tamanho, o estilo e a posição;
+        # à direita a transparência, quando o overlay aparece e a barra de AP.
         fa = ttk.Frame(aba_ap)
         fa.pack(fill="both", expand=True, padx=4, pady=6)
         fa.columnconfigure(0, weight=1, uniform="col")
@@ -554,6 +555,7 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         self.var_oficial = tk.BooleanVar()
         self.var_ap = tk.BooleanVar()
         self.var_ap_alt = tk.DoubleVar()
+        self.var_transp = tk.DoubleVar()
 
         def deslizante(pai, linha, rotulo, de, ate, var, cmd, ajuda, visivel=False):
             """Rótulo, deslizante e valor; a ajuda fica no tooltip (embaixo só se visivel)."""
@@ -570,21 +572,33 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
             self.dica(sc, ajuda)
             return valor
 
-        # --- Ícones
-        fi = ttk.LabelFrame(esq, text="Ícones")
-        fi.pack(fill="x", pady=(0, 8))
+        def caixa(pai, titulo):
+            """Seção com borda em volta e o título em cima (uma por assunto)."""
+            borda = tk.Frame(pai, bg=self.cor_fundo, highlightthickness=1,
+                             highlightbackground=COR["borda2"], bd=0)
+            borda.pack(fill="x", pady=(0, 8))
+            sec = ttk.LabelFrame(borda, text=titulo)
+            sec.pack(fill="x", padx=4, pady=4)
+            return sec
+
+        # --- Tamanho e fila
+        fi = caixa(esq, "Tamanho e fila dos ícones")
         fi.columnconfigure(1, weight=1)
         self.lbl_tam = deslizante(fi, 0, "Tamanho do ícone", 20, 160, self.var_tam, self._on_tam,
                                   "Largura e altura de cada ícone no overlay.")
         self.lbl_esp = deslizante(fi, 2, "Espaço entre ícones", 0, 40, self.var_esp, self._on_esp,
                                   "Distância entre um ícone e o próximo.")
         ttk.Label(fi, text="Direção da fila", style="Campo.TLabel").grid(
-            row=4, column=0, sticky="w", padx=(8, 6), pady=(8, 0))
+            row=4, column=0, sticky="w", padx=(8, 6), pady=8)
         fdir = ttk.Frame(fi)
-        fdir.grid(row=4, column=1, columnspan=2, sticky="w", pady=(8, 0))
+        fdir.grid(row=4, column=1, columnspan=2, sticky="w", pady=8)
         for txt, val in (("Lado a lado", "horizontal"), ("Em coluna", "vertical")):
             ttk.Radiobutton(fdir, text=txt, value=val, variable=self.var_ori,
                             command=self._on_ori).pack(side="left", padx=(0, 10))
+
+        # --- Estilo
+        fi = caixa(esq, "Estilo dos ícones")
+        fi.columnconfigure(1, weight=1)
         ttk.Label(fi, text="Estilo", style="Campo.TLabel").grid(
             row=5, column=0, sticky="w", padx=(8, 6), pady=(8, 0))
         cb_est = ttk.Combobox(fi, textvariable=self.var_estilo, state="readonly", width=14,
@@ -608,8 +622,7 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
                      "(ragassets ou Divine Pride); o print continua servindo para detectar.")
 
         # --- Posição na tela
-        fpos = ttk.LabelFrame(esq, text="Posição na tela")
-        fpos.pack(fill="x")
+        fpos = caixa(esq, "Posição na tela")
         lb = ttk.Frame(fpos)
         lb.pack(fill="x", padx=8, pady=(6, 2))
         self.bt_mover = self.bt(lb, "Mover / redimensionar", "mover", self.alternar_mover)
@@ -624,9 +637,17 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
                   text="No modo mover: arraste a caixa amarela; a roda do mouse muda o tamanho."
                   ).pack(anchor="w", padx=8, pady=(0, 8))
 
+        # --- Transparência
+        ftr = caixa(dir_, "Transparência")
+        ftr.columnconfigure(1, weight=1)
+        self.lbl_transp = deslizante(
+            ftr, 0, "Transparência do overlay", 0, TRANSPARENCIA_MAX, self.var_transp,
+            self._on_transp, "0% = sólido. Quanto maior, mais você enxerga o jogo por trás dos "
+            "ícones, dos números e da barra de AP.", visivel=True)
+        ttk.Frame(ftr, height=6).grid(row=2, column=0)
+
         # --- Quando mostrar
-        fq = ttk.LabelFrame(dir_, text="Quando mostrar")
-        fq.pack(fill="x", pady=(0, 8))
+        fq = caixa(dir_, "Quando mostrar")
         for var, txt, cmd, ajuda in (
                 (self.var_esconder, "Skills só aparecem em recarga",
                  self._on_esconder, "Esconde o ícone da skill enquanto ela está pronta para usar."),
@@ -645,8 +666,7 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         ttk.Frame(fq, height=6).pack()
 
         # --- Barra de AP
-        fap = ttk.LabelFrame(dir_, text="Barra de AP")
-        fap.pack(fill="x")
+        fap = caixa(dir_, "Barra de AP")
         fap.columnconfigure(1, weight=1)
         ttk.Checkbutton(fap, text="Mostrar a barra de AP", variable=self.var_ap,
                         command=self._on_ap).grid(row=0, column=0, columnspan=3, sticky="w",
@@ -958,6 +978,9 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         self.var_nomes.set(bool(L.get("mostrar_nomes")))
         self.var_oficial.set(bool(L.get("icone_oficial", True)))
         self.var_ap.set(bool(L.get("mostrar_ap")))
+        transp = max(0, min(TRANSPARENCIA_MAX, int(L.get("transparencia") or 0)))
+        self.var_transp.set(transp)
+        self.lbl_transp.config(text=f"{transp}%")
         alt = int(L.get("ap_altura") or 0)
         self.var_ap_alt.set(alt or max(14, int(L["tamanho"] * 0.3)))
         self.lbl_ap_alt.config(text=f"{alt} px" if alt else "auto")
@@ -995,6 +1018,16 @@ class Painel(AbaSkills, AbaBuffs, AbaSons, AbaCronometro, AbaAvancado):
         self.perfil["layout"]["espaco"] = v
         self.overlay.relayout()
         self.overlay.preview()
+        self.salvar_depois()
+
+    def _on_transp(self, val):
+        v = int(round(float(val) / 5) * 5)
+        self.lbl_transp.config(text=f"{v}%")
+        if self._carregando or v == self.perfil["layout"].get("transparencia", 0):
+            return
+        self.perfil["layout"]["transparencia"] = v
+        self.overlay.preview()
+        self.overlay.aplicar_transparencia()
         self.salvar_depois()
 
     def _on_ori(self):

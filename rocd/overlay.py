@@ -11,7 +11,7 @@ from PIL import Image, ImageEnhance, ImageTk
 
 from .config import (BARRA_H, BUFF_FOLGA_PAUSA, BUFF_TOLERANCIA, COR_PAINEL, COR_TRANSPARENTE, ESCALAS_BUFF,
     ESCALAS_DP, JANELA_GRUPO, LIMIAR_ACHADO, LIMIAR_ACHADO_DP, LIMIAR_BUFF, LIMIAR_BUFF_SITE,
-    LIMIAR_OFICIAL, LIMIAR_PERDIDO, cv2, np, registrar)
+    LIMIAR_OFICIAL, LIMIAR_PERDIDO, TRANSPARENCIA_MAX, cv2, np, registrar)
 from .janelas import (WDA_EXCLUDEFROMCAPTURE, WS_EX_LAYERED, WS_EX_NOACTIVATE, WS_EX_TOOLWINDOW,
     WS_EX_TRANSPARENT, hwnd_de, janela_no_ponto, Jogo, mudar_estilo, nova_captura, user32)
 from .visao import (cinza, diferenca, mapa_simbolo_suave, miolo, modelos_buff, picos, sem_cor_chave,
@@ -955,8 +955,18 @@ class Overlay:
     def set_mover(self, ligado):
         self.mover = ligado
         self._atualizar_janela()
+        self.aplicar_transparencia()
+
+    def aplicar_transparencia(self):
+        """Transparência do overlay inteiro (layout["transparencia"], em %). No modo mover
+        fica sólido, para a caixa amarela aparecer bem."""
+        try:
+            t = 0 if self.mover or not self.perfil else int(self.L.get("transparencia") or 0)
+        except (TypeError, ValueError):
+            t = 0
+        self.root.attributes("-alpha", 1 - max(0, min(TRANSPARENCIA_MAX, t)) / 100)
         if self.janela_visivel:
-            self.aplicar_estilos()
+            self.aplicar_estilos()             # o Tk pode mexer nos estilos ao mudar o alpha
 
     def preview(self, seg=2.0):
         self.preview_ate = time.monotonic() + seg
@@ -969,7 +979,7 @@ class Overlay:
             self.root.deiconify()
             self.root.update_idletasks()
             self.janela_visivel = True
-            self.aplicar_estilos()
+            self.aplicar_transparencia()
         elif not deve and self.janela_visivel:
             self.root.withdraw()
             self.janela_visivel = False

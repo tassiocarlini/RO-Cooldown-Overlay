@@ -33,7 +33,7 @@ BUFF_FOLGA_PAUSA = 1.5      # s a mais depois de tela preta / alt-tab para os í
 MOSTRAR_BUFF = {"Sempre": "sempre", "Só quando faltar": "faltando", "Só quando ativo": "ativo"}
 
 
-VERSAO = "1.0.44"
+VERSAO = "1.0.45"
 NOME_APP = "RO Cooldown Overlay"
 # Repositório no GitHub de onde vêm as atualizações (CHANGELOG.md e .zip da branch abaixo)
 REPO_GITHUB = "tassiocarlini/RO-Cooldown-Overlay"
@@ -69,6 +69,7 @@ COR_TRANSPARENTE = "#010101"
 COR_PAINEL = (20, 23, 31)              # fundo da caixa dos ícones
 ESTILOS = {"Clássico": "classico", "Moderno": "moderno", "Minimalista": "minimalista"}
 BARRA_H = 5
+TRANSPARENCIA_MAX = 85                 # % máximo: acima disso o overlay some de vez
 PASTA_SONS = PASTA / "sons"                       # sons de aviso gerados pelo programa
 PASTA_MEUS_SONS = PASTA / "meus_sons"             # sons que você adicionou (.mp3 ou .wav)
 SEM_SOM, PADRAO = "Sem som", "Padrão"
@@ -115,6 +116,7 @@ PERFIL_PADRAO = {
         "fundo_painel": False,         # caixa escura atrás de todos os ícones
         "mostrar_nomes": False,        # nome da skill/buff embaixo do ícone
         "icone_oficial": True,         # mostra o ícone oficial (não o print da sua barra)
+        "transparencia": 0,            # % de transparência do overlay inteiro (0 = sólido)
         "mostrar_ap": True,            # barra de AP acima dos ícones
         "ap_altura": 0,                # altura da barra de AP em pixels (0 = automática)
         "ap_cor": "#3b82f6",           # cor do preenchimento da barra de AP
