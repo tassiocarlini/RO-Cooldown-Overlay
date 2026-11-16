@@ -52,6 +52,12 @@ p{margin:0 0 .8em}
 .lead{font-size:clamp(1.05rem,2.6vw,1.25rem);color:#cdd5e3;margin:.9em auto 1.5em;max-width:40em}
 .nota{color:var(--muted);font-size:.95rem;margin:.9em 0 .6em}
 
+/* como fica no jogo */
+.nojogo{background:var(--deep);padding:8px 0 24px}
+.nojogo .stage{margin-top:26px}
+.shot img{width:100%}
+.stage-jogo .shot,.stage-jogo .co-list{max-width:560px}
+
 /* passo a passo */
 .passos{background:linear-gradient(var(--deep),var(--bg) 160px);padding:64px 0 40px}
 .titulo-sec{font-size:clamp(1.8rem,4.5vw,2.6rem);color:var(--text);padding-bottom:.35em;border-bottom:3px solid var(--gold);display:inline-block}
@@ -96,6 +102,8 @@ p{margin:0 0 .8em}
   .co-r{right:0}
   .co p{font-size:.93rem}
   .mk{width:26px;height:26px}
+  .stage-jogo{aspect-ratio:235/109.1;margin-top:26px}
+  .stage-jogo .shot,.stage-jogo .co-list{max-width:none}
 }
 
 /* é seguro */
