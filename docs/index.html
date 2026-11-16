@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RO Cooldown Overlay: recargas, buffs e AP na tela do Ragnarok</title>
+<meta name="description" content="Overlay grátis para Ragnarok Online LATAM. Mostra recarga de skills, buffs e a barra de AP no meio da tela, só olhando a imagem do jogo. Baixe para Windows.">
+<meta name="theme-color" content="#0c111c">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="RO Cooldown Overlay">
+<meta property="og:description" content="Skills, buffs e AP na sua tela. Overlay grátis e de código aberto para Ragnarok Online LATAM.">
+<meta property="og:image" content="https://tassiocarlini.github.io/RO-Cooldown-Overlay/img/banner.jpg">
+<meta property="og:url" content="https://tassiocarlini.github.io/RO-Cooldown-Overlay/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="img/icone.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#passo-a-passo">Ir para o passo a passo</a>
+
+<header class="topo">
+  <div class="topo-in">
+    <a class="marca" href="#inicio" aria-label="RO Cooldown Overlay, início">
+      <img src="img/icone.png" alt="" width="36" height="36">
+      <span>RO Cooldown Overlay</span>
+    </a>
+    <nav class="menu" aria-label="Seções">
+      <a href="#passo-a-passo">Como usar</a>
+      <a href="#seguro">É seguro?</a>
+    </nav>
+    <a class="btn btn-sm" id="baixar-topo" href="https://github.com/tassiocarlini/RO-Cooldown-Overlay/releases/latest/download/RO-Cooldown-Overlay-Windows.zip">Baixar para Windows</a>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <img class="hero-banner" src="img/banner.jpg" width="1920" height="815" alt="Banner do RO Cooldown Overlay: uma barra com ícones de skills, números de recarga e a barra de AP, ao lado de um cronômetro dourado. Texto: Skills, buffs e AP na sua tela.">
+    <div class="hero-txt">
+      <h1>Recargas, buffs e AP no meio da sua tela</h1>
+      <p class="lead">Um overlay para Ragnarok Online LATAM, no estilo do WeakAuras do WoW. Você vê na hora quando a skill volta e quando o buff acaba. Grátis e de código aberto.</p>
+      <a class="btn btn-lg" id="baixar-hero" href="https://github.com/tassiocarlini/RO-Cooldown-Overlay/releases/latest/download/RO-Cooldown-Overlay-Windows.zip">Baixar para Windows</a>
+      <p class="nota">.zip, cerca de 60 MB, Windows 10/11, grátis</p>
+      <p><a class="link" href="https://github.com/tassiocarlini/RO-Cooldown-Overlay/releases/latest">Novidades da versão</a></p>
+    </div>
+  </section>
+
+  <section class="passos" id="passo-a-passo" aria-labelledby="t-passos">
+    <div class="wrap">
+      <h2 id="t-passos" class="titulo-sec">Passo a passo</h2>
+      <p class="intro">São cinco passos. Nas imagens, cada número dourado mostra o lugar do botão e a caixa ao lado explica o que ele faz.</p>
+
+      <article class="passo" id="instalar">
+        <header class="passo-cab"><span class="num">1</span><h3>Baixar e abrir</h3></header>
+        <div class="instalar">
+          <ol class="lista-num">
+            <li>Clique em <strong>Baixar para Windows</strong>.</li>
+            <li>Clique com o botão direito no arquivo <strong>.zip</strong> e escolha <strong>"Extrair tudo…"</strong>. Extraia para a Área de Trabalho ou para Documentos. <em>Não</em> use a pasta Arquivos de Programas.</li>
+            <li>Abra a pasta <strong>"RO Cooldown Overlay"</strong> e dê dois cliques em <strong>"RO Cooldown Overlay.exe"</strong>.</li>
+          </ol>
+          <div class="dicas">
+            <p><strong>Não precisa instalar Python.</strong> Tudo já vem dentro da pasta.</p>
+            <p>Se aparecer <strong>"O Windows protegeu o computador"</strong>, clique em <strong>"Mais informações"</strong> e depois em <strong>"Executar assim mesmo"</strong>. Isso só acontece na primeira vez.</p>
+            <p>O programa se atualiza sozinho.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="passo" id="janela">
+        <header class="passo-cab"><span class="num">2</span><h3>Abra o Ragnarok em modo janela</h3></header>
+        <p class="texto-passo">Use <strong>modo janela</strong> ou <strong>janela sem bordas</strong>. Em tela cheia exclusiva nenhum overlay aparece.</p>
+      </article>
+
+      <article class="passo" id="skills">
+        <header class="passo-cab"><span class="num">3</span><h3>Aba "Skills ofensivas"</h3></header>
+        <p class="texto-passo">Aqui você diz quais skills o programa deve vigiar.</p>
+        <figure class="stage">
+          <svg class="linhas" viewBox="0 0 235 100" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><defs><marker id="ah1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="seta"/></marker></defs><path d="M49.35 24.17 L55.56 24.17" marker-end="url(#ah1)"/><path d="M185.65 15.60 L80.28 15.60 L80.28 20.27" marker-end="url(#ah1)"/><path d="M185.65 76.00 L110.28 76.00 L110.28 56.26" marker-end="url(#ah1)"/><path d="M185.65 57.00 L122.36 57.00 L122.36 56.26" marker-end="url(#ah1)"/><path d="M49.35 91.67 L54.44 91.67" marker-end="url(#ah1)"/></svg>
+          <div class="shot">
+            <img src="img/painel_skills.png" width="880" height="720" loading="lazy" alt="Janela do RO Cooldown Overlay na aba Skills ofensivas: botões no topo, lista de skills com os campos Buscar e Recarga, e o botão de iniciar overlay embaixo.">
+            <span class="mk" style="left:2.50%;top:24.17%" aria-hidden="true">1</span><span class="mk" style="left:19.55%;top:24.17%" aria-hidden="true">2</span><span class="mk" style="left:44.09%;top:52.36%" aria-hidden="true">3</span><span class="mk" style="left:53.98%;top:52.36%" aria-hidden="true">4</span><span class="mk" style="left:1.59%;top:91.67%" aria-hidden="true">5</span>
+          </div>
+          <ol class="co-list">
+            <li class="co co-l" style="--top:9%"><span class="n" aria-hidden="true">1</span><div><h4>Skill pelo nome</h4><p>O jeito mais fácil. Escolha a skill pelo nome e o programa baixa o ícone e acha ela sozinho na sua barra de atalhos.</p></div></li><li class="co co-r" style="--top:0%"><span class="n" aria-hidden="true">2</span><div><h4>Marcar ícones na tela</h4><p>A tela congela. Com as skills prontas, arraste um quadrado sobre cada skill da barra de atalhos e aperte Enter.</p></div></li><li class="co co-r" style="--top:70%"><span class="n" aria-hidden="true">3</span><div><h4>Buscar</h4><p>Em cada linha, escolha o nome da skill. A recarga já vem preenchida.</p></div></li><li class="co co-r" style="--top:41%"><span class="n" aria-hidden="true">4</span><div><h4>Recarga (s)</h4><p>Pode digitar 12, 4.5 ou 1:30. Se deixar vazio, o programa aprende sozinho.</p></div></li><li class="co co-l" style="--top:73%"><span class="n" aria-hidden="true">5</span><div><h4>Iniciar overlay</h4><p>O botão dourado de baixo. No print ele diz &quot;Parar overlay&quot; porque já estava ligado.</p></div></li>
+          </ol>
+        </figure>
+      </article>
+
+      <article class="passo" id="buffs">
+        <header class="passo-cab"><span class="num">4</span><h3>Aba "Buffs"</h3></header>
+        <p class="texto-passo">Aqui você escolhe quais buffs aparecem.</p>
+        <figure class="stage">
+          <svg class="linhas" viewBox="0 0 235 100" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><defs><marker id="ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="seta"/></marker></defs><path d="M49.35 24.17 L55.56 24.17" marker-end="url(#ah2)"/><path d="M185.65 15.60 L100.70 15.60 L100.70 20.27" marker-end="url(#ah2)"/><path d="M185.65 72.00 L121.11 72.00 L121.11 64.87" marker-end="url(#ah2)"/></svg>
+          <div class="shot">
+            <img src="img/painel_buffs.png" width="880" height="720" loading="lazy" alt="Janela do RO Cooldown Overlay na aba Buffs: botões Buff pelo nome e Área dos buffs no topo, e uma lista de buffs com a coluna Mostrar.">
+            <span class="mk" style="left:2.50%;top:24.17%" aria-hidden="true">1</span><span class="mk" style="left:36.25%;top:24.17%" aria-hidden="true">2</span><span class="mk" style="left:52.95%;top:60.97%" aria-hidden="true">3</span>
+          </div>
+          <ol class="co-list">
+            <li class="co co-l" style="--top:9%"><span class="n" aria-hidden="true">1</span><div><h4>Buff pelo nome</h4><p>O programa usa os ícones oficiais do jogo e acha o buff na tela quando ele estiver ativo. Poções e comidas entram do mesmo jeito.</p></div></li><li class="co co-r" style="--top:2%"><span class="n" aria-hidden="true">2</span><div><h4>Área dos buffs</h4><p>Marque a região da tela onde ficam os ícones de buff do jogo.</p></div></li><li class="co co-r" style="--top:50%"><span class="n" aria-hidden="true">3</span><div><h4>Mostrar</h4><p>Escolha quando o buff aparece: Sempre, Só quando faltar ou Só quando ativo.</p></div></li>
+          </ol>
+        </figure>
+      </article>
+
+      <article class="passo" id="aparencia">
+        <header class="passo-cab"><span class="num">5</span><h3>Aba "Aparência"</h3></header>
+        <p class="texto-passo">Aqui você deixa o overlay do seu jeito.</p>
+        <figure class="stage">
+          <svg class="linhas" viewBox="0 0 235 100" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><defs><marker id="ah3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="seta"/></marker></defs><path d="M49.35 28.10 L85.14 28.10 L85.14 28.29" marker-end="url(#ah3)"/><path d="M49.35 75.42 L56.67 75.42" marker-end="url(#ah3)"/><path d="M185.65 28.10 L143.88 28.10 L143.88 28.29" marker-end="url(#ah3)"/><path d="M185.65 62.22 L157.50 62.22" marker-end="url(#ah3)"/></svg>
+          <div class="shot">
+            <img src="img/painel_aparencia.png" width="880" height="720" loading="lazy" alt="Janela do RO Cooldown Overlay na aba Aparência: controles de tamanho dos ícones, botão Mover e redimensionar, transparência do overlay e opções da barra de AP.">
+            <span class="mk" style="left:23.52%;top:30.00%" aria-hidden="true">1</span><span class="mk" style="left:3.41%;top:75.42%" aria-hidden="true">2</span><span class="mk" style="left:71.59%;top:30.00%" aria-hidden="true">3</span><span class="mk" style="left:79.55%;top:62.22%" aria-hidden="true">4</span>
+          </div>
+          <ol class="co-list">
+            <li class="co co-l" style="--top:14%"><span class="n" aria-hidden="true">1</span><div><h4>Tamanho e espaço</h4><p>Mude o tamanho dos ícones e o espaço entre eles.</p></div></li><li class="co co-l" style="--top:62%"><span class="n" aria-hidden="true">2</span><div><h4>Mover / redimensionar</h4><p>O overlay vira uma caixa amarela. Arraste para mudar de lugar e use a roda do mouse para mudar o tamanho.</p></div></li><li class="co co-r" style="--top:14%"><span class="n" aria-hidden="true">3</span><div><h4>Transparência do overlay</h4><p>0% é sólido. Quanto maior o número, mais você vê o jogo por trás.</p></div></li><li class="co co-r" style="--top:50%"><span class="n" aria-hidden="true">4</span><div><h4>Barra de AP</h4><p>Mostra o AP acima dos ícones. Deixe a janela Informações básicas aberta no jogo.</p></div></li>
+          </ol>
+        </figure>
+      </article>
+    </div>
+  </section>
+
+  <section class="seguro" id="seguro" aria-labelledby="t-seguro">
+    <div class="wrap seguro-in">
+      <h2 id="t-seguro" class="titulo-sec">É seguro?</h2>
+      <div class="seguro-cols">
+        <ul class="ticks">
+          <li><strong>Só olha a tela</strong>, como um print ou o OBS.</li>
+          <li>Não lê a memória do jogo.</li>
+          <li>Não mexe nos arquivos do jogo.</li>
+          <li>Não aperta teclas por você.</li>
+        </ul>
+        <div class="aviso">
+          <p><strong>Aviso:</strong> é um programa de terceiros. Use por sua conta e risco. Não tem ligação com a Gravity.</p>
+          <p>O antivírus pode reclamar por engano. O .exe é gerado pelo próprio GitHub a partir do código aberto, que qualquer pessoa pode conferir.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="wrap rodape-in">
+    <a class="btn btn-lg" href="https://github.com/tassiocarlini/RO-Cooldown-Overlay/releases/latest/download/RO-Cooldown-Overlay-Windows.zip">Baixar para Windows</a>
+    <p class="nota">.zip, cerca de 60 MB, Windows 10/11, grátis</p>
+    <p class="links"><a class="link" href="https://github.com/tassiocarlini/RO-Cooldown-Overlay">Código no GitHub</a> <span aria-hidden="true">·</span> <a class="link" href="https://github.com/tassiocarlini/RO-Cooldown-Overlay/releases/latest">Novidades da versão</a></p>
+    <p class="por">By: Shogun/Anubis</p>
+    <p class="legal">Ferramenta de terceiros, sem ligação com a Gravity. Ragnarok Online é marca dos seus donos.</p>
+  </div>
+</footer>
+<script src="script.js" defer></script>
+</body>
+</html>
