@@ -8,7 +8,7 @@
   }, { rootMargin: '-60px 0px 0px 0px' }).observe(alvo);
 })();
 
-// Vídeo do início: toca mudo em loop; o botão liga o som. Sem JS, ficam os controles do navegador.
+// Vídeo do início: toca mudo uma vez e para no último quadro; o botão liga o som e recomeça. Sem JS, ficam os controles do navegador.
 (function () {
   var v = document.getElementById('video-hero');
   var b = document.getElementById('som-hero');
@@ -18,11 +18,18 @@
   v.removeAttribute('controls');
   b.hidden = false;
   var txt = b.querySelector('span');
+  var FINAL = 21.2;     // quadro do encerramento já montado (o último segundo é o escurecimento)
+  var acabou = false;
+  function tocar() {
+    if (acabou) { acabou = false; v.currentTime = 0; }
+    v.play();
+  }
+  v.addEventListener('ended', function () { acabou = true; v.currentTime = FINAL; });
   b.addEventListener('click', function () {
     v.muted = !v.muted;
-    if (!v.muted) { v.currentTime = 0; v.play(); }
+    if (!v.muted) { acabou = false; v.currentTime = 0; v.play(); }
     b.setAttribute('aria-pressed', String(!v.muted));
     txt.textContent = v.muted ? 'Ativar som' : 'Som ligado';
   });
-  v.addEventListener('click', function () { if (v.paused) v.play(); else v.pause(); });
+  v.addEventListener('click', function () { if (v.paused) tocar(); else v.pause(); });
 })();
