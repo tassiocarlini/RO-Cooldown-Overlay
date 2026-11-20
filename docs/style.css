@@ -43,14 +43,45 @@ p{margin:0 0 .8em}
 .js .topo .btn{transition:opacity .25s,transform .25s,visibility .25s}
 .js.no-topo .topo .btn{opacity:0;visibility:hidden;transform:translateY(-6px)}
 
-/* hero */
-.hero{position:relative;background:radial-gradient(ellipse 70% 60% at 50% 40%,#0f2a52 0%,var(--deep) 70%)}
-.hero-banner{width:min(1500px,100%);margin-inline:auto;
-  -webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
-.hero-txt{width:min(760px,100% - 32px);margin:-7% auto 0;text-align:center;padding-bottom:64px;position:relative}
-.hero h1{font-size:clamp(1.9rem,5.5vw,3.1rem);text-shadow:0 2px 24px rgba(76,195,255,.35)}
-.lead{font-size:clamp(1.05rem,2.6vw,1.25rem);color:#cdd5e3;margin:.9em auto 1.5em;max-width:40em}
+/* hero: banner ao fundo, texto + vídeo na frente */
+.hero{position:relative;overflow:hidden;isolation:isolate;background:var(--deep)}
+.hero-bg{position:absolute;inset:-12px;z-index:-2;background:url(img/banner.jpg) 50% 40%/cover no-repeat;filter:blur(4px) saturate(1.15);opacity:.5}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(ellipse 55% 70% at 72% 45%,rgba(15,42,82,.55),transparent 70%),
+    linear-gradient(90deg,rgba(12,17,28,.94) 0%,rgba(12,17,28,.7) 45%,rgba(12,17,28,.55) 100%),
+    linear-gradient(rgba(12,17,28,.2) 55%,var(--deep))}
+.hero-in{width:min(1240px,100% - 32px);margin-inline:auto;padding:72px 0 84px;display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(0,1.25fr);grid-template-areas:"txt video" "cta video";column-gap:56px;row-gap:8px;align-items:center}
+.hero-txt{grid-area:txt;align-self:end}
+.hero-cta{grid-area:cta;align-self:start;padding-top:18px}
+.hero-cta p:last-child{margin:0}
+.selo{display:inline-block;font:700 .85rem/1 var(--disp);letter-spacing:.12em;text-transform:uppercase;color:var(--glow);
+  border:1px solid rgba(76,195,255,.45);background:rgba(12,17,28,.6);border-radius:99px;padding:.6em 1.1em;margin-bottom:1.2em}
+.hero h1{font-size:clamp(2rem,4.6vw,3.4rem);text-shadow:0 2px 24px rgba(76,195,255,.35)}
+.ouro{color:var(--gold)}
+.lead{font-size:clamp(1.05rem,2.2vw,1.22rem);color:#cdd5e3;margin:1em 0 0;max-width:34em}
 .nota{color:var(--muted);font-size:.95rem;margin:.9em 0 .6em}
+.hero-video{grid-area:video;margin:0;position:relative;border-radius:16px;
+  box-shadow:0 0 0 1px #000,0 0 0 2px var(--line2),0 0 60px rgba(59,130,246,.38),0 26px 60px rgba(0,0,0,.6)}
+.hero-video video{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:16px;background:var(--ink);cursor:pointer}
+.som{position:absolute;right:14px;bottom:14px;display:inline-flex;align-items:center;gap:8px;font:600 .95rem/1 var(--body);
+  color:var(--text);background:rgba(7,11,20,.78);border:1px solid var(--line2);border-radius:99px;padding:.6em 1em;cursor:pointer;
+  backdrop-filter:blur(6px);transition:background .15s,border-color .15s}
+.som:hover{background:rgba(24,32,50,.92);border-color:var(--gold)}
+.som .onda{display:none}
+.som[aria-pressed="true"] .onda{display:inline}
+.som[aria-pressed="true"] .x{display:none}
+.som[aria-pressed="true"]{border-color:var(--gold);color:var(--gold)}
+@media (max-width:960px){
+  .hero-in{grid-template-columns:1fr;grid-template-areas:"txt" "video" "cta";row-gap:30px;padding:44px 0 60px;text-align:center}
+  .lead{margin-inline:auto}
+  .hero-cta{padding-top:0}
+}
+@media (max-width:520px){
+  .selo{font-size:.7rem;letter-spacing:.05em;padding:.55em .9em}
+  .som{right:8px;bottom:8px;font-size:.8rem;padding:.45em .75em;gap:6px}
+  .som svg{width:16px;height:16px}
+}
 
 /* como fica no jogo */
 .nojogo{background:var(--deep);padding:8px 0 24px}

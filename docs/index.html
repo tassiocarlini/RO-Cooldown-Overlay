@@ -40,13 +40,27 @@
 
 <main id="inicio">
   <section class="hero">
-    <img class="hero-banner" src="img/banner.jpg" width="1920" height="815" alt="Banner do RO Cooldown Overlay: uma barra com ícones de skills, números de recarga e a barra de AP, ao lado de um cronômetro dourado. Texto: Skills, buffs e AP na sua tela.">
-    <div class="hero-txt">
-      <h1>Recargas, buffs e AP no meio da sua tela</h1>
-      <p class="lead">Um overlay para Ragnarok Online LATAM, no estilo do WeakAuras do WoW. Você vê na hora quando a skill volta e quando o buff acaba. Grátis e de código aberto.</p>
-      <a class="btn btn-lg" id="baixar-hero" href="https://github.com/tassiocarlini/RO-Cooldown-Overlay/releases/latest/download/RO-Cooldown-Overlay-Windows.zip">Baixar para Windows</a>
-      <p class="nota">.zip, cerca de 60 MB, Windows 10/11, grátis</p>
-      <p><a class="link" href="https://github.com/tassiocarlini/RO-Cooldown-Overlay/releases/latest">Novidades da versão</a></p>
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-in">
+      <div class="hero-txt">
+        <p class="selo">Ragnarok Online LATAM · grátis e de código aberto</p>
+        <h1>Recargas, buffs e AP no <span class="ouro">meio da sua tela</span></h1>
+        <p class="lead">Um overlay no estilo do WeakAuras do WoW. Você vê na hora quando a skill volta e quando o buff acaba, sem tirar o olho da luta.</p>
+      </div>
+      <figure class="hero-video">
+        <video id="video-hero" src="video/apresentacao.mp4" poster="img/video-capa.jpg" width="1920" height="1080"
+          autoplay muted loop playsinline preload="metadata" controls
+          aria-label="Vídeo de apresentação do RO Cooldown Overlay, 22 segundos: uma skill contando a recarga, o overlay no jogo, a escolha da skill pelo nome e o botão de baixar."></video>
+        <button class="som" id="som-hero" type="button" hidden aria-pressed="false">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path class="onda" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="x" d="M16 9l5 6M21 9l-5 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span>Ativar som</span>
+        </button>
+      </figure>
+      <div class="hero-cta">
+        <a class="btn btn-lg" id="baixar-hero" href="https://github.com/tassiocarlini/RO-Cooldown-Overlay/releases/latest/download/RO-Cooldown-Overlay-Windows.zip">Baixar para Windows</a>
+        <p class="nota">.zip, cerca de 60 MB, Windows 10/11, grátis</p>
+        <p><a class="link" href="https://github.com/tassiocarlini/RO-Cooldown-Overlay/releases/latest">Novidades da versão</a></p>
+      </div>
     </div>
   </section>
 
