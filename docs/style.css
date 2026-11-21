@@ -57,11 +57,14 @@ p{margin:0 0 .8em}
 /* apoio: botão flutuante no canto, abre uma caixinha com o QR */
 .apoio{position:fixed;right:16px;bottom:16px;z-index:60;font-family:var(--body)}
 .apoio summary{list-style:none;display:inline-flex;align-items:center;gap:7px;cursor:pointer;user-select:none;
-  font:600 1.05rem/1 var(--body);color:var(--text);background:rgba(12,17,28,.92);border:1px solid var(--line2);border-radius:99px;
+  font:600 1.05rem/1 var(--body);color:var(--text);background:rgba(12,17,28,.92);border:2px solid var(--gold);border-radius:99px;
   padding:.8em 1.35em;gap:9px;box-shadow:0 6px 20px rgba(0,0,0,.45);backdrop-filter:blur(6px);transition:border-color .15s,color .15s}
 .apoio summary::-webkit-details-marker{display:none}
 .apoio summary svg{color:#f0616d;width:19px;height:19px}
-.apoio summary:hover,.apoio[open] summary{border-color:var(--gold);color:var(--gold)}
+.apoio summary{transition:background .15s,color .15s,box-shadow .15s;box-shadow:0 6px 20px rgba(0,0,0,.45),0 0 16px rgba(245,184,46,.25)}
+.apoio summary:hover,.apoio[open] summary{background:var(--gold);color:var(--on-gold);box-shadow:0 6px 24px rgba(245,184,46,.45)}
+.apoio summary:hover svg,.apoio[open] summary svg{color:#b3202e}
+.apoio summary:focus-visible{outline:3px solid #fff;outline-offset:3px}
 .apoio-caixa{position:absolute;right:0;bottom:calc(100% + 10px);width:236px;text-align:center;background:var(--card);border:1px solid var(--line2);
   border-radius:14px;padding:16px;box-shadow:0 16px 40px rgba(0,0,0,.55)}
 .apoio-t{margin:0 0 12px;font-size:.9rem;line-height:1.45;color:var(--muted)}
