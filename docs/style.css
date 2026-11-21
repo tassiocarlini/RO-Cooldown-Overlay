@@ -57,10 +57,10 @@ p{margin:0 0 .8em}
 /* apoio: botão flutuante no canto, abre uma caixinha com o QR */
 .apoio{position:fixed;right:16px;bottom:16px;z-index:60;font-family:var(--body)}
 .apoio summary{list-style:none;display:inline-flex;align-items:center;gap:7px;cursor:pointer;user-select:none;
-  font:600 .9rem/1 var(--body);color:var(--text);background:rgba(12,17,28,.9);border:1px solid var(--line2);border-radius:99px;
-  padding:.65em 1em;box-shadow:0 6px 20px rgba(0,0,0,.45);backdrop-filter:blur(6px);transition:border-color .15s,color .15s}
+  font:600 1.05rem/1 var(--body);color:var(--text);background:rgba(12,17,28,.92);border:1px solid var(--line2);border-radius:99px;
+  padding:.8em 1.35em;gap:9px;box-shadow:0 6px 20px rgba(0,0,0,.45);backdrop-filter:blur(6px);transition:border-color .15s,color .15s}
 .apoio summary::-webkit-details-marker{display:none}
-.apoio summary svg{color:#f0616d}
+.apoio summary svg{color:#f0616d;width:19px;height:19px}
 .apoio summary:hover,.apoio[open] summary{border-color:var(--gold);color:var(--gold)}
 .apoio-caixa{position:absolute;right:0;bottom:calc(100% + 10px);width:236px;text-align:center;background:var(--card);border:1px solid var(--line2);
   border-radius:14px;padding:16px;box-shadow:0 16px 40px rgba(0,0,0,.55)}
@@ -70,8 +70,13 @@ p{margin:0 0 .8em}
 .apoio-dica{margin:10px 0 10px;font-size:.8rem;color:var(--muted)}
 .copiar{width:100%;font:600 .88rem/1 var(--body);color:var(--on-gold);background:var(--gold);border:0;border-radius:8px;padding:.75em;cursor:pointer}
 .copiar:hover{background:var(--gold-h)}
-.apoio-link{display:inline-block;margin-top:12px;font-size:.85rem;font-weight:600;color:var(--gold);text-underline-offset:3px}
-.apoio-link:hover{color:var(--gold-h)}
+.apoio-ou{display:flex;align-items:center;gap:10px;margin:12px 0;font-size:.78rem;color:var(--muted)}
+.apoio-ou::before,.apoio-ou::after{content:"";flex:1;height:1px;background:var(--line2)}
+.apoio-link{display:block;text-decoration:none;color:var(--text);border:2px solid var(--gold);border-radius:10px;padding:.7em .8em;
+  background:rgba(245,184,46,.08);transition:background .15s}
+.apoio-link b{display:block;font:700 1rem/1.2 var(--disp);color:var(--gold)}
+.apoio-link span{display:block;margin-top:3px;font-size:.78rem;color:#cdd5e3}
+.apoio-link:hover{background:rgba(245,184,46,.18)}
 .selo{display:inline-block;font:700 .85rem/1 var(--disp);letter-spacing:.12em;text-transform:uppercase;color:var(--glow);
   border:1px solid rgba(76,195,255,.45);background:rgba(12,17,28,.6);border-radius:99px;padding:.6em 1.1em;margin-bottom:1.2em}
 .hero h1{font-size:clamp(2rem,4.6vw,3.4rem);text-shadow:0 2px 24px rgba(76,195,255,.35)}
