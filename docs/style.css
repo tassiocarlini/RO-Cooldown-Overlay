@@ -50,32 +50,19 @@ p{margin:0 0 .8em}
   background:radial-gradient(ellipse 55% 70% at 72% 45%,rgba(15,42,82,.55),transparent 70%),
     linear-gradient(90deg,rgba(12,17,28,.94) 0%,rgba(12,17,28,.7) 45%,rgba(12,17,28,.55) 100%),
     linear-gradient(rgba(12,17,28,.2) 55%,var(--deep))}
-.hero-in{width:min(1240px,100% - 32px);margin-inline:auto;padding:64px 0 80px;display:grid;
-  grid-template-columns:minmax(0,1fr) 330px;grid-template-areas:"txt cta" "video apoio";column-gap:32px;row-gap:40px}
+.hero-in{width:min(1240px,100% - 32px);margin-inline:auto;padding:72px 0 84px;display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(0,1.25fr);grid-template-areas:"txt video" "cta video";column-gap:56px;row-gap:8px;align-items:center}
 .hero-txt{grid-area:txt;align-self:end}
-.hero-cta{grid-area:cta;align-self:end;text-align:center}
-.hero-cta .btn{display:block;padding-inline:.6em}
-.hero-cta .nota{margin-bottom:.3em}
-.hero-cta p:last-child{margin:0}
-/* apoio (LivePix) ao lado do vídeo */
-.apoio{grid-area:apoio;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;
-  background:linear-gradient(160deg,rgba(24,32,50,.92),rgba(12,17,28,.92));border:1px solid var(--line2);border-top:4px solid var(--gold);
-  border-radius:16px;padding:22px 24px;box-shadow:0 26px 60px rgba(0,0,0,.45)}
-.apoio h2{font-size:1.8rem;color:var(--gold)}
-.apoio p{margin:0;color:#d6dce8;font-size:1rem;line-height:1.5}
-.qr{width:200px;height:200px;background:#fff;border-radius:14px;padding:8px;box-shadow:0 0 0 3px rgba(245,184,46,.35),0 0 30px rgba(245,184,46,.2)}
-.qr iframe{display:block;width:100%;height:100%;border:0;border-radius:8px;background:#fff}
-.btn-apoio{display:block;width:100%;font:700 1.15rem/1 var(--disp);text-decoration:none;color:var(--gold);border:2px solid var(--gold);border-radius:10px;
-  padding:.8em 1em;transition:background .15s,color .15s}
-.btn-apoio:hover{background:var(--gold);color:var(--on-gold)}
-@media (min-width:961px) and (max-width:1200px){
-  .hero-in{grid-template-columns:minmax(0,1fr) 290px}
-  .hero-cta .btn{font-size:1.3rem}
-  .apoio{gap:10px;padding:18px}
-  .apoio h2{font-size:1.5rem}
-  .apoio p{font-size:.92rem}
-  .qr{width:150px;height:150px;padding:6px}
-}
+.hero-cta{grid-area:cta;align-self:start;padding-top:18px}
+/* apoio (LivePix): uma linha discreta embaixo do botão */
+.apoio{display:flex;align-items:center;gap:12px;margin-top:22px;padding-top:16px;border-top:1px solid var(--line);max-width:400px}
+.apoio p{margin:0;color:var(--muted);font-size:.88rem;line-height:1.45}
+.apoio strong{color:var(--text)}
+.apoio a{color:var(--gold);font-weight:600;white-space:nowrap;text-underline-offset:3px}
+.apoio a:hover{color:var(--gold-h)}
+.qr{flex:none;width:64px;height:64px;background:#fff;border-radius:6px;overflow:hidden;position:relative}
+/* o widget só desenha o QR inteiro com uns 240px: renderiza grande e reduz */
+.qr iframe{position:absolute;left:0;top:0;width:240px;height:240px;border:0;background:#fff;transform:scale(.2667);transform-origin:0 0;pointer-events:none}
 .selo{display:inline-block;font:700 .85rem/1 var(--disp);letter-spacing:.12em;text-transform:uppercase;color:var(--glow);
   border:1px solid rgba(76,195,255,.45);background:rgba(12,17,28,.6);border-radius:99px;padding:.6em 1.1em;margin-bottom:1.2em}
 .hero h1{font-size:clamp(2rem,4.6vw,3.4rem);text-shadow:0 2px 24px rgba(76,195,255,.35)}
@@ -94,10 +81,10 @@ p{margin:0 0 .8em}
 .som[aria-pressed="true"] .x{display:none}
 .som[aria-pressed="true"]{border-color:var(--gold);color:var(--gold)}
 @media (max-width:960px){
-  .hero-in{grid-template-columns:1fr;grid-template-areas:"txt" "video" "cta" "apoio";row-gap:30px;padding:44px 0 60px;text-align:center}
+  .hero-in{grid-template-columns:1fr;grid-template-areas:"txt" "video" "cta";row-gap:30px;padding:44px 0 60px;text-align:center}
   .lead{margin-inline:auto}
-  .hero-cta .btn{display:inline-block;padding-inline:1.8em}
-  .apoio{max-width:420px;width:100%;justify-self:center}
+  .hero-cta{padding-top:0}
+  .apoio{margin-inline:auto;text-align:left}
 }
 @media (max-width:520px){
   .selo{font-size:.7rem;letter-spacing:.05em;padding:.55em .9em}
