@@ -54,15 +54,24 @@ p{margin:0 0 .8em}
   grid-template-columns:minmax(0,1.1fr) minmax(0,1.25fr);grid-template-areas:"txt video" "cta video";column-gap:56px;row-gap:8px;align-items:center}
 .hero-txt{grid-area:txt;align-self:end}
 .hero-cta{grid-area:cta;align-self:start;padding-top:18px}
-/* apoio (LivePix): uma linha discreta embaixo do botão */
-.apoio{display:flex;align-items:center;gap:12px;margin-top:22px;padding-top:16px;border-top:1px solid var(--line);max-width:400px}
-.apoio p{margin:0;color:var(--muted);font-size:.88rem;line-height:1.45}
-.apoio strong{color:var(--text)}
-.apoio a{color:var(--gold);font-weight:600;white-space:nowrap;text-underline-offset:3px}
-.apoio a:hover{color:var(--gold-h)}
-.qr{flex:none;width:64px;height:64px;background:#fff;border-radius:6px;overflow:hidden;position:relative}
-/* o widget só desenha o QR inteiro com uns 240px: renderiza grande e reduz */
-.qr iframe{position:absolute;left:0;top:0;width:240px;height:240px;border:0;background:#fff;transform:scale(.2667);transform-origin:0 0;pointer-events:none}
+/* apoio: botão flutuante no canto, abre uma caixinha com o QR */
+.apoio{position:fixed;right:16px;bottom:16px;z-index:60;font-family:var(--body)}
+.apoio summary{list-style:none;display:inline-flex;align-items:center;gap:7px;cursor:pointer;user-select:none;
+  font:600 .9rem/1 var(--body);color:var(--text);background:rgba(12,17,28,.9);border:1px solid var(--line2);border-radius:99px;
+  padding:.65em 1em;box-shadow:0 6px 20px rgba(0,0,0,.45);backdrop-filter:blur(6px);transition:border-color .15s,color .15s}
+.apoio summary::-webkit-details-marker{display:none}
+.apoio summary svg{color:#f0616d}
+.apoio summary:hover,.apoio[open] summary{border-color:var(--gold);color:var(--gold)}
+.apoio-caixa{position:absolute;right:0;bottom:calc(100% + 10px);width:236px;text-align:center;background:var(--card);border:1px solid var(--line2);
+  border-radius:14px;padding:16px;box-shadow:0 16px 40px rgba(0,0,0,.55)}
+.apoio-t{margin:0 0 12px;font-size:.9rem;line-height:1.45;color:var(--muted)}
+.apoio-t strong{color:var(--text)}
+.qr{display:block;width:160px;height:160px;margin:0 auto;background:#fff;border-radius:10px}
+.apoio-dica{margin:10px 0 10px;font-size:.8rem;color:var(--muted)}
+.copiar{width:100%;font:600 .88rem/1 var(--body);color:var(--on-gold);background:var(--gold);border:0;border-radius:8px;padding:.75em;cursor:pointer}
+.copiar:hover{background:var(--gold-h)}
+.apoio-link{display:inline-block;margin-top:12px;font-size:.85rem;font-weight:600;color:var(--gold);text-underline-offset:3px}
+.apoio-link:hover{color:var(--gold-h)}
 .selo{display:inline-block;font:700 .85rem/1 var(--disp);letter-spacing:.12em;text-transform:uppercase;color:var(--glow);
   border:1px solid rgba(76,195,255,.45);background:rgba(12,17,28,.6);border-radius:99px;padding:.6em 1.1em;margin-bottom:1.2em}
 .hero h1{font-size:clamp(2rem,4.6vw,3.4rem);text-shadow:0 2px 24px rgba(76,195,255,.35)}
@@ -84,7 +93,6 @@ p{margin:0 0 .8em}
   .hero-in{grid-template-columns:1fr;grid-template-areas:"txt" "video" "cta";row-gap:30px;padding:44px 0 60px;text-align:center}
   .lead{margin-inline:auto}
   .hero-cta{padding-top:0}
-  .apoio{margin-inline:auto;text-align:left}
 }
 @media (max-width:520px){
   .selo{font-size:.7rem;letter-spacing:.05em;padding:.55em .9em}

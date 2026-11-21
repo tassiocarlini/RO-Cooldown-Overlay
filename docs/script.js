@@ -8,6 +8,22 @@
   }, { rootMargin: '-60px 0px 0px 0px' }).observe(alvo);
 })();
 
+// Caixinha de apoio: fecha com Esc ou clicando fora.
+(function () {
+  var d = document.getElementById('apoio');
+  if (!d) return;
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && d.open) { d.open = false; d.querySelector('summary').focus(); } });
+  document.addEventListener('click', function (e) { if (d.open && !d.contains(e.target)) d.open = false; });
+  var b = document.getElementById('copiar-pix');
+  if (!b) return;
+  b.addEventListener('click', function () {
+    var cod = b.getAttribute('data-pix');
+    function ok() { b.textContent = 'Copiado ✓'; setTimeout(function () { b.textContent = 'Copiar Pix copia e cola'; }, 2500); }
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(cod).then(ok, function () { window.prompt('Copie o código Pix:', cod); });
+    else window.prompt('Copie o código Pix:', cod);
+  });
+})();
+
 // Vídeo do início: toca mudo uma vez e para no último quadro; o botão liga o som e recomeça. Sem JS, ficam os controles do navegador.
 (function () {
   var v = document.getElementById('video-hero');
