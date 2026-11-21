@@ -65,17 +65,21 @@ p{margin:0 0 .8em}
 .apoio summary:hover,.apoio[open] summary{background:var(--gold);color:var(--on-gold);box-shadow:0 6px 24px rgba(245,184,46,.45)}
 .apoio summary:hover svg,.apoio[open] summary svg{color:#b3202e}
 .apoio summary:focus-visible{outline:3px solid #fff;outline-offset:3px}
-.apoio-caixa{position:absolute;right:0;bottom:calc(100% + 10px);width:236px;text-align:center;background:var(--card);border:1px solid var(--line2);
+.apoio-caixa{position:absolute;right:0;bottom:calc(100% + 10px);width:420px;max-width:calc(100vw - 32px);box-sizing:border-box;text-align:center;background:var(--card);border:1px solid var(--line2);
   border-radius:14px;padding:16px;box-shadow:0 16px 40px rgba(0,0,0,.55)}
 .apoio-t{margin:0 0 12px;font-size:.9rem;line-height:1.45;color:var(--muted)}
 .apoio-t strong{color:var(--text)}
-.qr{display:block;width:160px;height:160px;margin:0 auto;background:#fff;border-radius:10px}
+.apoio-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.apoio-col{display:flex;flex-direction:column;min-width:0}
+.apoio-col .copiar,.apoio-col .apoio-link{margin-top:auto}
+.apoio-nome{margin:0 0 8px;font:700 .95rem/1.2 var(--disp);color:var(--gold)}
+.qr{display:block;width:160px;max-width:100%;height:auto;aspect-ratio:1;margin:0 auto;background:#fff;border-radius:10px}
 .apoio-dica{margin:10px 0 10px;font-size:.8rem;color:var(--muted)}
 .copiar{width:100%;font:600 .88rem/1 var(--body);color:var(--on-gold);background:var(--gold);border:0;border-radius:8px;padding:.75em;cursor:pointer}
 .copiar:hover{background:var(--gold-h)}
 .apoio-ou{display:flex;align-items:center;gap:10px;margin:12px 0;font-size:.78rem;color:var(--muted)}
 .apoio-ou::before,.apoio-ou::after{content:"";flex:1;height:1px;background:var(--line2)}
-.apoio-link{display:block;text-decoration:none;color:var(--text);border:2px solid var(--gold);border-radius:10px;padding:.7em .8em;
+.apoio-link{display:block;text-decoration:none;color:var(--text);border:2px solid var(--gold);border-radius:8px;padding:.55em .6em;
   background:rgba(245,184,46,.08);transition:background .15s}
 .apoio-link b{display:block;font:700 1rem/1.2 var(--disp);color:var(--gold)}
 .apoio-link span{display:block;margin-top:3px;font-size:.78rem;color:#cdd5e3}
